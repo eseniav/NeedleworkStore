@@ -23,6 +23,18 @@ namespace NeedleworkStore
         public MainWindow()
         {
             InitializeComponent();
+            Button btn = new Button();
+            btn.Width = 100;
+            btn.Height = 30;
+            btn.Content = "3";
+            LayOut.Children.Add(btn);
         }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Ok");
+            MessageBox.Show("Hello");
+        }
+
     }
 }

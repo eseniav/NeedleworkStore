@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:NeedleworkStore"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <StackPanel x:Name="LayOut">
+        <Button Height="50" Width="150" x:Name="btnStart" Content="Нажать" Click="btnStart_Click" Background="Beige" Foreground="Blue"/>
+        <Button Height="30" Width="100" x:Name="btnSart" Content="Ok" Click="btnStart_Click" Background="Red" Foreground="Blue"/>
+    </StackPanel>
 </Window>
