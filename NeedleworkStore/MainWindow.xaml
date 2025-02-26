@@ -7,7 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel x:Name="LayOut">
-        <Button Height="50" Width="150" x:Name="btnStart" Content="Нажать" Click="btnStart_Click" Background="Beige" Foreground="Blue"/>
-        <Button Height="30" Width="100" x:Name="btnSart" Content="Ok" Click="btnStart_Click" Background="Red" Foreground="Blue"/>
+        <Button Height="50" Width="150" x:Name="btnStart" Click="btnStart_Click" Background="Beige" Foreground="Blue" xml:space="preserve">
+            Нажать      &lt;"кнопку"&gt;
+        </Button>
+        <Button Height="30" Width="100" x:Name="btnSart" Content="Ok" Click="btnStart_Click"  Foreground="Blue">
+            <Button.HorizontalAlignment>
+                <HorizontalAlignment>Right</HorizontalAlignment>
+            </Button.HorizontalAlignment>
+            <Button.Background>
+                <SolidColorBrush Color="Red" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <ListBox>
+            <local:Product Title="Набор для вышивки" Price="2000"/>
+            <local:Product Title="Набор для вышивки Dimensions" Price="5000"/>
+        </ListBox>
     </StackPanel>
 </Window>

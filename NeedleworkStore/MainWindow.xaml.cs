@@ -18,6 +18,17 @@ namespace NeedleworkStore
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// 
+
+    public class Product {
+        public string Title { get; set; }
+        public int Price { get; set; }
+        public override string ToString()
+        {
+            return $"title: {Title}, price: {Price}";
+        }
+    }
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -28,6 +39,8 @@ namespace NeedleworkStore
             btn.Height = 30;
             btn.Content = "3";
             LayOut.Children.Add(btn);
+            btn.HorizontalAlignment = HorizontalAlignment.Right;
+            btn.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Aqua);
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
