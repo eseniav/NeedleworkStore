@@ -6,21 +6,18 @@
         xmlns:local="clr-namespace:NeedleworkStore"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel x:Name="LayOut">
-        <Button Height="50" Width="150" x:Name="btnStart" Click="btnStart_Click" Background="Beige" Foreground="Blue" xml:space="preserve">
-            Нажать      &lt;"кнопку"&gt;
+    <StackPanel x:Name="LayOut" Margin="20" MaxWidth="200" MinHeight="300">
+        <Label Content="Логин"/>
+        <TextBox/>
+        <Label Content="Пароль"/>
+        <PasswordBox Margin="0 10"/>
+        <Button Content="Войти" Margin="0 10" MaxWidth="70"/>
+        <Button>
+            <WrapPanel>
+                <TextBlock FontWeight="Bold">Регистрация</TextBlock>
+                <TextBlock Foreground="Red"> пользователя</TextBlock>
+            </WrapPanel>
+            
         </Button>
-        <Button Height="30" Width="100" x:Name="btnSart" Content="Ok" Click="btnStart_Click"  Foreground="Blue">
-            <Button.HorizontalAlignment>
-                <HorizontalAlignment>Right</HorizontalAlignment>
-            </Button.HorizontalAlignment>
-            <Button.Background>
-                <SolidColorBrush Color="Red" Opacity="0.5"/>
-            </Button.Background>
-        </Button>
-        <ListBox>
-            <local:Product Title="Набор для вышивки" Price="2000"/>
-            <local:Product Title="Набор для вышивки Dimensions" Price="5000"/>
-        </ListBox>
     </StackPanel>
 </Window>
