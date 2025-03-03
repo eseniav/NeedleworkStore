@@ -25,7 +25,13 @@ namespace NeedleworkStore
     {
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            Grid gr = new Grid();
+            TextBlock txt = new TextBlock { Text = "Иванов" };
+            Grid.SetRow(txt, 0);
+            Grid.SetColumn(txt, 0);
+            gr.Children.Add(txt);
+            LayOut.Children.Add(gr);
         }
                
     }

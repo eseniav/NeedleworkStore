@@ -5,19 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeedleworkStore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel x:Name="LayOut" Margin="20" MaxWidth="200" MinHeight="300">
-        <Label Content="Логин"/>
-        <TextBox/>
-        <Label Content="Пароль"/>
-        <PasswordBox Margin="0 10"/>
-        <Button Content="Войти" Margin="0 10" MaxWidth="70"/>
-        <Button>
-            <WrapPanel>
-                <TextBlock FontWeight="Bold">Регистрация</TextBlock>
-                <TextBlock Foreground="Red"> пользователя</TextBlock>
-            </WrapPanel>
-            
-        </Button>
+        Title="MainWindow" Height="450" Width="800" MinWidth="200" MinHeight="330">
+    <StackPanel x:Name="LayOut" Margin="20">
+        <WrapPanel x:Name="TopPanel" MaxWidth="400" MinHeight="30">
+            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#d3d3d3">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>                
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16">О магазине</TextBlock>
+                </WrapPanel>
+            </Button>
+            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#d3d3d3">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16">Регистрация</TextBlock>
+                </WrapPanel>
+            </Button>
+            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#d3d3d3">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16">Гость</TextBlock>
+                </WrapPanel>
+            </Button>
+        </WrapPanel>
+        <StackPanel x:Name="Login" MaxWidth="150" MinHeight="30">
+            <Label Content="Логин" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic"/>
+            <TextBox/>
+            <Label Content="Пароль" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic"/>
+            <PasswordBox />
+            <Button Margin="0 10" MaxWidth="70" BorderBrush="#d3d3d3">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16">Войти</TextBlock>
+                </WrapPanel>
+            </Button>
+        </StackPanel>
+        <Grid ShowGridLines="true">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="ФИО"/>
+            <TextBlock Grid.Row="0" Grid.Column="1">Иванов Иван</TextBlock>
+            <Button Content="Регистрация" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Button Content="First" Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"/>            
+            <Button Content="Second" Grid.Row="0" Grid.Column="3"/>            
+        </Grid>        
+        <UniformGrid Margin="30">
+            <Label Content="ФИО"/>
+            <TextBlock >Иванов Иван</TextBlock>
+            <Button Content="Регистрация"/>
+            <Button Content="First"/>
+            <Button Content="Second"/>
+        </UniformGrid>
     </StackPanel>
 </Window>
