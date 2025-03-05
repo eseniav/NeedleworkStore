@@ -9,9 +9,8 @@
         WindowStartupLocation="Manual"
         Top="0" Left="0"
         Title="MainWindow" Height="450" Width="800" MinWidth="320" MinHeight="550" Background="#B7CB99" Icon="ResImages\1675591832_papik-pro-p-katushka-nitok-risunok-44.jpg">
-    <StackPanel Margin="20">
-        <Frame Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden">
-            
+    <StackPanel>
+        <Frame Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden">            
         </Frame>     
     </StackPanel>
 </Window>
