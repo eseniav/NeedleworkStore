@@ -10,7 +10,7 @@
       Title="AuthPage">
     <StackPanel x:Name="LayOut" Margin="20">
         <WrapPanel x:Name="TopPanel" MaxWidth="400" MinHeight="50">
-            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2">
+            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" Name="btnShop">
                 <Button.Background>
                     <SolidColorBrush Opacity="0.25"/>
                 </Button.Background>
@@ -44,11 +44,23 @@
             <TextBox/>
             <Label Content="Пароль" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
             <PasswordBox />
-            <Button Margin="0 10" MaxWidth="70" BorderBrush="#431D32" Background="#778FD2">
+            <Button Margin="0 10" MaxWidth="70" BorderBrush="#431D32" Background="#778FD2" Name="btnSignIn" Click="btnSignIn_Click" IsDefault="True">
                 <WrapPanel>
                     <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White">Войти</TextBlock>
                 </WrapPanel>
             </Button>
+            <WrapPanel>
+                <CheckBox Content="default" Name="chbT1" Checked="chbT1_Checked"/>
+                <CheckBox Content="checked" IsChecked="True" Name="chbT2"/>
+                <CheckBox Content="null" IsChecked="{x:Null}"/>                
+            </WrapPanel>
+            <GroupBox Header="ЯП">
+                <StackPanel>
+                    <RadioButton Content="JS" GroupName="R"/>
+                    <RadioButton Content="C#" GroupName="R"/>
+                    <RadioButton Content="C++" GroupName="R"/>
+                </StackPanel>
+            </GroupBox>            
         </StackPanel>
         <Grid Margin="0 50 0 0">
             <Grid.RowDefinitions>

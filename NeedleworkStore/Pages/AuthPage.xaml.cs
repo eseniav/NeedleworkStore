@@ -23,6 +23,13 @@ namespace NeedleworkStore.Pages
         public AuthPage()
         {
             InitializeComponent();
+            btnShop.MouseEnter += btnShop_Click;
+            btnShop.MouseDown += BtnShop_MouseDown;
+        }
+
+        private void BtnShop_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void btnReg_Click(object sender, RoutedEventArgs e)
@@ -64,6 +71,21 @@ namespace NeedleworkStore.Pages
             {
                 MessageBox.Show("No page to go back");
             }
+
+        }
+        private void btnShop_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Событие");
+        }
+
+        private void btnSignIn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hello!");
+        }
+
+        private void chbT1_Checked(object sender, RoutedEventArgs e)
+        {
+            chbT2.IsChecked = false;
         }
     }
 }

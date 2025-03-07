@@ -54,5 +54,7 @@ namespace NeedleworkStore.Pages
                 MessageBox.Show("No page to go forward");
             }
         }
+
+       
     }
 }

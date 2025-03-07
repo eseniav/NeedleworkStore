@@ -10,7 +10,7 @@
       Title="RegistrationPage"  Height="450" Width="800" MinWidth="230" MinHeight="480">
     <StackPanel Margin="20">
         <WrapPanel MaxWidth="400" MinHeight="30">
-            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2">
+            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" Name="btnShop">
                 <Button.Background>
                     <SolidColorBrush Opacity="0.25"/>
                 </Button.Background>
