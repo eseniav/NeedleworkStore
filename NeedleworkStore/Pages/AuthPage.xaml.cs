@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NeedleworkStore.Classes;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NeedleworkStore.Pages
 {
@@ -79,13 +71,13 @@ namespace NeedleworkStore.Pages
         }
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Hello!");
-        }
-
-        private void chbT1_Checked(object sender, RoutedEventArgs e)
-        {
-            chbT2.IsChecked = false;
+        {           
+            if (!CheckValidation.CheckEmptyNull(txtLog.Text) || !CheckValidation.CheckEmptyNull(txtPass.Password))
+            {
+                MessageBox.Show("Все поля должны быть заполнены!");
+                return;
+            }
+            this.NavigationService.Navigate(new ProductsPage());
         }
     }
 }
