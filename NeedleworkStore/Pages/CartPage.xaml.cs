@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace NeedleworkStore.Pages
 {
@@ -136,6 +137,44 @@ namespace NeedleworkStore.Pages
             }
         }
 
+        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Добавляет товар в корзину");
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
+            {
+                ppCartIn.IsOpen = false;
+                ppCartIn1.IsOpen = false;
+                ppCartIn2.IsOpen = false;
+                timer.Stop();
+            };
+
+            ppCartIn.IsOpen = true;
+            ppCartIn1.IsOpen = true;
+            ppCartIn2.IsOpen = true;
+            timer.Start();
+        }
+
+        private void btnFavor_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Добавляет товар в избранное");
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
+            {
+                ppFavorIn.IsOpen = false;
+                ppFavorIn1.IsOpen = false;
+                ppFavorIn2.IsOpen = false;
+                timer.Stop();
+            };
+
+            ppFavorIn.IsOpen = true;
+            ppFavorIn1.IsOpen = true;
+            ppFavorIn2.IsOpen = true;
+            timer.Start();
+        }
+
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
@@ -150,6 +189,11 @@ namespace NeedleworkStore.Pages
         {
             MessageBox.Show("Если не выбрано ничего - автоматически выбирает все товары\n" +
                 "Если выбраны определенные товары - формирует заказ из них");
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Переход на страницу с этим товаром");
         }
     }
 }

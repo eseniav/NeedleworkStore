@@ -282,138 +282,189 @@
                     </StackPanel>
                 </Button>
             </Grid>
-            <!--<Grid>
+            <WrapPanel HorizontalAlignment="Right">
+                <TextBlock Foreground="#2A3759"
+                           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
+                           FontSize="13" LineHeight="15"
+                           VerticalAlignment="Center" Margin="10 15 10 0"
+                           >Возможно, Вас заинтересует:
+                </TextBlock>
+            </WrapPanel>
+            <Grid Margin="0 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <WrapPanel HorizontalAlignment="Right" Margin="0 10" Grid.Column="2" Grid.Row="0">
-                    <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Сортировать по"/>
-                    <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
-                    </ComboBox>
-                </WrapPanel>
-            </Grid>-->
-            <!--<StackPanel>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
-                    <StackPanel>
-                        <GroupBox Margin="10 0 0 10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                                <StackPanel Grid.Column="1" Grid.Row="0">
-                                    <WrapPanel HorizontalAlignment="Right">
-                                        <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
-                                        <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="4,9" Margin="0 0 20 0"/>
-                                    </WrapPanel>
-                                    <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
-                                           HorizontalAlignment="Right" Margin="20 0"
-                                           >
-                                        <Image.ToolTip>
-                                            <ToolTip ToolTipService.InitialShowDelay="3000">
-                                                <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="350" MaxHeight="350"/>
-                                            </ToolTip>
-                                        </Image.ToolTip>
-                                    </Image>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center">
-                                    <Label MinHeight="20"/>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0">
-                                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Компания:"/>
-                                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Название:"/>
-                                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Наличие:"/>
-                                        </StackPanel>
-                                        <StackPanel Grid.Column="1">
-                                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Кларт"/>
-                                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Лаванда для нее"/>
-                                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Есть в наличии"/>
-                                        </StackPanel>
-                                    </Grid>
-                                    <WrapPanel HorizontalAlignment="Center">
-                                        <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Описание:"/>
-                                    </WrapPanel>
-                                    <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="12"
-                                               LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
-                                               TextAlignment="Left"
-                                               >Размер набора 13х18,5 см, канва - аида 14 белая
-                                    </TextBlock>
-                                    <WrapPanel>
-                                        <Label>
-                                            <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
-                                                       Click="hlAbout_Click"
-                                                       >Подробнее
-                                            </Hyperlink>
-                                        </Label>
-                                    </WrapPanel>
-                                </StackPanel>
-                                <StackPanel Grid.Column="3" HorizontalAlignment="Right">
-                                    <Button Name="btnBuy" Margin="0 10" MaxWidth="150"
-                                BorderBrush="#431D32" Background="#778FD2" HorizontalAlignment="Center"
-                                Click="btnBuy_Click"                                        
+                <StackPanel Grid.Column="0">
+                    <UniformGrid Columns="2">
+                        <Button MinWidth="100" MaxWidth="90" 
+                                Margin="10" BorderBrush="#778FD2" Click="btnFavor_Click"
                                 >
-                                        <WrapPanel>
-                                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White"
-                                           >Купить
-                                            </TextBlock>
-                                        </WrapPanel>
-                                    </Button>
-                                    <WrapPanel HorizontalAlignment="Center">
-                                        <Button Name="btnMinus" Margin="0 0 10 0" BorderBrush="#778FD2"
-                                    VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
-                                    >
-                                            <Button.Background>
-                                                <SolidColorBrush Opacity="0.25"/>
-                                            </Button.Background>
-                                            <WrapPanel>
-                                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                               >-
-                                                </TextBlock>
-                                            </WrapPanel>
-                                        </Button>
-                                        <Label Name="lblQuan" Content="1"/>
-                                        <Button Margin="10 0 0 0" BorderBrush="#778FD2" VerticalAlignment="Bottom" MinWidth="20">
-                                            <Button.Background>
-                                                <SolidColorBrush Opacity="0.25"/>
-                                            </Button.Background>
-                                            <WrapPanel>
-                                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">+</TextBlock>
-                                            </WrapPanel>
-                                        </Button>
-                                    </WrapPanel>
-                                    <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" VerticalAlignment="Bottom">
-                                        <Button.Background>
-                                            <SolidColorBrush Opacity="0.25"/>
-                                        </Button.Background>
-                                        <WrapPanel>
-                                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Удалить</TextBlock>
-                                        </WrapPanel>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </GroupBox>
-                        <Button Margin="0 10" MaxWidth="150" BorderBrush="#431D32" Background="#778FD2" HorizontalAlignment="Center">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </Button.Background>
                             <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White">Оформить заказ</TextBlock>
+                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                                            >В избранное
+                                </TextBlock>
                             </WrapPanel>
                         </Button>
-                    </StackPanel>
-                </ScrollViewer>
-            </StackPanel>-->
+                        <Popup Name="ppFavorIn" StaysOpen="False" Placement="Bottom" 
+                                AllowsTransparency="True" PopupAnimation="Fade" 
+                                PlacementTarget="{Binding ElementName=grdBottom}" 
+                                VerticalOffset="-80"
+                                >
+                            <TextBlock Width="150" Height="50">
+                                <TextBlock.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.9"/>
+                                </TextBlock.Background>
+                                <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
+                                            FontSize="12" LineHeight="15" Margin="11"
+                                            >Товар добавлен в избранное
+                                </TextBlock>
+                            </TextBlock>
+                        </Popup>
+                        <Button Name="btnCartIn" Margin="0 10" MaxWidth="90" 
+                                BorderBrush="#431D32" Background="#778FD2" Click="btnCartIn_Click"
+                                >
+                            <WrapPanel>
+                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White"
+                                           >в корзину
+                                </TextBlock>
+                            </WrapPanel>
+                        </Button>
+                        <Popup Name="ppCartIn" StaysOpen="False" Placement="Bottom" 
+                                    AllowsTransparency="True" PopupAnimation="Fade" 
+                                    PlacementTarget="{Binding ElementName=grdBottom}" 
+                                    VerticalOffset="-80"
+                                    >
+                            <TextBlock Width="150" Height="50">
+                                <TextBlock.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.9"/>
+                                </TextBlock.Background>
+                                <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
+                                        FontSize="12" LineHeight="15" Margin="11"
+                                        >Товар добавлен в корзину
+                                </TextBlock>
+                            </TextBlock>
+                        </Popup>
+                    </UniformGrid>
+                    <Image Source="/ResImages/Zaglushka.png" MaxWidth="180" MaxHeight="180" MouseDown="Image_MouseDown"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <UniformGrid Columns="2">
+                        <Button MinWidth="100" MaxWidth="90" 
+                                Margin="10" BorderBrush="#778FD2" Click="btnFavor_Click"
+                                >
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </Button.Background>
+                            <WrapPanel>
+                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                                            >В избранное
+                                </TextBlock>
+                            </WrapPanel>
+                        </Button>
+                        <Popup Name="ppFavorIn1" StaysOpen="False" Placement="Bottom" 
+                                AllowsTransparency="True" PopupAnimation="Fade" 
+                                PlacementTarget="{Binding ElementName=grdBottom}" 
+                                VerticalOffset="-80"
+                                >
+                            <TextBlock Width="150" Height="50">
+                                <TextBlock.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.9"/>
+                                </TextBlock.Background>
+                                <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
+                                            FontSize="12" LineHeight="15" Margin="11"
+                                            >Товар добавлен в избранное
+                                </TextBlock>
+                            </TextBlock>
+                        </Popup>
+                        <Button Margin="0 10" MaxWidth="90" 
+                                BorderBrush="#431D32" Background="#778FD2" Click="btnCartIn_Click"
+                                >
+                            <WrapPanel>
+                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White"
+                                            >в корзину
+                                </TextBlock>
+                            </WrapPanel>
+                        </Button>
+                        <Popup Name="ppCartIn1" StaysOpen="False" Placement="Bottom" 
+                                AllowsTransparency="True" PopupAnimation="Fade" 
+                                PlacementTarget="{Binding ElementName=grdBottom}" 
+                                VerticalOffset="-80"
+                                >
+                            <TextBlock Width="150" Height="50">
+                                <TextBlock.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.9"/>
+                                </TextBlock.Background>
+                                <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
+                                            FontSize="12" LineHeight="15" Margin="11"
+                                            >Товар добавлен в корзину
+                                </TextBlock>
+                            </TextBlock>
+                        </Popup>
+                    </UniformGrid>
+                    <Image Source="/ResImages/Zaglushka.png" MaxWidth="180" MaxHeight="180" MouseDown="Image_MouseDown"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <UniformGrid Columns="2">
+                        <Button MinWidth="100" MaxWidth="90" 
+                                Margin="10" BorderBrush="#778FD2" Click="btnFavor_Click"
+                                >
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </Button.Background>
+                            <WrapPanel>
+                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                                             >В избранное
+                                </TextBlock>
+                            </WrapPanel>
+                        </Button>
+                        <Popup Name="ppFavorIn2" StaysOpen="False" Placement="Bottom" 
+                                        AllowsTransparency="True" PopupAnimation="Fade" 
+                                        PlacementTarget="{Binding ElementName=grdBottom}" 
+                                        VerticalOffset="-80"
+                                        >
+                                    <TextBlock Width="150" Height="50">
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                                        </TextBlock.Background>
+                                        <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
+                                                   FontSize="12" LineHeight="15" Margin="11"
+                                                    >Товар добавлен в избранное
+                                        </TextBlock>
+                                    </TextBlock>
+                                </Popup>
+                                <Button Margin="0 10" MaxWidth="90" 
+                                BorderBrush="#431D32" Background="#778FD2" Click="btnCartIn_Click"
+                                >
+                                    <WrapPanel>
+                                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White"
+                                            >в корзину
+                                        </TextBlock>
+                                    </WrapPanel>
+                                </Button>
+                                <Popup Name="ppCartIn2" StaysOpen="False" Placement="Bottom" 
+                                AllowsTransparency="True" PopupAnimation="Fade" 
+                                PlacementTarget="{Binding ElementName=grdBottom}" 
+                                VerticalOffset="-80"
+                                >
+                                    <TextBlock Width="150" Height="50">
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                                        </TextBlock.Background>
+                                <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
+                                            FontSize="12" LineHeight="15" Margin="11"
+                                            >Товар добавлен в корзину
+                                </TextBlock>
+                            </TextBlock>
+                                </Popup>                            
+                    </UniformGrid>
+                    <Image Source="/ResImages/Zaglushka.png" MaxWidth="180" MaxHeight="180" MouseDown="Image_MouseDown"/>
+                </StackPanel>
+            </Grid>
         </StackPanel>
         <Grid Name="grdBottom" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
