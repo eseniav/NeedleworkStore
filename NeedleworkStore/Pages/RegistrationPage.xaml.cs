@@ -55,6 +55,19 @@ namespace NeedleworkStore.Pages
             }
         }
 
-       
+        private void btnShop_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Переход на страницу О магазине");
+        }
+
+        private void btnGuest_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Переход на страницу с товарами для гостя");
+        }
+
+        private void btnReg_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ProductsPage());
+        }
     }
 }

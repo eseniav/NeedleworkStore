@@ -4,42 +4,27 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace NeedleworkStore.Pages
-{
-    /// <summary>
-    /// Логика взаимодействия для AuthPage.xaml
-    /// </summary>
+{  
     public partial class AuthPage : Page
-    {
+    {       
         public AuthPage()
         {
             InitializeComponent();
-            btnShop.MouseEnter += btnShop_Click;
-            btnShop.MouseDown += BtnShop_MouseDown;
-        }
-
-        private void BtnShop_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+            txtLog.Focus();            
+        } 
 
         private void btnReg_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //определение запрашиваемого ресурса - страницы
-                Uri res = new System.Uri("Pages/RegistrationPage.xaml", UriKind.Relative);
-                //получение экземпляра навигационного сервиса
-                NavigationService nav = NavigationService.GetNavigationService(this);
-                //вызов метода навигации
-                nav.Navigate(res);
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
+        {            
+            //определение запрашиваемого ресурса - страницы
+            Uri res = new System.Uri("Pages/RegistrationPage.xaml", UriKind.Relative);
+            //получение экземпляра навигационного сервиса
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            //вызов метода навигации
+            nav.Navigate(res);      
         }
 
         private void btnForward_Click(object sender, RoutedEventArgs e)
@@ -67,7 +52,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Событие");
+            MessageBox.Show("Переход на страницу О магазине");
         }
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
@@ -78,6 +63,11 @@ namespace NeedleworkStore.Pages
                 return;
             }
             this.NavigationService.Navigate(new ProductsPage());
+        }
+
+        private void btnGuest_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Переход на страницу с товарами для гостя");
         }
     }
 }

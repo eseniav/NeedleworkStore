@@ -1,0 +1,354 @@
+﻿<Page x:Class="NeedleworkStore.Pages.AdvancedSearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NeedleworkStore.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="850" d:DesignWidth="800"
+      Title="AdvancedSearchPage">
+    <DockPanel Margin="20">
+        <StackPanel DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button  Name="btnShop" Grid.Column="0" Grid.Row="0" MinWidth="100"
+             Margin="10 0" BorderBrush="#778FD2" HorizontalAlignment="Right"
+             Click="btnShop_Click" MaxWidth="120" Height="25"
+             >
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                       >О магазине
+                        </TextBlock>
+                    </WrapPanel>
+                </Button>
+                <Button Name="btnCart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
+            MinWidth="100" MaxWidth="120" Margin="10 0" Height="25"
+            BorderBrush="#778FD2" Click="btnCart_Click"
+            >
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                       >Корзина
+                        </TextBlock>
+                    </WrapPanel>
+                </Button>
+                <TextBlock Grid.Column="1" Grid.Row="1" Foreground="#2A3759"
+                           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
+                           FontSize="10" LineHeight="15" HorizontalAlignment="Left"
+                           >Количество товаров: 
+                    <TextBlock FontSize="15">20</TextBlock>
+                </TextBlock>
+                <WrapPanel Grid.Column="2" Grid.Row="0">
+                    <Button Name="btnProfile" MinWidth="100" MaxWidth="120"
+                Margin="10 0" BorderBrush="#778FD2" Height="25"
+                Click="btnProfile_Click"
+                >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                           >Профиль
+                            </TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Name="btnExit" MinWidth="100" MaxWidth="120" Height="25"
+                Margin="10 0" BorderBrush="#778FD2" Click="btnExit_Click"
+                >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Выйти</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <TextBox Name="txtSearch" MinWidth="100" MaxHeight="20"></TextBox>
+                    <Button Name="btnSearch" MinWidth="100" MaxWidth="120" 
+                Margin="10 0" BorderBrush="#778FD2" HorizontalAlignment="Right"
+                Click="btnSearch_Click"
+                >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Найти</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                </WrapPanel>
+                <TextBlock Grid.Column="2" Grid.Row="1" Foreground="#2A3759"
+               FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
+               FontSize="13" LineHeight="15" HorizontalAlignment="Right"
+               VerticalAlignment="Center" Margin="10 5"
+               >Рады вас видеть, Имя пользователя!
+                </TextBlock>
+            </Grid>
+            <WrapPanel HorizontalAlignment="Center" MaxHeight="120" Margin="0 10 0 30" Grid.Column="1">
+                <Label Content="Расширенный поиск" FontFamily="Caesar Dressing Cyrillic" FontSize="24" HorizontalAlignment="Center" Foreground="#431D32"/>
+            </WrapPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <GroupBox Header="Виды рукоделия" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxNedleTypes">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все товары" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Вышивка" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Шитье" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Header="Категории" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxProdTypes">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все товары" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Наборы" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Аксессуары" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Печатные издания" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Header="Страны" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxCountries">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Германия" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Россия" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="США" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <GroupBox Header="Производитель" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxDesigners">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Dimensions" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Miadolla" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Panna" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Prym" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="RTO" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Гамма" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Кларт" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Риолис" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Header="Цена" FontFamily="Cakra Normal" Foreground="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <WrapPanel  Grid.Row="0">
+                                <Label Content="От" Foreground="#2A3759"/>
+                                <TextBox Name="txtFrom" MaxHeight="18" MinWidth="100" FontSize="16"/>
+                            </WrapPanel>
+                            <WrapPanel  Grid.Row="1">
+                                <Label Content="До" Foreground="#2A3759"/>
+                                <TextBox Name="txtTo" MaxHeight="18" MinWidth="100" FontSize="16"/>
+                            </WrapPanel>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <GroupBox Header="Темы" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxThemes">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Животные" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Люди" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Новый год" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Природа" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Прикладное" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Маяки" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Коты" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Цветы" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel Grid.Column="3">
+                    <GroupBox Header="Аксессуары" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxAccess">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Ножницы" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Пяльцы" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Наперстки" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Магниты" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Иглы" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Хранение" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Header="Виды вышики" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
+                        <ListBox Name="lbxStitchTypes">
+                            <ListBox.Background>
+                                <SolidColorBrush Opacity="0.25"/>
+                            </ListBox.Background>
+                            <ListBoxItem>
+                                <CheckBox Content="Все" Foreground="#2A3759" IsChecked="True"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Крестик" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Бисер" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <CheckBox Content="Гладь" Foreground="#2A3759"/>
+                            </ListBoxItem>
+                        </ListBox>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+            <WrapPanel HorizontalAlignment="Center" Margin="0 0 0 30">
+                <Button Name="btnFind" Margin="0 20 0 0" MaxWidth="70" 
+            BorderBrush="#431D32" Background="#778FD2"
+            IsDefault="True" Click="btnFind_Click"
+            >
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White">Найти</TextBlock>
+                    </WrapPanel>
+                </Button>
+            </WrapPanel>
+        </StackPanel>
+        <Grid Name="grdBottom" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnBack" MinWidth="100" MaxWidth="120" Margin="10" 
+            BorderBrush="#778FD2" Grid.Column="0" Width="Auto" 
+            HorizontalAlignment="Left" ToolTip="Предыдущая страница" ToolTipService.ShowDuration="2000" 
+            ToolTipService.HasDropShadow="True" Click="btnBack_Click" MaxHeight="30"
+            >
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Назад</TextBlock>
+                </WrapPanel>
+            </Button>
+            <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30" Grid.Column="1">
+                <Label Content="Мастерская" FontFamily="Hlobus" FontSize="28" HorizontalAlignment="Center" Foreground="#431D32"/>
+                <Label Content="вдохновения" FontFamily="Hlobus" FontSize="28" HorizontalAlignment="Center" Foreground="#431D32"/>
+            </WrapPanel>
+            <Button Name="btnForward" MinWidth="100" MaxWidth="120" Margin="10" 
+            BorderBrush="#778FD2" Grid.Column="2"  HorizontalAlignment="Right"  
+            ToolTip="Следующая страница" ToolTipService.ShowDuration="2000" 
+            ToolTipService.HasDropShadow="True" Click="btnForward_Click"
+            MaxHeight="30"
+            >
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Вперед</TextBlock>
+                </WrapPanel>
+            </Button>
+        </Grid>
+    </DockPanel>
+</Page>

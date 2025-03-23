@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:NeedleworkStore"
         mc:Ignorable="d"
         ResizeMode="CanResize"
-        WindowStartupLocation="Manual"
+        WindowStartupLocation="CenterScreen"
         Top="0" Left="0"
-        Title="MainWindow" Height="450" Width="800" MinWidth="320" MinHeight="550" Background="#B7CB99" Icon="ResImages\1675591832_papik-pro-p-katushka-nitok-risunok-44.jpg">
+        Title="MainWindow" Height="950" Width="800" 
+        MinWidth="320" MinHeight="550" Background="#B7CB99" 
+        MaxWidth="1200"
+        Icon="ResImages\1675591832_papik-pro-p-katushka-nitok-risunok-44.jpg"
+        >
     <StackPanel>
-        <Frame Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden">            
-        </Frame>     
+        <Frame Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>        
     </StackPanel>
 </Window>

@@ -4,89 +4,110 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
+      xmlns:us="clr-namespace:NeedleworkStore"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Height="450" Width="800" MinWidth="320" MinHeight="550"
-      Title="AuthPage">
-    <StackPanel x:Name="LayOut" Margin="20">
-        <WrapPanel x:Name="TopPanel" MaxWidth="400" MinHeight="50">
-            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" Name="btnShop">
-                <Button.Background>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Button.Background>
-                <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">О магазине</TextBlock>
-                </WrapPanel>
-            </Button>
-            <Button Name="btnReg" MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" Click="btnReg_Click">
-                <Button.Background>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Button.Background>
-                <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Регистрация</TextBlock>
-                </WrapPanel>
-            </Button>
-            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2">
-                <Button.Background>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Button.Background>
-                <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Гость</TextBlock>
-                </WrapPanel>
-            </Button>
-        </WrapPanel>
-        <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30">
-            <Label Content="Мастерская" FontFamily="Hlobus" FontSize="42" HorizontalAlignment="Center" Foreground="#431D32"/>
-            <Label Content="вдохновения" FontFamily="Hlobus" FontSize="42" HorizontalAlignment="Center" Foreground="#431D32"/>
-        </WrapPanel>
-        <StackPanel x:Name="Login" MaxWidth="150" MinHeight="30">
-            <Label Content="Логин" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
-            <TextBox/>
-            <Label Content="Пароль" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
-            <PasswordBox />
-            <Button Margin="0 10" MaxWidth="70" BorderBrush="#431D32" Background="#778FD2" Name="btnSignIn" Click="btnSignIn_Click" IsDefault="True">
-                <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White">Войти</TextBlock>
-                </WrapPanel>
-            </Button>
-            <WrapPanel>
-                <CheckBox Content="default" Name="chbT1" Checked="chbT1_Checked"/>
-                <CheckBox Content="checked" IsChecked="True" Name="chbT2"/>
-                <CheckBox Content="null" IsChecked="{x:Null}"/>                
+      Title="AuthPage"
+      >
+    <DockPanel x:Name="LayOut" Margin="20">
+        <StackPanel DockPanel.Dock="Top">
+            <WrapPanel x:Name="TopPanel" MaxWidth="400" MinHeight="50" HorizontalAlignment="Center">
+                <Button Name="btnShop" MinWidth="100" MaxWidth="120" 
+            Margin="10" BorderBrush="#778FD2" Click="btnShop_Click"
+            >
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                       >О магазине
+                        </TextBlock>
+                    </WrapPanel>
+                </Button>
+                <Button Name="btnReg" MinWidth="100" MaxWidth="120" 
+            Margin="10" BorderBrush="#778FD2" Click="btnReg_Click"
+            >
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Регистрация</TextBlock>
+                    </WrapPanel>
+                </Button>
+                <Button Name="btnGuest" MinWidth="100" MaxWidth="120" 
+            Margin="10" BorderBrush="#778FD2" Click="btnGuest_Click"
+            >
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Гость</TextBlock>
+                    </WrapPanel>
+                </Button>
             </WrapPanel>
-            <GroupBox Header="ЯП">
-                <StackPanel>
-                    <RadioButton Content="JS" GroupName="R"/>
-                    <RadioButton Content="C#" GroupName="R"/>
-                    <RadioButton Content="C++" GroupName="R"/>
-                </StackPanel>
-            </GroupBox>            
-        </StackPanel>
-        <Grid Margin="0 50 0 0">
+            <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30">
+                <Label Content="Мастерская" FontFamily="Hlobus" FontSize="42" 
+           HorizontalAlignment="Center" Foreground="#431D32"
+           />
+                <Label Content="вдохновения" FontFamily="Hlobus" FontSize="42" 
+           HorizontalAlignment="Center" Foreground="#431D32"
+           />
+            </WrapPanel>
+            <StackPanel x:Name="Login" MaxWidth="150" MinHeight="30">
+                <Label Content="Логин" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
+                <TextBox Name="txtLog"/>
+                <Label Content="Пароль" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
+                <PasswordBox Name="txtPass"/>
+                <Button  Name="btnSignIn" Margin="0 10" MaxWidth="70" BorderBrush="#431D32" Background="#778FD2"
+             IsDefault="True" Click="btnSignIn_Click" 
+             >
+                    <WrapPanel>
+                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White"
+                       >Войти
+                        </TextBlock>
+                    </WrapPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>        
+        <Grid Margin="0 50 0 0" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" Grid.Column="0" Width="Auto" HorizontalAlignment="Left" Name="btnBack" Click="btnBack_Click">
+            <Button Name="btnBack" MinWidth="100" MaxWidth="120" Margin="10" 
+                    BorderBrush="#778FD2" Grid.Column="0" Width="Auto" 
+                    HorizontalAlignment="Left" ToolTip="Предыдущая страница" ToolTipService.ShowDuration="2000" 
+                    ToolTipService.HasDropShadow="True" Click="btnBack_Click"
+                    >
+                <Button.Background>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Button.Background>                
+                <WrapPanel>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                               >Назад
+                    </TextBlock>
+                </WrapPanel>
+            </Button>
+            <Button Name="btnForward" MinWidth="100" MaxWidth="120" Margin="10" 
+                    BorderBrush="#778FD2" Grid.Column="2"  HorizontalAlignment="Right"  
+                    ToolTip="Следующая страница" ToolTipService.ShowDuration="2000" 
+                    ToolTipService.HasDropShadow="True" Click="btnForward_Click" 
+                    >
                 <Button.Background>
                     <SolidColorBrush Opacity="0.25"/>
                 </Button.Background>
                 <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Назад</TextBlock>
+                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                               >Вперед
+                    </TextBlock>
                 </WrapPanel>
             </Button>
-            <Button MinWidth="100" MaxWidth="120" Margin="10" BorderBrush="#778FD2" Grid.Column="2"  HorizontalAlignment="Right"  Name="btnForward" Click="btnForward_Click">
-                <Button.Background>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Button.Background>
-                <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Вперед</TextBlock>
-                </WrapPanel>
-            </Button>
-        </Grid>
-    </StackPanel>
+        </Grid>        
+    </DockPanel>
 </Page>

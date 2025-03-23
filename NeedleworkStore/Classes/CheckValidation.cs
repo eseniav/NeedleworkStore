@@ -21,11 +21,11 @@ namespace NeedleworkStore.Classes
         }
         public static bool CheckEmptyNull(string txt)
         {
-            if (!String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt))
-            {
-                return true;
-            }
-            return false;
+            return !String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt);
+        }
+        public static bool CheckInt(string txt)
+        {            
+            return Int32.TryParse(txt.Trim(), out int a);
         }
     }
 }
