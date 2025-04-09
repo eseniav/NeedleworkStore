@@ -1,0 +1,1772 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище NeedleworkStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessoryTypes">
+          <Key>
+            <PropertyRef Name="AccessoryTypeID" />
+          </Key>
+          <Property Name="AccessoryTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessoryTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AssigningStatuses">
+          <Key>
+            <PropertyRef Name="AssigningStatusID" />
+          </Key>
+          <Property Name="AssigningStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentStatusID" Type="int" Nullable="false" />
+          <Property Name="ReceivingStatusID" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProcessingStatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AvailabilityStatuses">
+          <Key>
+            <PropertyRef Name="AvailabilityStatusID" />
+          </Key>
+          <Property Name="AvailabilityStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvailabilityStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="QuantityCart" Type="int" Nullable="false" />
+          <Property Name="FormationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Designers">
+          <Key>
+            <PropertyRef Name="DesignerID" />
+          </Key>
+          <Property Name="DesignerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DesignerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Favourities">
+          <Key>
+            <PropertyRef Name="FavouriteID" />
+          </Key>
+          <Property Name="FavouriteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="FormationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NeedleworkTypes">
+          <Key>
+            <PropertyRef Name="NeedleworkTypeID" />
+          </Key>
+          <Property Name="NeedleworkTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NeedleworkTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderCompositions">
+          <Key>
+            <PropertyRef Name="OrderCompositionID" />
+          </Key>
+          <Property Name="OrderCompositionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="OrderPrice" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PickUpPointID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentStatuses">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PickUpPoints">
+          <Key>
+            <PropertyRef Name="PickUpPointID" />
+          </Key>
+          <Property Name="PickUpPointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="70" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProcessingStatuses">
+          <Key>
+            <PropertyRef Name="ProcessingStatusID" />
+          </Key>
+          <Property Name="ProcessingStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessingStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductAccessoryTypes">
+          <Key>
+            <PropertyRef Name="ProductAccessoryTypeID" />
+          </Key>
+          <Property Name="ProductAccessoryTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="AccessoryTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductNeedleworkTypes">
+          <Key>
+            <PropertyRef Name="ProductNeedleworkTypesID" />
+          </Key>
+          <Property Name="ProductNeedleworkTypesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="NeedleworkTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductPrice" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ProductImage" Type="nvarchar" MaxLength="50" />
+          <Property Name="DesignerID" Type="int" Nullable="false" />
+          <Property Name="ProductTypeID" Type="int" Nullable="false" />
+          <Property Name="AvailabilityStatusID" Type="int" Nullable="false" />
+          <Property Name="QRLink" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="ProductStitchTypes">
+          <Key>
+            <PropertyRef Name="ProductStitchTypeID" />
+          </Key>
+          <Property Name="ProductStitchTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="StitchTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductThemes">
+          <Key>
+            <PropertyRef Name="ProductThemeID" />
+          </Key>
+          <Property Name="ProductThemeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ThemeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductTypes">
+          <Key>
+            <PropertyRef Name="ProductTypeID" />
+          </Key>
+          <Property Name="ProductTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReceivingStatuses">
+          <Key>
+            <PropertyRef Name="ReceivingStatusID" />
+          </Key>
+          <Property Name="ReceivingStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceivingStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="500" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReviewDate" Type="datetime" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StitchTypes">
+          <Key>
+            <PropertyRef Name="StitchTypeID" />
+          </Key>
+          <Property Name="StitchTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StitchTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="ThemeID" />
+          </Key>
+          <Property Name="ThemeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThemeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserLastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserPatronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="UserPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AssigningStatuses_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_PaymentStatuses">
+          <End Role="PaymentStatuses" Type="Self.PaymentStatuses" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatuses">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="PaymentStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_ProcessingStatuses">
+          <End Role="ProcessingStatuses" Type="Self.ProcessingStatuses" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingStatuses">
+              <PropertyRef Name="ProcessingStatusID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="ProcessingStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_ReceivingStatuses">
+          <End Role="ReceivingStatuses" Type="Self.ReceivingStatuses" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReceivingStatuses">
+              <PropertyRef Name="ReceivingStatusID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="ReceivingStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designers_Countries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
+          <End Role="Designers" Type="Self.Designers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Designers">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourities_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Favourities" Type="Self.Favourities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Favourities">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourities_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Favourities" Type="Self.Favourities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Favourities">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderCompositions_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderCompositions" Type="Self.OrderCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderCompositions">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderCompositions_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderCompositions" Type="Self.OrderCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderCompositions">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_PickUpPoints">
+          <End Role="PickUpPoints" Type="Self.PickUpPoints" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PickUpPoints">
+              <PropertyRef Name="PickUpPointID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PickUpPointID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PickUpPoints_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="PickUpPoints" Type="Self.PickUpPoints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="PickUpPoints">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAccessoryTypes_AccessoryTypes">
+          <End Role="AccessoryTypes" Type="Self.AccessoryTypes" Multiplicity="1" />
+          <End Role="ProductAccessoryTypes" Type="Self.ProductAccessoryTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessoryTypes">
+              <PropertyRef Name="AccessoryTypeID" />
+            </Principal>
+            <Dependent Role="ProductAccessoryTypes">
+              <PropertyRef Name="AccessoryTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAccessoryTypes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductAccessoryTypes" Type="Self.ProductAccessoryTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductAccessoryTypes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductNeedleworkTypes_NeedleworkTypes">
+          <End Role="NeedleworkTypes" Type="Self.NeedleworkTypes" Multiplicity="1" />
+          <End Role="ProductNeedleworkTypes" Type="Self.ProductNeedleworkTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NeedleworkTypes">
+              <PropertyRef Name="NeedleworkTypeID" />
+            </Principal>
+            <Dependent Role="ProductNeedleworkTypes">
+              <PropertyRef Name="NeedleworkTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductNeedleworkTypes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductNeedleworkTypes" Type="Self.ProductNeedleworkTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductNeedleworkTypes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_AvailabilityStatuses">
+          <End Role="AvailabilityStatuses" Type="Self.AvailabilityStatuses" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvailabilityStatuses">
+              <PropertyRef Name="AvailabilityStatusID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="AvailabilityStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Designers">
+          <End Role="Designers" Type="Self.Designers" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designers">
+              <PropertyRef Name="DesignerID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="DesignerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_ProductTypes">
+          <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypes">
+              <PropertyRef Name="ProductTypeID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ProductTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductStitchTypes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductStitchTypes" Type="Self.ProductStitchTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductStitchTypes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductStitchTypes_StitchTypes">
+          <End Role="StitchTypes" Type="Self.StitchTypes" Multiplicity="1" />
+          <End Role="ProductStitchTypes" Type="Self.ProductStitchTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StitchTypes">
+              <PropertyRef Name="StitchTypeID" />
+            </Principal>
+            <Dependent Role="ProductStitchTypes">
+              <PropertyRef Name="StitchTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductThemes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductThemes" Type="Self.ProductThemes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductThemes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductThemes_Themes">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="1" />
+          <End Role="ProductThemes" Type="Self.ProductThemes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="ThemeID" />
+            </Principal>
+            <Dependent Role="ProductThemes">
+              <PropertyRef Name="ThemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище NeedleworkStoreModelContainer">
+          <EntitySet Name="AccessoryTypes" EntityType="Self.AccessoryTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssigningStatuses" EntityType="Self.AssigningStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvailabilityStatuses" EntityType="Self.AvailabilityStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carts" EntityType="Self.Carts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designers" EntityType="Self.Designers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Favourities" EntityType="Self.Favourities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NeedleworkTypes" EntityType="Self.NeedleworkTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderCompositions" EntityType="Self.OrderCompositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentStatuses" EntityType="Self.PaymentStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PickUpPoints" EntityType="Self.PickUpPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcessingStatuses" EntityType="Self.ProcessingStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductAccessoryTypes" EntityType="Self.ProductAccessoryTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductNeedleworkTypes" EntityType="Self.ProductNeedleworkTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStitchTypes" EntityType="Self.ProductStitchTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductThemes" EntityType="Self.ProductThemes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceivingStatuses" EntityType="Self.ReceivingStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StitchTypes" EntityType="Self.StitchTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AssigningStatuses_Orders" Association="Self.FK_AssigningStatuses_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_PaymentStatuses" Association="Self.FK_AssigningStatuses_PaymentStatuses">
+            <End Role="PaymentStatuses" EntitySet="PaymentStatuses" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_ProcessingStatuses" Association="Self.FK_AssigningStatuses_ProcessingStatuses">
+            <End Role="ProcessingStatuses" EntitySet="ProcessingStatuses" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_ReceivingStatuses" Association="Self.FK_AssigningStatuses_ReceivingStatuses">
+            <End Role="ReceivingStatuses" EntitySet="ReceivingStatuses" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_Products" Association="Self.FK_Carts_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_Users" Association="Self.FK_Carts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designers_Countries" Association="Self.FK_Designers_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Designers" EntitySet="Designers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourities_Products" Association="Self.FK_Favourities_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Favourities" EntitySet="Favourities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourities_Users" Association="Self.FK_Favourities_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Favourities" EntitySet="Favourities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderCompositions_Orders" Association="Self.FK_OrderCompositions_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderCompositions" EntitySet="OrderCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderCompositions_Products" Association="Self.FK_OrderCompositions_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderCompositions" EntitySet="OrderCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_PickUpPoints" Association="Self.FK_Orders_PickUpPoints">
+            <End Role="PickUpPoints" EntitySet="PickUpPoints" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PickUpPoints_Cities" Association="Self.FK_PickUpPoints_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="PickUpPoints" EntitySet="PickUpPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAccessoryTypes_AccessoryTypes" Association="Self.FK_ProductAccessoryTypes_AccessoryTypes">
+            <End Role="AccessoryTypes" EntitySet="AccessoryTypes" />
+            <End Role="ProductAccessoryTypes" EntitySet="ProductAccessoryTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAccessoryTypes_Products" Association="Self.FK_ProductAccessoryTypes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductAccessoryTypes" EntitySet="ProductAccessoryTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductNeedleworkTypes_NeedleworkTypes" Association="Self.FK_ProductNeedleworkTypes_NeedleworkTypes">
+            <End Role="NeedleworkTypes" EntitySet="NeedleworkTypes" />
+            <End Role="ProductNeedleworkTypes" EntitySet="ProductNeedleworkTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductNeedleworkTypes_Products" Association="Self.FK_ProductNeedleworkTypes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductNeedleworkTypes" EntitySet="ProductNeedleworkTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_AvailabilityStatuses" Association="Self.FK_Products_AvailabilityStatuses">
+            <End Role="AvailabilityStatuses" EntitySet="AvailabilityStatuses" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Designers" Association="Self.FK_Products_Designers">
+            <End Role="Designers" EntitySet="Designers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_ProductTypes" Association="Self.FK_Products_ProductTypes">
+            <End Role="ProductTypes" EntitySet="ProductTypes" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductStitchTypes_Products" Association="Self.FK_ProductStitchTypes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductStitchTypes" EntitySet="ProductStitchTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductStitchTypes_StitchTypes" Association="Self.FK_ProductStitchTypes_StitchTypes">
+            <End Role="StitchTypes" EntitySet="StitchTypes" />
+            <End Role="ProductStitchTypes" EntitySet="ProductStitchTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductThemes_Products" Association="Self.FK_ProductThemes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductThemes" EntitySet="ProductThemes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductThemes_Themes" Association="Self.FK_ProductThemes_Themes">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="ProductThemes" EntitySet="ProductThemes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Products" Association="Self.FK_Reviews_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NeedleworkStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessoryTypes">
+          <Key>
+            <PropertyRef Name="AccessoryTypeID" />
+          </Key>
+          <Property Name="AccessoryTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessoryTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductAccessoryTypes" Relationship="Self.FK_ProductAccessoryTypes_AccessoryTypes" FromRole="AccessoryTypes" ToRole="ProductAccessoryTypes" />
+        </EntityType>
+        <EntityType Name="AssigningStatuses">
+          <Key>
+            <PropertyRef Name="AssigningStatusID" />
+          </Key>
+          <Property Name="AssigningStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentStatusID" Type="Int32" Nullable="false" />
+          <Property Name="ReceivingStatusID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProcessingStatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_AssigningStatuses_Orders" FromRole="AssigningStatuses" ToRole="Orders" />
+          <NavigationProperty Name="PaymentStatuses" Relationship="Self.FK_AssigningStatuses_PaymentStatuses" FromRole="AssigningStatuses" ToRole="PaymentStatuses" />
+          <NavigationProperty Name="ProcessingStatuses" Relationship="Self.FK_AssigningStatuses_ProcessingStatuses" FromRole="AssigningStatuses" ToRole="ProcessingStatuses" />
+          <NavigationProperty Name="ReceivingStatuses" Relationship="Self.FK_AssigningStatuses_ReceivingStatuses" FromRole="AssigningStatuses" ToRole="ReceivingStatuses" />
+        </EntityType>
+        <EntityType Name="AvailabilityStatuses">
+          <Key>
+            <PropertyRef Name="AvailabilityStatusID" />
+          </Key>
+          <Property Name="AvailabilityStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvailabilityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_AvailabilityStatuses" FromRole="AvailabilityStatuses" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="QuantityCart" Type="Int32" Nullable="false" />
+          <Property Name="FormationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Carts_Products" FromRole="Carts" ToRole="Products" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Carts_Users" FromRole="Carts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PickUpPoints" Relationship="Self.FK_PickUpPoints_Cities" FromRole="Cities" ToRole="PickUpPoints" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Designers" Relationship="Self.FK_Designers_Countries" FromRole="Countries" ToRole="Designers" />
+        </EntityType>
+        <EntityType Name="Designers">
+          <Key>
+            <PropertyRef Name="DesignerID" />
+          </Key>
+          <Property Name="DesignerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Countries" Relationship="Self.FK_Designers_Countries" FromRole="Designers" ToRole="Countries" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Designers" FromRole="Designers" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Favourities">
+          <Key>
+            <PropertyRef Name="FavouriteID" />
+          </Key>
+          <Property Name="FavouriteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="FormationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Favourities_Products" FromRole="Favourities" ToRole="Products" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Favourities_Users" FromRole="Favourities" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="NeedleworkTypes">
+          <Key>
+            <PropertyRef Name="NeedleworkTypeID" />
+          </Key>
+          <Property Name="NeedleworkTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NeedleworkTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductNeedleworkTypes" Relationship="Self.FK_ProductNeedleworkTypes_NeedleworkTypes" FromRole="NeedleworkTypes" ToRole="ProductNeedleworkTypes" />
+        </EntityType>
+        <EntityType Name="OrderCompositions">
+          <Key>
+            <PropertyRef Name="OrderCompositionID" />
+          </Key>
+          <Property Name="OrderCompositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_OrderCompositions_Orders" FromRole="OrderCompositions" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_OrderCompositions_Products" FromRole="OrderCompositions" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PickUpPointID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AssigningStatuses" Relationship="Self.FK_AssigningStatuses_Orders" FromRole="Orders" ToRole="AssigningStatuses" />
+          <NavigationProperty Name="OrderCompositions" Relationship="Self.FK_OrderCompositions_Orders" FromRole="Orders" ToRole="OrderCompositions" />
+          <NavigationProperty Name="PickUpPoints" Relationship="Self.FK_Orders_PickUpPoints" FromRole="Orders" ToRole="PickUpPoints" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PaymentStatuses">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AssigningStatuses" Relationship="Self.FK_AssigningStatuses_PaymentStatuses" FromRole="PaymentStatuses" ToRole="AssigningStatuses" />
+        </EntityType>
+        <EntityType Name="PickUpPoints">
+          <Key>
+            <PropertyRef Name="PickUpPointID" />
+          </Key>
+          <Property Name="PickUpPointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adress" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_PickUpPoints_Cities" FromRole="PickUpPoints" ToRole="Cities" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_PickUpPoints" FromRole="PickUpPoints" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="ProcessingStatuses">
+          <Key>
+            <PropertyRef Name="ProcessingStatusID" />
+          </Key>
+          <Property Name="ProcessingStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AssigningStatuses" Relationship="Self.FK_AssigningStatuses_ProcessingStatuses" FromRole="ProcessingStatuses" ToRole="AssigningStatuses" />
+        </EntityType>
+        <EntityType Name="ProductAccessoryTypes">
+          <Key>
+            <PropertyRef Name="ProductAccessoryTypeID" />
+          </Key>
+          <Property Name="ProductAccessoryTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="AccessoryTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccessoryTypes" Relationship="Self.FK_ProductAccessoryTypes_AccessoryTypes" FromRole="ProductAccessoryTypes" ToRole="AccessoryTypes" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductAccessoryTypes_Products" FromRole="ProductAccessoryTypes" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ProductNeedleworkTypes">
+          <Key>
+            <PropertyRef Name="ProductNeedleworkTypesID" />
+          </Key>
+          <Property Name="ProductNeedleworkTypesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="NeedleworkTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NeedleworkTypes" Relationship="Self.FK_ProductNeedleworkTypes_NeedleworkTypes" FromRole="ProductNeedleworkTypes" ToRole="NeedleworkTypes" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductNeedleworkTypes_Products" FromRole="ProductNeedleworkTypes" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductPrice" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ProductImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DesignerID" Type="Int32" Nullable="false" />
+          <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AvailabilityStatusID" Type="Int32" Nullable="false" />
+          <Property Name="QRLink" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AvailabilityStatuses" Relationship="Self.FK_Products_AvailabilityStatuses" FromRole="Products" ToRole="AvailabilityStatuses" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Carts_Products" FromRole="Products" ToRole="Carts" />
+          <NavigationProperty Name="Designers" Relationship="Self.FK_Products_Designers" FromRole="Products" ToRole="Designers" />
+          <NavigationProperty Name="Favourities" Relationship="Self.FK_Favourities_Products" FromRole="Products" ToRole="Favourities" />
+          <NavigationProperty Name="OrderCompositions" Relationship="Self.FK_OrderCompositions_Products" FromRole="Products" ToRole="OrderCompositions" />
+          <NavigationProperty Name="ProductAccessoryTypes" Relationship="Self.FK_ProductAccessoryTypes_Products" FromRole="Products" ToRole="ProductAccessoryTypes" />
+          <NavigationProperty Name="ProductNeedleworkTypes" Relationship="Self.FK_ProductNeedleworkTypes_Products" FromRole="Products" ToRole="ProductNeedleworkTypes" />
+          <NavigationProperty Name="ProductTypes" Relationship="Self.FK_Products_ProductTypes" FromRole="Products" ToRole="ProductTypes" />
+          <NavigationProperty Name="ProductStitchTypes" Relationship="Self.FK_ProductStitchTypes_Products" FromRole="Products" ToRole="ProductStitchTypes" />
+          <NavigationProperty Name="ProductThemes" Relationship="Self.FK_ProductThemes_Products" FromRole="Products" ToRole="ProductThemes" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Products" FromRole="Products" ToRole="Reviews" />
+        </EntityType>
+        <EntityType Name="ProductStitchTypes">
+          <Key>
+            <PropertyRef Name="ProductStitchTypeID" />
+          </Key>
+          <Property Name="ProductStitchTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="StitchTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductStitchTypes_Products" FromRole="ProductStitchTypes" ToRole="Products" />
+          <NavigationProperty Name="StitchTypes" Relationship="Self.FK_ProductStitchTypes_StitchTypes" FromRole="ProductStitchTypes" ToRole="StitchTypes" />
+        </EntityType>
+        <EntityType Name="ProductThemes">
+          <Key>
+            <PropertyRef Name="ProductThemeID" />
+          </Key>
+          <Property Name="ProductThemeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ThemeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductThemes_Products" FromRole="ProductThemes" ToRole="Products" />
+          <NavigationProperty Name="Themes" Relationship="Self.FK_ProductThemes_Themes" FromRole="ProductThemes" ToRole="Themes" />
+        </EntityType>
+        <EntityType Name="ProductTypes">
+          <Key>
+            <PropertyRef Name="ProductTypeID" />
+          </Key>
+          <Property Name="ProductTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductTypes" FromRole="ProductTypes" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ReceivingStatuses">
+          <Key>
+            <PropertyRef Name="ReceivingStatusID" />
+          </Key>
+          <Property Name="ReceivingStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceivingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AssigningStatuses" Relationship="Self.FK_AssigningStatuses_ReceivingStatuses" FromRole="ReceivingStatuses" ToRole="AssigningStatuses" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Reviews_Products" FromRole="Reviews" ToRole="Products" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Reviews_Users" FromRole="Reviews" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="StitchTypes">
+          <Key>
+            <PropertyRef Name="StitchTypeID" />
+          </Key>
+          <Property Name="StitchTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StitchTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductStitchTypes" Relationship="Self.FK_ProductStitchTypes_StitchTypes" FromRole="StitchTypes" ToRole="ProductStitchTypes" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="ThemeID" />
+          </Key>
+          <Property Name="ThemeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThemeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductThemes" Relationship="Self.FK_ProductThemes_Themes" FromRole="Themes" ToRole="ProductThemes" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserLastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPatronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="UserPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Carts_Users" FromRole="Users" ToRole="Carts" />
+          <NavigationProperty Name="Favourities" Relationship="Self.FK_Favourities_Users" FromRole="Users" ToRole="Favourities" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_ProductAccessoryTypes_AccessoryTypes">
+          <End Role="AccessoryTypes" Type="Self.AccessoryTypes" Multiplicity="1" />
+          <End Role="ProductAccessoryTypes" Type="Self.ProductAccessoryTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessoryTypes">
+              <PropertyRef Name="AccessoryTypeID" />
+            </Principal>
+            <Dependent Role="ProductAccessoryTypes">
+              <PropertyRef Name="AccessoryTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_PaymentStatuses">
+          <End Role="PaymentStatuses" Type="Self.PaymentStatuses" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatuses">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="PaymentStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_ProcessingStatuses">
+          <End Role="ProcessingStatuses" Type="Self.ProcessingStatuses" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingStatuses">
+              <PropertyRef Name="ProcessingStatusID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="ProcessingStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssigningStatuses_ReceivingStatuses">
+          <End Role="ReceivingStatuses" Type="Self.ReceivingStatuses" Multiplicity="1" />
+          <End Role="AssigningStatuses" Type="Self.AssigningStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReceivingStatuses">
+              <PropertyRef Name="ReceivingStatusID" />
+            </Principal>
+            <Dependent Role="AssigningStatuses">
+              <PropertyRef Name="ReceivingStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_AvailabilityStatuses">
+          <End Role="AvailabilityStatuses" Type="Self.AvailabilityStatuses" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvailabilityStatuses">
+              <PropertyRef Name="AvailabilityStatusID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="AvailabilityStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PickUpPoints_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="PickUpPoints" Type="Self.PickUpPoints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="PickUpPoints">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designers_Countries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
+          <End Role="Designers" Type="Self.Designers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Designers">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Designers">
+          <End Role="Designers" Type="Self.Designers" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designers">
+              <PropertyRef Name="DesignerID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="DesignerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourities_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Favourities" Type="Self.Favourities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Favourities">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourities_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Favourities" Type="Self.Favourities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Favourities">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductNeedleworkTypes_NeedleworkTypes">
+          <End Role="NeedleworkTypes" Type="Self.NeedleworkTypes" Multiplicity="1" />
+          <End Role="ProductNeedleworkTypes" Type="Self.ProductNeedleworkTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NeedleworkTypes">
+              <PropertyRef Name="NeedleworkTypeID" />
+            </Principal>
+            <Dependent Role="ProductNeedleworkTypes">
+              <PropertyRef Name="NeedleworkTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderCompositions_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderCompositions" Type="Self.OrderCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderCompositions">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderCompositions_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderCompositions" Type="Self.OrderCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderCompositions">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_PickUpPoints">
+          <End Role="PickUpPoints" Type="Self.PickUpPoints" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PickUpPoints">
+              <PropertyRef Name="PickUpPointID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PickUpPointID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAccessoryTypes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductAccessoryTypes" Type="Self.ProductAccessoryTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductAccessoryTypes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductNeedleworkTypes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductNeedleworkTypes" Type="Self.ProductNeedleworkTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductNeedleworkTypes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_ProductTypes">
+          <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypes">
+              <PropertyRef Name="ProductTypeID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ProductTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductStitchTypes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductStitchTypes" Type="Self.ProductStitchTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductStitchTypes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductThemes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductThemes" Type="Self.ProductThemes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductThemes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductStitchTypes_StitchTypes">
+          <End Role="StitchTypes" Type="Self.StitchTypes" Multiplicity="1" />
+          <End Role="ProductStitchTypes" Type="Self.ProductStitchTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StitchTypes">
+              <PropertyRef Name="StitchTypeID" />
+            </Principal>
+            <Dependent Role="ProductStitchTypes">
+              <PropertyRef Name="StitchTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductThemes_Themes">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="1" />
+          <End Role="ProductThemes" Type="Self.ProductThemes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="ThemeID" />
+            </Principal>
+            <Dependent Role="ProductThemes">
+              <PropertyRef Name="ThemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NeedleworkStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessoryTypes" EntityType="Self.AccessoryTypes" />
+          <EntitySet Name="AssigningStatuses" EntityType="Self.AssigningStatuses" />
+          <EntitySet Name="AvailabilityStatuses" EntityType="Self.AvailabilityStatuses" />
+          <EntitySet Name="Carts" EntityType="Self.Carts" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" />
+          <EntitySet Name="Designers" EntityType="Self.Designers" />
+          <EntitySet Name="Favourities" EntityType="Self.Favourities" />
+          <EntitySet Name="NeedleworkTypes" EntityType="Self.NeedleworkTypes" />
+          <EntitySet Name="OrderCompositions" EntityType="Self.OrderCompositions" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="PaymentStatuses" EntityType="Self.PaymentStatuses" />
+          <EntitySet Name="PickUpPoints" EntityType="Self.PickUpPoints" />
+          <EntitySet Name="ProcessingStatuses" EntityType="Self.ProcessingStatuses" />
+          <EntitySet Name="ProductAccessoryTypes" EntityType="Self.ProductAccessoryTypes" />
+          <EntitySet Name="ProductNeedleworkTypes" EntityType="Self.ProductNeedleworkTypes" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="ProductStitchTypes" EntityType="Self.ProductStitchTypes" />
+          <EntitySet Name="ProductThemes" EntityType="Self.ProductThemes" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" />
+          <EntitySet Name="ReceivingStatuses" EntityType="Self.ReceivingStatuses" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="StitchTypes" EntityType="Self.StitchTypes" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_ProductAccessoryTypes_AccessoryTypes" Association="Self.FK_ProductAccessoryTypes_AccessoryTypes">
+            <End Role="AccessoryTypes" EntitySet="AccessoryTypes" />
+            <End Role="ProductAccessoryTypes" EntitySet="ProductAccessoryTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_Orders" Association="Self.FK_AssigningStatuses_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_PaymentStatuses" Association="Self.FK_AssigningStatuses_PaymentStatuses">
+            <End Role="PaymentStatuses" EntitySet="PaymentStatuses" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_ProcessingStatuses" Association="Self.FK_AssigningStatuses_ProcessingStatuses">
+            <End Role="ProcessingStatuses" EntitySet="ProcessingStatuses" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssigningStatuses_ReceivingStatuses" Association="Self.FK_AssigningStatuses_ReceivingStatuses">
+            <End Role="ReceivingStatuses" EntitySet="ReceivingStatuses" />
+            <End Role="AssigningStatuses" EntitySet="AssigningStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_AvailabilityStatuses" Association="Self.FK_Products_AvailabilityStatuses">
+            <End Role="AvailabilityStatuses" EntitySet="AvailabilityStatuses" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_Products" Association="Self.FK_Carts_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_Users" Association="Self.FK_Carts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PickUpPoints_Cities" Association="Self.FK_PickUpPoints_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="PickUpPoints" EntitySet="PickUpPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designers_Countries" Association="Self.FK_Designers_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Designers" EntitySet="Designers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Designers" Association="Self.FK_Products_Designers">
+            <End Role="Designers" EntitySet="Designers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourities_Products" Association="Self.FK_Favourities_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Favourities" EntitySet="Favourities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourities_Users" Association="Self.FK_Favourities_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Favourities" EntitySet="Favourities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductNeedleworkTypes_NeedleworkTypes" Association="Self.FK_ProductNeedleworkTypes_NeedleworkTypes">
+            <End Role="NeedleworkTypes" EntitySet="NeedleworkTypes" />
+            <End Role="ProductNeedleworkTypes" EntitySet="ProductNeedleworkTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderCompositions_Orders" Association="Self.FK_OrderCompositions_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderCompositions" EntitySet="OrderCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderCompositions_Products" Association="Self.FK_OrderCompositions_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderCompositions" EntitySet="OrderCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_PickUpPoints" Association="Self.FK_Orders_PickUpPoints">
+            <End Role="PickUpPoints" EntitySet="PickUpPoints" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAccessoryTypes_Products" Association="Self.FK_ProductAccessoryTypes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductAccessoryTypes" EntitySet="ProductAccessoryTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductNeedleworkTypes_Products" Association="Self.FK_ProductNeedleworkTypes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductNeedleworkTypes" EntitySet="ProductNeedleworkTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_ProductTypes" Association="Self.FK_Products_ProductTypes">
+            <End Role="ProductTypes" EntitySet="ProductTypes" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductStitchTypes_Products" Association="Self.FK_ProductStitchTypes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductStitchTypes" EntitySet="ProductStitchTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductThemes_Products" Association="Self.FK_ProductThemes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductThemes" EntitySet="ProductThemes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Products" Association="Self.FK_Reviews_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductStitchTypes_StitchTypes" Association="Self.FK_ProductStitchTypes_StitchTypes">
+            <End Role="StitchTypes" EntitySet="StitchTypes" />
+            <End Role="ProductStitchTypes" EntitySet="ProductStitchTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductThemes_Themes" Association="Self.FK_ProductThemes_Themes">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="ProductThemes" EntitySet="ProductThemes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище NeedleworkStoreModelContainer" CdmEntityContainer="NeedleworkStoreEntities">
+          <EntitySetMapping Name="AccessoryTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.AccessoryTypes">
+              <MappingFragment StoreEntitySet="AccessoryTypes">
+                <ScalarProperty Name="AccessoryTypeID" ColumnName="AccessoryTypeID" />
+                <ScalarProperty Name="AccessoryTypeName" ColumnName="AccessoryTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssigningStatuses">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.AssigningStatuses">
+              <MappingFragment StoreEntitySet="AssigningStatuses">
+                <ScalarProperty Name="AssigningStatusID" ColumnName="AssigningStatusID" />
+                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
+                <ScalarProperty Name="ReceivingStatusID" ColumnName="ReceivingStatusID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProcessingStatusID" ColumnName="ProcessingStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvailabilityStatuses">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.AvailabilityStatuses">
+              <MappingFragment StoreEntitySet="AvailabilityStatuses">
+                <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
+                <ScalarProperty Name="AvailabilityStatus" ColumnName="AvailabilityStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Carts">
+              <MappingFragment StoreEntitySet="Carts">
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="QuantityCart" ColumnName="QuantityCart" />
+                <ScalarProperty Name="FormationDate" ColumnName="FormationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Cities">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Countries">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designers">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Designers">
+              <MappingFragment StoreEntitySet="Designers">
+                <ScalarProperty Name="DesignerID" ColumnName="DesignerID" />
+                <ScalarProperty Name="DesignerName" ColumnName="DesignerName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourities">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Favourities">
+              <MappingFragment StoreEntitySet="Favourities">
+                <ScalarProperty Name="FavouriteID" ColumnName="FavouriteID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="FormationDate" ColumnName="FormationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NeedleworkTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.NeedleworkTypes">
+              <MappingFragment StoreEntitySet="NeedleworkTypes">
+                <ScalarProperty Name="NeedleworkTypeID" ColumnName="NeedleworkTypeID" />
+                <ScalarProperty Name="NeedleworkTypeName" ColumnName="NeedleworkTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderCompositions">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.OrderCompositions">
+              <MappingFragment StoreEntitySet="OrderCompositions">
+                <ScalarProperty Name="OrderCompositionID" ColumnName="OrderCompositionID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PickUpPointID" ColumnName="PickUpPointID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentStatuses">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.PaymentStatuses">
+              <MappingFragment StoreEntitySet="PaymentStatuses">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PickUpPoints">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.PickUpPoints">
+              <MappingFragment StoreEntitySet="PickUpPoints">
+                <ScalarProperty Name="PickUpPointID" ColumnName="PickUpPointID" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcessingStatuses">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ProcessingStatuses">
+              <MappingFragment StoreEntitySet="ProcessingStatuses">
+                <ScalarProperty Name="ProcessingStatusID" ColumnName="ProcessingStatusID" />
+                <ScalarProperty Name="ProcessingStatus" ColumnName="ProcessingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductAccessoryTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ProductAccessoryTypes">
+              <MappingFragment StoreEntitySet="ProductAccessoryTypes">
+                <ScalarProperty Name="ProductAccessoryTypeID" ColumnName="ProductAccessoryTypeID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="AccessoryTypeID" ColumnName="AccessoryTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductNeedleworkTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ProductNeedleworkTypes">
+              <MappingFragment StoreEntitySet="ProductNeedleworkTypes">
+                <ScalarProperty Name="ProductNeedleworkTypesID" ColumnName="ProductNeedleworkTypesID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="NeedleworkTypeID" ColumnName="NeedleworkTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="DesignerID" ColumnName="DesignerID" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+                <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
+                <ScalarProperty Name="QRLink" ColumnName="QRLink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStitchTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ProductStitchTypes">
+              <MappingFragment StoreEntitySet="ProductStitchTypes">
+                <ScalarProperty Name="ProductStitchTypeID" ColumnName="ProductStitchTypeID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="StitchTypeID" ColumnName="StitchTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductThemes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ProductThemes">
+              <MappingFragment StoreEntitySet="ProductThemes">
+                <ScalarProperty Name="ProductThemeID" ColumnName="ProductThemeID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ThemeID" ColumnName="ThemeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ProductTypes">
+              <MappingFragment StoreEntitySet="ProductTypes">
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+                <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReceivingStatuses">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.ReceivingStatuses">
+              <MappingFragment StoreEntitySet="ReceivingStatuses">
+                <ScalarProperty Name="ReceivingStatusID" ColumnName="ReceivingStatusID" />
+                <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Reviews">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StitchTypes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.StitchTypes">
+              <MappingFragment StoreEntitySet="StitchTypes">
+                <ScalarProperty Name="StitchTypeID" ColumnName="StitchTypeID" />
+                <ScalarProperty Name="StitchTypeName" ColumnName="StitchTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Themes">
+              <MappingFragment StoreEntitySet="Themes">
+                <ScalarProperty Name="ThemeID" ColumnName="ThemeID" />
+                <ScalarProperty Name="ThemeName" ColumnName="ThemeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NeedleworkStoreModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserLastname" ColumnName="UserLastname" />
+                <ScalarProperty Name="UserPatronymic" ColumnName="UserPatronymic" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,5 +1,5 @@
-﻿using NeedleworkStore.Classes;
-using NeedleworkStore.Pages;
+﻿using NeedleworkStore.AppData;
+using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,23 +15,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NeedleworkStore
+namespace NeedleworkStore.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для UserFramePage.xaml
     /// </summary>
-    /// 
-
-    
-    public partial class MainWindow : Window
+    public partial class UserFramePage : Page
     {
-        public MainWindow()
+        public UserFramePage()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            NeedleworkStoreEntities ctx = new NeedleworkStoreEntities();
+            //txtblUserName = 
         }
+       
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
-            Mainfrm.Navigate(new CartPage());
+            this.NavigationService.Navigate(new CartPage());
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
         {
@@ -40,12 +40,12 @@ namespace NeedleworkStore
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            Mainfrm.Navigate(new ProfilePage());
+            this.NavigationService.Navigate(new ProfilePage());
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            Mainfrm.Navigate(new AuthPage());
+            this.NavigationService.Navigate(new AuthPage());
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -62,25 +62,11 @@ namespace NeedleworkStore
         }
         private void btnProd_Click(object sender, RoutedEventArgs e)
         {
-            Mainfrm.Navigate(new ProductsPage());
+            this.NavigationService.Navigate(new ProductsPage());
         }
         private void txtSearch_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
-        }        
-        private void btnCartGuest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
         }
-        private void btnAuthReg_Click(object sender, RoutedEventArgs e)
-        {
-            Mainfrm.Navigate(new AuthPage());
-        }
-       
-        private void btnReg_Click(object sender, RoutedEventArgs e)
-        {
-            Mainfrm.Navigate(new RegistrationPage());
-        }       
-       
     }
 }
