@@ -8,95 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
     <DockPanel Name="pnlMain" Margin="20">
-        <StackPanel DockPanel.Dock="Top">
-            <WrapPanel HorizontalAlignment="Center">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Button  Name="btnShop" Grid.Column="0" Grid.Row="0" MinWidth="100"
-                     Margin="10 0" BorderBrush="#778FD2" HorizontalAlignment="Right"
-                     Click="btnShop_Click" MaxWidth="120" Height="25"
-                     >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
-                        <WrapPanel>
-                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                               >О магазине
-                            </TextBlock>
-                        </WrapPanel>
-                    </Button>
-                    <Button Name="btnCart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
-                    MinWidth="100" MaxWidth="120" Margin="10 0" Height="25"
-                    BorderBrush="#778FD2" Click="btnCart_Click"
-                    >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
-                        <WrapPanel>
-                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                               >Корзина
-                            </TextBlock>
-                        </WrapPanel>
-                    </Button>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Foreground="#2A3759"
-                       FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
-                       FontSize="10" LineHeight="15" HorizontalAlignment="Left"
-                       >Количество товаров: 
-                <TextBlock FontSize="15">20</TextBlock>
-            </TextBlock>
-                    <WrapPanel Grid.Column="2" Grid.Row="0">
-                        <Button Name="btnProd" MinWidth="100" MaxWidth="120"
-                        Margin="10 0" BorderBrush="#778FD2" Height="25"
-                        Click="btnProd_Click"
-                        >
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0.25"/>
-                            </Button.Background>
-                            <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                   >Каталог
-                                </TextBlock>
-                            </WrapPanel>
-                        </Button>
-                        <Button Name="btnExit" MinWidth="100" MaxWidth="120" Height="25"
-                        Margin="10 0" BorderBrush="#778FD2" Click="btnExit_Click"
-                        >
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0.25"/>
-                            </Button.Background>
-                            <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Выйти</TextBlock>
-                            </WrapPanel>
-                        </Button>
-                        <TextBox Name="txtSearch" MinWidth="100" MaxHeight="20"></TextBox>
-                        <Button Name="btnSearch" MinWidth="100" MaxWidth="120" 
-                        Margin="10 0" BorderBrush="#778FD2" HorizontalAlignment="Right"
-                        Click="btnSearch_Click"
-                        >
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0.25"/>
-                            </Button.Background>
-                            <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Найти</TextBlock>
-                            </WrapPanel>
-                        </Button>
-                    </WrapPanel>
-                    <TextBlock Grid.Column="2" Grid.Row="1" Foreground="#2A3759"
-                       FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
-                       FontSize="13" LineHeight="15" HorizontalAlignment="Right"
-                       VerticalAlignment="Center" Margin="10 5"
-                       >Рады вас видеть, Имя пользователя!
-                    </TextBlock>
-                </Grid>
-            </WrapPanel>
+        <StackPanel DockPanel.Dock="Top">            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -121,9 +33,13 @@
                             <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" 
                                     Foreground="White" HorizontalAlignment="Center"
                                     >заказы
-                            </TextBlock>
+                            </TextBlock>                            
                         </StackPanel>
                     </Button>
+                    <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
+                            HorizontalAlignment="Right" Margin="20" MouseDown="Image_MouseDown"
+                            >
+                    </Image>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <GroupBox Margin="10 10 10 30">

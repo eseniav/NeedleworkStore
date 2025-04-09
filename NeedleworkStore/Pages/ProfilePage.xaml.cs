@@ -47,42 +47,11 @@ namespace NeedleworkStore.Pages
             {
                 MessageBox.Show("No page to go back");
             }
-        }
-        private void btnShop_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу О магазине");
-        }
-
-        private void btnProd_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProductsPage());
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new AuthPage());
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            }
-            else
-            {
-                MessageBox.Show("Заполните поле!");
-            }
-        }
-        private void btnCart_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new CartPage());
-        }
+        }       
 
         private void btnFav_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу Избранное");
+            this.NavigationService.Navigate(new FavorPage());
         }
 
         private void btnOrders_Click(object sender, RoutedEventArgs e)
@@ -93,6 +62,10 @@ namespace NeedleworkStore.Pages
         private void btnRedact_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Переход на страницу Редактирование профиля");
+        }
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.NavigationService.Navigate(new OneProductPage());
         }
     }
 }

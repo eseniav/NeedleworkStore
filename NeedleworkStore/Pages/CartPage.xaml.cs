@@ -70,7 +70,7 @@ namespace NeedleworkStore.Pages
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу Профиль");
+            this.NavigationService.Navigate(new ProfilePage());
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -90,18 +90,14 @@ namespace NeedleworkStore.Pages
                 MessageBox.Show("Заполните поле!");
             }
         }
-
-        private void btnProd_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProductsPage());
-        }
+        
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MessageBox.Show("Соответствующая сортировка");
         }
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с одним товаром");
+            this.NavigationService.Navigate(new OneProductPage());
         }
 
         private void btnBuy_Click(object sender, RoutedEventArgs e)

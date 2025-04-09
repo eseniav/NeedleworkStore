@@ -8,12 +8,133 @@
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         Top="0" Left="0"
-        Title="MainWindow" Height="950" Width="800" 
-        MinWidth="320" MinHeight="550" Background="#B7CB99" 
-        MaxWidth="1200"
+        Title="Мастерская вдохновения" 
+        Style="{StaticResource Window}"
+        Background="#B7CB99"
         Icon="ResImages\1675591832_papik-pro-p-katushka-nitok-risunok-44.jpg"
         >
     <StackPanel>
-        <Frame Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>        
+        <WrapPanel HorizontalAlignment="Center" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <WrapPanel Grid.Column="0" Grid.Row="0">
+                    <Button  Name="btnShop" Style="{StaticResource btnOpacity}"
+                     Click="btnShop_Click"
+                     >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}"
+                                >О магазине
+                            </TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Name="btnProd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
+                    Style="{StaticResource btnOpacity}" Click="btnProd_Click"
+                    >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}"
+                        >Каталог
+                            </TextBlock>
+                        </WrapPanel>
+                    </Button>
+                </WrapPanel>
+                <Button Name="btnCart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
+        Style="{StaticResource btnOpacity}" Click="btnCart_Click"
+        >
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}"
+                   >Корзина
+                        </TextBlock>
+                    </WrapPanel>
+                </Button>
+                <TextBlock Grid.Column="1" Grid.Row="1" Foreground="#2A3759" Visibility="Collapsed"
+           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
+           FontSize="10" LineHeight="15" HorizontalAlignment="Left"
+           >Количество товаров: 
+    <TextBlock FontSize="15">20</TextBlock>
+</TextBlock>
+                <WrapPanel Grid.Column="2" Grid.Row="0">
+                    <Button Name="btnProfile" Style="{StaticResource btnOpacity}" Visibility="Collapsed"
+            Click="btnProfile_Click"
+            >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}"
+                       >Профиль
+                            </TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Name="btnReg" Style="{StaticResource btnOpacity}"
+Click="btnReg_Click"
+>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}"
+           >Регистрация
+                            </TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Name="btnExit" Style="{StaticResource btnOpacity}" Visibility="Collapsed" Click="btnExit_Click"
+            >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}">Выйти</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <Button Name="btnAuthReg" Style="{StaticResource btnOpacity}" Click="btnAuthReg_Click">
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}">Войти</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                    <TextBox Name="txtSearch" MinWidth="100" MaxHeight="20"></TextBox>
+                    <Button Name="btnSearch" Style="{StaticResource btnOpacity}" HorizontalAlignment="Right"
+            Click="btnSearch_Click"
+            >
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}">Найти</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                </WrapPanel>
+                <TextBlock Grid.Column="2" Grid.Row="1" Foreground="#2A3759"
+           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
+           FontSize="13" LineHeight="15" HorizontalAlignment="Right"
+           VerticalAlignment="Center" Margin="10 5"  Visibility="Collapsed"
+           >Рады вас видеть, 
+            <TextBlock Name="txtblUserName"/>
+        </TextBlock>
+            </Grid>
+        </WrapPanel>
+        
+        
+        <Frame Name="Mainfrm" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
+        <!--<Frame Source="Pages/OrdersPage.xaml" NavigationUIVisibility="Hidden"/>-->
+        <!--<Frame Source="Pages/OneProductPage.xaml" NavigationUIVisibility="Hidden"/>-->
+        <!--<Frame Source="Pages/OneProductGuestPage.xaml" NavigationUIVisibility="Hidden"/>-->
+        <!--<Frame Source="Pages/OneProductWithoutFeedbackPage.xaml" NavigationUIVisibility="Hidden"/>-->
+        <!--<Frame Source="Pages/ProductsGuestPage.xaml" NavigationUIVisibility="Hidden"/>-->
+        <!--<Frame Source="Pages/FavorPage.xaml" NavigationUIVisibility="Hidden"/>-->
+        <!--<Frame Source="Pages/GuestFramePage.xaml" NavigationUIVisibility="Hidden"/>-->
     </StackPanel>
 </Window>

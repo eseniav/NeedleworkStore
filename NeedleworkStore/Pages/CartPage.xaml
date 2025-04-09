@@ -163,7 +163,7 @@
                                             <StackPanel Grid.Column="1">
                                                 <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Кларт"/>
                                                 <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Лаванда для нее"/>
-                                                <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Есть в наличии"/>
+                                                <Label FontFamily="Cakra Normal" Foreground="#3D5220" Content="Есть в наличии"/>
                                             </StackPanel>
                                         </Grid>
                                         <WrapPanel HorizontalAlignment="Center">

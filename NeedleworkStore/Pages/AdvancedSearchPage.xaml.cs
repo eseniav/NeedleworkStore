@@ -56,7 +56,7 @@ namespace NeedleworkStore.Pages
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу Профиль");
+            this.NavigationService.Navigate(new ProfilePage());
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

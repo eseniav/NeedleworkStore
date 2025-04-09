@@ -54,12 +54,7 @@ namespace NeedleworkStore.Pages
         private void btnAdvSearch_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new AdvancedSearchPage());
-        }
-
-        private void btnCart_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new CartPage());
-        }
+        }       
 
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
@@ -74,34 +69,7 @@ namespace NeedleworkStore.Pages
 
             ppCartIn.IsOpen = true;
             timer.Start();
-        }
-
-        private void btnShop_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу О магазине");
-        }
-
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу Профиль");
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new AuthPage());
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            } else
-            {
-                MessageBox.Show("Заполните поле!");
-            }            
-        }
+        }         
 
         private void btnStitch_Click(object sender, RoutedEventArgs e)
         {
@@ -164,7 +132,7 @@ namespace NeedleworkStore.Pages
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с одним товаром");
+            this.NavigationService.Navigate(new OneProductPage());
         }
 
         private void btnFavor_Click(object sender, RoutedEventArgs e)
@@ -182,9 +150,14 @@ namespace NeedleworkStore.Pages
             timer.Start();
         }
 
-        private void txtFrom_GotFocus(object sender, RoutedEventArgs e)
+        private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            txtFrom.SelectAll();
+            ((TextBox)sender).SelectAll();
+        }
+
+        private void txtFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((TextBox)sender).SelectAll();
         }
     }
 }

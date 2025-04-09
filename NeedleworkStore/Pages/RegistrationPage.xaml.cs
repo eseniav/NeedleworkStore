@@ -24,12 +24,7 @@ namespace NeedleworkStore.Pages
         {
             InitializeComponent();
         }
-
-        private void btnAuthReg_Click(object sender, RoutedEventArgs e)
-        {
-            //this.NavigationService.Navigate(new Uri("Pages/AuthPage.xaml", UriKind.Relative));
-            this.NavigationService.Navigate(new AuthPage());
-        }
+        
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -53,16 +48,6 @@ namespace NeedleworkStore.Pages
             {
                 MessageBox.Show("No page to go forward");
             }
-        }
-
-        private void btnShop_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу О магазине");
-        }
-
-        private void btnGuest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с товарами для гостя");
         }
 
         private void btnReg_Click(object sender, RoutedEventArgs e)
