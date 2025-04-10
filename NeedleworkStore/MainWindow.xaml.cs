@@ -26,16 +26,11 @@ namespace NeedleworkStore
     
     public partial class MainWindow : Window
     {
+        public static Frame frame;
         public MainWindow()
         {
             InitializeComponent();
-            SearchSidebarUC myUserControl = new SearchSidebarUC();
-            myUserControl.NavigateRequested += OnNavigateRequested;
-        }
-
-        private void OnNavigateRequested(object sender, EventArgs e)
-        {            
-            Mainfrm.Navigate(new AdvancedSearchPage());
+            frame = Mainfrm;
         }
 
         private void btnCart_Click(object sender, RoutedEventArgs e)

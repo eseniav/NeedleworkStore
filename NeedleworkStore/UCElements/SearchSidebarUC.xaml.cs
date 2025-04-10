@@ -22,7 +22,6 @@ namespace NeedleworkStore.UCElements
     /// </summary>
     public partial class SearchSidebarUC : UserControl
     {
-        public event EventHandler NavigateRequested;
         public SearchSidebarUC()
         {
             InitializeComponent();
@@ -30,7 +29,7 @@ namespace NeedleworkStore.UCElements
 
         private void btnAdvSearch_Click(object sender, RoutedEventArgs e)
         {
-            NavigateRequested?.Invoke(this, EventArgs.Empty);            
+            MainWindow.frame.Navigate(new AdvancedSearchPage());
         }
 
         private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
