@@ -49,12 +49,7 @@ namespace NeedleworkStore.Pages
             {
                 MessageBox.Show("No page to go back");
             }
-        }
-        private void btnCart_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new CartPage());
-        }
-
+        }        
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Добавляет товар в корзину");
@@ -68,35 +63,7 @@ namespace NeedleworkStore.Pages
 
             ppCartIn.IsOpen = true;
             timer.Start();
-        }
-
-        private void btnShop_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу О магазине");
-        }
-
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProfilePage());
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new AuthPage());
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            }
-            else
-            {
-                MessageBox.Show("Заполните поле!");
-            }
-        }
+        }  
 
         private void btnStitch_Click(object sender, RoutedEventArgs e)
         {
@@ -161,10 +128,7 @@ namespace NeedleworkStore.Pages
         {
             this.NavigationService.Navigate(new OneProductPage());
         }
-        private void txtFrom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            txtFrom.SelectAll();
-        }
+        
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
@@ -172,6 +136,16 @@ namespace NeedleworkStore.Pages
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Удаляет выбранные товары.\nПеред удалением появляется специальное окошко с выбором");
+        }
+
+        private void txtFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((TextBox)sender).SelectAll();
+        }
+
+        private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((TextBox)sender).SelectAll();
         }
     }
 }

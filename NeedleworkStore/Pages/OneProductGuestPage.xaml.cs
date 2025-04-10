@@ -52,45 +52,17 @@ namespace NeedleworkStore.Pages
         {
             MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
         }
-
-        private void btnShop_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу О магазине");
-        }
-        private void btnAuthReg_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new AuthPage());
-        }
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            }
-            else
-            {
-                MessageBox.Show("Заполните поле!");
-            }
-        }
+        
         private void btnFavorGuest_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
         }
-
-        private void btnReg_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new RegistrationPage());
-        }
+        
         private void rtxtFeedbackGuest_KeyDown(object sender, KeyEventArgs e)
         {
             MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
-        }
+        }        
         
-        private void btnCartGuest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
-        }
         private void hlThemes_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Переход на страницу с отфильтрованными товарами по каждой теме");

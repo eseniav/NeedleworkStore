@@ -13,20 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using NeedleworkStore.Classes;
 
-namespace NeedleworkStore.Pages
+namespace NeedleworkStore.UCElements
 {
     /// <summary>
-    /// Логика взаимодействия для ProductsPage.xaml
+    /// Логика взаимодействия для RecomendationUC.xaml
     /// </summary>
-    public partial class ProductsPage : Page
+    public partial class RecomendationUC : UserControl
     {
-        public ProductsPage()
+        public RecomendationUC()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
-        
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Переход на страницу с этим товаром");
+        }
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Добавляет товар в корзину");
@@ -41,17 +43,6 @@ namespace NeedleworkStore.Pages
             ppCartIn.IsOpen = true;
             timer.Start();
         }
-
-        private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MessageBox.Show("Соответствующая сортировка");
-        }
-
-        private void hlAbout_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new OneProductPage());
-        }
-
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Добавляет товар в избранное");
@@ -66,7 +57,5 @@ namespace NeedleworkStore.Pages
             ppFavorIn.IsOpen = true;
             timer.Start();
         }
-
-       
     }
 }

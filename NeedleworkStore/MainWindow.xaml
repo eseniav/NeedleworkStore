@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NeedleworkStore"
+        xmlns:local="clr-namespace:NeedleworkStore"        
         mc:Ignorable="d"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
@@ -13,8 +13,13 @@
         Background="#B7CB99"
         Icon="ResImages\1675591832_papik-pro-p-katushka-nitok-risunok-44.jpg"
         >
-    <StackPanel>
-        <WrapPanel HorizontalAlignment="Center" Margin="10">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -26,115 +31,105 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Column="0" Grid.Row="0">
-                    <Button  Name="btnShop" Style="{StaticResource btnOpacity}"
-                     Click="btnShop_Click"
-                     >
+                    <Button  Name="btnShop" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnShop_Click">
                         <Button.Background>
                             <SolidColorBrush Opacity="0.25"/>
                         </Button.Background>
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}"
-                                >О магазине
-                            </TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">О магазине</TextBlock>
                         </WrapPanel>
                     </Button>
                     <Button Name="btnProd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
-                    Style="{StaticResource btnOpacity}" Click="btnProd_Click"
-                    >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
+                                Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnProd_Click"
+                                >
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}"
-                        >Каталог
-                            </TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Каталог</TextBlock>
                         </WrapPanel>
                     </Button>
                 </WrapPanel>
                 <Button Name="btnCart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
-        Style="{StaticResource btnOpacity}" Click="btnCart_Click"
-        >
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0.25"/>
-                    </Button.Background>
+                            Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnCart_Click"
+                            >
                     <WrapPanel>
-                        <TextBlock Style="{StaticResource txtButtonOpacity}"
-                   >Корзина
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Корзина</TextBlock>
                     </WrapPanel>
                 </Button>
-                <TextBlock Grid.Column="1" Grid.Row="1" Foreground="#2A3759" Visibility="Collapsed"
-           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
-           FontSize="10" LineHeight="15" HorizontalAlignment="Left"
-           >Количество товаров: 
-    <TextBlock FontSize="15">20</TextBlock>
-</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource txtButtonOpacity}" Visibility="Collapsed"
+                                TextWrapping="Wrap" Margin="10 0 0 0" FontSize="10" LineHeight="15" HorizontalAlignment="Left"
+                                >Количество товаров: 
+                                <TextBlock FontSize="15" Style="{StaticResource txtButtonOpacity}">20</TextBlock>
+                    </TextBlock>
                 <WrapPanel Grid.Column="2" Grid.Row="0">
-                    <Button Name="btnProfile" Style="{StaticResource btnOpacity}" Visibility="Collapsed"
-            Click="btnProfile_Click"
-            >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
+                    <Button Name="btnProfile" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Visibility="Collapsed" Click="btnProfile_Click">
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}"
-                       >Профиль
-                            </TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Профиль</TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Name="btnReg" Style="{StaticResource btnOpacity}"
-Click="btnReg_Click"
->
+                    <Button Name="btnReg" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnReg_Click">
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}"
-           >Регистрация
-                            </TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Регистрация</TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Name="btnExit" Style="{StaticResource btnOpacity}" Visibility="Collapsed" Click="btnExit_Click"
-            >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
+                    <Button Name="btnExit" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Visibility="Collapsed" Click="btnExit_Click">
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}">Выйти</TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Выйти</TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Name="btnAuthReg" Style="{StaticResource btnOpacity}" Click="btnAuthReg_Click">
+                    <Button Name="btnAuthReg" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnAuthReg_Click">
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}">Войти</TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Войти</TextBlock>
                         </WrapPanel>
                     </Button>
                     <TextBox Name="txtSearch" MinWidth="100" MaxHeight="20"></TextBox>
-                    <Button Name="btnSearch" Style="{StaticResource btnOpacity}" HorizontalAlignment="Right"
-            Click="btnSearch_Click"
-            >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
+                    <Button Name="btnSearch" Style="{StaticResource btnOpacity}" 
+                            HorizontalAlignment="Right" MaxWidth="120" Height="25" Click="btnSearch_Click"
+                            >
                         <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}">Найти</TextBlock>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Найти</TextBlock>
                         </WrapPanel>
                     </Button>
                 </WrapPanel>
-                <TextBlock Grid.Column="2" Grid.Row="1" Foreground="#2A3759"
-           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
-           FontSize="13" LineHeight="15" HorizontalAlignment="Right"
-           VerticalAlignment="Center" Margin="10 5"  Visibility="Collapsed"
-           >Рады вас видеть, 
-            <TextBlock Name="txtblUserName"/>
-        </TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="1" Style="{StaticResource txtButtonOpacity}"
+                                TextWrapping="Wrap" FontSize="13" LineHeight="15" HorizontalAlignment="Right"
+                                VerticalAlignment="Center" Margin="10 5"  Visibility="Collapsed"
+                                >Рады вас видеть, 
+                                <TextBlock Name="txtblUserName" Style="{StaticResource txtButtonOpacity}"/>
+                    </TextBlock>
             </Grid>
         </WrapPanel>
-        
-        
-        <Frame Name="Mainfrm" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
-        <!--<Frame Source="Pages/OrdersPage.xaml" NavigationUIVisibility="Hidden"/>-->
-        <!--<Frame Source="Pages/OneProductPage.xaml" NavigationUIVisibility="Hidden"/>-->
-        <!--<Frame Source="Pages/OneProductGuestPage.xaml" NavigationUIVisibility="Hidden"/>-->
-        <!--<Frame Source="Pages/OneProductWithoutFeedbackPage.xaml" NavigationUIVisibility="Hidden"/>-->
-        <!--<Frame Source="Pages/ProductsGuestPage.xaml" NavigationUIVisibility="Hidden"/>-->
-        <!--<Frame Source="Pages/FavorPage.xaml" NavigationUIVisibility="Hidden"/>-->
-        <!--<Frame Source="Pages/GuestFramePage.xaml" NavigationUIVisibility="Hidden"/>-->
-    </StackPanel>
+        <Frame Name="Mainfrm" Grid.Row="1" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
+        <Grid Grid.Row="2" Name="grdBottom" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnBack" MinWidth="100" MaxWidth="120" Height="25" Margin="10" 
+            Style="{StaticResource btnOpacity}" Grid.Column="0" Width="Auto" 
+            HorizontalAlignment="Left" ToolTip="Предыдущая страница" ToolTipService.ShowDuration="2000" 
+            ToolTipService.HasDropShadow="True" MaxHeight="30" Click="btnBack_Click"
+            >                
+                <WrapPanel>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">Назад</TextBlock>
+                </WrapPanel>
+            </Button>
+            <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30" Grid.Column="1">
+                <Label Content="Мастерская" Style="{StaticResource Hlobus}" FontSize="28" HorizontalAlignment="Center"/>
+                <Label Content="вдохновения" Style="{StaticResource Hlobus}" FontSize="28" HorizontalAlignment="Center"/>
+            </WrapPanel>
+            <Button Name="btnForward" MinWidth="100" MaxWidth="120" Margin="10" 
+            Grid.Column="2"  HorizontalAlignment="Right" Height="25" Style="{StaticResource btnOpacity}"
+            ToolTip="Следующая страница" ToolTipService.ShowDuration="2000" 
+            ToolTipService.HasDropShadow="True" Click="btnForward_Click"
+            MaxHeight="30"
+            >                
+                <WrapPanel>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">Вперед</TextBlock>
+                </WrapPanel>
+            </Button>
+        </Grid>
+    </Grid>    
 </Window>

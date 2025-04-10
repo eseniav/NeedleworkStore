@@ -190,8 +190,11 @@
     <Compile Include="Pages\UserFramePage.xaml.cs">
       <DependentUpon>UserFramePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="UCElements\RecomendationUC.xaml.cs">
+      <DependentUpon>RecomendationUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCElements\SearchSidebarUC.xaml.cs">
+      <DependentUpon>SearchSidebarUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -262,7 +265,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControl1.xaml">
+    <Page Include="UCElements\RecomendationUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCElements\SearchSidebarUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

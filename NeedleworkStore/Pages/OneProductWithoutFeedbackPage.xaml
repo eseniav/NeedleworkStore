@@ -5,96 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="900" d:DesignWidth="800"
+      Style="{StaticResource Page}"
       Title="OneProductWithoutFeedbackPage">    
         <DockPanel Margin="20">
-            <StackPanel DockPanel.Dock="Top">
-                <Grid HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Button  Name="btnProd" Grid.Column="0" Grid.Row="0" MinWidth="100"
-                     Margin="10 0" BorderBrush="#778FD2" HorizontalAlignment="Right"
-                     MaxWidth="120" Height="25" Click="btnProd_Click" 
-                     >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
-                        <WrapPanel>
-                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                    >Каталог
-                            </TextBlock>
-                        </WrapPanel>
-                    </Button>
-                    <Button Name="btnCart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
-                        MinWidth="100" MaxWidth="120" Margin="10 0" Height="25"
-                        BorderBrush="#778FD2" Click="btnCart_Click"
-                        >
-                        <Button.Background>
-                            <SolidColorBrush Opacity="0.25"/>
-                        </Button.Background>
-                        <WrapPanel>
-                            <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                    >Корзина
-                            </TextBlock>
-                        </WrapPanel>
-                    </Button>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Foreground="#2A3759"
-                           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
-                           FontSize="10" LineHeight="15" HorizontalAlignment="Left"
-                           >Количество товаров: 
-                            <TextBlock FontSize="15">20</TextBlock>
-                </TextBlock>
-                    <WrapPanel Grid.Column="2" Grid.Row="0">
-                        <Button Name="btnProfile" MinWidth="100" MaxWidth="120"
-                        Margin="10 0" BorderBrush="#778FD2" Height="25"
-                        Click="btnProfile_Click"
-                        >
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0.25"/>
-                            </Button.Background>
-                            <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                   >Профиль
-                                </TextBlock>
-                            </WrapPanel>
-                        </Button>
-                        <Button Name="btnExit" MinWidth="100" MaxWidth="120" Height="25"
-                        Margin="10 0" BorderBrush="#778FD2" Click="btnExit_Click"
-                        >
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0.25"/>
-                            </Button.Background>
-                            <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Выйти</TextBlock>
-                            </WrapPanel>
-                        </Button>
-                        <TextBox Name="txtSearch" MinWidth="100" MaxHeight="20"></TextBox>
-                        <Button Name="btnSearch" MinWidth="100" MaxWidth="120" 
-                        Margin="10 0" BorderBrush="#778FD2" HorizontalAlignment="Right"
-                        Click="btnSearch_Click"
-                        >
-                            <Button.Background>
-                                <SolidColorBrush Opacity="0.25"/>
-                            </Button.Background>
-                            <WrapPanel>
-                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Найти</TextBlock>
-                            </WrapPanel>
-                        </Button>
-                    </WrapPanel>
-                    <TextBlock Grid.Column="2" Grid.Row="1" Foreground="#2A3759"
-                       FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
-                       FontSize="13" LineHeight="15" HorizontalAlignment="Right"
-                       VerticalAlignment="Center" Margin="10 5"
-                       >Рады вас видеть, Имя пользователя!
-                    </TextBlock>
-                </Grid>
+            <StackPanel DockPanel.Dock="Top">                
                 <ScrollViewer  VerticalScrollBarVisibility="Auto" MaxHeight="730">
                     <StackPanel Margin="5">
                         <StackPanel>
@@ -194,8 +108,8 @@
                                 <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Посмотреть готовые работы:" FontSize="14"/>
                                 <Image Name="imQR" Source="/ResImages/Zaglushka.png" MaxWidth="100" MaxHeight="100" MouseDown="imQR_MouseDown"/>
                             </StackPanel>
-                            <Button BorderBrush="#431D32" Margin="0 10 0 0" Width="100" Height="35"
-                    Background="#778FD2" HorizontalAlignment="Right" Grid.Column="2"
+                        <Button Margin="0 10 0 0" Width="100" Height="35" Style="{StaticResource btnColor}"
+                    HorizontalAlignment="Right" Grid.Column="2"
                          VerticalAlignment="Top" Click="btnCartIn_Click"
                     >
                                 <StackPanel>

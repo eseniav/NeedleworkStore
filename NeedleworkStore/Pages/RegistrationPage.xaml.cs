@@ -25,31 +25,6 @@ namespace NeedleworkStore.Pages
             InitializeComponent();
         }
         
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            if(this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            } 
-            else
-            {
-                MessageBox.Show("No page to go back");
-            }            
-        }
-
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.NavigationService.CanGoForward)
-            {
-                this.NavigationService.GoForward();
-            }
-            else
-            {
-                MessageBox.Show("No page to go forward");
-            }
-        }
-
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ProductsPage());

@@ -1,5 +1,6 @@
 ﻿using NeedleworkStore.Classes;
 using NeedleworkStore.Pages;
+using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +28,16 @@ namespace NeedleworkStore
     {
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            SearchSidebarUC myUserControl = new SearchSidebarUC();
+            myUserControl.NavigateRequested += OnNavigateRequested;
         }
+
+        private void OnNavigateRequested(object sender, EventArgs e)
+        {            
+            Mainfrm.Navigate(new AdvancedSearchPage());
+        }
+
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new CartPage());
@@ -80,7 +89,29 @@ namespace NeedleworkStore
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new RegistrationPage());
-        }       
-       
+        }
+        private void btnForward_Click(object sender, RoutedEventArgs e)
+        {
+            if (Mainfrm.NavigationService.CanGoForward)
+            {
+                Mainfrm.NavigationService.GoForward();
+            }
+            else
+            {
+                MessageBox.Show("No page to go forward");
+            }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (Mainfrm.NavigationService.CanGoBack)
+            {
+                Mainfrm.NavigationService.GoBack();
+            }
+            else
+            {
+                MessageBox.Show("No page to go back");
+            }
+        }
     }
 }

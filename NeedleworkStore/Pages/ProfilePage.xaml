@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Style="{StaticResource Page}"
       Title="ProfilePage">
     <DockPanel Name="pnlMain" Margin="20">
         <StackPanel DockPanel.Dock="Top">            
@@ -17,7 +17,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel HorizontalAlignment="Center" Grid.Column="0">
                     <Button Name="btnFav" MinWidth="100" MaxWidth="120" Margin="10" 
-                    BorderBrush="#431D32" Background="#778FD2" Click="btnFav_Click"
+                     Style="{StaticResource btnColor}" Click="btnFav_Click"
                     >
                         <StackPanel>
                             <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" 
@@ -27,7 +27,7 @@
                         </StackPanel>
                     </Button>
                     <Button Name="btnOrders" MinWidth="100" MaxWidth="120" Margin="10" 
-                        BorderBrush="#431D32" Background="#778FD2" Click="btnOrders_Click"
+                         Style="{StaticResource btnColor}" Click="btnOrders_Click"
                         >
                         <StackPanel>
                             <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" 
@@ -104,7 +104,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <Button Name="btnRedact" MinWidth="100" MaxWidth="200" Margin="10" 
-                        BorderBrush="#431D32" Background="#778FD2" Click="btnRedact_Click"
+                         Style="{StaticResource btnColor}" Click="btnRedact_Click"
                         >
                         <StackPanel>
                             <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" 

@@ -58,28 +58,7 @@ namespace NeedleworkStore.Pages
         private void btnCartInGuest_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
-        }
-
-        private void btnShop_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу О магазине");
-        }
-        private void btnAuthReg_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new AuthPage());
-        }
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            }
-            else
-            {
-                MessageBox.Show("Заполните поле!");
-            }
-        }
+        }        
 
         private void btnStitch_Click(object sender, RoutedEventArgs e)
         {
@@ -148,20 +127,7 @@ namespace NeedleworkStore.Pages
         private void btnFavorGuest_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
-        }
-
-        private void txtFrom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            txtFrom.SelectAll();
-        }
-
-        private void btnReg_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new RegistrationPage());
-        }
-        private void btnCartGuest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
         }        
+      
     }
 }
