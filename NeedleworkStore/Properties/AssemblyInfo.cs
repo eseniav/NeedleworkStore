@@ -3,6 +3,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // Общие сведения об этой сборке предоставляются следующим набором
 // набор атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
@@ -20,7 +21,7 @@ using System.Windows;
 // для компонентов COM. Если необходимо обратиться к типу в этой сборке через
 // из модели COM, установите атрибут ComVisible для этого типа в значение true.
 [assembly: ComVisible(false)]
-
+[assembly: XmlnsDefinition("http://your-custom-uri/", "NeedleworkStore.UCElements")]
 //Чтобы начать создание локализуемых приложений, задайте
 //<UICulture>CultureYouAreCodingWith</UICulture> в файле .csproj
 //в <PropertyGroup>. Например, при использовании английского (США)

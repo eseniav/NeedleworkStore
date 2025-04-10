@@ -6,74 +6,24 @@
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       xmlns:us="clr-namespace:NeedleworkStore"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Height="450" Width="800" MinWidth="320" MinHeight="550"
+      mc:Ignorable="d"       
       Title="AuthPage"
       >
-    <DockPanel x:Name="LayOut" Margin="20">
-        <StackPanel DockPanel.Dock="Top">            
-            <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30">
-                <Label Content="Мастерская" FontFamily="Hlobus" FontSize="42" 
-           HorizontalAlignment="Center" Foreground="#431D32"
-           />
-                <Label Content="вдохновения" FontFamily="Hlobus" FontSize="42" 
-           HorizontalAlignment="Center" Foreground="#431D32"
-           />
-            </WrapPanel>
-            <StackPanel x:Name="Login" MaxWidth="150" MinHeight="30">
-                <Label Content="Логин" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
-                <TextBox Name="txtLog"/>
-                <Label Content="Пароль" HorizontalAlignment="Right" FontFamily="Caesar Dressing Cyrillic" Foreground="#2A3759"/>
-                <PasswordBox Name="txtPass"/>
-                <Button  Name="btnSignIn" Margin="0 10" MaxWidth="70" BorderBrush="#431D32" Background="#778FD2"
-             IsDefault="True" Click="btnSignIn_Click" 
-             >
-                    <WrapPanel>
-                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="White"
-                       >Войти
-                        </TextBlock>
-                    </WrapPanel>
-                </Button>
-            </StackPanel>
-        </StackPanel>        
-        <Grid Margin="0 50 0 0" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Name="btnBack" MinWidth="100" MaxWidth="120" Margin="10" 
-                    BorderBrush="#778FD2" Grid.Column="0" Width="Auto" 
-                    HorizontalAlignment="Left" ToolTip="Предыдущая страница" ToolTipService.ShowDuration="2000" 
-                    ToolTipService.HasDropShadow="True" Click="btnBack_Click"
-                    >
-                <Button.Background>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Button.Background>                
+    <StackPanel>
+        <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30">
+            <Label Content="Мастерская" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center"/>
+            <Label Content="вдохновения" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center"/>
+        </WrapPanel>
+        <StackPanel x:Name="Login" MaxWidth="150" MinHeight="30">
+            <Label Content="Логин" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}"/>
+            <TextBox Name="txtLog"/>
+            <Label Content="Пароль" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}"/>
+            <PasswordBox Name="txtPass"/>
+            <Button  Name="btnSignIn" Margin="0 10" MaxWidth="70" Style="{StaticResource btnColor}" IsDefault="True" Click="btnSignIn_Click">
                 <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                               >Назад
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16">Войти</TextBlock>
                 </WrapPanel>
             </Button>
-            <Button Name="btnForward" MinWidth="100" MaxWidth="120" Margin="10" 
-                    BorderBrush="#778FD2" Grid.Column="2"  HorizontalAlignment="Right"  
-                    ToolTip="Следующая страница" ToolTipService.ShowDuration="2000" 
-                    ToolTipService.HasDropShadow="True" Click="btnForward_Click" 
-                    >
-                <Button.Background>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Button.Background>
-                <WrapPanel>
-                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                               >Вперед
-                    </TextBlock>
-                </WrapPanel>
-            </Button>
-        </Grid>        
-    </DockPanel>
+        </StackPanel>
+    </StackPanel>
 </Page>

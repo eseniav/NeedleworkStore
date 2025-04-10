@@ -25,39 +25,7 @@ namespace NeedleworkStore.Pages
         public OneProductPage()
         {
             InitializeComponent();
-        }
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.NavigationService.CanGoForward)
-            {
-                this.NavigationService.GoForward();
-            }
-            else
-            {
-                MessageBox.Show("No page to go forward");
-            }
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            }
-            else
-            {
-                MessageBox.Show("No page to go back");
-            }
-        }
-
-        private void btnProd_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProductsPage());
-        }
-        private void btnCart_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new CartPage());
-        }
+        }        
 
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
@@ -72,29 +40,7 @@ namespace NeedleworkStore.Pages
 
             ppCartIn.IsOpen = true;
             timer.Start();
-        }
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProfilePage());
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new AuthPage());
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            }
-            else
-            {
-                MessageBox.Show("Заполните поле!");
-            }
-        }
+        }        
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Добавляет товар в избранное");
@@ -109,10 +55,7 @@ namespace NeedleworkStore.Pages
             ppFavorIn.IsOpen = true;
             timer.Start();
         }
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с этим товаром");
-        } 
+       
         private void imQR_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Переход на страницу сайта с готовыми работами");

@@ -17,27 +17,6 @@ namespace NeedleworkStore.Pages
             txtLog.Focus();            
         } 
 
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-            if(this.NavigationService.CanGoForward)
-            {
-                this.NavigationService.GoForward();
-            } else
-            {
-                MessageBox.Show("No page to go forward");
-            }            
-        }
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            }
-            else
-            {
-                MessageBox.Show("No page to go back");
-            }
-        }       
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {           
             if (!CheckValidation.CheckEmptyNull(txtLog.Text) || !CheckValidation.CheckEmptyNull(txtPass.Password))

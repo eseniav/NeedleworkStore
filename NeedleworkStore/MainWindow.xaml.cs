@@ -1,5 +1,6 @@
 ﻿using NeedleworkStore.Classes;
 using NeedleworkStore.Pages;
+using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +26,13 @@ namespace NeedleworkStore
     
     public partial class MainWindow : Window
     {
+        public static Frame frame;
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            frame = Mainfrm;
         }
+
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new CartPage());
@@ -80,7 +84,29 @@ namespace NeedleworkStore
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new RegistrationPage());
-        }       
-       
+        }
+        private void btnForward_Click(object sender, RoutedEventArgs e)
+        {
+            if (Mainfrm.NavigationService.CanGoForward)
+            {
+                Mainfrm.NavigationService.GoForward();
+            }
+            else
+            {
+                MessageBox.Show("No page to go forward");
+            }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (Mainfrm.NavigationService.CanGoBack)
+            {
+                Mainfrm.NavigationService.GoBack();
+            }
+            else
+            {
+                MessageBox.Show("No page to go back");
+            }
+        }
     }
 }
