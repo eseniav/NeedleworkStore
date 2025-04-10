@@ -2,6 +2,7 @@
 using NeedleworkStore.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,16 @@ namespace NeedleworkStore
     
     public partial class MainWindow : Window
     {
+        public Dictionary<string, Button> pageButtons;
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            pageButtons = new Dictionary<string, Button>{
+                {"AuthPage", btnAuthReg},
+                {"CartPage", btnCart},
+                {"ProductsPage", btnProd},
+                {"RegistrationPage", btnReg}
+            };
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
@@ -80,7 +88,48 @@ namespace NeedleworkStore
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new RegistrationPage());
-        }       
-       
+        }
+        private void SetBtnState(object page)
+        {
+            string pg = page.GetType().Name;
+            Debug.WriteLine(pg, "Navigated");
+            Button[] menuButtons = new Button[]
+            {
+                    btnProfile,
+                    btnReg,
+                    btnExit,
+                    btnCart,
+                    btnAuthReg,
+                    btnSearch
+            };
+            foreach (Button button in menuButtons) button.IsEnabled = true;
+            foreach (var item in pageButtons) item.Value.IsEnabled = true;
+
+            switch (pg)
+            {
+                case "AuthPage":
+                default:
+                    btnAuthReg.IsEnabled = false;
+                    break;
+                case "CartPage":
+                    btnCart.IsEnabled = false;
+                    break;
+                case "ProductsPage":
+                    btnProd.IsEnabled = false;
+                    break;
+                case "RegistrationPage":
+                    btnReg.IsEnabled = false;
+                    break;
+            }
+            pageButtons[pg].IsEnabled = false;
+        }
+        private void Mainfrm_Navigated(object sender, NavigationEventArgs e)
+        {
+            // Получение текущей страницы
+            object currentPage = Mainfrm.Content;
+
+            // Если страница загружена успешно
+            if (currentPage != null) SetBtnState(currentPage);
+        }
     }
 }

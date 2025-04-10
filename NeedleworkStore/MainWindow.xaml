@@ -128,7 +128,7 @@ Click="btnReg_Click"
         </WrapPanel>
         
         
-        <Frame Name="Mainfrm" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
+        <Frame Name="Mainfrm" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden" Navigated="Mainfrm_Navigated"/>
         <!--<Frame Source="Pages/OrdersPage.xaml" NavigationUIVisibility="Hidden"/>-->
         <!--<Frame Source="Pages/OneProductPage.xaml" NavigationUIVisibility="Hidden"/>-->
         <!--<Frame Source="Pages/OneProductGuestPage.xaml" NavigationUIVisibility="Hidden"/>-->
