@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,6 +27,35 @@ namespace NeedleworkStore
     
     public partial class MainWindow : Window
     {
+        private static string uid;
+        public static string UserId
+        {
+            get { return uid; }
+            set {
+                uid = value;
+                SetBtnVisibility(uid);
+            }
+        }
+        public static SetBtnDelegate SetBtnVisibility;
+        public delegate void SetBtnDelegate(string uid);
+        public void SetButtonVisibility(string uid)
+        {
+            MessageBox.Show($"uid: {uid}");
+            if (uid == null)
+            {
+                pageButtons["RegistrationPage"].Visibility = Visibility.Visible;
+                pageButtons["AuthPage"].Visibility = Visibility.Visible;
+                pageButtons["ProfilePage"].Visibility = Visibility.Collapsed;
+                pageButtons["Exit"].Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                pageButtons["RegistrationPage"].Visibility = Visibility.Collapsed;
+                pageButtons["AuthPage"].Visibility = Visibility.Collapsed;
+                pageButtons["ProfilePage"].Visibility = Visibility.Visible;
+                pageButtons["Exit"].Visibility = Visibility.Visible;
+            }
+        }
         public Dictionary<string, Button> pageButtons;
         public MainWindow()
         {
@@ -33,9 +63,13 @@ namespace NeedleworkStore
             pageButtons = new Dictionary<string, Button>{
                 {"AuthPage", btnAuthReg},
                 {"CartPage", btnCart},
+                {"Exit", btnExit},
                 {"ProductsPage", btnProd},
+                {"ProfilePage", btnProfile},
                 {"RegistrationPage", btnReg}
             };
+            MainWindow.SetBtnVisibility = SetButtonVisibility;
+            UserId = null;
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
