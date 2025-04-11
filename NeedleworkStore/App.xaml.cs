@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using NeedleworkStore.AppData;
 
 namespace NeedleworkStore
 {
@@ -13,5 +14,6 @@ namespace NeedleworkStore
     /// </summary>
     public partial class App : Application
     {
+        public static NeedleworkStoreEntities ctx = new NeedleworkStoreEntities();
     }
 }
