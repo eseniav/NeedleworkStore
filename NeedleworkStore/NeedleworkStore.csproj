@@ -311,6 +311,11 @@
     <None Include="AppData\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
+    <Resource Include="Fonts\ofont.ru_Anticva.ttf" />
+    <Resource Include="Fonts\ofont.ru_Caesar Dressing.ttf" />
+    <Resource Include="Fonts\ofont.ru_Cakra.ttf" />
+    <Resource Include="Fonts\ofont.ru_Hlobus.ttf" />
+    <Resource Include="Fonts\ofont.ru_Rose Versailles2.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
