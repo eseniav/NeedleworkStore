@@ -45,6 +45,7 @@ namespace NeedleworkStore.Pages
                 MessageBox.Show("Все поля должны быть заполнены!");
                 return;
             }
+            MainWindow.UserId = "123";
             this.NavigationService.Navigate(new ProductsPage());
         }
     }
