@@ -40,7 +40,6 @@ namespace NeedleworkStore
         public delegate void SetBtnDelegate(string uid);
         public void SetButtonVisibility(string uid)
         {
-            MessageBox.Show($"uid: {uid}");
             if (uid == null)
             {
                 pageButtons["RegistrationPage"].Visibility = Visibility.Visible;
@@ -87,6 +86,7 @@ namespace NeedleworkStore
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.UserId = null;
             Mainfrm.Navigate(new AuthPage());
         }
 
