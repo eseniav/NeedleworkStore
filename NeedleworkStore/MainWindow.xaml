@@ -97,7 +97,7 @@
                     </TextBlock>
             </Grid>
         </WrapPanel>
-        <Frame Name="Mainfrm" Grid.Row="1" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden"/>
+        <Frame Name="Mainfrm" Grid.Row="1" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden" Navigated="Mainfrm_Navigated"/>
         <Grid Grid.Row="2" Name="grdBottom" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition/>

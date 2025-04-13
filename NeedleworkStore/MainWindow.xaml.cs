@@ -108,5 +108,29 @@ namespace NeedleworkStore
                 MessageBox.Show("No page to go back");
             }
         }
+
+        private void Mainfrm_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is RegistrationPage)
+                btnReg.IsEnabled = false;
+            else
+                btnReg.IsEnabled = true;
+            if (e.Content is ProductsPage)
+                btnProd.IsEnabled = false;
+            else
+                btnProd.IsEnabled = true;
+            if (e.Content is CartPage)
+                btnCart.IsEnabled = false;
+            else
+                btnCart.IsEnabled = true;
+            if (e.Content is AuthPage)
+                btnAuthReg.IsEnabled = false;
+            else
+                btnAuthReg.IsEnabled = true;
+            if (e.Content is ProfilePage)
+                btnProfile.IsEnabled = false;
+            else
+                btnProfile.IsEnabled = true;
+        }
     }
 }
