@@ -32,6 +32,16 @@ namespace NeedleworkStore.AppData
         public Nullable<int> ProductPrice { get; set; }
         public string Description { get; set; }
         public string ProductImage { get; set; }
+        public string ImagePath
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(ProductImage) || String.IsNullOrWhiteSpace(ProductImage))
+                    return "/ResImages/KlartLavandadlyanee.jpg";
+                else
+                    return "/ProdImages/" + ProductImage;
+            }
+        }
         public int DesignerID { get; set; }
         public int ProductTypeID { get; set; }
         public int AvailabilityStatusID { get; set; }
