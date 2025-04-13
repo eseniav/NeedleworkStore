@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeedleworkStore.AppData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,20 @@ namespace NeedleworkStore.Pages
         
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
+            Users newUser = new Users
+            {
+                UserLastname = txtBLastName.Text,
+                UserName = txtBFirstName.Text,
+                UserPatronymic = txtBPatr.Text,
+                Login = txtBLogin.Text,
+                Password = psxB.Password,
+                UserPhone = txtBPhone.Text,
+                UserEmail = txtBEmail.Text,
+                Birthday = dtPBirth.SelectedDate,
+                RoleID = 2
+            };
+            App.ctx.Users.Add(newUser);
+            App.ctx.SaveChanges();
             this.NavigationService.Navigate(new ProductsPage());
         }
     }
