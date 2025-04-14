@@ -28,21 +28,28 @@ namespace NeedleworkStore.Pages
         
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
-            Users newUser = new Users
+            try
             {
-                UserLastname = txtBLastName.Text,
-                UserName = txtBFirstName.Text,
-                UserPatronymic = txtBPatr.Text,
-                Login = txtBLogin.Text,
-                Password = psxB.Password,
-                UserPhone = txtBPhone.Text,
-                UserEmail = txtBEmail.Text,
-                Birthday = dtPBirth.SelectedDate,
-                RoleID = 2
-            };
-            App.ctx.Users.Add(newUser);
-            App.ctx.SaveChanges();
-            this.NavigationService.Navigate(new ProductsPage());
+                Users newUser = new Users
+                {
+                    UserLastname = txtBLastName.Text,
+                    UserName = txtBFirstName.Text,
+                    UserPatronymic = txtBPatr.Text,
+                    Login = txtBLogin.Text,
+                    Password = psxB.Password,
+                    UserPhone = txtBPhone.Text,
+                    UserEmail = txtBEmail.Text,
+                    Birthday = dtPBirth.SelectedDate,
+                    RoleID = 2
+                };
+                App.ctx.Users.Add(newUser);
+                App.ctx.SaveChanges();
+                this.NavigationService.Navigate(new ProductsPage());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
