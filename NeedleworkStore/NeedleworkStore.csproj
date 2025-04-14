@@ -343,6 +343,56 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="ProdImages\01_Dim.jpg" />
+    <Resource Include="ProdImages\02_Dim.jpg" />
+    <Resource Include="ProdImages\03_Dim.jpg" />
+    <Resource Include="ProdImages\04_Dim.jpg" />
+    <Resource Include="ProdImages\05_Dim.jpg" />
+    <Resource Include="ProdImages\06_Dim.jpg" />
+    <Resource Include="ProdImages\07_Dim.jpg" />
+    <Resource Include="ProdImages\08_Dim.jpg" />
+    <Resource Include="ProdImages\09_Dim.jpg" />
+    <Resource Include="ProdImages\10_Dim.jpg" />
+    <Resource Include="ProdImages\11_Gamma.jpg" />
+    <Resource Include="ProdImages\12_Gamma.jpg" />
+    <Resource Include="ProdImages\13_Prym.jpg" />
+    <Resource Include="ProdImages\14_Prym.jpg" />
+    <Resource Include="ProdImages\15_Gamma.jpg" />
+    <Resource Include="ProdImages\16_Pony.jpg" />
+    <Resource Include="ProdImages\17_Pony.jpg" />
+    <Resource Include="ProdImages\18_Gamma.jpg" />
+    <Resource Include="ProdImages\19_Gamma.jpg" />
+    <Resource Include="ProdImages\20_Gamma.jpg" />
+    <Resource Include="ProdImages\21_Prym.jpg" />
+    <Resource Include="ProdImages\22_OwlForest.jpg" />
+    <Resource Include="ProdImages\23_OwlForest.jpg" />
+    <Resource Include="ProdImages\24_OwlForest.jpg" />
+    <Resource Include="ProdImages\25_OwlForest.jpg" />
+    <Resource Include="ProdImages\26_Miadolla.jpg" />
+    <Resource Include="ProdImages\27_Miadolla.jpg" />
+    <Resource Include="ProdImages\28_Miadolla.jpg" />
+    <Resource Include="ProdImages\29_Miadolla.jpg" />
+    <Resource Include="ProdImages\30_Miadolla.jpg" />
+    <Resource Include="ProdImages\31_MillHill.jpg" />
+    <Resource Include="ProdImages\32_MillHill.jpg" />
+    <Resource Include="ProdImages\33_MillHill.jpg" />
+    <Resource Include="ProdImages\34_MillHill.jpg" />
+    <Resource Include="ProdImages\35_MillHill.jpg" />
+    <Resource Include="ProdImages\36_MPStudia.jpg" />
+    <Resource Include="ProdImages\37_MPStudia.jpg" />
+    <Resource Include="ProdImages\38_MPStudia.jpg" />
+    <Resource Include="ProdImages\39_MPStudia.jpg" />
+    <Resource Include="ProdImages\40_MPStudia.jpg" />
+    <Resource Include="ProdImages\41_Panna.jpg" />
+    <Resource Include="ProdImages\42_Panna.jpg" />
+    <Resource Include="ProdImages\43_Panna.jpg" />
+    <Resource Include="ProdImages\44_Panna.jpg" />
+    <Resource Include="ProdImages\45_Panna.jpg" />
+    <Resource Include="ProdImages\46_Mirabilia.jpg" />
+    <Resource Include="ProdImages\47_Mirabilia.jpg" />
+    <Resource Include="ProdImages\48_Mirabilia.jpg" />
+    <Resource Include="ProdImages\49_Mirabilia.jpg" />
+    <Resource Include="ProdImages\50_Mirabilia.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
