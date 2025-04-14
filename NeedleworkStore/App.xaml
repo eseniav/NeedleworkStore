@@ -51,6 +51,8 @@
         <Style x:Key="txtDown" TargetType="TextBlock">
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="MaxWidth" Value="180"/>
         </Style>
         <Style x:Key="txtComment" TargetType="TextBlock" BasedOn="{StaticResource txtDown}">
             <Setter Property="FontFamily" Value="Acherus Feral Bold"/>

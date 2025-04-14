@@ -42,52 +42,56 @@
                 </StackPanel>
                 <StackPanel MaxWidth="150" MinHeight="30" Grid.Column="0" Grid.Row="2" Style="{StaticResource StPan}">
                     <Label Content="Имя" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <TextBox Name="txtBFirstName" Style="{StaticResource txtBoxReg}"/>
+                    <TextBox Name="txtBFirstName" Style="{StaticResource txtBoxReg}" LostFocus="txtBFirstName_LostFocus"/>
                 </StackPanel>
                 <StackPanel MaxWidth="150" MinHeight="30" Grid.Column="0" Grid.Row="3" Style="{StaticResource StPan}">
                     <Label Content="Отчество" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
                     <TextBox Name="txtBPatr" Style="{StaticResource txtBoxReg}"/>
                 </StackPanel>
                 <StackPanel MinHeight="30" Grid.Column="2" Grid.Row="1" Style="{StaticResource StPan}">
-                    <Label Content="Логин" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <TextBox Name="txtBLogin" Style="{StaticResource txtBoxReg}"/>
-                    <TextBlock Style="{StaticResource txtComment}" Margin="2" HorizontalAlignment="Right">пояснения, какой должен быть логин</TextBlock>
-                    <TextBlock Style="{StaticResource txtError}" Margin="2" HorizontalAlignment="Right">вывод ошибки</TextBlock>
-                </StackPanel>
+                    <Label Content="Логин*" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <TextBox Name="txtBLogin" Style="{StaticResource txtBoxReg}" LostFocus="txtBLogin_LostFocus"/>
+                <TextBlock Name="txtBlLog" Style="{StaticResource txtComment}" Margin="2"/>
+                <TextBlock Name="errorLog" Style="{StaticResource txtError}" Margin="2"/>
+            </StackPanel>
                 <StackPanel MinHeight="30" Grid.Column="2" Grid.Row="2" Style="{StaticResource StPan}">
-                    <Label Content="Пароль" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <PasswordBox Name="psxB" Width="150" HorizontalAlignment="Right"/>
-                    <TextBlock Style="{StaticResource txtComment}" Margin="2" HorizontalAlignment="Right">пояснения, какой должен быть пароль</TextBlock>
-                    <TextBlock Style="{StaticResource txtError}" Margin="2" HorizontalAlignment="Right">вывод ошибки</TextBlock>
-                </StackPanel>
+                    <Label Content="Пароль*" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <PasswordBox Name="psxB" Width="150" HorizontalAlignment="Right" LostFocus="psxB_LostFocus"/>
+                <TextBlock Name="txtBlPass" Style="{StaticResource txtComment}" Margin="2"/>
+                <TextBlock Name="errorPass" Style="{StaticResource txtError}" Margin="2"/>
+            </StackPanel>
                 <StackPanel MinHeight="30" Grid.Column="2" Grid.Row="3" Style="{StaticResource StPan}">
-                    <Label Content="Повторите пароль" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <PasswordBox Name="pswBRepeat" Width="150" HorizontalAlignment="Right"/>
-                    <TextBlock Style="{StaticResource txtError}" Margin="2" HorizontalAlignment="Right">вывод ошибки</TextBlock>
-                </StackPanel>
+                    <Label Content="Повторите пароль*" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <PasswordBox Name="pswBRepeat" Width="150" HorizontalAlignment="Right" LostFocus="pswBRepeat_LostFocus"/>
+                <TextBlock Name="errorRepPass" Style="{StaticResource txtError}" Margin="2"/>
+            </StackPanel>
                 <StackPanel MinHeight="30" Grid.Column="4" Grid.Row="1" Style="{StaticResource StPan}">
-                    <Label Content="Телефон" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <TextBox Name="txtBPhone"  Style="{StaticResource txtBoxReg}"/>
-                    <TextBlock Style="{StaticResource txtError}" Margin="2" HorizontalAlignment="Right">вывод ошибки</TextBlock>
-                </StackPanel>
+                    <Label Content="Телефон*" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <TextBox Name="txtBPhone"  Style="{StaticResource txtBoxReg}" LostFocus="txtBPhone_LostFocus"/>
+                <TextBlock Name="errorPhone" Style="{StaticResource txtError}" Margin="2"/>
+            </StackPanel>
                 <StackPanel MinHeight="30" Grid.Column="4" Grid.Row="2" Style="{StaticResource StPan}">
-                    <Label Content="Email" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <TextBox Name="txtBEmail" Style="{StaticResource txtBoxReg}"/>
-                    <TextBlock Style="{StaticResource txtError}" Margin="2" HorizontalAlignment="Right">вывод ошибки</TextBlock>
-                </StackPanel>
+                    <Label Content="Email*" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <TextBox Name="txtBEmail" Style="{StaticResource txtBoxReg}" LostFocus="txtBEmail_LostFocus"/>
+                <TextBlock Name="errorEmail" Style="{StaticResource txtError}" Margin="2"/>
+            </StackPanel>
                 <StackPanel MinHeight="30" Grid.Column="4" Grid.Row="3" Style="{StaticResource StPan}">
                     <Label Content="Дата рождения" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
                     <DatePicker Name="dtPBirth" Width="150" HorizontalAlignment="Right" SelectedDateFormat="Short"
-                                DisplayDateStart="03/1925"/>
-                    <TextBlock Style="{StaticResource txtComment}" Margin="2" HorizontalAlignment="Right">пояснения, какой должна быть дата</TextBlock>
-                    <TextBlock Style="{StaticResource txtError}" Margin="2" HorizontalAlignment="Right">вывод ошибки</TextBlock>
-                </StackPanel>
-                <Button Name="btnReg" Grid.Column="2" Grid.Row="4" Margin="0 80 0 0" HorizontalAlignment="Center"
+                                DisplayDateStart="03/1925" LostFocus="dtPBirth_LostFocus"/>
+                <TextBlock Name="txtBlDate" Style="{StaticResource txtComment}" Margin="2"/>
+                <TextBlock  Name="errorDate" Style="{StaticResource txtError}" Margin="2"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="4">
+                <TextBlock Name="txtBlReqFields" Style="{StaticResource txtComment}" Margin="0 20 0 0"
+                           HorizontalAlignment="Center" VerticalAlignment="Bottom" MaxWidth="250"/>
+                <Button Name="btnReg" Margin="0 80 0 0" HorizontalAlignment="Center"
                         MaxWidth="180" Style="{StaticResource btnColor}" Click="btnReg_Click">
                     <WrapPanel>
                         <TextBlock Style="{StaticResource txtButtonColor}" FontSize="20">Зарегистрироваться</TextBlock>
                     </WrapPanel>
                 </Button>
+            </StackPanel>                
             </Grid>
         </StackPanel>
 </Page>

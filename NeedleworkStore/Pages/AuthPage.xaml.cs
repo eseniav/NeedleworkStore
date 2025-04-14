@@ -25,7 +25,7 @@ namespace NeedleworkStore.Pages
             {
                 if (!CheckValidation.CheckEmptyNull(txtLog.Text) || !CheckValidation.CheckEmptyNull(txtPass.Password))
                 {
-                    MessageBox.Show("Все поля должны быть заполнены");
+                    MessageBox.Show("Все поля должны быть заполнены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 if (App.ctx.Users.FirstOrDefault(u => u.Login == txtLog.Text) == null)
