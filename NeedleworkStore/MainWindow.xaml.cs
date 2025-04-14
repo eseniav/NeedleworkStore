@@ -111,26 +111,17 @@ namespace NeedleworkStore
 
         private void Mainfrm_Navigated(object sender, NavigationEventArgs e)
         {
-            if (e.Content is RegistrationPage)
-                btnReg.IsEnabled = false;
-            else
-                btnReg.IsEnabled = true;
-            if (e.Content is ProductsPage)
-                btnProd.IsEnabled = false;
-            else
-                btnProd.IsEnabled = true;
-            if (e.Content is CartPage)
-                btnCart.IsEnabled = false;
-            else
-                btnCart.IsEnabled = true;
-            if (e.Content is AuthPage)
-                btnAuthReg.IsEnabled = false;
-            else
-                btnAuthReg.IsEnabled = true;
-            if (e.Content is ProfilePage)
-                btnProfile.IsEnabled = false;
-            else
-                btnProfile.IsEnabled = true;
+            string page = e.Content.GetType().Name;
+            Dictionary<string, Button> topMenu = new Dictionary<string, Button>
+            {
+                { "RegistrationPage", btnReg },
+                { "ProductsPage", btnProd },
+                { "CartPage", btnCart },
+                { "AuthPage", btnAuthReg },
+                { "ProfilePage", btnProfile }
+            };
+            foreach (var item in topMenu) item.Value.IsEnabled = true;
+            topMenu[page].IsEnabled = false;
         }
     }
 }
