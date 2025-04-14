@@ -24,7 +24,10 @@ namespace NeedleworkStore.Pages
     {
         public ProductsPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            List<AppData.Products> products = App.ctx.Products.ToList();
+            ProdList.ItemsSource = products;
+            ProdList.DataContext = products;
         }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
@@ -34,11 +37,11 @@ namespace NeedleworkStore.Pages
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                ppCartIn.IsOpen = false;
+                //ppCartIn.IsOpen = false;
                 timer.Stop();
             };
 
-            ppCartIn.IsOpen = true;
+            //ppCartIn.IsOpen = true;
             timer.Start();
         }
 
@@ -59,11 +62,11 @@ namespace NeedleworkStore.Pages
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                ppFavorIn.IsOpen = false;
+                //ppFavorIn.IsOpen = false;
                 timer.Stop();
             };
 
-            ppFavorIn.IsOpen = true;
+            //ppFavorIn.IsOpen = true;
             timer.Start();
         }
 
