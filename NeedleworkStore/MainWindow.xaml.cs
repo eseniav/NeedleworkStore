@@ -108,5 +108,20 @@ namespace NeedleworkStore
                 MessageBox.Show("No page to go back");
             }
         }
+
+        private void Mainfrm_Navigated(object sender, NavigationEventArgs e)
+        {
+            string page = e.Content.GetType().Name;
+            Dictionary<string, Button> topMenu = new Dictionary<string, Button>
+            {
+                { "RegistrationPage", btnReg },
+                { "ProductsPage", btnProd },
+                { "CartPage", btnCart },
+                { "AuthPage", btnAuthReg },
+                { "ProfilePage", btnProfile }
+            };
+            foreach (var item in topMenu) item.Value.IsEnabled = true;
+            topMenu[page].IsEnabled = false;
+        }
     }
 }
