@@ -30,9 +30,7 @@ namespace NeedleworkStore.Pages
             {
                 foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
             }
-            public string ImagePath {
-                get { return "/ProdImages/" + ProductImage; }
-            }
+            public string ImagePath => "/ProdImages/" + ProductImage;
         }
 
         public ProductsPage()
