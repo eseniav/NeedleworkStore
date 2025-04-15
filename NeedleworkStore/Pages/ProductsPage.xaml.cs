@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using NeedleworkStore.AppData;
 using NeedleworkStore.Classes;
 
 namespace NeedleworkStore.Pages
@@ -22,13 +23,28 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
+        public class MyProducts : Products
+        {
+            public string ImagePath {
+                get { return "/ProdImages/" + ProductImage; }
+            }
+        }
+
         public ProductsPage()
         {
             InitializeComponent();
             List<AppData.Products> products = App.ctx.Products.ToList();
-            products.ForEach(p => p.ProductImage = "/ProdImages/" + p.ProductImage);
-            ProdList.ItemsSource = products;
-            ProdList.DataContext = products;
+            List<MyProducts> myProducts = products.Select(p => new MyProducts
+            {
+               ProductImage = p.ProductImage,
+               ProductName = p.ProductName,
+               ProductPrice = p.ProductPrice,
+               Description = p.Description,
+               Designers = p.Designers,
+               AvailabilityStatuses = p.AvailabilityStatuses,
+            }).ToList();
+            ProdList.ItemsSource = myProducts;
+            ProdList.DataContext = myProducts;
         }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
