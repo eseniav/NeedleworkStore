@@ -26,6 +26,7 @@ namespace NeedleworkStore.Pages
         {
             InitializeComponent();
             List<AppData.Products> products = App.ctx.Products.ToList();
+            products.ForEach(p => p.ProductImage = "/ProdImages/" + p.ProductImage);
             ProdList.ItemsSource = products;
             ProdList.DataContext = products;
         }

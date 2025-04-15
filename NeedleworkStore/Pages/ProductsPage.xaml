@@ -16,7 +16,6 @@
                   Grid.Column="0">
             <ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>
         </ScrollViewer>
-                
                 <ScrollViewer Name="scrProducts" VerticalScrollBarVisibility="Auto" MaxHeight="700" 
                   Grid.Column="1"
                   >
@@ -50,12 +49,12 @@
                                             <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
                                             <Label Style="{StaticResource Chakra}" Content="4,9" Margin="0 0 20 0"/>
                                         </WrapPanel>
-                                        <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
-               HorizontalAlignment="Right" Margin="20 0"
-               >
+                                        <Image Source="{Binding ProductImage}" MaxWidth="180" MaxHeight="180"
+                                               HorizontalAlignment="Right" Margin="20 0"
+                                               >
                                             <Image.ToolTip>
                                                 <ToolTip ToolTipService.InitialShowDelay="3000">
-                                                    <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="350" MaxHeight="350"/>
+                                                    <Image Source="{Binding ProductImage}" MaxWidth="350" MaxHeight="350"/>
                                                 </ToolTip>
                                             </Image.ToolTip>
                                         </Image>
@@ -83,13 +82,13 @@
                                             <Label Style="{StaticResource Chakra}" Content="Описание:"/>
                                         </WrapPanel>
                                         <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="12"
-                   LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
-                   TextAlignment="Left" Text="{Binding Description}"/>
+                                                   LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
+                                                   TextAlignment="Left" Text="{Binding Description}"/>
                                         <WrapPanel>
                                             <Label>
                                                 <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
-                           Click="hlAbout_Click"
-                           >Подробнее
+                                                           Click="hlAbout_Click"
+                                                           >Подробнее
                                                 </Hyperlink>
                                             </Label>
                                         </WrapPanel>
