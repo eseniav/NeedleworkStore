@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -72,17 +73,16 @@ namespace NeedleworkStore.Pages
         {
             MessageBox.Show("Добавляет товар в избранное");
             DispatcherTimer timer = new DispatcherTimer();
+            Popup ppFavorIn = (Popup)((Button)sender).FindName("ppFavorIn");
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                //ppFavorIn.IsOpen = false;
+                ppFavorIn.IsOpen = false;
                 timer.Stop();
             };
 
-            //ppFavorIn.IsOpen = true;
+            ppFavorIn.IsOpen = true;
             timer.Start();
         }
-
-       
     }
 }
