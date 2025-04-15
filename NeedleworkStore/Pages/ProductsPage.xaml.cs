@@ -25,6 +25,10 @@ namespace NeedleworkStore.Pages
     {
         public class MyProducts : Products
         {
+            public MyProducts(Products p)
+            {
+                foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
+            }
             public string ImagePath {
                 get { return "/ProdImages/" + ProductImage; }
             }
@@ -34,15 +38,7 @@ namespace NeedleworkStore.Pages
         {
             InitializeComponent();
             List<AppData.Products> products = App.ctx.Products.ToList();
-            List<MyProducts> myProducts = products.Select(p => new MyProducts
-            {
-               ProductImage = p.ProductImage,
-               ProductName = p.ProductName,
-               ProductPrice = p.ProductPrice,
-               Description = p.Description,
-               Designers = p.Designers,
-               AvailabilityStatuses = p.AvailabilityStatuses,
-            }).ToList();
+            List<MyProducts> myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
         }
