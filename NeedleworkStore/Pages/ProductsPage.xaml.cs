@@ -48,14 +48,15 @@ namespace NeedleworkStore.Pages
         {
             MessageBox.Show("Добавляет товар в корзину");
             DispatcherTimer timer = new DispatcherTimer();
+            Popup ppCartIn = (Popup)((Button)sender).FindName("ppCartIn");
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                //ppCartIn.IsOpen = false;
+                ppCartIn.IsOpen = false;
                 timer.Stop();
             };
 
-            //ppCartIn.IsOpen = true;
+            ppCartIn.IsOpen = true;
             timer.Start();
         }
 

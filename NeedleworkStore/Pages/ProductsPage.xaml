@@ -100,22 +100,20 @@
                                             <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                         </StackPanel>
                                         <Button Name="btnCartIn" Margin="0 10" Width="100"
-                Style="{StaticResource btnColor}" Click="btnCartIn_Click"
-                >
+                                                Style="{StaticResource btnColor}" Click="btnCartIn_Click"
+                                                >
                                             <WrapPanel>
-                                                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
-                           >в корзину
-                                                </TextBlock>
+                                                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">в корзину</TextBlock>
+                                                <Popup Name="ppCartIn" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grdBottom}">
+                                                    <TextBlock Style="{StaticResource PopupOpacity}">
+                                                        <TextBlock.Background>
+                                                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                                                        </TextBlock.Background>
+                                                        <TextBlock Style="{StaticResource txtPopup}">Товар добавлен в корзину</TextBlock>
+                                                    </TextBlock>
+                                                </Popup>
                                             </WrapPanel>
                                         </Button>
-                                        <Popup Name="ppCartIn" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grdBottom}">
-                                            <TextBlock Style="{StaticResource PopupOpacity}">
-                                                <TextBlock.Background>
-                                                    <SolidColorBrush Color="White" Opacity="0.9"/>
-                                                </TextBlock.Background>
-    <TextBlock Style="{StaticResource txtPopup}">Товар добавлен в корзину</TextBlock>
-</TextBlock>
-                                        </Popup>
                                         <Button Width="100" Margin="10" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnFavor_Click">
                                             <WrapPanel>
                                                 <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">В избранное</TextBlock>
@@ -124,8 +122,8 @@
                                                         <TextBlock.Background>
                                                             <SolidColorBrush Color="White" Opacity="0.9"/>
                                                         </TextBlock.Background>
-                <TextBlock Style="{StaticResource txtPopup}">Товар добавлен в избранное</TextBlock>
-            </TextBlock>
+                                                        <TextBlock Style="{StaticResource txtPopup}">Товар добавлен в избранное</TextBlock>
+                                                    </TextBlock>
                                                 </Popup>
                                             </WrapPanel>
                                         </Button>
