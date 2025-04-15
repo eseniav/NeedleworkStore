@@ -8,27 +8,31 @@
       mc:Ignorable="d"
       Title="ProductsPage">
     <Grid  Margin="10">
-                <Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>                    
-                </Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="700"
                   Grid.Column="0">
             <ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>
         </ScrollViewer>
-                <ScrollViewer Name="scrProducts" VerticalScrollBarVisibility="Auto" MaxHeight="700" 
+        <ScrollViewer Name="scrProducts" VerticalScrollBarVisibility="Auto" MaxHeight="700" 
                   Grid.Column="1"
                   >
-                    <StackPanel>
-                        <WrapPanel HorizontalAlignment="Right" Margin="20 10">
-                            <Label Style="{StaticResource Chakra}" Content="Сортировать по"/>
-                            <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
-                                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
-                                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
-                                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
-                                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
-                            </ComboBox>
-                        </WrapPanel>
+            <StackPanel>
+                <WrapPanel HorizontalAlignment="Right" Margin="20 10">
+                    <Label Style="{StaticResource Chakra}" Content="Сортировать по"/>
+                    <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
+                    </ComboBox>
+                </WrapPanel>
                 <ItemsControl Name="ProdList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -104,27 +108,11 @@
                                                 >
                                             <WrapPanel>
                                                 <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">в корзину</TextBlock>
-                                                <Popup Name="ppCartIn" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grdBottom}">
-                                                    <TextBlock Style="{StaticResource PopupOpacity}">
-                                                        <TextBlock.Background>
-                                                            <SolidColorBrush Color="White" Opacity="0.9"/>
-                                                        </TextBlock.Background>
-                                                        <TextBlock Style="{StaticResource txtPopup}">Товар добавлен в корзину</TextBlock>
-                                                    </TextBlock>
-                                                </Popup>
                                             </WrapPanel>
                                         </Button>
                                         <Button Width="100" Margin="10" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnFavor_Click">
                                             <WrapPanel>
                                                 <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">В избранное</TextBlock>
-                                                <Popup Name="ppFavorIn" Style="{StaticResource Popup}">
-                                                    <TextBlock Style="{StaticResource PopupOpacity}">
-                                                        <TextBlock.Background>
-                                                            <SolidColorBrush Color="White" Opacity="0.9"/>
-                                                        </TextBlock.Background>
-                                                        <TextBlock Style="{StaticResource txtPopup}">Товар добавлен в избранное</TextBlock>
-                                                    </TextBlock>
-                                                </Popup>
                                             </WrapPanel>
                                         </Button>
                                     </StackPanel>
@@ -133,7 +121,15 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>         
+            </StackPanel>
+        </ScrollViewer>
+        <Popup Name="popup" Grid.Row="1" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grdBottom}">
+            <TextBlock Style="{StaticResource PopupOpacity}">
+                <TextBlock.Background>
+                    <SolidColorBrush Color="White" Opacity="0.9"/>
+                </TextBlock.Background>
+                <TextBlock Name="txtBlPopup" Style="{StaticResource txtPopup}"/>
+            </TextBlock>
+        </Popup>
+    </Grid>
 </Page>

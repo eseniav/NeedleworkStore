@@ -46,17 +46,17 @@ namespace NeedleworkStore.Pages
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Добавляет товар в корзину");
+            // @TODO: Add to cart
+            txtBlPopup.Text = "Товар добавлен в корзину";
             DispatcherTimer timer = new DispatcherTimer();
-            Popup ppCartIn = (Popup)((Button)sender).FindName("ppCartIn");
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                ppCartIn.IsOpen = false;
+                popup.IsOpen = false;
                 timer.Stop();
             };
 
-            ppCartIn.IsOpen = true;
+            popup.IsOpen = true;
             timer.Start();
         }
 
@@ -72,17 +72,17 @@ namespace NeedleworkStore.Pages
 
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Добавляет товар в избранное");
+            // @TODO: Add to favorites
+            txtBlPopup.Text = "Товар добавлен в избранное";
             DispatcherTimer timer = new DispatcherTimer();
-            Popup ppFavorIn = (Popup)((Button)sender).FindName("ppFavorIn");
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                ppFavorIn.IsOpen = false;
+                popup.IsOpen = false;
                 timer.Stop();
             };
 
-            ppFavorIn.IsOpen = true;
+            popup.IsOpen = true;
             timer.Start();
         }
     }
