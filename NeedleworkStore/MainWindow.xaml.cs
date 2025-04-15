@@ -121,7 +121,7 @@ namespace NeedleworkStore
                 { "ProfilePage", btnProfile }
             };
             foreach (var item in topMenu) item.Value.IsEnabled = true;
-            topMenu[page].IsEnabled = false;
+            if (topMenu.ContainsKey(page)) topMenu[page].IsEnabled = false;
         }
     }
 }
