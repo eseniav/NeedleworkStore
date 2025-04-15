@@ -33,7 +33,7 @@
                         <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
                     </ComboBox>
                 </WrapPanel>
-                <ItemsControl Name="ProdList">
+                <ItemsControl Name="ProdList" Margin="10">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <GroupBox Margin="10 0 0 10">
