@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:NeedleworkStore"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <FontFamily x:Key="fontAnticva">pack://application:,,,/Fonts/#Anticva</FontFamily>
+        <FontFamily x:Key="fontCaesarDressingCyrillic">pack://application:,,,/Fonts/#Caesar Dressing Cyrillic</FontFamily>
+        <FontFamily x:Key="fontCakraNormal">pack://application:,,,/Fonts/#Cakra Normal</FontFamily>
+        <FontFamily x:Key="fontHlobus">pack://application:,,,/Fonts/#Hlobus</FontFamily>
+        <FontFamily x:Key="fontAcherusFeralBold">pack://application:,,,/Fonts/#Acherus Feral Bold</FontFamily>
         <Style x:Key="btnOpacity" TargetType="Button">
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Margin" Value="10 0"/>
@@ -15,7 +20,7 @@
             </Setter>
         </Style>
         <Style x:Key="txtButtonOpacity" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Caesar Dressing Cyrillic"/>            
+            <Setter Property="FontFamily" Value="{StaticResource fontCaesarDressingCyrillic}"/>
             <Setter Property="Foreground" Value="#2A3759"/>
         </Style>
         <Style x:Key="Page" TargetType="Page">
@@ -33,19 +38,19 @@
             <Setter Property="Background" Value="#778FD2"/>
         </Style>
         <Style x:Key="txtButtonColor" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Caesar Dressing Cyrillic"/>            
+            <Setter Property="FontFamily" Value="{StaticResource fontCaesarDressingCyrillic}"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style x:Key="DarkCaesar" TargetType="Label">
-            <Setter Property="FontFamily" Value="Caesar Dressing Cyrillic"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontCaesarDressingCyrillic}"/>
             <Setter Property="Foreground" Value="#431D32"/>
         </Style>
         <Style x:Key="GrBHeader" TargetType="GroupBox">
-            <Setter Property="FontFamily" Value="Cakra Normal"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontCakraNormal}"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style x:Key="Hlobus" TargetType="Label">
-            <Setter Property="FontFamily" Value="Hlobus"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontHlobus}"/>
             <Setter Property="Foreground" Value="#431D32"/>
         </Style>
         <Style x:Key="txtDown" TargetType="TextBlock">
@@ -53,19 +58,19 @@
             <Setter Property="FontSize" Value="10"/>
         </Style>
         <Style x:Key="txtComment" TargetType="TextBlock" BasedOn="{StaticResource txtDown}">
-            <Setter Property="FontFamily" Value="Acherus Feral Bold"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontAcherusFeralBold}"/>
             <Setter Property="Foreground" Value="#3D5220"/>            
         </Style>
         <Style x:Key="txtError" TargetType="TextBlock" BasedOn="{StaticResource txtDown}">
-            <Setter Property="FontFamily" Value="Anticva"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontAnticva}"/>
             <Setter Property="Foreground" Value="#852614"/>            
         </Style>        
         <Style x:Key="Chakra" TargetType="Label">
-            <Setter Property="FontFamily" Value="Cakra Normal"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontCakraNormal}"/>
             <Setter Property="Foreground" Value="#2A3759"/>
         </Style>
         <Style x:Key="ChakraTB" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Cakra Normal"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontCakraNormal}"/>
             <Setter Property="Foreground" Value="#2A3759"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
@@ -78,7 +83,7 @@
         </Style>
         <Style x:Key="txtPopup" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#2A3759"/>
-            <Setter Property="FontFamily" Value="Anticva"/>
+            <Setter Property="FontFamily" Value="{StaticResource fontAnticva}"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="LineHeight" Value="15"/>
@@ -86,7 +91,7 @@
         </Style>
         <Style x:Key="PopupOpacity" TargetType="TextBlock">
             <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="50"/> 
-        </Style>        
+            <Setter Property="Height" Value="50"/>
+        </Style>
     </Application.Resources>
 </Application>
