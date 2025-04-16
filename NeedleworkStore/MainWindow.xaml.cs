@@ -32,26 +32,27 @@ namespace NeedleworkStore
             get => _userID;
             set {
                 _userID = value;
+                List<UIElement> topMenu = new List<UIElement> {
+                    btnProfile,
+                    btnExit,
+                    txtBlQuanProd,
+                    txtBlQuan,
+                    txtBlGreeting,
+                    txtblUserName,
+                };
+                List<UIElement> topMenuUser = new List<UIElement>
+                {
+                    btnReg,
+                    btnAuthReg,
+                };
                 if(value == null)
                 {
-                    btnProfile.Visibility = Visibility.Collapsed;
-                    btnExit.Visibility = Visibility.Collapsed;
-                    txtBlQuanProd.Visibility = Visibility.Collapsed;
-                    txtBlQuan.Visibility = Visibility.Collapsed;
-                    txtBlGreeting.Visibility = Visibility.Collapsed;
-                    txtblUserName.Visibility = Visibility.Collapsed;
-                    btnReg.Visibility = Visibility.Visible;
-                    btnAuthReg.Visibility = Visibility.Visible;
+                    topMenu.ForEach(el => el.Visibility = Visibility.Collapsed);
+                    topMenuUser.ForEach(el => el.Visibility = Visibility.Visible);
                 } else
                 {
-                    btnProfile.Visibility = Visibility.Visible;
-                    btnExit.Visibility = Visibility.Visible;
-                    txtBlQuanProd.Visibility = Visibility.Visible;
-                    txtBlQuan.Visibility = Visibility.Visible;
-                    txtBlGreeting.Visibility = Visibility.Visible;
-                    txtblUserName.Visibility = Visibility.Visible;
-                    btnReg.Visibility = Visibility.Collapsed;
-                    btnAuthReg.Visibility = Visibility.Collapsed;
+                    topMenu.ForEach(el => el.Visibility = Visibility.Visible);
+                    topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
                 }
             }
         }
