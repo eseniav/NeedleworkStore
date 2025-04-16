@@ -27,10 +27,39 @@ namespace NeedleworkStore
     public partial class MainWindow : Window
     {
         public static Frame frame;
+        private int? _userID;
+        public int? UserID {
+            get => _userID;
+            set {
+                _userID = value;
+                if(value == null)
+                {
+                    btnProfile.Visibility = Visibility.Collapsed;
+                    btnExit.Visibility = Visibility.Collapsed;
+                    txtBlQuanProd.Visibility = Visibility.Collapsed;
+                    txtBlQuan.Visibility = Visibility.Collapsed;
+                    txtBlGreeting.Visibility = Visibility.Collapsed;
+                    txtblUserName.Visibility = Visibility.Collapsed;
+                    btnReg.Visibility = Visibility.Visible;
+                    btnAuthReg.Visibility = Visibility.Visible;
+                } else
+                {
+                    btnProfile.Visibility = Visibility.Visible;
+                    btnExit.Visibility = Visibility.Visible;
+                    txtBlQuanProd.Visibility = Visibility.Visible;
+                    txtBlQuan.Visibility = Visibility.Visible;
+                    txtBlGreeting.Visibility = Visibility.Visible;
+                    txtblUserName.Visibility = Visibility.Visible;
+                    btnReg.Visibility = Visibility.Collapsed;
+                    btnAuthReg.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
             frame = Mainfrm;
+            UserID = null;
         }
 
         private void btnCart_Click(object sender, RoutedEventArgs e)

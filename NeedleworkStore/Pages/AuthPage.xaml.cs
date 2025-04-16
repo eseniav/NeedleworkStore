@@ -29,17 +29,24 @@ namespace NeedleworkStore.Pages
                     MessageBox.Show("Все поля должны быть заполнены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+                Users user = App.ctx.Users.FirstOrDefault(u => u.Login == txtLog.Text && u.Password == txtPass.Password);
+                if (user != null)
+                {
+                    MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                    mainWindow.UserID = user.UserID;
+                    this.NavigationService.Navigate(new ProductsPage());
+                    return;
+                }
                 if (App.ctx.Users.FirstOrDefault(u => u.Login == txtLog.Text) == null)
                 {
                     MessageBox.Show("Пользователь не был найден", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                if (App.ctx.Users.FirstOrDefault(u => u.Login == txtLog.Text && u.Password == txtPass.Password) == null)
+                if (user == null)
                 {
                     MessageBox.Show("Неверный пароль", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                this.NavigationService.Navigate(new ProductsPage());
             } catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
