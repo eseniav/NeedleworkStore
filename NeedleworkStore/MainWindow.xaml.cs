@@ -28,23 +28,13 @@ namespace NeedleworkStore
     {
         public static Frame frame;
         private int? _userID;
+        List<UIElement> topMenu;
+        List<UIElement> topMenuUser;
         public int? UserID {
             get => _userID;
             set {
                 _userID = value;
-                List<UIElement> topMenu = new List<UIElement> {
-                    btnProfile,
-                    btnExit,
-                    txtBlQuanProd,
-                    txtBlQuan,
-                    txtBlGreeting,
-                    txtblUserName,
-                };
-                List<UIElement> topMenuUser = new List<UIElement>
-                {
-                    btnReg,
-                    btnAuthReg,
-                };
+
                 if(value == null)
                 {
                     topMenu.ForEach(el => el.Visibility = Visibility.Collapsed);
@@ -59,6 +49,19 @@ namespace NeedleworkStore
         public MainWindow()
         {
             InitializeComponent();
+            topMenu = new List<UIElement> {
+                    btnProfile,
+                    btnExit,
+                    txtBlQuanProd,
+                    txtBlQuan,
+                    txtBlGreeting,
+                    txtblUserName,
+                };
+            topMenuUser = new List<UIElement>
+                {
+                    btnReg,
+                    btnAuthReg,
+                };
             frame = Mainfrm;
             UserID = null;
         }
