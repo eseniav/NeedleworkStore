@@ -54,13 +54,13 @@
                         <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Корзина</TextBlock>
                     </WrapPanel>
                 </Button>
-                <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource txtButtonOpacity}" Visibility="Collapsed"
+                <TextBlock Name="txtBlQuanProd" Grid.Column="1" Grid.Row="1" Style="{StaticResource txtButtonOpacity}"
                                 TextWrapping="Wrap" Margin="10 0 0 0" FontSize="10" LineHeight="15" HorizontalAlignment="Left"
                                 >Количество товаров: 
-                                <TextBlock FontSize="15" Style="{StaticResource txtButtonOpacity}">20</TextBlock>
+                                <TextBlock Name="txtBlQuan" FontSize="15" Style="{StaticResource txtButtonOpacity}">20</TextBlock>
                     </TextBlock>
                 <WrapPanel Grid.Column="2" Grid.Row="0">
-                    <Button Name="btnProfile" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Visibility="Collapsed" Click="btnProfile_Click">
+                    <Button Name="btnProfile" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnProfile_Click">
                         <WrapPanel>
                             <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Профиль</TextBlock>
                         </WrapPanel>
@@ -70,7 +70,7 @@
                             <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Регистрация</TextBlock>
                         </WrapPanel>
                     </Button>
-                    <Button Name="btnExit" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Visibility="Collapsed" Click="btnExit_Click">
+                    <Button Name="btnExit" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnExit_Click">
                         <WrapPanel>
                             <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Выйти</TextBlock>
                         </WrapPanel>
@@ -89,9 +89,9 @@
                         </WrapPanel>
                     </Button>
                 </WrapPanel>
-                <TextBlock Grid.Column="2" Grid.Row="1" Style="{StaticResource txtButtonOpacity}"
+                <TextBlock Name="txtBlGreeting" Grid.Column="2" Grid.Row="1" Style="{StaticResource txtButtonOpacity}"
                                 TextWrapping="Wrap" FontSize="13" LineHeight="15" HorizontalAlignment="Right"
-                                VerticalAlignment="Center" Margin="10 5"  Visibility="Collapsed"
+                                VerticalAlignment="Center" Margin="10 5"
                                 >Рады вас видеть, 
                                 <TextBlock Name="txtblUserName" Style="{StaticResource txtButtonOpacity}"/>
                     </TextBlock>

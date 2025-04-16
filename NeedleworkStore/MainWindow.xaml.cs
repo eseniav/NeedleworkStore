@@ -27,10 +27,43 @@ namespace NeedleworkStore
     public partial class MainWindow : Window
     {
         public static Frame frame;
+        private int? _userID;
+        List<UIElement> topMenu;
+        List<UIElement> topMenuUser;
+        public int? UserID {
+            get => _userID;
+            set {
+                _userID = value;
+
+                if(value == null)
+                {
+                    topMenu.ForEach(el => el.Visibility = Visibility.Collapsed);
+                    topMenuUser.ForEach(el => el.Visibility = Visibility.Visible);
+                } else
+                {
+                    topMenu.ForEach(el => el.Visibility = Visibility.Visible);
+                    topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
+                }
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
+            topMenu = new List<UIElement> {
+                    btnProfile,
+                    btnExit,
+                    txtBlQuanProd,
+                    txtBlQuan,
+                    txtBlGreeting,
+                    txtblUserName,
+                };
+            topMenuUser = new List<UIElement>
+                {
+                    btnReg,
+                    btnAuthReg,
+                };
             frame = Mainfrm;
+            UserID = null;
         }
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
@@ -49,6 +82,7 @@ namespace NeedleworkStore
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
+            UserID = null;
             Mainfrm.Navigate(new AuthPage());
         }
 
