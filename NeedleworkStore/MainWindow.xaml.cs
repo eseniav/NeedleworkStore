@@ -78,6 +78,7 @@ namespace NeedleworkStore
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
+            UserID = null;
             Mainfrm.Navigate(new AuthPage());
         }
 
