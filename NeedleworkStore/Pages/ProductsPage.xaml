@@ -25,7 +25,7 @@
                   >
             <StackPanel>
                 <WrapPanel HorizontalAlignment="Right" Margin="20 10">
-                    <Label Style="{StaticResource Chakra}" Content="Сортировать по"/>
+                    <TextBlock Style="{StaticResource ChakraTB}" Text="Сортировать по"/>
                     <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
                         <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
                         <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
@@ -44,7 +44,7 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="220"/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
@@ -65,21 +65,21 @@
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
                                         <Label MinHeight="20"/>
-                                        <Grid>
+                                        <Grid HorizontalAlignment="Center">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="150"/>
                                             </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0">
-                                                <Label Style="{StaticResource Chakra}" Content="Компания:"/>
-                                                <Label Style="{StaticResource Chakra}" Content="Название:"/>
-                                                <Label Style="{StaticResource Chakra}" Content="Наличие:"/>
+                                            <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                                                <TextBlock Style="{StaticResource ChakraTB}" Text="Компания:"/>
+                                                <TextBlock Style="{StaticResource ChakraTB}" Text="Название:"/>
+                                                <TextBlock Style="{StaticResource ChakraTB}" Text="Наличие:"/>
                                             </StackPanel>
-                                            <StackPanel Grid.Column="1">
-                                                <Label Style="{StaticResource Chakra}" Content="{Binding Designers.DesignerName}"/>
-                                                <Label Style="{StaticResource Chakra}" Content="{Binding ProductName}"/>
-                                                <Label FontFamily="Cakra Normal" Foreground="#3D5220"
-                                                       Content="{Binding AvailabilityStatuses.AvailabilityStatus}"/>
+                                            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                                                <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding Designers.DesignerName}"/>
+                                                <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding ProductName}"/>
+                                                <TextBlock FontFamily="Cakra Normal" Foreground="#3D5220"
+                                                       Text="{Binding AvailabilityStatuses.AvailabilityStatus}" Margin="5"/>
                                             </StackPanel>
                                         </Grid>
                                         <WrapPanel HorizontalAlignment="Center">
@@ -87,7 +87,7 @@
                                         </WrapPanel>
                                         <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="12"
                                                    LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
-                                                   TextAlignment="Left" Text="{Binding Description}"/>
+                                                   TextAlignment="Left" Text="{Binding Description}" HorizontalAlignment="Left"/>
                                         <WrapPanel>
                                             <Label>
                                                 <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
