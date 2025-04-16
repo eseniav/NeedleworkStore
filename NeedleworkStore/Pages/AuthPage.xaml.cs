@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices.ComTypes;
 using System.Linq;
+using NeedleworkStore.AppData;
 
 namespace NeedleworkStore.Pages
 {  
@@ -33,7 +34,7 @@ namespace NeedleworkStore.Pages
                     MessageBox.Show("Пользователь не был найден", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                if (App.ctx.Users.FirstOrDefault(u => u.Password == txtPass.Password) == null)
+                if (App.ctx.Users.FirstOrDefault(u => u.Login == txtLog.Text && u.Password == txtPass.Password) == null)
                 {
                     MessageBox.Show("Неверный пароль", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
