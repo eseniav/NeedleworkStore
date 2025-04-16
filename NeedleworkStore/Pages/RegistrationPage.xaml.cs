@@ -24,6 +24,12 @@ namespace NeedleworkStore.Pages
         public RegistrationPage()
         {
             InitializeComponent();
+            txtBlLog.Text = "Минимальная длина - 3 символа. " +
+                "Нельзя использовать: & + = < > , \" \' ` ~";
+            txtBlPass.Text = "Минимальная длина - 8 символов. " +
+                "Пароль должен содержать хотя бы 1 цифру и заглавную букву.";
+            txtBlDate.Text = "Регистрация возможна с 14 лет";
+            txtBlReqFields.Text = "Поля с * обязательны для заполнения";
         }
         
         private void btnReg_Click(object sender, RoutedEventArgs e)
