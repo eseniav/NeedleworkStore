@@ -193,6 +193,12 @@
     <Compile Include="Pages\UserFramePage.xaml.cs">
       <DependentUpon>UserFramePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UCElements\AddInCmbUC.xaml.cs">
+      <DependentUpon>AddInCmbUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCElements\AddInListboxUC.xaml.cs">
+      <DependentUpon>AddInListboxUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UCElements\RecomendationUC.xaml.cs">
       <DependentUpon>RecomendationUC.xaml</DependentUpon>
     </Compile>
@@ -269,6 +275,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UserFramePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCElements\AddInCmbUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCElements\AddInListboxUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
