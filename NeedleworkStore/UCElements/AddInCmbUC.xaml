@@ -10,14 +10,18 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
-            <Label Content="Название" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-            <TextBox Name="txtbox" Style="{StaticResource txtBoxReg}"/>
-            <ComboBox Name="cmbSort" MinWidth="80" Margin="0 10 0 0">
-                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
-            </ComboBox>
-        </StackPanel>
-        <Button Name="btnAdd" Grid.Column="1" HorizontalAlignment="Center"
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Название" HorizontalAlignment="Right"
+                   Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+        <TextBox Name="txtbox" Grid.Column="0" Grid.Row="1" Height="25" Style="{StaticResource txtBoxReg}"/>
+        <ComboBox Name="cmbSort" Grid.Column="0" Grid.Row="2" Width="150" Height="25" HorizontalAlignment="Right" Margin="0 10 0 0">
+            <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
+        </ComboBox>
+        <Button Name="btnAdd" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
             Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25"
             >
             <WrapPanel>

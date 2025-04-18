@@ -10,10 +10,15 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
-            <Label Content="Название" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-            <TextBox Name="txtbox" Style="{StaticResource txtBoxReg}"/>
-            <GroupBox Style="{StaticResource GrBHeader}" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Название" HorizontalAlignment="Right"
+                   Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+        <TextBox Grid.Column="0" Grid.Row="1" Name="txtbox" Height="25" Style="{StaticResource txtBoxReg}"/>
+        <GroupBox Grid.Column="0" Grid.Row="2" Style="{StaticResource GrBHeader}" Margin="0 5 0 0">
                 <ListBox Name="lbx">
                     <ListBox.Background>
                         <SolidColorBrush Opacity="0.25"/>
@@ -26,10 +31,9 @@
                     </ListBoxItem>
                 </ListBox>
             </GroupBox>
-        </StackPanel>
-        <Button Name="btnAdd" Grid.Column="1" HorizontalAlignment="Center"
-    Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25"
-    >
+        <Button Name="btnAdd" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
+                Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25"
+                >
             <WrapPanel>
                 <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16" Text="Добавить"/>
             </WrapPanel>
