@@ -1,0 +1,87 @@
+﻿<Page x:Class="NeedleworkStore.Pages.AddProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NeedleworkStore.Pages"
+      xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
+      mc:Ignorable="d"      
+      Title="AddProductPage">
+    <ScrollViewer Name="scrAddProd" VerticalScrollBarVisibility="Auto" MaxHeight="700">
+        <StackPanel>
+        <GroupBox Style="{StaticResource GrBHeader}" Margin="10">
+            <StackPanel>
+                <Label Content="Номер ID" Grid.Row="0" Grid.ColumnSpan="3" FontSize="20"
+                    HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Style="{StaticResource GrBHeader}" Grid.Column="0">
+                        <StackPanel Margin="20">
+                            <Label Content="Название" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                            <TextBox Name="txtbAddNameProd" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <Label Content="Цена" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                                <TextBox Name="txtbAddPriceProd" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <Label Content="Наличие" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                                <ComboBox Name="cmbSort" Width="150" HorizontalAlignment="Right" Height="25">
+                                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
+                                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
+                            </ComboBox>
+                            <Label Content="Описание" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                                <TextBox Name="txtbAdddescriptionProd" TextWrapping="Wrap" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <Label Content="QR" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                                <TextBox Name="txtbQR" Style="{StaticResource txtBoxReg}" Height="25"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Style="{StaticResource GrBHeader}" Grid.Column="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <ucSB:AddInCmbUC Grid.Column="0" Grid.Row="0" Margin="3"/>
+                            <ucSB:AddInCmbUC Grid.Column="1" Grid.Row="0" Margin="3"/>
+                            <TextBlock Name="txtBlDesigner" Style="{StaticResource txtComment}" Margin="2" HorizontalAlignment="Right"
+                                   Grid.Column="0" Grid.Row="1"
+                                   Text="При добавлении нового производителя обязательно выбрать страну"/>
+                            <ucSB:AddInListboxUC Grid.Column="0" Grid.Row="2" Margin="3"/>
+                            <ucSB:AddInListboxUC Grid.Column="1" Grid.Row="2" Margin="3"/>
+                            <ucSB:AddInListboxUC Grid.Column="0" Grid.Row="3" Margin="3"/>
+                            <ucSB:AddInListboxUC Grid.Column="1" Grid.Row="3" Margin="3"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Style="{StaticResource GrBHeader}" Grid.Column="2">
+                        <ucSB:AddInListboxUC Margin="3"/>
+                    </GroupBox>
+                </Grid>
+                <StackPanel>
+                    <Image Source="\ResImages\NoPicture.png" MaxWidth="180" MaxHeight="180"
+                       HorizontalAlignment="Center" Margin="5"
+                       />
+                    <Button Name="btnAddPicture" HorizontalAlignment="Center"
+                        Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25"
+                        >
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16" Text="Добавить"/>
+                        </WrapPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+            <Button Name="btnAddToDB" Margin="0 10" Style="{StaticResource btnColor}" HorizontalAlignment="Center" Width="130" Height="30">
+            <WrapPanel>
+                <TextBlock Style="{StaticResource txtButtonColor}" FontSize="20">Загрузить</TextBlock>
+            </WrapPanel>
+        </Button>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
