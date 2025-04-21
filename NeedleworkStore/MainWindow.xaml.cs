@@ -28,40 +28,36 @@ namespace NeedleworkStore
     {
         public static Frame frame;
         private int? _userID;
-        List<UIElement> topMenu;
-        List<UIElement> topMenuUser;
+        // Определение элементов управления
+        Dictionary<FrameworkElement, bool> menuElements { get; set; }
         public int? UserID {
             get => _userID;
             set {
                 _userID = value;
 
-                if(value == null)
-                {
-                    topMenu.ForEach(el => el.Visibility = Visibility.Collapsed);
-                    topMenuUser.ForEach(el => el.Visibility = Visibility.Visible);
-                } else
-                {
-                    topMenu.ForEach(el => el.Visibility = Visibility.Visible);
-                    topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
-                }
+                // Логика переключения элементов управления
+                if (value == null)
+                    foreach (var item in menuElements) item.Key.Visibility = !item.Value ? Visibility.Collapsed : Visibility.Visible;
+                else
+                    foreach (var item in menuElements) item.Key.Visibility = item.Value ? Visibility.Collapsed : Visibility.Visible;
             }
         }
         public MainWindow()
         {
             InitializeComponent();
-            topMenu = new List<UIElement> {
-                    btnProfile,
-                    btnExit,
-                    txtBlQuanProd,
-                    txtBlQuan,
-                    txtBlGreeting,
-                    txtblUserName,
-                };
-            topMenuUser = new List<UIElement>
-                {
-                    btnReg,
-                    btnAuthReg,
-                };
+
+            // Инициализация элементов управления
+            menuElements = new Dictionary<FrameworkElement, bool>
+            {
+                {  btnProfile, false },
+                {  btnExit, false },
+                {  txtBlQuanProd, false },
+                {  txtBlQuan, false },
+                {  txtBlGreeting, false },
+                {  txtblUserName, false },
+                {  btnReg, true },
+                {  btnAuthReg, true },
+            };
             frame = Mainfrm;
             UserID = null;
         }
