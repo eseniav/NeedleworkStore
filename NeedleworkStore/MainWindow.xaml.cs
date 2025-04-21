@@ -36,10 +36,7 @@ namespace NeedleworkStore
                 _userID = value;
 
                 // Логика переключения элементов управления
-                if (value == null)
-                    foreach (var item in menuElements) item.Key.Visibility = !item.Value ? Visibility.Collapsed : Visibility.Visible;
-                else
-                    foreach (var item in menuElements) item.Key.Visibility = item.Value ? Visibility.Collapsed : Visibility.Visible;
+                ToggleTopMenuControls(value);
             }
         }
         public MainWindow()
@@ -62,6 +59,18 @@ namespace NeedleworkStore
             UserID = null;
         }
 
+        /// <summary>
+        /// Sets visibility to top menu controls
+        /// </summary>
+        /// <param name="uid">a user identifier</param>
+        /// <example>Some example</example>
+        private void ToggleTopMenuControls(int? uid)
+        {
+            if (uid == null)
+                foreach (var item in menuElements) item.Key.Visibility = !item.Value ? Visibility.Collapsed : Visibility.Visible;
+            else
+                foreach (var item in menuElements) item.Key.Visibility = item.Value ? Visibility.Collapsed : Visibility.Visible;
+        }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new CartPage());
