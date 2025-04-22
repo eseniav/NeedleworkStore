@@ -20,9 +20,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Page.Resources>    
-        <StackPanel Margin="5">            
-            <Grid>
+    </Page.Resources>
+    <StackPanel Margin="10">
+        <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
@@ -59,111 +59,121 @@
                 <StackPanel Grid.Column="1" Grid.Row="1">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
                         <StackPanel>
-                            <GroupBox Margin="10 0 0 10">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition/>                                        
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>                                    
-                                    <StackPanel Grid.Column="0">
-                                        <WrapPanel HorizontalAlignment="Right">
-                                            <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
+                        <GroupBox Margin="10 0 0 10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="220"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Grid.Row="0">
+                                    <WrapPanel HorizontalAlignment="Right">
+                                        <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
                                         <Label Style="{StaticResource Chakra}" Content="4,9" Margin="0 0 20 0"/>
                                     </WrapPanel>
-                                        <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
-                                           HorizontalAlignment="Right" Margin="20 0"
-                                           >
-                                            <Image.ToolTip>
-                                                <ToolTip ToolTipService.InitialShowDelay="3000">
-                                                    <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="350" MaxHeight="350"/>
-                                                </ToolTip>
-                                            </Image.ToolTip>
-                                        </Image>
-                                    </StackPanel>                                    
-                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                                        <Label MinHeight="20"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0">
-                                                <Label Style="{StaticResource Chakra}" Content="Компания:"/>
-                                                <Label Style="{StaticResource Chakra}" Content="Название:"/>
-                                                <Label Style="{StaticResource Chakra}" Content="Наличие:"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="1">
-                                                <Label Style="{StaticResource Chakra}" Content="Кларт"/>
-                                                <Label Style="{StaticResource Chakra}" Content="Лаванда для нее"/>
-                                                <Label FontFamily="Cakra Normal" Foreground="#3D5220" Content="Есть в наличии"/>
-                                            </StackPanel>
-                                        </Grid>
-                                        <WrapPanel HorizontalAlignment="Center">
-                                            <Label Style="{StaticResource Chakra}" Content="Описание:"/>
-                                        </WrapPanel>
-                                        <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="12"
+                                    <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
+                   HorizontalAlignment="Right" Margin="20 0"
+                   >
+                                        <Image.ToolTip>
+                                            <ToolTip ToolTipService.InitialShowDelay="3000">
+                                                <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="350" MaxHeight="350"/>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                                    <Label MinHeight="20"/>
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="150"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                                            <TextBlock Style="{StaticResource ChakraTB}" Text="Компания:"/>
+                                            <TextBlock Style="{StaticResource ChakraTB}" Text="Название:"/>
+                                            <TextBlock Style="{StaticResource ChakraTB}" Text="Наличие:"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                                            <TextBlock Style="{StaticResource ChakraTB}" Text="Кларт"/>
+                                            <TextBlock Style="{StaticResource ChakraTB}" Text="Лаванда для неё"/>
+                                            <TextBlock FontFamily="Cakra Normal" Foreground="#3D5220"
+                                                        Text="есть в наличии" Margin="5"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <WrapPanel HorizontalAlignment="Center">
+                                        <Label Style="{StaticResource Chakra}" Content="Описание:"/>
+                                    </WrapPanel>
+                                    <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="12"
                                                LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
-                                               TextAlignment="Left"
-                                               >Размер набора 13х18,5 см, канва - аида 14 белая
-                                        </TextBlock>
-                                        <WrapPanel>
-                                            <Label>
-                                                <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
+                                               TextAlignment="Left" Text="Размер набора 13х18,5 см, канва - аида 14 белая"
+                                               HorizontalAlignment="Left"/>
+                                    <WrapPanel>
+                                        <Label>
+                                            <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
                                                        Click="hlAbout_Click"
                                                        >Подробнее
-                                                </Hyperlink>
-                                            </Label>
-                                        </WrapPanel>
+                                            </Hyperlink>
+                                        </Label>
+                                    </WrapPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Center" Margin="0 0 20 0">
+                                    <StackPanel HorizontalAlignment="Center" Margin="0 30 0 10">
+                                        <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
+                                                Content="100"/>
+                                        <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                     </StackPanel>
-                                    <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                        <Button Name="btnBuy" Margin="0 10" MaxWidth="150"
-                                                Style="{StaticResource btnColor}" HorizontalAlignment="Center"
-                                                Click="btnBuy_Click"                                        
-                                                >
-                                            <WrapPanel>
-                                                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">Купить</TextBlock>
-                                            </WrapPanel>
-                                        </Button>
-                                        <WrapPanel HorizontalAlignment="Center">
-                                            <RepeatButton Name="btnMinus" Margin="0 0 10 0" Style="{StaticResource btnRep}"
-                                                    VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
-                                                    >
-                                                <RepeatButton.Background>
-                                                    <SolidColorBrush Opacity="0.25"/>
-                                                </RepeatButton.Background>
-                                                <WrapPanel>
-                                                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                                               >-
-                                                    </TextBlock>
-                                                </WrapPanel>
-                                            </RepeatButton>
-                                            <TextBlock Name="txblQuan" Foreground="#2A3759" VerticalAlignment="Center"
-                                                       FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
-                                                       FontSize="18" LineHeight="15" HorizontalAlignment="Center"
-                                                       >1    
-                                            </TextBlock>
-                                            <RepeatButton Name="btnPlus" Margin="10 0 0 0" Style="{StaticResource btnRep}"
-                                                    VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
-                                                    >                                                
-                                                <WrapPanel>
-                                                    <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                                               >+
-                                                    </TextBlock>
-                                                </WrapPanel>
-                                            </RepeatButton>
+                                    <Button Name="btnBuy" Margin="0 10" MaxWidth="150"
+                                            Style="{StaticResource btnColor}" HorizontalAlignment="Center"
+                                            Click="btnBuy_Click"
+                                            >
+                                        <WrapPanel>
+                                            <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">Купить</TextBlock>
                                         </WrapPanel>
-                                        <Button Name="btnDel" MinWidth="100" MaxWidth="120"
-                                                Margin="10" Style="{StaticResource btnOpacity}" VerticalAlignment="Bottom" Click="btnDel_Click"                                             
-                                                >                                            
+                                    </Button>
+                                    <WrapPanel HorizontalAlignment="Center">
+                                        <RepeatButton Name="btnMinus" Margin="0 0 10 0" Style="{StaticResource btnRep}"
+                                                      VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
+                                                      >
+                                            <RepeatButton.Background>
+                                                <SolidColorBrush Opacity="0.25"/>
+                                            </RepeatButton.Background>
                                             <WrapPanel>
-                                                <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">Удалить</TextBlock>
+                                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                                                            >-
+                                                </TextBlock>
                                             </WrapPanel>
-                                        </Button>
-                                    </StackPanel>
-                                </Grid>
-                            </GroupBox>                            
-                        </StackPanel>
+                                        </RepeatButton>
+                                        <TextBlock Name="txblQuan" Foreground="#2A3759" VerticalAlignment="Center"
+                                                   FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
+                                                   FontSize="18" LineHeight="15" HorizontalAlignment="Center"
+                                                   >1
+                                        </TextBlock>
+                                        <RepeatButton Name="btnPlus" Margin="10 0 0 0" Style="{StaticResource btnRep}"
+                                                        VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
+                                                        >
+                                            <WrapPanel>
+                                                <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
+                                                           >+
+                                                </TextBlock>
+                                            </WrapPanel>
+                                        </RepeatButton>
+                                    </WrapPanel>
+                                    <Button Name="btnDel" MinWidth="100" MaxWidth="120"
+                                            Margin="10" Style="{StaticResource btnOpacity}" VerticalAlignment="Bottom"
+                                            Click="btnDel_Click">
+                                        <WrapPanel>
+                                            <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">Удалить</TextBlock>
+                                        </WrapPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
                     </ScrollViewer>
                 </StackPanel>
             </Grid>
@@ -173,13 +183,10 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button  Name="btnDelAll" Grid.Column="0" Margin="0 10 0 0"
+            <Button  Name="btnDelAll" Grid.Column="0" Margin="0 10 0 0"
                          Style="{StaticResource btnOpacity}" HorizontalAlignment="Left" Click="btnDelAll_Click"                     
                          >
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0.25"/>
-                    </Button.Background>
-                    <StackPanel>
+                <StackPanel>
                         <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}"
                                    HorizontalAlignment="Center" Margin="5 0"
                                    >Удалить
@@ -190,6 +197,12 @@
                         </TextBlock>
                     </StackPanel>
                 </Button>
+            <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="Итого:"/>
+                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
+                        Content="100"/>
+                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
+            </WrapPanel>
                 <Button Name="btnPlaceOrder" Margin="0 10 0 0" Style="{StaticResource btnColor}"
                         HorizontalAlignment="Right" Grid.Column="2" Click="btnPlaceOrder_Click"
                         >
