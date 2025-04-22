@@ -46,6 +46,7 @@ namespace NeedleworkStore.Pages
         {
             // @TODO: Add to cart
             txtBlPopup.Text = "Товар добавлен в корзину";
+            ((MainWindow)Application.Current.MainWindow).UpdateCartState();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
