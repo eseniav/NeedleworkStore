@@ -205,6 +205,9 @@
     <Compile Include="UCElements\SearchSidebarUC.xaml.cs">
       <DependentUpon>SearchSidebarUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\SignDialog.xaml.cs">
+      <DependentUpon>SignDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -291,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UCElements\SearchSidebarUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SignDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
