@@ -37,6 +37,7 @@ namespace NeedleworkStore
 
                 // Логика переключения элементов управления
                 ToggleTopMenuControls(value);
+                UpdateCartState(value);
             }
         }
         public MainWindow()
@@ -70,6 +71,14 @@ namespace NeedleworkStore
                 foreach (var item in menuElements) item.Key.Visibility = !item.Value ? Visibility.Collapsed : Visibility.Visible;
             else
                 foreach (var item in menuElements) item.Key.Visibility = item.Value ? Visibility.Collapsed : Visibility.Visible;
+        }
+        /// <summary>
+        /// Triggers shopping cart products quantity update
+        /// </summary>
+        /// <param name="uid">User identifier</param>
+        private void UpdateCartState(int? uid)
+        {
+            txtBlQuan.Text = uid == null ? string.Empty : App.ctx.Carts.Where(c => c.UserID == uid).Count().ToString();
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
