@@ -208,6 +208,9 @@
     <Compile Include="Windows\SignDialog.xaml.cs">
       <DependentUpon>SignDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ThreeChoiceModal.xaml.cs">
+      <DependentUpon>ThreeChoiceModal.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -298,6 +301,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SignDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ThreeChoiceModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
