@@ -40,6 +40,7 @@ namespace NeedleworkStore
                 UpdateCartState();
             }
         }
+        public bool IsAuthenticated => UserID != null;
         public MainWindow()
         {
             InitializeComponent();
@@ -77,7 +78,7 @@ namespace NeedleworkStore
         /// </summary>
         internal void UpdateCartState()
         {
-            txtBlQuan.Text = UserID == null ? string.Empty : App.ctx.Carts.Where(c => c.UserID == UserID).Count().ToString();
+            txtBlQuan.Text = IsAuthenticated ? App.ctx.Carts.Where(c => c.UserID == UserID).Count().ToString() : string.Empty;
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
