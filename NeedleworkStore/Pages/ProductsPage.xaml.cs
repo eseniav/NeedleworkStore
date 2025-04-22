@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,11 +48,20 @@ namespace NeedleworkStore.Pages
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
             if (!mainWindow.IsAuthenticated)
             {
-                // Создание экземпляра пользовательского MessageBox
-                NeedleworkStore.Windows.SignDialog dialog = new Windows.SignDialog();
+                // Создание экземпляра модального диалога
+                NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal(
+                    "Добавить товар в корзину могут только зарегистрированные пользователи.",
+                    "Предупреждение",
+                    "Регистрация",
+                    "Вход",
+                    "Отмена"
+                    );
                 // Отображение окна как модального диалога
-                dialog.ShowDialog();
-                //bool? result = dialog.ShowDialog();
+                bool? result = modal.ShowDialog();
+                // Обработка результатов пользовательского выбора
+                if (result != true) return;
+                if (modal.Choice == 1) NavigationService.Navigate(new RegistrationPage());
+                else NavigationService.Navigate(new AuthPage());
                 return;
             }
             // @TODO: Add to cart
