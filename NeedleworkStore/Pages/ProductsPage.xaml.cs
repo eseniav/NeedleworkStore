@@ -24,6 +24,7 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
+        public int? UserID;
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -40,22 +41,34 @@ namespace NeedleworkStore.Pages
             List<MyProducts> myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
+            UserID = null;
         }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
             // @TODO: Add to cart
-            txtBlPopup.Text = "Товар добавлен в корзину";
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            if (UserID == null)
             {
-                popup.IsOpen = false;
-                timer.Stop();
-            };
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            } else
+            {
+                txtBlPopup.Text = "Товар добавлен в корзину";
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(2);
+                timer.Tick += (s, args) =>
+                {
+                    popup.IsOpen = false;
+                    timer.Stop();
+                };
 
-            popup.IsOpen = true;
-            timer.Start();
+                popup.IsOpen = true;
+                timer.Start();
+            }
         }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
