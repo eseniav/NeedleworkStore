@@ -45,6 +45,15 @@ namespace NeedleworkStore.Pages
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
+            if (!mainWindow.IsAuthenticated)
+            {
+                // Создание экземпляра пользовательского MessageBox
+                NeedleworkStore.Windows.SignDialog dialog = new Windows.SignDialog();
+                // Отображение окна как модального диалога
+                dialog.ShowDialog();
+                //bool? result = dialog.ShowDialog();
+                return;
+            }
             // @TODO: Add to cart
             txtBlPopup.Text = "Товар добавлен в корзину";
             mainWindow.UpdateCartState();
