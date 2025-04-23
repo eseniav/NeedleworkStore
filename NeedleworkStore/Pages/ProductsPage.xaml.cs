@@ -59,13 +59,10 @@ namespace NeedleworkStore.Pages
             popup.IsOpen = true;
             timer.Start();
         }
-
-        private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SortProd(string cmbName)
         {
-            ComboBoxItem selectedItem = ((ComboBox)sender).SelectedItem as ComboBoxItem;
             List<MyProducts> sortedProducts;
-
-            switch (selectedItem.Name)
+            switch (cmbName)
             {
                 case "cmbIAZ":
                     sortedProducts = myProducts.OrderBy(p => p.ProductName).ToList();
@@ -90,6 +87,12 @@ namespace NeedleworkStore.Pages
                     break;
             }
             ProdList.ItemsSource = sortedProducts;
+        }
+
+        private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selectedItem = ((ComboBox)sender).SelectedItem as ComboBoxItem;
+            SortProd(selectedItem.Name);
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
