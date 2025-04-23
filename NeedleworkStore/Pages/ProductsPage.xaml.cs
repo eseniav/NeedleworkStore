@@ -26,6 +26,7 @@ namespace NeedleworkStore.Pages
     {
         List<AppData.Products> products;
         List<MyProducts> myProducts;
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -43,12 +44,25 @@ namespace NeedleworkStore.Pages
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
             cmbIAvail.IsSelected = true;
+            ChangeQuantityProducts();
         }
-        
+        private void ChangeQuantityProducts()
+        {
+            if (mainWindow.UserID != null)
+            {
+                if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
+                {
+                    int totalQuantity = App.ctx.Carts
+                                    .Where(c => c.UserID == mainWindow.UserID)
+                                    .Sum(c => c.QuantityCart);
+                    mainWindow.txtBlQuan.Text = totalQuantity.ToString();
+                }
+                else
+                    mainWindow.txtBlQuan.Text = "0";
+            }
+        }
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
-            // @TODO: Add to cart
-            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             if (!mainWindow.IsAuthenticated)
             {
                 MessageBoxResult msgInf = MessageBox.Show
@@ -86,6 +100,7 @@ namespace NeedleworkStore.Pages
                     App.ctx.Carts.Add(newprodInCart);
                 }
                 App.ctx.SaveChanges();
+                ChangeQuantityProducts();
                 txtBlPopup.Text = "Товар добавлен в корзину";
                 DispatcherTimer timer = new DispatcherTimer();
                 timer.Interval = TimeSpan.FromSeconds(2);
