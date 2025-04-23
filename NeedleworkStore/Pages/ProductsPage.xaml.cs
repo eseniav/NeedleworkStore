@@ -96,6 +96,26 @@ namespace NeedleworkStore.Pages
             ComboBoxItem selectedItem = ctl.SelectedItem as ComboBoxItem;
             string selectedValue = selectedItem.Content as string;
             MessageBox.Show($"Соответствующая сортировка {selectedValue}");
+            // SortByValue
+            List<MyProducts> products;
+            switch(selectedValue)
+            {
+                case "цене":
+                    products = myProducts.OrderBy(p => p.ProductPrice).ToList();
+                    break;
+                case "названию":
+                    products = myProducts.OrderBy(p => p.ProductName).ToList();
+                    break;
+                case "наличию":
+                    products = myProducts.OrderBy(p => p.AvailabilityStatusID).ToList();
+                    break;
+                case "рейтингу":
+                default:
+                    products = myProducts;
+                    break;
+            }
+            ProdList.ItemsSource = products;
+            ProdList.DataContext = products;
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
