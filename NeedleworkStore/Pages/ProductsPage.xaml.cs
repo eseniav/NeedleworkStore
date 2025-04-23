@@ -58,17 +58,34 @@ namespace NeedleworkStore.Pages
                     this.NavigationService.Navigate(new RegistrationPage());
                 return;
             }
-            txtBlPopup.Text = "Товар добавлен в корзину";
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            try
             {
-                popup.IsOpen = false;
-                timer.Stop();
-            };
+                MyProducts selectedProduct = (MyProducts)((Button)sender).DataContext;
+                Carts newprodInCart = new Carts
+                {
+                   UserID = (int)mainWindow.UserID,
+                   ProductID = selectedProduct.ProductID,
+                   QuantityCart = 1,
+                   FormationDate = DateTime.Now,
+                };
+                App.ctx.Carts.Add(newprodInCart);
+                App.ctx.SaveChanges();
+                txtBlPopup.Text = "Товар добавлен в корзину";
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(2);
+                timer.Tick += (s, args) =>
+                {
+                    popup.IsOpen = false;
+                    timer.Stop();
+                };
 
-            popup.IsOpen = true;
-            timer.Start();
+                popup.IsOpen = true;
+                timer.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void SortProd(string cmbName)
         {
