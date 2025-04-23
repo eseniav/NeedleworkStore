@@ -44,6 +44,33 @@ namespace NeedleworkStore.Pages
             ProdList.DataContext = myProducts;
             SortByAvailability.IsSelected = true;
         }
+        private void ShowModalDialog()
+        {
+            // Создание экземпляра модального диалога: Вариант 1
+            /*
+            NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal(
+                "Добавить товар в корзину могут только зарегистрированные пользователи.",
+                "Предупреждение",
+                "Регистрация",
+                "Вход",
+                "Отмена"
+                );
+            */
+            // Создание экземпляра модального диалога: Вариант 2
+            NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal
+            {
+                Message = "Добавить товар в корзину могут только зарегистрированные пользователи.",
+                Opt1Text = "Регистрация",
+                Opt2Text = "Вход",
+                WindowTitle = "Уведомление",
+            };
+            // Отображение окна как модального диалога
+            bool? result = modal.ShowDialog();
+            // Обработка результатов пользовательского выбора
+            if (result != true) return;
+            if (modal.Choice == 1) NavigationService.Navigate(new RegistrationPage());
+            else NavigationService.Navigate(new AuthPage());
+        }
         private void SortProducts(string sortParam)
         {
             List<MyProducts> products;
@@ -71,30 +98,7 @@ namespace NeedleworkStore.Pages
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
             if (!mainWindow.IsAuthenticated)
             {
-                // Создание экземпляра модального диалога: Вариант 1
-                /*
-                NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal(
-                    "Добавить товар в корзину могут только зарегистрированные пользователи.",
-                    "Предупреждение",
-                    "Регистрация",
-                    "Вход",
-                    "Отмена"
-                    );
-                */
-                // Создание экземпляра модального диалога: Вариант 2
-                NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal
-                {
-                    Message = "Добавить товар в корзину могут только зарегистрированные пользователи.",
-                    Opt1Text = "Регистрация",
-                    Opt2Text = "Вход",
-                    WindowTitle = "Уведомление",
-                };
-                // Отображение окна как модального диалога
-                bool? result = modal.ShowDialog();
-                // Обработка результатов пользовательского выбора
-                if (result != true) return;
-                if (modal.Choice == 1) NavigationService.Navigate(new RegistrationPage());
-                else NavigationService.Navigate(new AuthPage());
+                ShowModalDialog();
                 return;
             }
             // @TODO: Add to cart
