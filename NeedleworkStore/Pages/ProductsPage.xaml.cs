@@ -44,22 +44,40 @@ namespace NeedleworkStore.Pages
             ProdList.DataContext = myProducts;
             SortByAvailability.IsSelected = true;
         }
-        private void AddToCart()
+        private void AddToCart(int prodId)
         {
-            // @TODO: Add to cart
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
-            txtBlPopup.Text = "Товар добавлен в корзину";
-            mainWindow.UpdateCartState();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            try
             {
-                popup.IsOpen = false;
-                timer.Stop();
-            };
+                // Create new cart item
+                Carts cart = new Carts
+                {
+                    UserID = (int)mainWindow.UserID,
+                    ProductID = prodId,
+                    QuantityCart = 1,
+                    FormationDate = DateTime.Now,
+                };
+                // Add a new cart item to Db
+                App.ctx.Carts.Add(cart);
+                App.ctx.SaveChanges();
+                // Show success confirmation popup
+                txtBlPopup.Text = "Товар добавлен в корзину";
+                mainWindow.UpdateCartState();
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(2);
+                timer.Tick += (s, args) =>
+                {
+                    popup.IsOpen = false;
+                    timer.Stop();
+                };
 
-            popup.IsOpen = true;
-            timer.Start();
+                popup.IsOpen = true;
+                timer.Start();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void ShowModalDialog()
         {
@@ -112,13 +130,15 @@ namespace NeedleworkStore.Pages
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
+            Button btn = (Button)sender;
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
             if (!mainWindow.IsAuthenticated)
             {
                 ShowModalDialog();
                 return;
             }
-            AddToCart();
+            var prodId = ((Products)btn.DataContext).ProductID;
+            AddToCart(prodId);
         }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
