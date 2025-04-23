@@ -114,7 +114,6 @@ namespace NeedleworkStore.Pages
                     break;
             }
             ProdList.ItemsSource = products;
-            ProdList.DataContext = products;
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
