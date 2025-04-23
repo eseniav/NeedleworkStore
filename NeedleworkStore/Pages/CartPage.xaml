@@ -7,20 +7,6 @@
       xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
       mc:Ignorable="d"
       Title="CartPage">
-    <Page.Resources>
-        <Style x:Key="btnRep" TargetType="RepeatButton">
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="Margin" Value="10 0"/>
-            <Setter Property="BorderBrush" Value="#778FD2"/>
-            <Setter Property="MaxWidth" Value="120"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Opacity="0.25"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
     <StackPanel Margin="10">
         <Grid>
                 <Grid.ColumnDefinitions>
