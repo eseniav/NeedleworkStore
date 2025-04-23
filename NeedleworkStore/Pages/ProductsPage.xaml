@@ -27,10 +27,10 @@
                 <WrapPanel HorizontalAlignment="Right" Margin="20 10">
                     <TextBlock Style="{StaticResource ChakraTB}" Text="Сортировать по"/>
                     <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Name="SortByPrice" Margin="5" />
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Name="SortByAvailability" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Name="SortByName" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Name="SortByRating" Margin="5"/>
                     </ComboBox>
                 </WrapPanel>
                 <ItemsControl Name="ProdList" Margin="10">

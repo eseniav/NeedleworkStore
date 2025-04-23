@@ -95,20 +95,21 @@ namespace NeedleworkStore.Pages
             ComboBox ctl = (ComboBox)sender;
             ComboBoxItem selectedItem = ctl.SelectedItem as ComboBoxItem;
             string selectedValue = selectedItem.Content as string;
+            string selectedName = selectedItem.Name.ToString();
             // SortByValue
             List<MyProducts> products;
-            switch(selectedValue)
+            switch(selectedName)
             {
-                case "цене":
+                case "SortByPrice":
                     products = myProducts.OrderBy(p => p.ProductPrice).ToList();
                     break;
-                case "названию":
+                case "SortByName":
                     products = myProducts.OrderBy(p => p.ProductName).ToList();
                     break;
-                case "наличию":
+                case "SortByAvailability":
                     products = myProducts.OrderBy(p => p.AvailabilityStatusID).ToList();
                     break;
-                case "рейтингу":
+                case "SortByRating":
                 default:
                     products = myProducts;
                     break;
