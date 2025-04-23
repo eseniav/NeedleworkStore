@@ -54,20 +54,18 @@ namespace NeedleworkStore.Pages
                 if (msgInf == MessageBoxResult.Yes)
                     this.NavigationService.Navigate(new RegistrationPage());
                 return;
-            } else
-            {
-                txtBlPopup.Text = "Товар добавлен в корзину";
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(2);
-                timer.Tick += (s, args) =>
-                {
-                    popup.IsOpen = false;
-                    timer.Stop();
-                };
-
-                popup.IsOpen = true;
-                timer.Start();
             }
+            txtBlPopup.Text = "Товар добавлен в корзину";
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
+            {
+                popup.IsOpen = false;
+                timer.Stop();
+            };
+
+            popup.IsOpen = true;
+            timer.Start();
         }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
