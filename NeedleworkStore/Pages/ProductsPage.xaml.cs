@@ -61,14 +61,21 @@ namespace NeedleworkStore.Pages
             try
             {
                 MyProducts selectedProduct = (MyProducts)((Button)sender).DataContext;
-                Carts newprodInCart = new Carts
+                Carts existingCartItem = App.ctx.Carts
+                    .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
+                if (existingCartItem != null)
+                    existingCartItem.QuantityCart++;
+                else
                 {
-                   UserID = (int)mainWindow.UserID,
-                   ProductID = selectedProduct.ProductID,
-                   QuantityCart = 1,
-                   FormationDate = DateTime.Now,
-                };
-                App.ctx.Carts.Add(newprodInCart);
+                    Carts newprodInCart = new Carts
+                    {
+                        UserID = (int)mainWindow.UserID,
+                        ProductID = selectedProduct.ProductID,
+                        QuantityCart = 1,
+                        FormationDate = DateTime.Now,
+                    };
+                    App.ctx.Carts.Add(newprodInCart);
+                }
                 App.ctx.SaveChanges();
                 txtBlPopup.Text = "Товар добавлен в корзину";
                 DispatcherTimer timer = new DispatcherTimer();
