@@ -48,6 +48,16 @@ namespace NeedleworkStore.Pages
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
             // @TODO: Add to cart
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
             txtBlPopup.Text = "Товар добавлен в корзину";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);

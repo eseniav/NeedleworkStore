@@ -46,6 +46,7 @@ namespace NeedleworkStore
                 }
             }
         }
+        public bool IsAuthenticated => UserID != null;
         public MainWindow()
         {
             InitializeComponent();
