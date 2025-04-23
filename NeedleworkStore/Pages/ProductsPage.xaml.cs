@@ -24,7 +24,6 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
-        public int? UserID;
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -41,13 +40,13 @@ namespace NeedleworkStore.Pages
             List<MyProducts> myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
-            UserID = null;
         }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
             // @TODO: Add to cart
-            if (UserID == null)
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+            if (mainWindow.UserID == null)
             {
                 MessageBoxResult msgInf = MessageBox.Show
                     ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
