@@ -43,6 +43,27 @@ namespace NeedleworkStore.Pages
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
         }
+        private void SortProducts(string sortParam)
+        {
+            List<MyProducts> products;
+            switch (sortParam)
+            {
+                case "SortByPrice":
+                    products = myProducts.OrderBy(p => p.ProductPrice).ToList();
+                    break;
+                case "SortByName":
+                    products = myProducts.OrderBy(p => p.ProductName).ToList();
+                    break;
+                case "SortByAvailability":
+                    products = myProducts.OrderBy(p => p.AvailabilityStatusID).ToList();
+                    break;
+                case "SortByRating":
+                default:
+                    products = myProducts;
+                    break;
+            }
+            ProdList.ItemsSource = products;
+        }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
         {
@@ -96,25 +117,7 @@ namespace NeedleworkStore.Pages
             ComboBoxItem selectedItem = ctl.SelectedItem as ComboBoxItem;
             string selectedValue = selectedItem.Content as string;
             string selectedName = selectedItem.Name.ToString();
-            // SortByValue
-            List<MyProducts> products;
-            switch(selectedName)
-            {
-                case "SortByPrice":
-                    products = myProducts.OrderBy(p => p.ProductPrice).ToList();
-                    break;
-                case "SortByName":
-                    products = myProducts.OrderBy(p => p.ProductName).ToList();
-                    break;
-                case "SortByAvailability":
-                    products = myProducts.OrderBy(p => p.AvailabilityStatusID).ToList();
-                    break;
-                case "SortByRating":
-                default:
-                    products = myProducts;
-                    break;
-            }
-            ProdList.ItemsSource = products;
+            SortProducts(selectedName);
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
