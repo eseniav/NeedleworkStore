@@ -29,7 +29,7 @@
                     <ComboBox Name="cmbSort" HorizontalContentAlignment="Stretch" SelectionChanged="cmbSort_SelectionChanged">
                         <ComboBoxItem Name="cmbILowPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
                         <ComboBoxItem Name="cmbIHighPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дороже" Margin="5"/>
-                        <ComboBoxItem Name="cmbIAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5" IsSelected="True"/>
+                        <ComboBoxItem Name="cmbIAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
                         <ComboBoxItem Name="cmbINotAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
                         <ComboBoxItem Name="cmbIAZ" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (А-Я)" Margin="5"/>
                         <ComboBoxItem Name="cmbIZA" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (Я-А)" Margin="5"/>
