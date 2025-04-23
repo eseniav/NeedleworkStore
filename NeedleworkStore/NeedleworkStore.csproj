@@ -181,6 +181,9 @@
     <Compile Include="Pages\OneProductWithoutFeedbackPage.xaml.cs">
       <DependentUpon>OneProductWithoutFeedbackPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\OrderRegistrationPage.xaml.cs">
+      <DependentUpon>OrderRegistrationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OrdersPage.xaml.cs">
       <DependentUpon>OrdersPage.xaml</DependentUpon>
     </Compile>
@@ -251,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\OneProductWithoutFeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\OrderRegistrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
