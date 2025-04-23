@@ -44,6 +44,23 @@ namespace NeedleworkStore.Pages
             ProdList.DataContext = myProducts;
             SortByAvailability.IsSelected = true;
         }
+        private void AddToCart()
+        {
+            // @TODO: Add to cart
+            MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
+            txtBlPopup.Text = "Товар добавлен в корзину";
+            mainWindow.UpdateCartState();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
+            {
+                popup.IsOpen = false;
+                timer.Stop();
+            };
+
+            popup.IsOpen = true;
+            timer.Start();
+        }
         private void ShowModalDialog()
         {
             // Создание экземпляра модального диалога: Вариант 1
@@ -101,19 +118,7 @@ namespace NeedleworkStore.Pages
                 ShowModalDialog();
                 return;
             }
-            // @TODO: Add to cart
-            txtBlPopup.Text = "Товар добавлен в корзину";
-            mainWindow.UpdateCartState();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
-            {
-                popup.IsOpen = false;
-                timer.Stop();
-            };
-
-            popup.IsOpen = true;
-            timer.Start();
+            AddToCart();
         }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
