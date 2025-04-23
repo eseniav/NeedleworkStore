@@ -56,6 +56,13 @@ namespace NeedleworkStore.Pages
                     "Вход",
                     "Отмена"
                     );
+                modal = new Windows.ThreeChoiceModal
+                {
+                    Message = "Добавить товар в корзину могут только зарегистрированные пользователи.",
+                    Opt1Text = "Регистрация",
+                    Opt2Text = "Вход",
+                    WindowTitle = "Уведомление",
+                };
                 // Отображение окна как модального диалога
                 bool? result = modal.ShowDialog();
                 // Обработка результатов пользовательского выбора

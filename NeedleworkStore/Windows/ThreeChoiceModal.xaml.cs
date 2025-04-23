@@ -21,9 +21,18 @@ namespace NeedleworkStore.Windows
     public partial class ThreeChoiceModal : Window
     {
         public int? Choice { get; private set; }
-        public ThreeChoiceModal(string msg, string title, string opt1 = "Option1", string opt2 = "Option2", string cancel = "Cancel")
+        public string Message { get; set; } = "Message not set";
+        public string CancelText { get; set; } = "Cancel";
+        public string Opt1Text { get; set; } = "Option 1";
+        public string Opt2Text { get; set; } = "Option 2";
+        public string WindowTitle { get; set; } = "Title unset";
+        public ThreeChoiceModal()
         {
             InitializeComponent();
+            this.DataContext = this;
+        }
+        public ThreeChoiceModal(string msg, string title, string opt1 = "Option1", string opt2 = "Option2", string cancel = "Cancel") : this()
+        {
             this.Title = title;
             this.MsgTxb.Text = msg;
             Opt1Btn.Content = opt1;
