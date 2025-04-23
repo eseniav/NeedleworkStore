@@ -42,6 +42,7 @@ namespace NeedleworkStore.Pages
             myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
+            cmbIAvail.IsSelected = true;
         }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
