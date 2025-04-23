@@ -46,7 +46,7 @@ namespace NeedleworkStore.Pages
         {
             // @TODO: Add to cart
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-            if (mainWindow.UserID == null)
+            if (!mainWindow.IsAuthenticated)
             {
                 MessageBoxResult msgInf = MessageBox.Show
                     ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
