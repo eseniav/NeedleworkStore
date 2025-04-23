@@ -25,12 +25,14 @@
                   >
             <StackPanel>
                 <WrapPanel HorizontalAlignment="Right" Margin="20 10">
-                    <TextBlock Style="{StaticResource ChakraTB}" Text="Сортировать по"/>
-                    <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
+                    <TextBlock Style="{StaticResource ChakraTB}" Text="Сортировать"/>
+                    <ComboBox Name="cmbSort" HorizontalContentAlignment="Stretch" SelectionChanged="cmbSort_SelectionChanged">
+                        <ComboBoxItem Name="cmbILowPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
+                        <ComboBoxItem Name="cmbIHighPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дороже" Margin="5"/>
+                        <ComboBoxItem Name="cmbIAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5" IsSelected="True"/>
+                        <ComboBoxItem Name="cmbINotAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
+                        <ComboBoxItem Name="cmbIAZ" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (А-Я)" Margin="5"/>
+                        <ComboBoxItem Name="cmbIZA" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (Я-А)" Margin="5"/>
                     </ComboBox>
                 </WrapPanel>
                 <ItemsControl Name="ProdList" Margin="10">

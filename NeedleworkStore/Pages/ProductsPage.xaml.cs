@@ -24,6 +24,8 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
+        List<AppData.Products> products;
+        List<MyProducts> myProducts;
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -36,8 +38,8 @@ namespace NeedleworkStore.Pages
         public ProductsPage()
         {
             InitializeComponent();
-            List<AppData.Products> products = App.ctx.Products.ToList();
-            List<MyProducts> myProducts = products.Select(p => new MyProducts(p)).ToList();
+            products = App.ctx.Products.ToList();
+            myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
         }
@@ -60,7 +62,41 @@ namespace NeedleworkStore.Pages
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("Соответствующая сортировка");
+            //MessageBox.Show("Соответствующая сортировка");
+            //ProdList.ItemsSource = myProducts.OrderBy(p => p.ProductName).ToList();
+            if (cmbSort.SelectedItem is ComboBoxItem selectedItem)
+            {
+                IOrderedEnumerable<MyProducts> sortedProducts = null;
+
+                switch (selectedItem.Name)
+                {
+                    case "cmbIAZ":
+                        sortedProducts = myProducts.OrderBy(p => p.ProductName);
+                        break;
+                    case "cmbIZA":
+                        sortedProducts = myProducts.OrderByDescending(p => p.ProductName);
+                        break;
+                    case "cmbILowPrice":
+                        sortedProducts = myProducts.OrderBy(p => p.ProductPrice);
+                        break;
+                    case "cmbIHighPrice":
+                        sortedProducts = myProducts.OrderByDescending(p => p.ProductPrice);
+                        break;
+                    //case "cmbIAvail":
+                    //    sortedProducts = myProducts.OrderBy(p => p.AvailabilityStatuses.AvailabilityStatus == "есть в наличии")
+                    //        .ThenBy(p => p.AvailabilityStatuses.AvailabilityStatus == "нет в наличии");
+                    //    break;
+                    //case "cmbINotAvail":
+                    //    sortedProducts = myProducts.OrderBy(p => p.AvailabilityStatuses.AvailabilityStatus == "нет в наличии")
+                    //        .ThenBy(p => p.AvailabilityStatuses.AvailabilityStatus == "есть в наличии");
+                    //    break;
+                }
+
+                if (sortedProducts != null)
+                {
+                    ProdList.ItemsSource = sortedProducts.ToList();
+                }
+            }
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
