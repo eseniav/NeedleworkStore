@@ -25,6 +25,7 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
+        List<MyProducts> myProducts;
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -38,7 +39,7 @@ namespace NeedleworkStore.Pages
         {
             InitializeComponent();
             List<AppData.Products> products = App.ctx.Products.ToList();
-            List<MyProducts> myProducts = products.Select(p => new MyProducts(p)).ToList();
+            myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
         }
