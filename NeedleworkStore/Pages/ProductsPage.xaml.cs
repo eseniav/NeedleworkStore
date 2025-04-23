@@ -92,7 +92,10 @@ namespace NeedleworkStore.Pages
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("Соответствующая сортировка");
+            ComboBox ctl = (ComboBox)sender;
+            ComboBoxItem selectedItem = ctl.SelectedItem as ComboBoxItem;
+            string selectedValue = selectedItem.Content as string;
+            MessageBox.Show($"Соответствующая сортировка {selectedValue}");
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
