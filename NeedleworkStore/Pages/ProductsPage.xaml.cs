@@ -24,6 +24,8 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
+        List<AppData.Products> products;
+        List<MyProducts> myProducts;
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -36,10 +38,11 @@ namespace NeedleworkStore.Pages
         public ProductsPage()
         {
             InitializeComponent();
-            List<AppData.Products> products = App.ctx.Products.ToList();
-            List<MyProducts> myProducts = products.Select(p => new MyProducts(p)).ToList();
+            products = App.ctx.Products.ToList();
+            myProducts = products.Select(p => new MyProducts(p)).ToList();
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
+            cmbIAvail.IsSelected = true;
         }
         
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
@@ -57,10 +60,40 @@ namespace NeedleworkStore.Pages
             popup.IsOpen = true;
             timer.Start();
         }
+        private void SortProd(string cmbName)
+        {
+            List<MyProducts> sortedProducts;
+            switch (cmbName)
+            {
+                case "cmbIAZ":
+                    sortedProducts = myProducts.OrderBy(p => p.ProductName).ToList();
+                    break;
+                case "cmbIZA":
+                    sortedProducts = myProducts.OrderByDescending(p => p.ProductName).ToList();
+                    break;
+                case "cmbILowPrice":
+                    sortedProducts = myProducts.OrderBy(p => p.ProductPrice).ToList();
+                    break;
+                case "cmbIHighPrice":
+                    sortedProducts = myProducts.OrderByDescending(p => p.ProductPrice).ToList();
+                    break;
+                case "cmbIAvail":
+                    sortedProducts = myProducts.OrderBy(p => p.AvailabilityStatusID).ToList();
+                    break;
+                case "cmbINotAvail":
+                    sortedProducts = myProducts.OrderByDescending(p => p.AvailabilityStatusID).ToList();
+                    break;
+                default:
+                    sortedProducts = myProducts;
+                    break;
+            }
+            ProdList.ItemsSource = sortedProducts;
+        }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("Соответствующая сортировка");
+            ComboBoxItem selectedItem = ((ComboBox)sender).SelectedItem as ComboBoxItem;
+            SortProd(selectedItem.Name);
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
