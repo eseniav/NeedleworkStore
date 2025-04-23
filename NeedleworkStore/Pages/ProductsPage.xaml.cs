@@ -95,7 +95,6 @@ namespace NeedleworkStore.Pages
             ComboBox ctl = (ComboBox)sender;
             ComboBoxItem selectedItem = ctl.SelectedItem as ComboBoxItem;
             string selectedValue = selectedItem.Content as string;
-            MessageBox.Show($"Соответствующая сортировка {selectedValue}");
             // SortByValue
             List<MyProducts> products;
             switch(selectedValue)
