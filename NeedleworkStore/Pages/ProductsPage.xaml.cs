@@ -48,7 +48,8 @@ namespace NeedleworkStore.Pages
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
             if (!mainWindow.IsAuthenticated)
             {
-                // Создание экземпляра модального диалога
+                // Создание экземпляра модального диалога: Вариант 1
+                /*
                 NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal(
                     "Добавить товар в корзину могут только зарегистрированные пользователи.",
                     "Предупреждение",
@@ -56,7 +57,9 @@ namespace NeedleworkStore.Pages
                     "Вход",
                     "Отмена"
                     );
-                modal = new Windows.ThreeChoiceModal
+                */
+                // Создание экземпляра модального диалога: Вариант 2
+                NeedleworkStore.Windows.ThreeChoiceModal modal = new Windows.ThreeChoiceModal
                 {
                     Message = "Добавить товар в корзину могут только зарегистрированные пользователи.",
                     Opt1Text = "Регистрация",
