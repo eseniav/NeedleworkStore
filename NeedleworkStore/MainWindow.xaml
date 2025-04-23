@@ -57,7 +57,7 @@
                 <TextBlock Name="txtBlQuanProd" Grid.Column="1" Grid.Row="1" Style="{StaticResource txtButtonOpacity}"
                                 TextWrapping="Wrap" Margin="10 0 0 0" FontSize="10" LineHeight="15" HorizontalAlignment="Left"
                                 >Количество товаров: 
-                                <TextBlock Name="txtBlQuan" FontSize="15" Style="{StaticResource txtButtonOpacity}">20</TextBlock>
+                                <TextBlock Name="txtBlQuan" FontSize="15" Style="{StaticResource txtButtonOpacity}"/>
                     </TextBlock>
                 <WrapPanel Grid.Column="2" Grid.Row="0">
                     <Button Name="btnProfile" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnProfile_Click">
