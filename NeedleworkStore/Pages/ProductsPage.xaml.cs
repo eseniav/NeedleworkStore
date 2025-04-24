@@ -49,16 +49,35 @@ namespace NeedleworkStore.Pages
             MainWindow mainWindow = ((MainWindow)Application.Current.MainWindow);
             try
             {
-                // Create new cart item
-                Carts cart = new Carts
+                // Check if the same product already exists
+                Carts existingCartItem = App.ctx.Carts
+                    .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == prodId);
+                if (existingCartItem?.QuantityCart >= CartPage.maxCapacity)
                 {
-                    UserID = (int)mainWindow.UserID,
-                    ProductID = prodId,
-                    QuantityCart = 1,
-                    FormationDate = DateTime.Now,
-                };
-                // Add a new cart item to Db
-                App.ctx.Carts.Add(cart);
+                    // Show warning
+                    MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                // if (existingCartItem?.QuantityCart > 0) // Alternatively
+                if (existingCartItem != null)
+                {
+                    // Increment quantity
+                    existingCartItem.QuantityCart++;
+                }
+                else
+                {
+                    // Create new cart item
+                    Carts cart = new Carts
+                    {
+                        UserID = (int)mainWindow.UserID,
+                        ProductID = prodId,
+                        QuantityCart = 1,
+                        FormationDate = DateTime.Now,
+                    };
+                    // Add a new cart item to Db
+                    App.ctx.Carts.Add(cart);
+                }
                 App.ctx.SaveChanges();
                 // Show success confirmation popup
                 txtBlPopup.Text = "Товар добавлен в корзину";
