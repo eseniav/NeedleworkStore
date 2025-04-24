@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,25 @@ using System.Windows.Threading;
 
 namespace NeedleworkStore.Pages
 {
+    public class ImagePathConverter : IValueConverter
+    {
+        private string basePath = "ProdImages"; // Базовый путь к изображениям
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string imgName && !string.IsNullOrWhiteSpace(imgName))
+            {
+                return $"/{basePath}/{imgName}";
+            }
+            return "/ResImages/Zaglushka.png";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+            //throw new NotImplementedException();
+        }
+    }
     /// <summary>
     /// Логика взаимодействия для CartPage.xaml
     /// </summary>
