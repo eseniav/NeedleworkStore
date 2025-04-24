@@ -66,12 +66,6 @@ namespace NeedleworkStore
                 };
             frame = Mainfrm;
             UserID = null;
-            if (UserID != null)
-            {
-                //List<Carts> carts = new List<Carts>();
-                //carts.ForEach(c => c.CartID).Where(c => c.UserID == UserID);
-                //int quantityInCart = App.ctx.Carts.Count(c => c.UserID == UserID) * carts.QuantityCart;
-            }
         }
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
