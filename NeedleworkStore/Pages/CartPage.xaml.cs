@@ -22,6 +22,7 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class CartPage : Page
     {
+        public const int maxCapacity = 99;
         public CartPage()
         {
             InitializeComponent();
