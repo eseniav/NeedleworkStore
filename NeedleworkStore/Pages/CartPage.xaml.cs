@@ -1,4 +1,5 @@
-﻿using NeedleworkStore.Classes;
+﻿using NeedleworkStore.AppData;
+using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,12 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class CartPage : Page
     {
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        List<Carts> cart;
         public CartPage()
         {
             InitializeComponent();
+            /*
             if (Int32.Parse(txblQuan.Text.ToString()) == 1)
             {
                 btnMinus.IsEnabled = false;
@@ -33,6 +37,12 @@ namespace NeedleworkStore.Pages
             {                
                 btnPlus.IsEnabled = false;
             }
+            */
+
+            //cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
+            cart = App.ctx.Carts.ToList();
+            cartList.ItemsSource = cart;
+            cartList.DataContext = cart;
         }
                
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,7 +60,8 @@ namespace NeedleworkStore.Pages
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
-        {                       
+        {
+            /*
             int quant = Int32.Parse(txblQuan.Text.ToString());
             quant -= 1;
             txblQuan.Text = quant.ToString();
@@ -58,10 +69,12 @@ namespace NeedleworkStore.Pages
             {
                 btnMinus.IsEnabled = false;
             }
+            */
         }
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {            
+            /*
             if (Int32.Parse(txblQuan.Text.ToString()) == 99)
             {
                 MessageBox.Show("Достигнут лимит количества товаров");
@@ -75,6 +88,7 @@ namespace NeedleworkStore.Pages
             {
                 btnMinus.IsEnabled = true;
             }
+            */
         }        
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
