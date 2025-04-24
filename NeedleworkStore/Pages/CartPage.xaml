@@ -8,41 +8,54 @@
       mc:Ignorable="d"
       Title="CartPage">
     <StackPanel Margin="10">
+        <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
+            <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="В корзине пока пусто..." Margin="15"/>
+            <Button Name="btnEmptyBuy" Margin="0 10" MaxWidth="150"
+                    Style="{StaticResource btnColor}" HorizontalAlignment="Center" Click="btnEmptyBuy_Click"
+                    >
+                <WrapPanel>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">За покупками</TextBlock>
+                </WrapPanel>
+            </Button>
+        </StackPanel>
+        <StackPanel Name="StPFull">
         <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <CheckBox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <CheckBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <UniformGrid Grid.Column="1" Grid.Row="0" Columns="3">
-                    <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <UniformGrid Grid.Column="1" Columns="3">
+                <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
                                FontSize="10" LineHeight="15" HorizontalAlignment="Left"
                                >Выбрано: 
                         <TextBlock FontSize="15">2</TextBlock>
                     </TextBlock>
-                    <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
+                <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
                                FontSize="10" LineHeight="15" HorizontalAlignment="Left"
                                >Количество товаров: 
                         <TextBlock FontSize="15">20</TextBlock>
                     </TextBlock>
-                    <WrapPanel HorizontalAlignment="Right" Margin="0 10">
-                        <Label Style="{StaticResource Chakra}" Content="Сортировать по"/>
-                        <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
-                            <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
-                            <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
-                            <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
-                            <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
-                        </ComboBox>
-                    </WrapPanel>
-                </UniformGrid>                
-                <StackPanel Grid.Column="1" Grid.Row="1">
+                <WrapPanel HorizontalAlignment="Right" Margin="0 10">
+                    <Label Style="{StaticResource Chakra}" Content="Сортировать по"/>
+                    <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="цене" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="наличию" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="названию" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="рейтингу" Margin="5"/>
+                    </ComboBox>
+                </WrapPanel>
+            </UniformGrid>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
                         <StackPanel>
                         <GroupBox Margin="10 0 0 10">
@@ -57,14 +70,14 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Grid.Row="0">
+                                <StackPanel Grid.Column="0">
                                     <WrapPanel HorizontalAlignment="Right">
                                         <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
                                         <Label Style="{StaticResource Chakra}" Content="4,9" Margin="0 0 20 0"/>
                                     </WrapPanel>
                                     <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
-                   HorizontalAlignment="Right" Margin="20 0"
-                   >
+                                           HorizontalAlignment="Right" Margin="20 0"
+                                           >
                                         <Image.ToolTip>
                                             <ToolTip ToolTipService.InitialShowDelay="3000">
                                                 <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="350" MaxHeight="350"/>
@@ -72,7 +85,7 @@
                                         </Image.ToolTip>
                                     </Image>
                                 </StackPanel>
-                                <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                     <Label MinHeight="20"/>
                                     <Grid HorizontalAlignment="Center">
                                         <Grid.ColumnDefinitions>
@@ -204,7 +217,8 @@
                     </StackPanel>
                 </Button>
             </Grid>
-            <WrapPanel HorizontalAlignment="Right">
+        </StackPanel>
+        <WrapPanel HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource txtButtonOpacity}" TextWrapping="Wrap"
                            FontSize="13" LineHeight="15"
                            VerticalAlignment="Center" Margin="10 15 10 0"

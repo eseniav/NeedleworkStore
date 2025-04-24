@@ -92,6 +92,10 @@ namespace NeedleworkStore.Pages
             MessageBox.Show("Если не выбрано ничего - автоматически выбирает все товары\n" +
                 "Если выбраны определенные товары - формирует заказ из них");
         }
-        
+
+        private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ProductsPage());
+        }
     }
 }
