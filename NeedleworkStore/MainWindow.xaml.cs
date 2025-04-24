@@ -78,7 +78,9 @@ namespace NeedleworkStore
         /// </summary>
         internal void UpdateCartState()
         {
-            txtBlQuan.Text = IsAuthenticated ? App.ctx.Carts.Where(c => c.UserID == UserID).Count().ToString() : string.Empty;
+            txtBlQuan.Text = IsAuthenticated
+                ? App.ctx.Carts.Where(c => c.UserID == UserID).Sum(c => c.QuantityCart).ToString()
+                : string.Empty;
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
