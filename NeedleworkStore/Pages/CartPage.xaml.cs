@@ -34,8 +34,9 @@ namespace NeedleworkStore.Pages
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
-            //throw new NotImplementedException();
+            return DependencyProperty.UnsetValue;
+            // return null;
+            // throw new NotImplementedException();
         }
     }
     /// <summary>
