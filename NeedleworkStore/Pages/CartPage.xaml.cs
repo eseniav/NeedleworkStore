@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -114,7 +115,18 @@ namespace NeedleworkStore.Pages
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
+            Button btn = (Button)sender;
+            Carts item = (Carts)btn.DataContext;
+            MessageBoxResult response = MessageBox.Show($"Удалить {item.ProductID}? ", "Подтверждение", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            Debug.WriteLine(response);
+            if (response == MessageBoxResult.Yes)
+            {
+                App.ctx.Carts.Remove(item);
+                App.ctx.SaveChanges();
+                cart = App.ctx.Carts.ToList();
+                cartList.ItemsSource = cart;
+                // @TODO: UpdateCartState();
+            }
         }
 
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
