@@ -22,11 +22,11 @@ namespace NeedleworkStore.Pages
 {
     public class ImagePathConverter : IValueConverter
     {
+        private string basePath = "/ProdImages/";
         public object Convert(object value, Type targetType, object parametr, CultureInfo culture) {
-            if (value is string && !String.IsNullOrWhiteSpace(value.ToString()))
-            {
-                return "/ProdImages/" + value;
-            }
+            if (value is string imgName && !String.IsNullOrWhiteSpace(imgName))
+                return basePath + imgName;
+
             return "/ResImages/NoPicture.png";
         }
         public object ConvertBack(object value, Type targetType, object parametr, CultureInfo culture)
