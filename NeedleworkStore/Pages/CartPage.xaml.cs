@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace NeedleworkStore.Pages
     public partial class CartPage : Page
     {
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-        List<Carts> cart;
+        ObservableCollection<Carts> cart;
         public CartPage()
         {
             InitializeComponent();
@@ -62,7 +63,7 @@ namespace NeedleworkStore.Pages
             */
 
             //cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
-            cart = App.ctx.Carts.ToList();
+            cart = new ObservableCollection<Carts>(App.ctx.Carts.ToList());
             cartList.ItemsSource = cart;
             cartList.DataContext = cart;
         }
@@ -123,8 +124,7 @@ namespace NeedleworkStore.Pages
             {
                 App.ctx.Carts.Remove(item);
                 App.ctx.SaveChanges();
-                cart = App.ctx.Carts.ToList();
-                cartList.ItemsSource = cart;
+                cart.Remove(item);
                 // @TODO: UpdateCartState();
             }
         }
