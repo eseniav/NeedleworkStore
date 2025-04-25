@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,21 @@ using static NeedleworkStore.Pages.ProductsPage;
 
 namespace NeedleworkStore.Pages
 {
+    public class ImagePathConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parametr, CultureInfo culture) {
+            if (value is string && !String.IsNullOrWhiteSpace(value.ToString()))
+            {
+                return "/ProdImages/" + value;
+            }
+            return "/ResImages/NoPicture.png";
+        }
+        public object ConvertBack(object value, Type targetType, object parametr, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
     /// <summary>
     /// Логика взаимодействия для CartPage.xaml
     /// </summary>

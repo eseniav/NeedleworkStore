@@ -51,6 +51,9 @@
         </Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
             <ItemsControl Name="ICCart">
+                    <ItemsControl.Resources>
+                        <local:ImagePathConverter x:Key="imgConverter"/>
+                    </ItemsControl.Resources>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -79,7 +82,8 @@
                                                         <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
                                                         <Label Style="{StaticResource Chakra}" Content="4,9" Margin="0 0 20 0"/>
                                                     </WrapPanel>
-                                                    <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
+                                                    <Image Source="{Binding Products.ProductImage, Converter={StaticResource imgConverter}}"
+                                                           MaxWidth="180" MaxHeight="180"
                    HorizontalAlignment="Right" Margin="20 0"
                    >
                                                         <Image.ToolTip>
