@@ -125,7 +125,7 @@ namespace NeedleworkStore.Pages
                 App.ctx.Carts.Remove(item);
                 App.ctx.SaveChanges();
                 cart.Remove(item);
-                // @TODO: UpdateCartState();
+                mainWindow.UpdateCartState();
             }
         }
 
