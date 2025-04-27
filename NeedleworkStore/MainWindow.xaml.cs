@@ -70,6 +70,15 @@ namespace NeedleworkStore
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
+            if (UserID == null)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Доступно только для зарегистрированных пользователей. Зарегистрироваться сейчас?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    Mainfrm.Navigate(new RegistrationPage());
+                return;
+            }
             Mainfrm.Navigate(new CartPage());
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
