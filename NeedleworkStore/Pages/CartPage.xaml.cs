@@ -40,10 +40,12 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class CartPage : Page
     {
-        List<Carts> cart = App.ctx.Carts.ToList();
+        List<Carts> cart;
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public CartPage()
         {
             InitializeComponent();
+            cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             //if (Int32.Parse(txblQuan.Text.ToString()) == 1)
