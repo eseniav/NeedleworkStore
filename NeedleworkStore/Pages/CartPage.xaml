@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="CartPage">
     <StackPanel Margin="10">
-        <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
+        <StackPanel Name="stPEmpty" HorizontalAlignment="Center" Visibility="Collapsed">
             <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="В корзине пока пусто..." Margin="15"/>
             <Button Name="btnEmptyBuy" Margin="0 10" MaxWidth="150"
                     Style="{StaticResource btnColor}" HorizontalAlignment="Center" Click="btnEmptyBuy_Click"
@@ -49,7 +49,7 @@
                 </WrapPanel>
             </UniformGrid>
         </Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" MaxHeight="700">
             <ItemsControl Name="ICCart">
                     <ItemsControl.Resources>
                         <local:ImagePathConverter x:Key="imgConverter"/>

@@ -46,6 +46,8 @@ namespace NeedleworkStore.Pages
             InitializeComponent();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
+            this.Loaded += OnPageLoaded;
+            this.Unloaded += OnPageUnloaded;
             //if (Int32.Parse(txblQuan.Text.ToString()) == 1)
             //{
             //    btnMinus.IsEnabled = false;
@@ -55,7 +57,25 @@ namespace NeedleworkStore.Pages
             //    btnPlus.IsEnabled = false;
             //}
         }
-               
+
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            // Получаем ссылку на главное окно и увеличиваем высоту
+            if (Window.GetWindow(this) is MainWindow mainWindow)
+            {
+                mainWindow.SetWindowHeight(1300);
+            }
+        }
+
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Восстанавливаем стандартную высоту при уходе со страницы
+            if (Window.GetWindow(this) is MainWindow mainWindow)
+            {
+                mainWindow.ResetWindowHeight();
+            }
+        }
+
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MessageBox.Show("Соответствующая сортировка");

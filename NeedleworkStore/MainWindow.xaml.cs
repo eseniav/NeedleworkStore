@@ -68,6 +68,17 @@ namespace NeedleworkStore
             UserID = null;
         }
 
+        public void SetWindowHeight(double newHeight)
+        {
+            this.Height = newHeight;
+        }
+
+        // Метод для восстановления стандартной высоты
+        public void ResetWindowHeight()
+        {
+            this.Height = 900;
+        }
+
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new CartPage());
