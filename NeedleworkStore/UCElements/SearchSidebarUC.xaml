@@ -25,34 +25,36 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
-            <Button Name="btnStitch" MinWidth="100" MaxWidth="120" Height="25"
-        Margin="10" Style="{StaticResource btnOpacity}" Click="btnStitch_Click"
-        >
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Вышивка</TextBlock>
-                </WrapPanel>
-            </Button>
-            <Button Name="btnSew" MinWidth="100" MaxWidth="120" Height="25" 
-        Margin="10" Style="{StaticResource btnOpacity}" Click="btnSew_Click"
-        >
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Шитье</TextBlock>
-                </WrapPanel>
-            </Button>
-            <Button Name="btnAccess" MinWidth="100" MaxWidth="120" Height="25" 
-        Margin="10" Style="{StaticResource btnOpacity}" Click="btnAccess_Click"
-        >
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Аксессуары</TextBlock>
-                </WrapPanel>
-            </Button>
-            <Button Name="btnKits" MinWidth="100" MaxWidth="120" Height="25" 
-        Margin="10" Style="{StaticResource btnOpacity}" Click="btnKits_Click"
-        >
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Наборы</TextBlock>
-                </WrapPanel>
-            </Button>
+            <StackPanel x:Name="ProductTypes">
+                <ToggleButton Name="btnStitch" MinWidth="100" MaxWidth="120" Height="25"
+                              Margin="10" Style="{StaticResource btnOpacity}" Click="btnStitch_Click"
+>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Вышивка</TextBlock>
+                    </WrapPanel>
+                </ToggleButton>
+                <ToggleButton Name="btnSew" MinWidth="100" MaxWidth="120" Height="25"
+                              Margin="10" Style="{StaticResource btnOpacity}" Click="btnSew_Click"
+>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Шитье</TextBlock>
+                    </WrapPanel>
+                </ToggleButton>
+                <ToggleButton Name="btnAccess" MinWidth="100" MaxWidth="120" Height="25"
+                              Margin="10" Style="{StaticResource btnOpacity}" Click="btnAccess_Click"
+>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Аксессуары</TextBlock>
+                    </WrapPanel>
+                </ToggleButton>
+                <ToggleButton Name="btnKits" MinWidth="100" MaxWidth="120" Height="25"
+                              Margin="10" Style="{StaticResource btnOpacity}" Click="btnKits_Click"
+>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Наборы</TextBlock>
+                    </WrapPanel>
+                </ToggleButton>
+            </StackPanel>
             <GroupBox Header="Цена" Style="{StaticResource GrBHeader}">
                 <Grid>
                     <Grid.RowDefinitions>

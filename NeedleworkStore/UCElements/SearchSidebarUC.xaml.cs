@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -22,9 +23,19 @@ namespace NeedleworkStore.UCElements
     /// </summary>
     public partial class SearchSidebarUC : UserControl
     {
+        private List<ToggleButton> prodTypesCtl;
+
         public SearchSidebarUC()
         {
             InitializeComponent();
+
+            prodTypesCtl = new List<ToggleButton> { btnStitch, btnSew, btnAccess, btnKits };
+        }
+
+        private void toggleType(ToggleButton ctl)
+        {
+            foreach (var control in prodTypesCtl) control.IsChecked = false;
+            ctl.IsChecked = true;
         }
 
         private void btnAdvSearch_Click(object sender, RoutedEventArgs e)
@@ -58,22 +69,22 @@ namespace NeedleworkStore.UCElements
         }
         private void btnStitch_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Вышивка");
+            toggleType((ToggleButton)sender);
         }
 
         private void btnSew_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Шитье");
+            toggleType((ToggleButton)sender);
         }
 
         private void btnAccess_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Аксессуары");
+            toggleType((ToggleButton)sender);
         }
 
         private void btnKits_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Наборы");
+            toggleType((ToggleButton)sender);
         }
 
         private void btnPrice_Click(object sender, RoutedEventArgs e)

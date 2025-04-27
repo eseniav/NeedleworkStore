@@ -9,7 +9,7 @@
         <FontFamily x:Key="fontCakraNormal">pack://application:,,,/Fonts/#Cakra Normal</FontFamily>
         <FontFamily x:Key="fontHlobus">pack://application:,,,/Fonts/#Hlobus</FontFamily>
         <FontFamily x:Key="fontAcherusFeralBold">pack://application:,,,/Fonts/#Acherus Feral Bold</FontFamily>
-        <Style x:Key="btnOpacity" TargetType="Button">
+        <Style x:Key="btnOpacity" TargetType="ButtonBase">
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Margin" Value="10 0"/>
             <Setter Property="BorderBrush" Value="#778FD2"/>            
