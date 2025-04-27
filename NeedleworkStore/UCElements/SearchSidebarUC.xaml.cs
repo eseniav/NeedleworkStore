@@ -29,7 +29,7 @@ namespace NeedleworkStore.UCElements
         {
             InitializeComponent();
 
-            prodTypesCtl = new List<ToggleButton> { btnStitch, btnSew, btnAccess, btnKits };
+            prodTypesCtl = ProductTypes.Children.OfType<ToggleButton>().ToList();
         }
 
         private void toggleType(ToggleButton ctl)

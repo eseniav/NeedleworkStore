@@ -28,7 +28,7 @@
             <StackPanel x:Name="ProductTypes" ToggleButton.Click="toggleTypeClick">
                 <ToggleButton Name="btnStitch" MinWidth="100" MaxWidth="120" Height="25"
                               Margin="10" Style="{StaticResource btnOpacity}" Click="btnStitch_Click"
->
+                >
                     <WrapPanel>
                         <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Вышивка</TextBlock>
                     </WrapPanel>
@@ -42,14 +42,14 @@
                 </ToggleButton>
                 <ToggleButton Name="btnAccess" MinWidth="100" MaxWidth="120" Height="25"
                               Margin="10" Style="{StaticResource btnOpacity}" Click="btnAccess_Click"
->
+                >
                     <WrapPanel>
                         <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Аксессуары</TextBlock>
                     </WrapPanel>
                 </ToggleButton>
                 <ToggleButton Name="btnKits" MinWidth="100" MaxWidth="120" Height="25"
                               Margin="10" Style="{StaticResource btnOpacity}" Click="btnKits_Click"
->
+                >
                     <WrapPanel>
                         <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Наборы</TextBlock>
                     </WrapPanel>
