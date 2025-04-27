@@ -25,7 +25,7 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
-            <StackPanel x:Name="ProductTypes">
+            <StackPanel x:Name="ProductTypes" ToggleButton.Click="toggleTypeClick">
                 <ToggleButton Name="btnStitch" MinWidth="100" MaxWidth="120" Height="25"
                               Margin="10" Style="{StaticResource btnOpacity}" Click="btnStitch_Click"
 >

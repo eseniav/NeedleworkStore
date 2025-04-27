@@ -67,24 +67,28 @@ namespace NeedleworkStore.UCElements
         {
             MessageBox.Show("Переход на страницу с отфильтрованными товарами по каждой технике");
         }
+        private void toggleTypeClick(object sender, RoutedEventArgs e)
+        {
+            toggleType((ToggleButton)e.OriginalSource);
+        }
         private void btnStitch_Click(object sender, RoutedEventArgs e)
         {
-            toggleType((ToggleButton)sender);
+            //toggleType((ToggleButton)sender);
         }
 
         private void btnSew_Click(object sender, RoutedEventArgs e)
         {
-            toggleType((ToggleButton)sender);
+            //toggleType((ToggleButton)sender);
         }
 
         private void btnAccess_Click(object sender, RoutedEventArgs e)
         {
-            toggleType((ToggleButton)sender);
+            //toggleType((ToggleButton)sender);
         }
 
         private void btnKits_Click(object sender, RoutedEventArgs e)
         {
-            toggleType((ToggleButton)sender);
+            //toggleType((ToggleButton)sender);
         }
 
         private void btnPrice_Click(object sender, RoutedEventArgs e)
