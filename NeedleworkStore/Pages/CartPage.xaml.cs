@@ -49,6 +49,29 @@ namespace NeedleworkStore.Pages
             cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
+            ChangeQuantityProducts();
+        }
+        private void ChangeQuantityProducts()
+        {
+            if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
+            {
+                stPEmpty.Visibility = Visibility.Collapsed;
+                GrTopPan.Visibility = Visibility.Visible;
+                ICCart.Visibility = Visibility.Visible;
+                GrBottomPan.Visibility = Visibility.Visible;
+                int totalQuantity = App.ctx.Carts
+                                .Where(c => c.UserID == mainWindow.UserID)
+                                .Sum(c => c.QuantityCart);
+                txtBlQuantity.Text = totalQuantity.ToString();
+            }
+            else
+            {
+                stPEmpty.Visibility = Visibility.Visible;
+                GrTopPan.Visibility = Visibility.Hidden;
+                ICCart.Visibility = Visibility.Hidden;
+                GrBottomPan.Visibility = Visibility.Hidden;
+                txtBlQuantity.Text = "0";
+            }
         }
         private void GoAboutProduct(Carts cart)
         {
