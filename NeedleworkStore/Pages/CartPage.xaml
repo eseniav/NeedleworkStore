@@ -63,7 +63,6 @@
                                 </Grid.ColumnDefinitions>
                                 <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 <StackPanel Grid.Column="1">
-
                                     <StackPanel>
                                         <GroupBox Margin="10 0 0 10">
                                             <Grid>
@@ -121,7 +120,7 @@
                        HorizontalAlignment="Left"/>
                                                     <WrapPanel>
                                                         <Label>
-                                                            <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
+                                                            <Hyperlink Foreground="#2A3759" FontFamily="Cakra Normal"
                                Click="hlAbout_Click"
                                >Подробнее
                                                             </Hyperlink>
@@ -134,7 +133,7 @@
                         Content="{Binding Products.ProductPrice}"/>
                                                         <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                                     </StackPanel>
-                                                    <Button Name="btnBuy" Margin="0 10" MaxWidth="150"
+                                                    <Button Margin="0 10" MaxWidth="150"
                     Style="{StaticResource btnColor}" HorizontalAlignment="Center"
                     Click="btnBuy_Click"
                     >
@@ -143,7 +142,7 @@
                                                         </WrapPanel>
                                                     </Button>
                                                     <WrapPanel HorizontalAlignment="Center">
-                                                        <RepeatButton Name="btnMinus" Margin="0 0 10 0" Style="{StaticResource btnRep}"
+                                                        <RepeatButton Margin="0 0 10 0" Style="{StaticResource btnRep}"
                               VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
                               >
                                                             <RepeatButton.Background>
@@ -155,11 +154,11 @@
                                                                 </TextBlock>
                                                             </WrapPanel>
                                                         </RepeatButton>
-                                                        <TextBlock Name="txblQuan" Foreground="#2A3759" VerticalAlignment="Center"
+                                                        <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                                                     FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
                                                                     FontSize="18" LineHeight="15" HorizontalAlignment="Center"
                                                                     Text="{Binding QuantityCart}"/>
-                                                        <RepeatButton Name="btnPlus" Margin="10 0 0 0" Style="{StaticResource btnRep}"
+                                                        <RepeatButton Margin="10 0 0 0" Style="{StaticResource btnRep}"
                                                                         VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
                                                                         >
                                                             <WrapPanel>
@@ -169,7 +168,7 @@
                                                             </WrapPanel>
                                                         </RepeatButton>
                                                     </WrapPanel>
-                                                    <Button Name="btnDel" MinWidth="100" MaxWidth="120"
+                                                    <Button MinWidth="100" MaxWidth="120"
                                                             Margin="10" Style="{StaticResource btnOpacity}" VerticalAlignment="Bottom"
                                                             Click="btnDel_Click">
                                                         <WrapPanel>

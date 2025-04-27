@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -48,61 +49,91 @@ namespace NeedleworkStore.Pages
             cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
-            //if (Int32.Parse(txblQuan.Text.ToString()) == 1)
-            //{
-            //    btnMinus.IsEnabled = false;
-            //}
-            //if (Int32.Parse(txblQuan.Text.ToString()) == 99)
-            //{
-            //    btnPlus.IsEnabled = false;
-            //}
         }
-               
+        private void GoAboutProduct(Carts cart)
+        {
+            this.NavigationService.Navigate(new OneProductPage());
+        }
+        private void hlAbout_Click(object sender, RoutedEventArgs e)
+        {
+            Carts selectedCartProd = (Carts)((Hyperlink)sender).DataContext;
+            GoAboutProduct(selectedCartProd);
+        }
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MessageBox.Show("Соответствующая сортировка");
         }
-        private void hlAbout_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new OneProductPage());
-        }
-
-        private void btnBuy_Click(object sender, RoutedEventArgs e)
+        private void MakingOrderOneProduct(Carts cart)
         {
             MessageBox.Show("Переход на страницу оформления заказа только с этой позицией");
         }
-
-        private void btnMinus_Click(object sender, RoutedEventArgs e)
-        {                       
-            //int quant = Int32.Parse(txblQuan.Text.ToString());
-            //quant -= 1;
-            //txblQuan.Text = quant.ToString();
-            //if (Int32.Parse(txblQuan.Text.ToString()) == 1)
-            //{
-            //    btnMinus.IsEnabled = false;
-            //}
+        private void btnBuy_Click(object sender, RoutedEventArgs e)
+        {
+            Carts selectedCartProd = (Carts)((Button)sender).DataContext;
+            MakingOrderOneProduct(selectedCartProd);
         }
-
+        private void MinusQuantity(Carts cr, RepeatButton rb)
+        {
+            if (cr.QuantityCart <= 1)
+            {
+                rb.IsEnabled = false;
+                return;
+            }
+            cr.QuantityCart--;
+            rb.IsEnabled = cr.QuantityCart > 1;
+            try
+            {
+                App.ctx.SaveChanges();
+                cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
+                ICCart.ItemsSource = cart;
+                ICCart.DataContext = cart;
+            }
+            catch (Exception ex)
+            {
+                cr.QuantityCart++;
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+            }
+        }
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
+            MinusQuantity(selectedCartProd, (RepeatButton)sender);
+        }
+        private void PlusQuantity(Carts cr, RepeatButton rb)
+        {
+            if (cr.QuantityCart >= 100)
+            {
+                rb.IsEnabled = false;
+                return;
+            }
+            cr.QuantityCart++;
+            rb.IsEnabled = cr.QuantityCart < 100;
+            try
+            {
+                App.ctx.SaveChanges();
+                cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
+                ICCart.ItemsSource = cart;
+                ICCart.DataContext = cart;
+            }
+            catch (Exception ex)
+            {
+                cr.QuantityCart--;
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
-        {            
-            //if (Int32.Parse(txblQuan.Text.ToString()) == 99)
-            //{
-            //    MessageBox.Show("Достигнут лимит количества товаров");
-            //    btnPlus.IsEnabled = false;
-            //    return;
-            //}
-            //int quant = Int32.Parse(txblQuan.Text.ToString());
-            //quant += 1;
-            //txblQuan.Text = quant.ToString();
-            //if (Int32.Parse(txblQuan.Text.ToString()) > 1)
-            //{
-            //    btnMinus.IsEnabled = true;
-            //}
+        {
+            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
+            PlusQuantity(selectedCartProd, (RepeatButton)sender);
         }        
-
-        private void btnDel_Click(object sender, RoutedEventArgs e)
+        private void DelOneProduct(Carts cr)
         {
             MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
+        }
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            Carts selectedCartProd = (Carts)((Button)sender).DataContext;
+            DelOneProduct(selectedCartProd);
         }
 
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
