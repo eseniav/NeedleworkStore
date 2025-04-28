@@ -79,7 +79,7 @@ namespace NeedleworkStore.Pages
                     .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
                 if (existingCartItem != null)
                 {
-                    if (existingCartItem.QuantityCart < 100)
+                    if (existingCartItem.QuantityCart < CartPage.maxItemCopacity)
                         existingCartItem.QuantityCart++;
                     else
                     {
