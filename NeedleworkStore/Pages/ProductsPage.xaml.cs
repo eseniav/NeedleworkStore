@@ -61,20 +61,10 @@ namespace NeedleworkStore.Pages
                     mainWindow.txtBlQuan.Text = "0";
             }
         }
-        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        private void AddInCart(MyProducts selectedProduct)
         {
-            if (!mainWindow.IsAuthenticated)
-            {
-                MessageBoxResult msgInf = MessageBox.Show
-                    ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
-                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                if (msgInf == MessageBoxResult.Yes)
-                    this.NavigationService.Navigate(new RegistrationPage());
-                return;
-            }
             try
             {
-                MyProducts selectedProduct = (MyProducts)((Button)sender).DataContext;
                 Carts existingCartItem = App.ctx.Carts
                     .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
                 if (existingCartItem?.QuantityCart == CartPage.maxItemCopacity)
@@ -114,6 +104,19 @@ namespace NeedleworkStore.Pages
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
+            AddInCart((MyProducts)((Button)sender).DataContext);
         }
         private void SortProd(string cmbName)
         {
