@@ -61,6 +61,20 @@ namespace NeedleworkStore.Pages
                     mainWindow.txtBlQuan.Text = "0";
             }
         }
+        private void ShowAddedPopup()
+        {
+            txtBlPopup.Text = "Товар добавлен в корзину";
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
+            {
+                popup.IsOpen = false;
+                timer.Stop();
+            };
+
+            popup.IsOpen = true;
+            timer.Start();
+        }
         private void AddInCart(MyProducts selectedProduct)
         {
             try
@@ -88,17 +102,7 @@ namespace NeedleworkStore.Pages
                 }
                 App.ctx.SaveChanges();
                 ChangeQuantityProducts();
-                txtBlPopup.Text = "Товар добавлен в корзину";
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(2);
-                timer.Tick += (s, args) =>
-                {
-                    popup.IsOpen = false;
-                    timer.Stop();
-                };
-
-                popup.IsOpen = true;
-                timer.Start();
+                ShowAddedPopup();
             }
             catch (Exception ex)
             {
