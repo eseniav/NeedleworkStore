@@ -110,7 +110,6 @@ namespace NeedleworkStore.Pages{
                 mainWindow.UpdateCartState();
                 cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
                 ICCart.ItemsSource = cart;
-                ICCart.DataContext = cart;
             }
             catch (Exception ex)
             {
@@ -138,7 +137,6 @@ namespace NeedleworkStore.Pages{
                 mainWindow.UpdateCartState();
                 cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
                 ICCart.ItemsSource = cart;
-                ICCart.DataContext = cart;
             }
             catch (Exception ex)
             {
