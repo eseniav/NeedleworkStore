@@ -44,22 +44,6 @@ namespace NeedleworkStore.Pages
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
             cmbIAvail.IsSelected = true;
-            ChangeQuantityProducts();
-        }
-        private void ChangeQuantityProducts()
-        {
-            if (mainWindow.UserID != null)
-            {
-                if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
-                {
-                    int totalQuantity = App.ctx.Carts
-                                    .Where(c => c.UserID == mainWindow.UserID)
-                                    .Sum(c => c.QuantityCart);
-                    mainWindow.txtBlQuan.Text = totalQuantity.ToString();
-                }
-                else
-                    mainWindow.txtBlQuan.Text = "0";
-            }
         }
         private void ShowAddedPopup()
         {
@@ -101,7 +85,7 @@ namespace NeedleworkStore.Pages
                     App.ctx.Carts.Add(newprodInCart);
                 }
                 App.ctx.SaveChanges();
-                ChangeQuantityProducts();
+                mainWindow.UpdateCartState();
                 ShowAddedPopup();
             }
             catch (Exception ex)
