@@ -44,21 +44,53 @@ namespace NeedleworkStore.Pages
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
             cmbIAvail.IsSelected = true;
-            ChangeQuantityProducts();
         }
-        private void ChangeQuantityProducts()
+        private void ShowAddedPopup()
         {
-            if (mainWindow.UserID != null)
+            txtBlPopup.Text = "Товар добавлен в корзину";
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
             {
-                if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
+                popup.IsOpen = false;
+                timer.Stop();
+            };
+
+            popup.IsOpen = true;
+            timer.Start();
+        }
+        private void AddInCart(MyProducts selectedProduct)
+        {
+            try
+            {
+                Carts existingCartItem = App.ctx.Carts
+                    .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
+                if (existingCartItem?.QuantityCart == CartPage.maxItemCopacity)
                 {
-                    int totalQuantity = App.ctx.Carts
-                                    .Where(c => c.UserID == mainWindow.UserID)
-                                    .Sum(c => c.QuantityCart);
-                    mainWindow.txtBlQuan.Text = totalQuantity.ToString();
+                    MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
+                if (existingCartItem != null)
+                    existingCartItem.QuantityCart++;
                 else
-                    mainWindow.txtBlQuan.Text = "0";
+                {
+                    Carts newprodInCart = new Carts
+                    {
+                        UserID = (int)mainWindow.UserID,
+                        ProductID = selectedProduct.ProductID,
+                        QuantityCart = 1,
+                        FormationDate = DateTime.Now,
+                    };
+                    App.ctx.Carts.Add(newprodInCart);
+                }
+                App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
+                ShowAddedPopup();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnCartIn_Click(object sender, RoutedEventArgs e)
@@ -72,51 +104,7 @@ namespace NeedleworkStore.Pages
                     this.NavigationService.Navigate(new RegistrationPage());
                 return;
             }
-            try
-            {
-                MyProducts selectedProduct = (MyProducts)((Button)sender).DataContext;
-                Carts existingCartItem = App.ctx.Carts
-                    .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
-                if (existingCartItem != null)
-                {
-                    if (existingCartItem.QuantityCart < 100)
-                        existingCartItem.QuantityCart++;
-                    else
-                    {
-                        MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
-                    }
-                }
-                else
-                {
-                    Carts newprodInCart = new Carts
-                    {
-                        UserID = (int)mainWindow.UserID,
-                        ProductID = selectedProduct.ProductID,
-                        QuantityCart = 1,
-                        FormationDate = DateTime.Now,
-                    };
-                    App.ctx.Carts.Add(newprodInCart);
-                }
-                App.ctx.SaveChanges();
-                ChangeQuantityProducts();
-                txtBlPopup.Text = "Товар добавлен в корзину";
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(2);
-                timer.Tick += (s, args) =>
-                {
-                    popup.IsOpen = false;
-                    timer.Stop();
-                };
-
-                popup.IsOpen = true;
-                timer.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            AddInCart((MyProducts)((Button)sender).DataContext);
         }
         private void SortProd(string cmbName)
         {

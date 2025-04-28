@@ -19,8 +19,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using static NeedleworkStore.Pages.ProductsPage;
 
-namespace NeedleworkStore.Pages
-{
+namespace NeedleworkStore.Pages{
     public class ImagePathConverter : IValueConverter
     {
         private string basePath = "/ProdImages/";
@@ -43,6 +42,7 @@ namespace NeedleworkStore.Pages
     {
         List<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public const int maxItemCopacity = 100;
         public CartPage()
         {
             InitializeComponent();
@@ -107,9 +107,9 @@ namespace NeedleworkStore.Pages
             try
             {
                 App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
                 cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
                 ICCart.ItemsSource = cart;
-                ICCart.DataContext = cart;
             }
             catch (Exception ex)
             {
@@ -124,19 +124,19 @@ namespace NeedleworkStore.Pages
         }
         private void PlusQuantity(Carts cr, RepeatButton rb)
         {
-            if (cr.QuantityCart >= 100)
+            if (cr.QuantityCart >= maxItemCopacity)
             {
                 rb.IsEnabled = false;
                 return;
             }
             cr.QuantityCart++;
-            rb.IsEnabled = cr.QuantityCart < 100;
+            rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
             try
             {
                 App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
                 cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
                 ICCart.ItemsSource = cart;
-                ICCart.DataContext = cart;
             }
             catch (Exception ex)
             {
