@@ -77,17 +77,14 @@ namespace NeedleworkStore.Pages
                 MyProducts selectedProduct = (MyProducts)((Button)sender).DataContext;
                 Carts existingCartItem = App.ctx.Carts
                     .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
-                if (existingCartItem != null)
+                if (existingCartItem?.QuantityCart == CartPage.maxItemCopacity)
                 {
-                    if (existingCartItem.QuantityCart < CartPage.maxItemCopacity)
-                        existingCartItem.QuantityCart++;
-                    else
-                    {
-                        MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
-                    }
+                    MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
+                if (existingCartItem != null)
+                    existingCartItem.QuantityCart++;
                 else
                 {
                     Carts newprodInCart = new Carts
