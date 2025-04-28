@@ -70,17 +70,11 @@ namespace NeedleworkStore
         }
         public void UpdateCartState()
         {
-            if (UserID == null)
+            if (!IsAuthenticated)
                 return;
-            if (App.ctx.Carts.FirstOrDefault(c => c.UserID == UserID) != null)
-            {
-                int totalQuantity = App.ctx.Carts
-                                .Where(c => c.UserID == UserID)
-                                .Sum(c => c.QuantityCart);
-                txtBlQuan.Text = totalQuantity.ToString();
-            }
-            else
-                txtBlQuan.Text = "0";
+            txtBlQuan.Text = App.ctx.Carts.FirstOrDefault(c => c.UserID == UserID) != null
+                ? App.ctx.Carts.Where(c => c.UserID == UserID).Sum(c => c.QuantityCart).ToString()
+                : "0";
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
