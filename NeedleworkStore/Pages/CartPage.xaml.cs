@@ -151,7 +151,23 @@ namespace NeedleworkStore.Pages{
         }        
         private void DelOneProduct(Carts cr)
         {
-            MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
+            MessageBoxResult msgInf = MessageBox.Show
+                    ("Удалить выбранный товар из корзины?",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgInf == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    App.ctx.Carts.Remove(cr);
+                    App.ctx.SaveChanges();
+                    cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
+                    ICCart.ItemsSource = cart;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
