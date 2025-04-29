@@ -154,19 +154,18 @@ namespace NeedleworkStore.Pages{
             MessageBoxResult msgInf = MessageBox.Show
                     ("Удалить выбранный товар из корзины?",
                     "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (msgInf == MessageBoxResult.Yes)
+            if (msgInf != MessageBoxResult.Yes)
+                return;
+            try
             {
-                try
-                {
-                    App.ctx.Carts.Remove(cr);
-                    App.ctx.SaveChanges();
-                    cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
-                    ICCart.ItemsSource = cart;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                App.ctx.Carts.Remove(cr);
+                App.ctx.SaveChanges();
+                cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
+                ICCart.ItemsSource = cart;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnDel_Click(object sender, RoutedEventArgs e)
