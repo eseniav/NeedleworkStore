@@ -107,18 +107,16 @@ namespace NeedleworkStore.Pages{
                 rb.IsEnabled = false;
                 return;
             }
-            cr.QuantityCart--;
+            cr.Quantity--;
             rb.IsEnabled = cr.QuantityCart > 1;
             try
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                cart = GetCarts();
-                ICCart.ItemsSource = cart;
             }
             catch (Exception ex)
             {
-                cr.QuantityCart++;
+                cr.Quantity++;
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
             }
         }
@@ -134,18 +132,16 @@ namespace NeedleworkStore.Pages{
                 rb.IsEnabled = false;
                 return;
             }
-            cr.QuantityCart++;
+            cr.Quantity++;
             rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
             try
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                cart = GetCarts();
-                ICCart.ItemsSource = cart;
             }
             catch (Exception ex)
             {
-                cr.QuantityCart--;
+                cr.Quantity--;
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
