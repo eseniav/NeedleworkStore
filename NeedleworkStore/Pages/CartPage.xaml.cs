@@ -130,11 +130,11 @@ namespace NeedleworkStore.Pages{
         {
             if (cr.QuantityCart >= maxItemCopacity)
             {
-                rb.IsEnabled = false;
+                //rb.IsEnabled = false;
                 return;
             }
             cr.Quantity++;
-            rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
+            //rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
             try
             {
                 App.ctx.SaveChanges();

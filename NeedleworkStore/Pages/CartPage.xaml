@@ -143,8 +143,9 @@
                                                     </Button>
                                                     <WrapPanel HorizontalAlignment="Center">
                                                         <RepeatButton Margin="0 0 10 0" Style="{StaticResource btnRep}"
-                              VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
-                              >
+                                                                      VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
+                                                                      IsEnabled="{Binding IsNotMin}"
+                                                            >
                                                             <RepeatButton.Background>
                                                                 <SolidColorBrush Opacity="0.25"/>
                                                             </RepeatButton.Background>
@@ -160,6 +161,7 @@
                                                                     Text="{Binding QuantityCart}"/>
                                                         <RepeatButton Margin="10 0 0 0" Style="{StaticResource btnRep}"
                                                                         VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
+                                                                      IsEnabled="{Binding IsNotMax}"
                                                                         >
                                                             <WrapPanel>
                                                                 <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"

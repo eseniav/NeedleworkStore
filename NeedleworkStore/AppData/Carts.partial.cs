@@ -14,6 +14,10 @@ namespace NeedleworkStore.AppData
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        private const int MaxCapacityPerItem = 100;
+        private const int MinCapacityPerItem = 1;
+        public bool IsNotMax => QuantityCart < MaxCapacityPerItem;
+        public bool IsNotMin => QuantityCart > MinCapacityPerItem;
         public int Quantity 
         {
             get => QuantityCart;
@@ -24,6 +28,8 @@ namespace NeedleworkStore.AppData
                 QuantityCart = value;
                 OnPropertyChanged(nameof(Quantity));
                 OnPropertyChanged(nameof(QuantityCart));
+                OnPropertyChanged(nameof(IsNotMax));
+                OnPropertyChanged(nameof(IsNotMin));
             }
         }
     }
