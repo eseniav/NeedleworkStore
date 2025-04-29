@@ -130,7 +130,7 @@
                                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center" Margin="0 0 20 0">
                                                     <StackPanel HorizontalAlignment="Center" Margin="0 30 0 10">
                                                         <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
-                        Content="{Binding TotalPrice}"/>
+                        Content="{Binding TotalPrice, StringFormat={}{0:N0} руб.}" ContentStringFormat="{}{0:N0} руб."/>
                                                         <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                                     </StackPanel>
                                                     <Button Margin="0 10" MaxWidth="150"
