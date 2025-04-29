@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeedleworkStore.AppData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class OrderRegistrationPage : Page
     {
-        public OrderRegistrationPage()
+        List<Carts> orderCart;
+        public OrderRegistrationPage(List<Carts> crt)
         {
             InitializeComponent();
+            orderCart = crt;
             if (Int32.Parse(txblQuan.Text.ToString()) == 1)
             {
                 btnMinus.IsEnabled = false;

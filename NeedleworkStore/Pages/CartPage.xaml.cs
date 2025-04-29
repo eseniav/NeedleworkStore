@@ -88,7 +88,8 @@ namespace NeedleworkStore.Pages{
         }
         private void MakingOrderOneProduct(Carts cart)
         {
-            MessageBox.Show("Переход на страницу оформления заказа только с этой позицией");
+            List<Carts> crt = new List<Carts>() { cart };
+            this.NavigationService.Navigate(new OrderRegistrationPage(crt));
         }
         private void btnBuy_Click(object sender, RoutedEventArgs e)
         {
