@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -40,17 +41,20 @@ namespace NeedleworkStore.Pages{
     /// </summary>
     public partial class CartPage : Page
     {
-        List<Carts> cart;
+        ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public const int maxItemCopacity = 100;
         public CartPage()
         {
             InitializeComponent();
-            cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
+            cart = GetCarts();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeQuantityProducts();
         }
+        private ObservableCollection<Carts> GetCarts() =>
+         new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+
         private void ChangeQuantityProducts()
         {
             if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
@@ -103,18 +107,16 @@ namespace NeedleworkStore.Pages{
                 rb.IsEnabled = false;
                 return;
             }
-            cr.QuantityCart--;
+            cr.Quantity--;
             rb.IsEnabled = cr.QuantityCart > 1;
             try
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
-                ICCart.ItemsSource = cart;
             }
             catch (Exception ex)
             {
-                cr.QuantityCart++;
+                cr.Quantity++;
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
             }
         }
@@ -130,18 +132,16 @@ namespace NeedleworkStore.Pages{
                 rb.IsEnabled = false;
                 return;
             }
-            cr.QuantityCart++;
+            cr.Quantity++;
             rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
             try
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
-                ICCart.ItemsSource = cart;
             }
             catch (Exception ex)
             {
-                cr.QuantityCart--;
+                cr.Quantity--;
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -161,8 +161,7 @@ namespace NeedleworkStore.Pages{
             {
                 App.ctx.Carts.Remove(cr);
                 App.ctx.SaveChanges();
-                cart = App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList();
-                ICCart.ItemsSource = cart;
+                cart.Remove(cr);
             }
             catch (Exception ex)
             {
