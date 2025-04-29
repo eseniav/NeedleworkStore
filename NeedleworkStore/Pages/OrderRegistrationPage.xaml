@@ -28,28 +28,19 @@
                 </WrapPanel>
             </UniformGrid>
         <StackPanel>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Height="700">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Height="550">
                 <StackPanel>
-                    <GroupBox Margin="10 0 0 10">
+                    <GroupBox Margin="10">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Grid.Row="0">
-                                <WrapPanel HorizontalAlignment="Right">
-                                    <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
-                                    <Label Style="{StaticResource Chakra}" Content="4,9" Margin="0 0 20 0"/>
-                                </WrapPanel>
-                                <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
-               HorizontalAlignment="Right" Margin="20 0"
-               >
+                            <StackPanel Grid.Column="0" Margin="5 10 5 0">
+                                <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="100" MaxHeight="100"
+                                        HorizontalAlignment="Right" Margin="20 0">
                                     <Image.ToolTip>
                                         <ToolTip ToolTipService.InitialShowDelay="3000">
                                             <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="350" MaxHeight="350"/>
@@ -57,7 +48,7 @@
                                     </Image.ToolTip>
                                 </Image>
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                                 <Label MinHeight="20"/>
                                 <Grid HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
@@ -67,27 +58,16 @@
                                     <StackPanel Grid.Column="0" HorizontalAlignment="Left">
                                         <TextBlock Style="{StaticResource ChakraTB}" Text="Компания:"/>
                                         <TextBlock Style="{StaticResource ChakraTB}" Text="Название:"/>
-                                        <TextBlock Style="{StaticResource ChakraTB}" Text="Наличие:"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                                         <TextBlock Style="{StaticResource ChakraTB}" Text="Кларт"/>
                                         <TextBlock Style="{StaticResource ChakraTB}" Text="Лаванда для неё"/>
-                                        <TextBlock FontFamily="Cakra Normal" Foreground="#3D5220"
-                                                    Text="есть в наличии" Margin="5"/>
                                     </StackPanel>
                                 </Grid>
-                                <WrapPanel HorizontalAlignment="Center">
-                                    <Label Style="{StaticResource Chakra}" Content="Описание:"/>
-                                </WrapPanel>
-                                <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="12"
-                                           LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
-                                           TextAlignment="Left" Text="Размер набора 13х18,5 см, канва - аида 14 белая"
-                                           HorizontalAlignment="Left"/>
                                 <WrapPanel>
                                     <Label>
                                         <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
-                                                   Click="hlAbout_Click"
-                                                   >Подробнее
+                                                   Click="hlAbout_Click">Подробнее
                                         </Hyperlink>
                                     </Label>
                                 </WrapPanel>
@@ -98,37 +78,39 @@
                                             Content="100"/>
                                     <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                 </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <WrapPanel HorizontalAlignment="Center">
                                     <RepeatButton Name="btnMinus" Margin="0 0 10 0" Style="{StaticResource btnRep}"
-                  VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
-                  >
+   VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
+   >
                                         <RepeatButton.Background>
                                             <SolidColorBrush Opacity="0.25"/>
                                         </RepeatButton.Background>
                                         <WrapPanel>
                                             <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                        >-
+         >-
                                             </TextBlock>
                                         </WrapPanel>
                                     </RepeatButton>
                                     <TextBlock Name="txblQuan" Foreground="#2A3759" VerticalAlignment="Center"
-               FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
-               FontSize="18" LineHeight="15" HorizontalAlignment="Center"
-               >1
+FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
+FontSize="18" LineHeight="15" HorizontalAlignment="Center"
+>1
                                     </TextBlock>
                                     <RepeatButton Name="btnPlus" Margin="10 0 0 0" Style="{StaticResource btnRep}"
-                    VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
-                    >
+     VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
+     >
                                         <WrapPanel>
                                             <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
-                                                            >+
+                                             >+
                                             </TextBlock>
                                         </WrapPanel>
                                     </RepeatButton>
                                 </WrapPanel>
                                 <Button Name="btnDel" MinWidth="100" MaxWidth="120"
-                                            Margin="10" Style="{StaticResource btnOpacity}" VerticalAlignment="Bottom"
-                                            Click="btnDel_Click">
+                             Margin="10" Style="{StaticResource btnOpacity}" VerticalAlignment="Bottom"
+                             Click="btnDel_Click">
                                     <WrapPanel>
                                         <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}">Удалить</TextBlock>
                                     </WrapPanel>
