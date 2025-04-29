@@ -16,6 +16,7 @@ namespace NeedleworkStore.AppData
         }
         private const int MaxCapacityPerItem = 100;
         private const int MinCapacityPerItem = 1;
+
         public bool IsNotMax => QuantityCart < MaxCapacityPerItem;
         public bool IsNotMin => QuantityCart > MinCapacityPerItem;
         public int? TotalPrice => QuantityCart * Products.ProductPrice;
