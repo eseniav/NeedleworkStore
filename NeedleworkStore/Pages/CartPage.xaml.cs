@@ -54,6 +54,7 @@ namespace NeedleworkStore.Pages{
         }
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        private void ResetCart() => ICCart.ItemsSource = GetCarts();
 
         private void ChangeQuantityProducts()
         {
@@ -116,8 +117,8 @@ namespace NeedleworkStore.Pages{
             }
             catch (Exception ex)
             {
-                cr.Quantity++;
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ResetCart();
             }
         }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -141,8 +142,8 @@ namespace NeedleworkStore.Pages{
             }
             catch (Exception ex)
             {
-                cr.Quantity--;
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ResetCart();
             }
         }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
@@ -166,6 +167,7 @@ namespace NeedleworkStore.Pages{
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ResetCart();
             }
         }
         private void btnDel_Click(object sender, RoutedEventArgs e)
