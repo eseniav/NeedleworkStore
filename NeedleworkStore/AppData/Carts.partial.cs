@@ -19,12 +19,11 @@ namespace NeedleworkStore.AppData
             get => QuantityCart;
             set 
             {
-                if (QuantityCart != value)
-                {
-                    QuantityCart = value;
-                    OnPropertyChanged(nameof(Quantity));
-                    OnPropertyChanged(nameof(QuantityCart)); 
-                }
+                if (QuantityCart == value) return;
+
+                QuantityCart = value;
+                OnPropertyChanged(nameof(Quantity));
+                OnPropertyChanged(nameof(QuantityCart));
             }
         }
     }
