@@ -157,7 +157,7 @@
                                                         <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                                                     FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
                                                                     FontSize="18" LineHeight="15" HorizontalAlignment="Center"
-                                                                    Text="{Binding Quantity}"/>
+                                                                    Text="{Binding QuantityCart}"/>
                                                         <RepeatButton Margin="10 0 0 0" Style="{StaticResource btnRep}"
                                                                         VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
                                                                         >
