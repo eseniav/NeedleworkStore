@@ -48,6 +48,8 @@ namespace NeedleworkStore.Pages{
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public const int maxItemCopacity = 100;
         public int TotalQuantity { get; set; }
+        public int TotalQty { get; set; }
+        public int TotalSum { get; set; }
         public CartPage()
         {
             InitializeComponent();
@@ -74,11 +76,11 @@ namespace NeedleworkStore.Pages{
         }
         private void UpdateTotalSum()
         {
-            MessageBox.Show("Update total sum");
+            TotalSum = cart.Sum(item => item.TotalSum);
         }
         private void UpdateTotalQty()
         {
-            MessageBox.Show("Update total quantity");
+            TotalQty = cart.Sum(item => item.QuantityCart);
         }
         // Установка или сброс коллекции
         private void ResetCart()

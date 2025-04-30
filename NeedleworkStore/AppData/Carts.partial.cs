@@ -20,6 +20,8 @@ namespace NeedleworkStore.AppData
         public bool IsNotMax => QuantityCart < MaxCapacityPerItem;
         public bool IsNotMin => QuantityCart > MinCapacityPerItem;
         public int? TotalPrice => QuantityCart * Products.ProductPrice;
+        // Better alternative:
+        public int TotalSum => QuantityCart * (Products?.ProductPrice ?? 0);
         public int Quantity 
         {
             get => QuantityCart;
@@ -33,6 +35,7 @@ namespace NeedleworkStore.AppData
                 OnPropertyChanged(nameof(IsNotMax));
                 OnPropertyChanged(nameof(IsNotMin));
                 OnPropertyChanged(nameof(TotalPrice));
+                OnPropertyChanged(nameof(TotalSum));
             }
         }
     }
