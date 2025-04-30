@@ -50,18 +50,18 @@ namespace NeedleworkStore.Pages{
         {
             InitializeComponent();
             ResetCart();
+            cart.CollectionChanged += Cart_CollectionChanged;
+            ICCart.ItemsSource = cart;
+            ICCart.DataContext = cart;
+            ChangeQuantityProducts();
         }
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
         private void ResetCart()
         {
             cart = GetCarts();
-            cart.CollectionChanged += Cart_CollectionChanged;
-            ICCart.ItemsSource = cart;
-            ICCart.DataContext = cart;
             UpdateTotalSum();
             UpdateTotalQty();
-            ChangeQuantityProducts();
         }
         private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
