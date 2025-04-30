@@ -209,12 +209,15 @@
                 </Button>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="Итого:"/>
-                <TextBlock>
+                <TextBlock x:Name="totals">
                     <Run x:Name="totalQty"></Run>
                     <Run>товаров на общую сумму</Run>
                     <Run x:Name="totalSum"></Run>
+                    <Run Text="{Binding totalQuantity, Mode=OneWay}"></Run>
+                    <Run>товаров на общую сумму</Run>
+                    <Run Text="{Binding totalPrice, Mode=OneWay}"></Run>
                 </TextBlock>
-                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
+                    <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
                         Content="100"/>
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
             </WrapPanel>

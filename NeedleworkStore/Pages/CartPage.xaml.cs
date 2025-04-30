@@ -41,8 +41,14 @@ namespace NeedleworkStore.Pages{
     /// <summary>
     /// Логика взаимодействия для CartPage.xaml
     /// </summary>
-    public partial class CartPage : Page
+    public partial class CartPage : Page, INotifyPropertyChanged
     {
+        // Событие интерфейса INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        // Метод для вызова события PropertyChanged
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         // Определение отслеживаемой коллекции
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
@@ -50,6 +56,8 @@ namespace NeedleworkStore.Pages{
         public int TotalQuantity { get; set; }
         public int TotalQty { get; set; }
         public int TotalSum { get; set; }
+        public int totalPrice => cart.Sum(item => item.TotalSum);
+        public int totalQuantity => cart.Sum(item => item.QuantityCart);
         public CartPage()
         {
             InitializeComponent();
@@ -64,6 +72,8 @@ namespace NeedleworkStore.Pages{
             ICCart.ItemsSource = cart;
             // Установка контекста данных (однократно)
             ICCart.DataContext = cart;
+            // Установка контекста данных для итоговых значений
+            totals.DataContext = this;
             ChangeQuantityProducts();
         }
         // Получение данных из БД
@@ -76,6 +86,8 @@ namespace NeedleworkStore.Pages{
         {
             UpdateTotalSum();
             UpdateTotalQty();
+            OnPropertyChanged(nameof(totalPrice));
+            OnPropertyChanged(nameof(totalQuantity));
         }
         /// <summary>
         /// Обновляет общую сумму
@@ -104,6 +116,14 @@ namespace NeedleworkStore.Pages{
         // Обработчик изменения состава коллекции
         private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (e.NewItems != null)
+                foreach (Carts item in e.NewItems)
+                    item.PropertyChanged += CartItem_PropertyChanged;
+
+            if (e.OldItems != null)
+                foreach (Carts item in e.OldItems)
+                    item.PropertyChanged -= CartItem_PropertyChanged;
+
             UpdateTotals();
         }
         // Обработчик изменения элемента коллекции
