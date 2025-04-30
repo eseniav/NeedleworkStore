@@ -43,7 +43,6 @@ namespace NeedleworkStore.Pages{
     {
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-        public const int maxItemCopacity = 100;
         public CartPage()
         {
             InitializeComponent();

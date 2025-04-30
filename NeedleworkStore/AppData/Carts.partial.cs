@@ -9,6 +9,8 @@ namespace NeedleworkStore.AppData
 {
     public partial class Carts : INotifyPropertyChanged
     {
+        public const int maxItemCopacity = 100;
+        public const int minItemCopacity = 1;
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) 
         {
@@ -28,7 +30,7 @@ namespace NeedleworkStore.AppData
                 OnPropertyChanged(nameof(IsNotMax));
             }
         }
-        public bool IsNotMin => QuantityCart > 1;
-        public bool IsNotMax => QuantityCart < 100;
+        public bool IsNotMin => QuantityCart > minItemCopacity;
+        public bool IsNotMax => QuantityCart < maxItemCopacity;
     }
 }
