@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,7 @@ namespace NeedleworkStore.Pages{
     /// </summary>
     public partial class CartPage : Page
     {
+        // Определение отслеживаемой коллекции
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public const int maxItemCopacity = 100;
@@ -49,21 +51,23 @@ namespace NeedleworkStore.Pages{
         public CartPage()
         {
             InitializeComponent();
+            // Установка коллекции
             ResetCart();
+            // Добавление обработчика на изменение коллекции
             cart.CollectionChanged += Cart_CollectionChanged;
+            // Добавление обработчиков на изменения элементов
+            foreach (var item in cart)
+                item.PropertyChanged += CartItem_PropertyChanged;
+            // Установка источника данных (однократно)
             ICCart.ItemsSource = cart;
+            // Установка контекста данных (однократно)
             ICCart.DataContext = cart;
             ChangeQuantityProducts();
         }
+        // Получение данных из БД
         private ObservableCollection<Carts> GetCarts() =>
-         new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
-        private void ResetCart()
-        {
-            cart = GetCarts();
-            UpdateTotalSum();
-            UpdateTotalQty();
-        }
-        private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        private void UpdateTotals()
         {
             UpdateTotalSum();
             UpdateTotalQty();
@@ -75,6 +79,23 @@ namespace NeedleworkStore.Pages{
         private void UpdateTotalQty()
         {
             MessageBox.Show("Update total quantity");
+        }
+        // Установка или сброс коллекции
+        private void ResetCart()
+        {
+            cart = GetCarts();
+            UpdateTotals();
+        }
+        // Обработчик изменения состава коллекции
+        private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateTotals();
+        }
+        // Обработчик изменения элемента коллекции
+        private void CartItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Carts.QuantityCart)) // если изменилось количество
+                UpdateTotals();
         }
         private void ChangeQuantityProducts()
         {
