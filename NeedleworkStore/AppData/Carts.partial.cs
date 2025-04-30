@@ -28,9 +28,11 @@ namespace NeedleworkStore.AppData
                 OnPropertyChanged(nameof(QuantityCart));
                 OnPropertyChanged(nameof(IsNotMin));
                 OnPropertyChanged(nameof(IsNotMax));
+                OnPropertyChanged(nameof(SumProducts));
             }
         }
         public bool IsNotMin => QuantityCart > minItemCopacity;
         public bool IsNotMax => QuantityCart < maxItemCopacity;
+        public int? SumProducts => QuantityCart * Products.ProductPrice;
     }
 }
