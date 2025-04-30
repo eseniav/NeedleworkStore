@@ -103,13 +103,7 @@ namespace NeedleworkStore.Pages{
         }
         private void MinusQuantity(Carts cr, RepeatButton rb)
         {
-            if (cr.QuantityCart <= 1)
-            {
-                rb.IsEnabled = false;
-                return;
-            }
             cr.Quantity--;
-            rb.IsEnabled = cr.QuantityCart > 1;
             try
             {
                 App.ctx.SaveChanges();
@@ -128,13 +122,7 @@ namespace NeedleworkStore.Pages{
         }
         private void PlusQuantity(Carts cr, RepeatButton rb)
         {
-            if (cr.QuantityCart >= maxItemCopacity)
-            {
-                //rb.IsEnabled = false;
-                return;
-            }
             cr.Quantity++;
-            //rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
             try
             {
                 App.ctx.SaveChanges();
