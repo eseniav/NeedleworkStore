@@ -110,7 +110,7 @@ namespace NeedleworkStore.Pages{
             }
             catch (Exception ex)
             {
-                cr.Quantity++;
+                cart = GetCarts();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
             }
         }
@@ -129,7 +129,7 @@ namespace NeedleworkStore.Pages{
             }
             catch (Exception ex)
             {
-                cr.Quantity--;
+                cart = GetCarts();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
