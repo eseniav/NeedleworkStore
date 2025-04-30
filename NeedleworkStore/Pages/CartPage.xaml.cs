@@ -3,6 +3,7 @@ using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -44,10 +45,12 @@ namespace NeedleworkStore.Pages{
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public const int maxItemCopacity = 100;
+        public int TotalQuantity { get; set; }
         public CartPage()
         {
             InitializeComponent();
             cart = GetCarts();
+            cart.CollectionChanged += Cart_CollectionChanged;
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeQuantityProducts();
@@ -55,7 +58,11 @@ namespace NeedleworkStore.Pages{
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
         private void ResetCart() => ICCart.ItemsSource = GetCarts();
-
+        private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            MessageBox.Show("Change quantity");
+            ChangeQuantityProducts();
+        }
         private void ChangeQuantityProducts()
         {
             if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
@@ -64,10 +71,10 @@ namespace NeedleworkStore.Pages{
                 GrTopPan.Visibility = Visibility.Visible;
                 ICCart.Visibility = Visibility.Visible;
                 GrBottomPan.Visibility = Visibility.Visible;
-                int totalQuantity = App.ctx.Carts
+                TotalQuantity = App.ctx.Carts
                                 .Where(c => c.UserID == mainWindow.UserID)
                                 .Sum(c => c.QuantityCart);
-                txtBlQuantity.Text = totalQuantity.ToString();
+                txtBlQuantity.Text = TotalQuantity.ToString();
             }
             else
             {
@@ -77,6 +84,7 @@ namespace NeedleworkStore.Pages{
                 GrBottomPan.Visibility = Visibility.Hidden;
                 txtBlQuantity.Text = "0";
             }
+            mainWindow.UpdateCartState();
         }
         private void GoAboutProduct(Carts cart)
         {
