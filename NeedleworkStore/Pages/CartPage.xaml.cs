@@ -69,20 +69,31 @@ namespace NeedleworkStore.Pages{
         // Получение данных из БД
         private ObservableCollection<Carts> GetCarts() =>
             new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        /// <summary>
+        /// Обновляет общие значения
+        /// </summary>
         private void UpdateTotals()
         {
             UpdateTotalSum();
             UpdateTotalQty();
         }
+        /// <summary>
+        /// Обновляет общую сумму
+        /// </summary>
         private void UpdateTotalSum()
         {
             TotalSum = cart.Sum(item => item.TotalSum);
         }
+        /// <summary>
+        /// Обновляет общее количество
+        /// </summary>
         private void UpdateTotalQty()
         {
             TotalQty = cart.Sum(item => item.QuantityCart);
         }
-        // Установка или сброс коллекции
+        /// <summary>
+        /// Устанавливает или сбрасывает коллекцию
+        /// </summary>
         private void ResetCart()
         {
             cart = GetCarts();
