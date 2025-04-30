@@ -209,6 +209,11 @@
                 </Button>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="Итого:"/>
+                <TextBlock>
+                    <Run x:Name="totalQty"></Run>
+                    <Run>товаров на общую сумму</Run>
+                    <Run x:Name="totalSum"></Run>
+                </TextBlock>
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
                         Content="100"/>
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>

@@ -83,6 +83,7 @@ namespace NeedleworkStore.Pages{
         private void UpdateTotalSum()
         {
             TotalSum = cart.Sum(item => item.TotalSum);
+            totalSum.Text = TotalSum.ToString();
         }
         /// <summary>
         /// Обновляет общее количество
@@ -90,6 +91,7 @@ namespace NeedleworkStore.Pages{
         private void UpdateTotalQty()
         {
             TotalQty = cart.Sum(item => item.QuantityCart);
+            totalQty.Text = TotalQty.ToString();
         }
         /// <summary>
         /// Устанавливает или сбрасывает коллекцию
