@@ -49,19 +49,32 @@ namespace NeedleworkStore.Pages{
         public CartPage()
         {
             InitializeComponent();
+            ResetCart();
+        }
+        private ObservableCollection<Carts> GetCarts() =>
+         new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        private void ResetCart()
+        {
             cart = GetCarts();
             cart.CollectionChanged += Cart_CollectionChanged;
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
+            UpdateTotalSum();
+            UpdateTotalQty();
             ChangeQuantityProducts();
         }
-        private ObservableCollection<Carts> GetCarts() =>
-         new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
-        private void ResetCart() => ICCart.ItemsSource = GetCarts();
         private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            MessageBox.Show("Change quantity");
-            ChangeQuantityProducts();
+            UpdateTotalSum();
+            UpdateTotalQty();
+        }
+        private void UpdateTotalSum()
+        {
+            MessageBox.Show("Update total sum");
+        }
+        private void UpdateTotalQty()
+        {
+            MessageBox.Show("Update total quantity");
         }
         private void ChangeQuantityProducts()
         {
