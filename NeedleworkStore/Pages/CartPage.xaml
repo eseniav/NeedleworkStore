@@ -130,7 +130,7 @@
                                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center" Margin="0 0 20 0">
                                                     <StackPanel HorizontalAlignment="Center" Margin="0 30 0 10">
                                                         <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
-                        Content="{Binding Products.ProductPrice}"/>
+                        Content="{Binding SumProducts}" ContentStringFormat="{}{0:N0}"/>
                                                         <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                                     </StackPanel>
                                                     <Button Margin="0 10" MaxWidth="150"
@@ -144,6 +144,7 @@
                                                     <WrapPanel HorizontalAlignment="Center">
                                                         <RepeatButton Margin="0 0 10 0" Style="{StaticResource btnRep}"
                               VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
+                                                                      IsEnabled="{Binding IsNotMin}"
                               >
                                                             <RepeatButton.Background>
                                                                 <SolidColorBrush Opacity="0.25"/>
@@ -157,9 +158,10 @@
                                                         <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                                                     FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap"
                                                                     FontSize="18" LineHeight="15" HorizontalAlignment="Center"
-                                                                    Text="{Binding Quantity}"/>
+                                                                    Text="{Binding QuantityCart}"/>
                                                         <RepeatButton Margin="10 0 0 0" Style="{StaticResource btnRep}"
                                                                         VerticalAlignment="Bottom" MinWidth="20" Click="btnPlus_Click"
+                                                                      IsEnabled="{Binding IsNotMax}"
                                                                         >
                                                             <WrapPanel>
                                                                 <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759"
@@ -207,8 +209,7 @@
                 </Button>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="Итого:"/>
-                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
-                        Content="100"/>
+                <Label Name="lblTotalSum" FontFamily="Anticva" Foreground="#2A3759" FontSize="17"/>
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
             </WrapPanel>
                 <Button Name="btnPlaceOrder" Margin="0 10 0 0" Style="{StaticResource btnColor}"

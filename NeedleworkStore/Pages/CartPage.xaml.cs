@@ -43,7 +43,7 @@ namespace NeedleworkStore.Pages{
     {
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-        public const int maxItemCopacity = 100;
+        public int? TotalSum;
         public CartPage()
         {
             InitializeComponent();
@@ -51,10 +51,11 @@ namespace NeedleworkStore.Pages{
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeQuantityProducts();
+            SetTotalSum();
         }
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
-
+        private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
         private void ChangeQuantityProducts()
         {
             if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
@@ -102,21 +103,16 @@ namespace NeedleworkStore.Pages{
         }
         private void MinusQuantity(Carts cr, RepeatButton rb)
         {
-            if (cr.QuantityCart <= 1)
-            {
-                rb.IsEnabled = false;
-                return;
-            }
             cr.Quantity--;
-            rb.IsEnabled = cr.QuantityCart > 1;
             try
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
+                SetTotalSum();
             }
             catch (Exception ex)
             {
-                cr.Quantity++;
+                cart = GetCarts();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
             }
         }
@@ -127,21 +123,16 @@ namespace NeedleworkStore.Pages{
         }
         private void PlusQuantity(Carts cr, RepeatButton rb)
         {
-            if (cr.QuantityCart >= maxItemCopacity)
-            {
-                rb.IsEnabled = false;
-                return;
-            }
             cr.Quantity++;
-            rb.IsEnabled = cr.QuantityCart < maxItemCopacity;
             try
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
+                SetTotalSum();
             }
             catch (Exception ex)
             {
-                cr.Quantity--;
+                cart = GetCarts();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -162,6 +153,7 @@ namespace NeedleworkStore.Pages{
                 App.ctx.Carts.Remove(cr);
                 App.ctx.SaveChanges();
                 cart.Remove(cr);
+                SetTotalSum();
             }
             catch (Exception ex)
             {
