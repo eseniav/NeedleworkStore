@@ -209,8 +209,7 @@
                 </Button>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="Итого:"/>
-                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"
-                        Content="100"/>
+                <Label Name="lblTotalSum" FontFamily="Anticva" Foreground="#2A3759" FontSize="17"/>
                 <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
             </WrapPanel>
                 <Button Name="btnPlaceOrder" Margin="0 10 0 0" Style="{StaticResource btnColor}"
