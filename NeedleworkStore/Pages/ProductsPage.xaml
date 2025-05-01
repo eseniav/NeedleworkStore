@@ -16,11 +16,11 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="700"
+        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800"
                   Grid.Column="0">
             <ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>
         </ScrollViewer>
-        <ScrollViewer Name="scrProducts" VerticalScrollBarVisibility="Auto" MaxHeight="700" 
+        <ScrollViewer Name="scrProducts" VerticalScrollBarVisibility="Auto" MaxHeight="800"
                   Grid.Column="1"
                   >
             <StackPanel>
