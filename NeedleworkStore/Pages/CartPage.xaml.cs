@@ -184,9 +184,38 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Hyperlink)sender).DataContext;
             GoAboutProduct(selectedCartProd);
         }
+        private void SortProd(string cmbName)
+        {
+            List<Carts> sortedProducts;
+            switch (cmbName)
+            {
+                case "cmbIAZ":
+                    sortedProducts = cart.OrderBy(p => p.Products.ProductName).ToList();
+                    break;
+                case "cmbIZA":
+                    sortedProducts = cart.OrderByDescending(p => p.Products.ProductName).ToList();
+                    break;
+                case "cmbILowPrice":
+                    sortedProducts = cart.OrderBy(p => p.TotalSum).ToList();
+                    break;
+                case "cmbIHighPrice":
+                    sortedProducts = cart.OrderByDescending(p => p.TotalSum).ToList();
+                    break;
+                case "cmbIAvail":
+                    sortedProducts = cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
+                    break;
+                case "cmbINotAvail":
+                    sortedProducts = cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
+                    break;
+                default:
+                    sortedProducts = cart.ToList();
+                    break;
+            }
+            ICCart.ItemsSource = sortedProducts;
+        }
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("Соответствующая сортировка");
+            SortProd((((ComboBox)sender).SelectedItem as ComboBoxItem).Name);
         }
         private void MakingOrderOneProduct(Carts cart)
         {
