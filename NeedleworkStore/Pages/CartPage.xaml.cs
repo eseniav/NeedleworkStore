@@ -123,26 +123,6 @@ namespace NeedleworkStore.Pages{
             cart = GetCarts();
             UpdateTotals();
         }
-        /// <summary>
-        /// Сохраняет данные в БД по таймеру
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveCart(object sender, EventArgs e)
-        {
-            saveTimer.Stop(); // Останавливаем таймер, чтобы не повторять сохранение
-
-            try
-            {
-                App.ctx.SaveChanges();
-                mainWindow.UpdateCartState();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                ResetCart();
-            }
-        }
         // Обработчик изменения состава коллекции
         private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -214,9 +194,10 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             MakingOrderOneProduct(selectedCartProd);
         }
-        private void MinusQuantity(Carts cr, RepeatButton rb)
+        // Сохраняет данные в БД по таймеру
+        private void SaveCart(object sender, EventArgs e)
         {
-            cr.Quantity--;
+            saveTimer.Stop(); // Останавливаем таймер, чтобы не повторять сохранение
             try
             {
                 App.ctx.SaveChanges();
@@ -228,32 +209,24 @@ namespace NeedleworkStore.Pages{
                 ResetCart();
             }
         }
-        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        // Реализует условную логику изменения количества
+        private void ChangeQuantity(Carts cr, RepeatButton rb, bool IsAscending = true)
         {
-            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            MinusQuantity(selectedCartProd, (RepeatButton)sender);
-        }
-        /// <summary>
-        /// Реализует логику добавления количества
-        /// </summary>
-        /// <param name="cr"></param>
-        /// <param name="rb"></param>
-        private void PlusQuantity(Carts cr, RepeatButton rb)
-        {
-            cr.Quantity++;
+            cr.Quantity = IsAscending ? ++cr.Quantity : --cr.Quantity;
             // Перезапускаем таймер при каждом нажатии
             saveTimer.Stop();
             saveTimer.Start();
         }
-        /// <summary>
-        /// Обработчик нажатия на кнопку
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // Обработчики нажатий
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
+            ChangeQuantity(selectedCartProd, (RepeatButton)sender, false);
+        }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            PlusQuantity(selectedCartProd, (RepeatButton)sender);
+            ChangeQuantity(selectedCartProd, (RepeatButton)sender);
         }        
         private void DelOneProduct(Carts cr)
         {
