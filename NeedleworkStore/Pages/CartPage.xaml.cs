@@ -200,7 +200,13 @@ namespace NeedleworkStore.Pages{
         }
         private void MakingOrderOneProduct(Carts cart)
         {
-            List<Carts> crt = new List<Carts>() { cart };
+            List<OrderCompositions> crt = new List<OrderCompositions>() {
+                new OrderCompositions {
+                    ProductID = cart.ProductID,
+                    OrderPrice = cart.Products.ProductPrice ?? 0,
+                    Quantity = cart.QuantityCart
+                }
+            };
             this.NavigationService.Navigate(new OrderRegistrationPage(crt));
         }
         private void btnBuy_Click(object sender, RoutedEventArgs e)

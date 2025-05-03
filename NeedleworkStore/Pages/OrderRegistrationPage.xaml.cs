@@ -21,8 +21,8 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class OrderRegistrationPage : Page
     {
-        List<Carts> orderCart;
-        public OrderRegistrationPage(List<Carts> crt)
+        List<OrderCompositions> orderCart;
+        public OrderRegistrationPage(List<OrderCompositions> crt)
         {
             InitializeComponent();
             orderCart = crt;
@@ -89,6 +89,26 @@ namespace NeedleworkStore.Pages
         private void cmbPayment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //MessageBox.Show("Выбор оплаты");
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Orders orders = new Orders()
+                {
+                    UserID = 1,
+                    PickUpPointID = 1,
+                    OrderCompositions = orderCart
+                };
+                var res = App.ctx.Orders.Add(orders);
+                App.ctx.SaveChanges();
+                MessageBox.Show(res.OrderID.ToString());
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }

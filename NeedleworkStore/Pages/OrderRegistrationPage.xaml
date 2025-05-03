@@ -136,6 +136,7 @@
                             </StackPanel>
                         </Grid>
                     </GroupBox>
+                    <Button x:Name="saveBtn" Click="saveBtn_Click">Save</Button>
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>
