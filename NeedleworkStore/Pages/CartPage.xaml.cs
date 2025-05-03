@@ -50,14 +50,14 @@ namespace NeedleworkStore.Pages{
             cart = GetCarts();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
-            ChangeQuantityProducts();
+            ChangeFullEmptyCart();
             SetTotalSum();
             cmbIAvail.IsSelected = true;
         }
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
-        private void ChangeQuantityProducts()
+        private void ChangeFullEmptyCart()
         {
             if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
             {
@@ -65,10 +65,6 @@ namespace NeedleworkStore.Pages{
                 GrTopPan.Visibility = Visibility.Visible;
                 ICCart.Visibility = Visibility.Visible;
                 GrBottomPan.Visibility = Visibility.Visible;
-                int totalQuantity = App.ctx.Carts
-                                .Where(c => c.UserID == mainWindow.UserID)
-                                .Sum(c => c.QuantityCart);
-                txtBlQuantity.Text = totalQuantity.ToString();
             }
             else
             {
@@ -76,7 +72,6 @@ namespace NeedleworkStore.Pages{
                 GrTopPan.Visibility = Visibility.Hidden;
                 ICCart.Visibility = Visibility.Hidden;
                 GrBottomPan.Visibility = Visibility.Hidden;
-                txtBlQuantity.Text = "0";
             }
         }
         private void SortProd(string cmbName)

@@ -24,33 +24,27 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <UniformGrid Grid.Column="1" Columns="3">
-                <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
-                               FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
-                               FontSize="10" LineHeight="15" HorizontalAlignment="Left"
-                               >Выбрано: 
-                        <TextBlock FontSize="15">2</TextBlock>
+                <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
+                                FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
+                                FontSize="10" LineHeight="15" HorizontalAlignment="Left"
+                                >Выбрано:
+                                <TextBlock Name="txtBlIsSelected" FontSize="15">2</TextBlock>
                     </TextBlock>
-                <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
-                               FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
-                               FontSize="10" LineHeight="15" HorizontalAlignment="Left"
-                               >Количество товаров: 
-                        <TextBlock Name="txtBlQuantity" FontSize="15"/>
-                    </TextBlock>
-                <WrapPanel HorizontalAlignment="Right" Margin="0 10">
+                </WrapPanel>
+                <WrapPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0 10">
                     <Label Style="{StaticResource Chakra}" Content="Сортировать"/>
-                        <ComboBox Name="cmbSort" HorizontalContentAlignment="Left" Width="130" SelectionChanged="cmbSort_SelectionChanged">
-                            <ComboBoxItem Name="cmbILowPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
-                            <ComboBoxItem Name="cmbIHighPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дороже" Margin="5"/>
-                            <ComboBoxItem Name="cmbIAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
-                            <ComboBoxItem Name="cmbINotAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
-                            <ComboBoxItem Name="cmbIAZ" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (А-Я)" Margin="5"/>
-                            <ComboBoxItem Name="cmbIZA" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (Я-А)" Margin="5"/>
-                        </ComboBox>
-                    </WrapPanel>
-            </UniformGrid>
-        </Grid>
+                    <ComboBox Name="cmbSort" HorizontalContentAlignment="Left" Width="130" SelectionChanged="cmbSort_SelectionChanged">
+                        <ComboBoxItem Name="cmbILowPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
+                        <ComboBoxItem Name="cmbIHighPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дороже" Margin="5"/>
+                        <ComboBoxItem Name="cmbIAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
+                        <ComboBoxItem Name="cmbINotAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
+                        <ComboBoxItem Name="cmbIAZ" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (А-Я)" Margin="5"/>
+                        <ComboBoxItem Name="cmbIZA" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (Я-А)" Margin="5"/>
+                    </ComboBox>
+                </WrapPanel>
+            </Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Height="400">
             <ItemsControl Name="ICCart" Margin="10">
                     <ItemsControl.Resources>
