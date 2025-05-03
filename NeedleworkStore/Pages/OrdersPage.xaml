@@ -5,25 +5,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       mc:Ignorable="d"
-      Title="OrdersPage">    
-        <DockPanel Name="pnlMain" Margin="20">
-            <StackPanel DockPanel.Dock="Top">            
-            <WrapPanel HorizontalAlignment="Right" Margin="0 10">
-                    <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Сортировать по"/>
-                    <ComboBox Name="cmbSort" MinWidth="80" SelectionChanged="cmbSort_SelectionChanged">
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дате" Margin="5"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="сумме" Margin="5"/>                        
-                    </ComboBox>
-            </WrapPanel>
+      Title="OrdersPage">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800" Margin="10">
             <GroupBox>
                 <StackPanel>
-                    <WrapPanel>
+                    <UniformGrid Columns="3">
                         <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="0 0 10 0"
-                               Content="02.06.2023 15:20"/>                        
+                    Content="02.06.2023 15:20"/>
                         <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="20 0"
-                                Content="г.Москва, проспект Мира, дом 123, корпус 4"
-                                />
-                    </WrapPanel>
+                    Content="г.Москва, проспект Мира, дом 123, корпус 4"
+                    />
+                        <WrapPanel HorizontalAlignment="Right">
+                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="0 0 10 0"
+                        Content="Номер заказа:"/>
+                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="0 0 10 0"
+                        Content="1"/>
+                        </WrapPanel>
+                    </UniformGrid>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -43,84 +41,44 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" FontFamily="Cakra Normal" Foreground="#2A3759" 
-                                   Content="RTO"/>
+                        Content="RTO"/>
                             <Label Grid.Row="0" Grid.Column="1" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="Слушая тишину"/>
+                        Content="Слушая тишину"/>
                             <Label Grid.Row="0" Grid.Column="2" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="1"/>
+                        Content="1"/>
                             <Label Grid.Row="0" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="1400"/>
+                        Content="1400"/>
                             <Label Grid.Row="1" Grid.Column="0" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="Овен"/>
+                        Content="Овен"/>
                             <Label Grid.Row="1" Grid.Column="1" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="Хамелеон"/>
+                        Content="Хамелеон"/>
                             <Label Grid.Row="1" Grid.Column="2" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="2"/>
+                        Content="2"/>
                             <Label Grid.Row="1" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="300"/>
+                        Content="300"/>
                             <Label Grid.Row="2" Grid.Column="0" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="Pony"/>
+                        Content="Pony"/>
                             <Label Grid.Row="2" Grid.Column="1" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="Иглы гобеленовые швейные №18-24"/>
+                        Content="Иглы гобеленовые швейные №18-24"/>
                             <Label Grid.Row="2" Grid.Column="2" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="1"/>
+                        Content="1"/>
                             <Label Grid.Row="2" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   Content="80"/>
+                        Content="80"/>
                             <Label Grid.Row="3" Grid.ColumnSpan="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                   HorizontalAlignment="Right" Margin="0 0 10 0" Content="Итого:"/>
+                        HorizontalAlignment="Right" Margin="0 0 10 0" Content="Итого:"/>
                             <Label Grid.Row="3" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                                    Content="1780"/>
+                        Content="1780"/>
                         </Grid>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                             <Label Grid.Row="0" FontFamily="Cakra Normal" Foreground="#431D32" 
-                                   FontSize="16" Content="Оформлен"/>
+                        FontSize="16" Content="Оформлен"/>
                             <Label Grid.Row="1" FontFamily="Cakra Normal" Foreground="#3D5220" 
-                                   FontSize="16" Content="Оплачен"/>
+                        FontSize="16" Content="Оплачен"/>
                             <Label Grid.Row="2" FontFamily="Cakra Normal" Foreground="#852614" 
-                                   FontSize="16" Content="Не получен"/>
-                        </StackPanel>                        
+                        FontSize="16" Content="Не получен"/>
+                        </StackPanel>
                     </Grid>
-                </StackPanel>                
+                </StackPanel>
             </GroupBox>
-        </StackPanel>
-            <Grid Name="grdBottom" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Button Name="btnBack" MinWidth="100" MaxWidth="120" Margin="10" 
-                    BorderBrush="#778FD2" Grid.Column="0" Width="Auto" 
-                    HorizontalAlignment="Left" ToolTip="Предыдущая страница" ToolTipService.ShowDuration="2000" 
-                    ToolTipService.HasDropShadow="True" Click="btnBack_Click" MaxHeight="30"
-                    >
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0.25"/>
-                    </Button.Background>
-                    <WrapPanel>
-                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Назад</TextBlock>
-                    </WrapPanel>
-                </Button>
-                <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30" Grid.Column="1">
-                    <Label Content="Мастерская" FontFamily="Hlobus" FontSize="28" HorizontalAlignment="Center" Foreground="#431D32"/>
-                    <Label Content="вдохновения" FontFamily="Hlobus" FontSize="28" HorizontalAlignment="Center" Foreground="#431D32"/>
-                </WrapPanel>
-                <Button Name="btnForward" MinWidth="100" MaxWidth="120" Margin="10" 
-                    BorderBrush="#778FD2" Grid.Column="2"  HorizontalAlignment="Right"  
-                    ToolTip="Следующая страница" ToolTipService.ShowDuration="2000" 
-                    ToolTipService.HasDropShadow="True" Click="btnForward_Click"
-                    MaxHeight="30"
-                    >
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0.25"/>
-                    </Button.Background>
-                    <WrapPanel>
-                        <TextBlock FontFamily="Caesar Dressing Cyrillic" FontSize="16" Foreground="#2A3759">Вперед</TextBlock>
-                    </WrapPanel>
-                </Button>
-            </Grid>
-        </DockPanel>  
+        </ScrollViewer>
 </Page>
