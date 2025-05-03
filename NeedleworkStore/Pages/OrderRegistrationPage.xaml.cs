@@ -23,12 +23,15 @@ namespace NeedleworkStore.Pages
     {
         List<Carts> orderCart;
         List<Cities> city;
+        List<PickUpPoints> pickUpPoints;
         public OrderRegistrationPage(List<Carts> crt)
         {
             InitializeComponent();
             orderCart = crt;
             city = App.ctx.Cities.ToList();
+            pickUpPoints = App.ctx.PickUpPoints.ToList();
             cmbPickUpPointCity.ItemsSource = city;
+            cmbPickUpPointAddress.ItemsSource = pickUpPoints;
             if (Int32.Parse(txblQuan.Text.ToString()) == 1)
             {
                 btnMinus.IsEnabled = false;
@@ -94,7 +97,7 @@ namespace NeedleworkStore.Pages
         }
         private void SetPickUpPointCity()
         {
-            MessageBox.Show("Выбор города пункта выдачи");
+            //MessageBox.Show("Выбор города пункта выдачи");
         }
         private void cmbPickUpPointCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

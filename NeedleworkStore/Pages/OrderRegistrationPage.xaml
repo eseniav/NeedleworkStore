@@ -116,9 +116,7 @@ FontSize="18" LineHeight="15" HorizontalAlignment="Center"
             <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Выберите пункт выдачи (город/адрес)" HorizontalAlignment="Right" Margin="10"/>
             <WrapPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Margin="10">
                 <ComboBox Name="cmbPickUpPointCity" Width="150" Height="20" Margin="5" DisplayMemberPath="CityName" ItemContainerStyle="{StaticResource cmbItems}" SelectionChanged="cmbPickUpPointCity_SelectionChanged"/>
-                <ComboBox Name="cmbPickUpPointAddress" HorizontalAlignment="Right" SelectionChanged="cmbPickUpPointAddress_SelectionChanged" Width="200" Height="20">
-                    <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
-                </ComboBox>
+                <ComboBox Name="cmbPickUpPointAddress" HorizontalAlignment="Right" DisplayMemberPath="Adress" ItemContainerStyle="{StaticResource cmbItems}" SelectionChanged="cmbPickUpPointAddress_SelectionChanged" Width="200" Height="20"/>
             </WrapPanel>
             <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Оплата" HorizontalAlignment="Right" Margin="10"/>
             <ComboBox Grid.Column="0" Grid.Row="3" Name="cmbPayment" Width="200" Height="20" Margin="10" HorizontalAlignment="Right" SelectionChanged="cmbPayment_SelectionChanged">
