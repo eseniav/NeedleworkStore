@@ -7,26 +7,6 @@
       mc:Ignorable="d"
       Title="OrderRegistrationPage">
     <StackPanel Margin="10">
-        <UniformGrid Columns="3">
-                <TextBlock/>
-                <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
-                           FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
-                           FontSize="10" LineHeight="15" HorizontalAlignment="Left"
-                           >Количество товаров: 
-                    <TextBlock FontSize="15">20</TextBlock>
-                </TextBlock>
-                <WrapPanel HorizontalAlignment="Right" Margin="20 10">
-                    <TextBlock Style="{StaticResource ChakraTB}" Text="Сортировать"/>
-                    <ComboBox Name="cmbSort" HorizontalContentAlignment="Stretch" SelectionChanged="cmbSort_SelectionChanged">
-                        <ComboBoxItem Name="cmbILowPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
-                        <ComboBoxItem Name="cmbIHighPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дороже" Margin="5"/>
-                        <ComboBoxItem Name="cmbIAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5" IsSelected="True"/>
-                        <ComboBoxItem Name="cmbINotAvail" FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
-                        <ComboBoxItem Name="cmbIAZ" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (А-Я)" Margin="5"/>
-                        <ComboBoxItem Name="cmbIZA" FontFamily="Cakra Normal" Foreground="#2A3759" Content="по названию (Я-А)" Margin="5"/>
-                    </ComboBox>
-                </WrapPanel>
-            </UniformGrid>
         <StackPanel>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Height="550">
                 <StackPanel>
@@ -123,31 +103,56 @@ FontSize="18" LineHeight="15" HorizontalAlignment="Center"
         </StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <StackPanel>
-                <StackPanel HorizontalAlignment="Right" Margin="20 10">
-                    <TextBlock Style="{StaticResource ChakraTB}" Text="Выберите пункт выдачи" HorizontalAlignment="Right"/>
-                    <ComboBox Name="cmbPickUpPoint" HorizontalContentAlignment="Right"  SelectionChanged="cmbPickUpPoint_SelectionChanged" Width="200">
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Margin="20 10">
-                    <TextBlock Style="{StaticResource ChakraTB}" Text="Оплата" HorizontalAlignment="Right"/>
-                    <ComboBox Name="cmbPayment" HorizontalContentAlignment="Right" SelectionChanged="cmbPayment_SelectionChanged"  Width="200">
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="При получении" Margin="5" IsSelected="True"/>
-                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="Сразу" Margin="5"/>
-                    </ComboBox>
-                </StackPanel>
-            </StackPanel>
-            <WrapPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="Сумма к оплате:"/>
-                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" FontWeight="Bold"
-                    Content="100"/>
-                <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Выберите пункт выдачи" HorizontalAlignment="Right" Margin="50 10"/>
+            <ComboBox Grid.Column="0" Grid.Row="1" Name="cmbPickUpPoint" HorizontalContentAlignment="Right"  SelectionChanged="cmbPickUpPoint_SelectionChanged" Width="200" Height="20" Margin="50 10">
+                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
+            </ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Оплата" HorizontalAlignment="Right" Margin="50 10"/>
+            <ComboBox Grid.Column="0" Grid.Row="3" Name="cmbPayment" HorizontalContentAlignment="Right" SelectionChanged="cmbPayment_SelectionChanged"  Width="200" Height="20" Margin="50 10">
+                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="При получении" Margin="5" IsSelected="True"/>
+                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="Сразу" Margin="5"/>
+            </ComboBox>
+            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Номер карты:" HorizontalAlignment="Right" Margin="50 10"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="txtBCardNum" Style="{StaticResource txtBoxReg}" Height="20" Width="200" Margin="50 10"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Срок действия карты (месяц/год):" HorizontalAlignment="Right" Margin="50 10"/>
+            <WrapPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="50 10">
+                <TextBox Name="txtBMonth" Style="{StaticResource txtBoxReg}" Width="50" Height="20" Margin="5"/>
+                <TextBlock Style="{StaticResource ChakraTB}" FontWeight="Bold" FontSize="20" Text="/"/>
+                <TextBox Name="txtBYear" Style="{StaticResource txtBoxReg}" Width="50" Height="20" Margin="5"/>
             </WrapPanel>
+            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Margin="50 0 0 0"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Количество товаров:"/>
+                <Label Grid.Column="1" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" FontWeight="Bold"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="100"/>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Margin="50 0 0 0"
+       VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Сумма к оплате:"/>
+                <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" FontWeight="Bold"
+            Content="100"/>
+                    <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
+                </WrapPanel>
+            </Grid>
         </Grid>
         <Button Name="btnPOrderReg" Margin="0 10 0 0" Style="{StaticResource btnColor}" Height="50"
         HorizontalAlignment="Center" Grid.Column="2" Click="btnPOrderReg_Click"
