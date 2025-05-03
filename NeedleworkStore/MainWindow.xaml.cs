@@ -46,6 +46,7 @@ namespace NeedleworkStore
                     topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
                 }
                 UpdateCartState();
+                SetUserGreeting();
             }
         }
         public bool IsAuthenticated => UserID != null;
@@ -75,6 +76,16 @@ namespace NeedleworkStore
             txtBlQuan.Text = App.ctx.Carts.FirstOrDefault(c => c.UserID == UserID) != null
                 ? App.ctx.Carts.Where(c => c.UserID == UserID).Sum(c => c.QuantityCart).ToString()
                 : "0";
+        }
+        public void SetUserGreeting()
+        {
+            if (!IsAuthenticated)
+                return;
+
+            if (App.ctx.Users.FirstOrDefault(u => u.UserID == UserID).UserName != null)
+                txtblUserName.Text = App.ctx.Users.FirstOrDefault(u => u.UserID == UserID).UserName + "!";
+            else
+                txtblUserName.Text = App.ctx.Users.FirstOrDefault(u => u.UserID == UserID).Login + "!";
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
