@@ -184,34 +184,29 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Hyperlink)sender).DataContext;
             GoAboutProduct(selectedCartProd);
         }
-        private void SortProd(string cmbName)
+        private List<Carts> SortCart(string criterion)
         {
-            List<Carts> sortedProducts;
-            switch (cmbName)
+            switch (criterion)
             {
                 case "cmbIAZ":
-                    sortedProducts = cart.OrderBy(p => p.Products.ProductName).ToList();
-                    break;
+                    return cart.OrderBy(p => p.Products.ProductName).ToList();
                 case "cmbIZA":
-                    sortedProducts = cart.OrderByDescending(p => p.Products.ProductName).ToList();
-                    break;
+                    return cart.OrderByDescending(p => p.Products.ProductName).ToList();
                 case "cmbILowPrice":
-                    sortedProducts = cart.OrderBy(p => p.TotalSum).ToList();
-                    break;
+                    return cart.OrderBy(p => p.TotalSum).ToList();
                 case "cmbIHighPrice":
-                    sortedProducts = cart.OrderByDescending(p => p.TotalSum).ToList();
-                    break;
+                    return cart.OrderByDescending(p => p.TotalSum).ToList();
                 case "cmbIAvail":
-                    sortedProducts = cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
-                    break;
+                    return cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
                 case "cmbINotAvail":
-                    sortedProducts = cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
-                    break;
+                    return cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
                 default:
-                    sortedProducts = cart.ToList();
-                    break;
+                    return cart.ToList();
             }
-            ICCart.ItemsSource = sortedProducts;
+        }
+        private void SortProd(string cmbName)
+        {
+            ICCart.ItemsSource = SortCart(cmbName);
         }
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
