@@ -18,7 +18,6 @@ namespace NeedleworkStore.AppData
         public int UserID { get; set; }
         public int ProductID { get; set; }
         public int QuantityCart { get; set; }
-        public Nullable<System.DateTime> FormationDate { get; set; }
     
         public virtual Products Products { get; set; }
         public virtual Users Users { get; set; }
