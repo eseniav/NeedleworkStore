@@ -56,7 +56,7 @@ namespace NeedleworkStore.Pages
 
         private void btnOrders_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу Заказы");
+            this.NavigationService.Navigate(new OrdersPage());
         }
 
         private void btnRedact_Click(object sender, RoutedEventArgs e)
