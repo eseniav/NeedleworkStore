@@ -17,6 +17,10 @@ namespace NeedleworkStore.AppData
         private const int MaxCapacityPerItem = 100;
         private const int MinCapacityPerItem = 1;
 
+        // Дополнительное свойство для сортировки по имени продукта
+        public string ProductName => Products?.ProductName ?? string.Empty;
+        // Дополнительное свойство для сортировки по статусу доступности
+        public int AvailabilityStatusID => Products?.AvailabilityStatusID ?? 0;
         private bool isChecked;
         public bool IsChecked
         {

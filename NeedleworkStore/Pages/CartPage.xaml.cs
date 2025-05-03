@@ -52,6 +52,8 @@ namespace NeedleworkStore.Pages{
 
         // Определение отслеживаемой коллекции
         ObservableCollection<Carts> cart;
+        // Определение представления коллекции
+        ICollectionView cartView;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public const int maxItemCopacity = 100;
         // Определение таймера для сохранения
@@ -74,6 +76,8 @@ namespace NeedleworkStore.Pages{
                 item.PropertyChanged += CartItem_PropertyChanged;
             // Установка источника данных (однократно)
             ICCart.ItemsSource = cart;
+            // Получение представления коллекции из ItemsSource
+            cartView = CollectionViewSource.GetDefaultView(ICCart.ItemsSource);
             // Установка контекста данных (однократно)
             ICCart.DataContext = cart;
             // Установка контекста данных для итоговых значений
@@ -184,29 +188,45 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Hyperlink)sender).DataContext;
             GoAboutProduct(selectedCartProd);
         }
-        private List<Carts> SortCart(string criterion)
+        private void SortCart(string criterion)
         {
+            if (cartView == null) return;
+
+            // Очищаем предыдущие описания сортировки
+            cartView.SortDescriptions.Clear();
+
             switch (criterion)
             {
                 case "cmbIAZ":
-                    return cart.OrderBy(p => p.Products.ProductName).ToList();
+                    cartView.SortDescriptions.Add(new SortDescription(nameof(Carts.ProductName), ListSortDirection.Ascending));
+                    break;
                 case "cmbIZA":
-                    return cart.OrderByDescending(p => p.Products.ProductName).ToList();
+                    cartView.SortDescriptions.Add(new SortDescription(nameof(Carts.ProductName), ListSortDirection.Descending));
+                    break;
                 case "cmbILowPrice":
-                    return cart.OrderBy(p => p.TotalSum).ToList();
+                    cartView.SortDescriptions.Add(new SortDescription(nameof(Carts.TotalSum), ListSortDirection.Ascending));
+                    break;
                 case "cmbIHighPrice":
-                    return cart.OrderByDescending(p => p.TotalSum).ToList();
+                    cartView.SortDescriptions.Add(new SortDescription(nameof(Carts.TotalSum), ListSortDirection.Descending));
+                    break;
                 case "cmbIAvail":
-                    return cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
+                    cartView.SortDescriptions.Add(new SortDescription(nameof(Carts.AvailabilityStatusID), ListSortDirection.Ascending));
+                    break;
                 case "cmbINotAvail":
-                    return cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
+                    cartView.SortDescriptions.Add(new SortDescription(nameof(Carts.AvailabilityStatusID), ListSortDirection.Descending));
+                    break;
                 default:
-                    return cart.ToList();
+                    // Если нужно, можно сбросить сортировку
+                    cartView.SortDescriptions.Clear();
+                    break;
             }
+
+            // Обновляем представление
+            cartView.Refresh();
         }
         private void SortProd(string cmbName)
         {
-            ICCart.ItemsSource = SortCart(cmbName);
+            SortCart(cmbName);
         }
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
