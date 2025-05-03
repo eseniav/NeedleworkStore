@@ -27,11 +27,6 @@ namespace NeedleworkStore.UCElements
             InitializeComponent();
         }
 
-        private void btnAdvSearch_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.frame.Navigate(new AdvancedSearchPage());
-        }
-
         private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
@@ -41,59 +36,21 @@ namespace NeedleworkStore.UCElements
         {
             ((TextBox)sender).SelectAll();
         }
-
-        private void lbxDesigners_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SetFilter()
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами по каждому производителю");
+            MessageBox.Show("Установить фильтр");
         }
-
-        private void lbxThemes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnSet_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами по каждой теме");
+            SetFilter();
         }
-
-        private void lbxTechnic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ResetFilter()
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами по каждой технике");
+            MessageBox.Show("Сбросить все фильтры");
         }
-        private void btnStitch_Click(object sender, RoutedEventArgs e)
+        private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Вышивка");
+            ResetFilter();
         }
-
-        private void btnSew_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Шитье");
-        }
-
-        private void btnAccess_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Аксессуары");
-        }
-
-        private void btnKits_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами Наборы");
-        }
-
-        private void btnPrice_Click(object sender, RoutedEventArgs e)
-        {
-            if (!CheckValidation.CheckEmptyNull(txtFrom.Text) && !CheckValidation.CheckEmptyNull(txtTo.Text))
-            {
-                MessageBox.Show("Хотя бы одно поле должно быть заполнено!");
-                return;
-            }
-            if ((CheckValidation.CheckInt(txtFrom.Text) || !CheckValidation.CheckEmptyNull(txtFrom.Text)) &&
-                (CheckValidation.CheckInt(txtTo.Text) || !CheckValidation.CheckEmptyNull(txtTo.Text)))
-            {
-                MessageBox.Show("Переход на страницу с отфильтрованными товарами по диапазону цены");
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Введены неверные данные!");
-            }
-        }
-
     }
 }
