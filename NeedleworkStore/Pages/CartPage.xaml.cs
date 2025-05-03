@@ -61,6 +61,7 @@ namespace NeedleworkStore.Pages{
         public int TotalSum { get; set; }
         public int totalPrice => cart.Sum(item => item.TotalSum);
         public int totalQuantity => cart.Sum(item => item.QuantityCart);
+        public int selectedQty => cart.Count(item => item.IsChecked);
         public CartPage()
         {
             InitializeComponent();
@@ -77,6 +78,8 @@ namespace NeedleworkStore.Pages{
             ICCart.DataContext = cart;
             // Установка контекста данных для итоговых значений
             totals.DataContext = this;
+            // Установка глобального контекста данных страницы на корневой контейнер
+            this.DataContext = this;
             ChangeQuantityProducts();
             // Установка таймера на сохранение
             saveTimer = new DispatcherTimer();
@@ -89,6 +92,10 @@ namespace NeedleworkStore.Pages{
         // Получение данных из БД
         private ObservableCollection<Carts> GetCarts() =>
             new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        private void UpdateSelectedQty()
+        {
+            OnPropertyChanged(nameof(selectedQty));
+        }
         /// <summary>
         /// Обновляет общие значения
         /// </summary>
@@ -141,6 +148,9 @@ namespace NeedleworkStore.Pages{
         {
             if (e.PropertyName == nameof(Carts.QuantityCart)) // если изменилось количество
                 UpdateTotals();
+
+            if (e.PropertyName == nameof(Carts.IsChecked)) // если изменилось выделение
+                UpdateSelectedQty();
         }
         private void ChangeQuantityProducts()
         {
