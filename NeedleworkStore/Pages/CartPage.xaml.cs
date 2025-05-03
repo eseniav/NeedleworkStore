@@ -262,10 +262,34 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             DelOneProduct(selectedCartProd);
         }
-
+        private void RemoveMultiple(List<Carts> items)
+        {
+            try
+            {
+                App.ctx.Carts.RemoveRange(items);
+                App.ctx.SaveChanges();
+                foreach (var item in items)
+                    cart.Remove(item);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ResetCart();
+            }
+        }
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаляет выбранные товары.\nПеред удалением появляется специальное окошко с выбором");
+            List<Carts> toDel = cart.Where(item => item.IsChecked).ToList();
+            if (toDel.Count == 0)
+            {
+                MessageBox.Show("Для удаления сначала выберите элементы");
+                return;
+            }
+            MessageBoxResult msgInf = MessageBox.Show
+                    ("Удалить все выбранные товары из корзины?",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgInf == MessageBoxResult.Yes)
+                RemoveMultiple(cart.Where(item => item.IsChecked).ToList());
         }
         private void MakeOrder(List<Carts> cart)
         {
