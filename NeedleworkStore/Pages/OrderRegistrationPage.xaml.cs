@@ -22,10 +22,13 @@ namespace NeedleworkStore.Pages
     public partial class OrderRegistrationPage : Page
     {
         List<Carts> orderCart;
+        List<Cities> city;
         public OrderRegistrationPage(List<Carts> crt)
         {
             InitializeComponent();
             orderCart = crt;
+            city = App.ctx.Cities.ToList();
+            cmbPickUpPointCity.ItemsSource = city;
             if (Int32.Parse(txblQuan.Text.ToString()) == 1)
             {
                 btnMinus.IsEnabled = false;
@@ -34,10 +37,6 @@ namespace NeedleworkStore.Pages
             {
                 btnPlus.IsEnabled = false;
             }
-        }
-        private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //MessageBox.Show("Соответствующая сортировка");
         }
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
