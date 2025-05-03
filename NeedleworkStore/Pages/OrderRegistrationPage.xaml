@@ -103,8 +103,8 @@ FontSize="18" LineHeight="15" HorizontalAlignment="Center"
         </StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -113,19 +113,24 @@ FontSize="18" LineHeight="15" HorizontalAlignment="Center"
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Выберите пункт выдачи" HorizontalAlignment="Right" Margin="50 10"/>
-            <ComboBox Grid.Column="0" Grid.Row="1" Name="cmbPickUpPoint" HorizontalContentAlignment="Right"  SelectionChanged="cmbPickUpPoint_SelectionChanged" Width="200" Height="20" Margin="50 10">
-                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
-            </ComboBox>
-            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Оплата" HorizontalAlignment="Right" Margin="50 10"/>
-            <ComboBox Grid.Column="0" Grid.Row="3" Name="cmbPayment" HorizontalContentAlignment="Right" SelectionChanged="cmbPayment_SelectionChanged"  Width="200" Height="20" Margin="50 10">
+            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Выберите пункт выдачи (город/адрес)" HorizontalAlignment="Right" Margin="10"/>
+            <WrapPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Margin="10">
+                <ComboBox Name="cmbPickUpPointCity" Width="150" Height="20" Margin="5" SelectionChanged="cmbPickUpPointCity_SelectionChanged">
+                    <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
+                </ComboBox>
+                <ComboBox Name="cmbPickUpPointAddress" HorizontalAlignment="Right" SelectionChanged="cmbPickUpPointAddress_SelectionChanged" Width="200" Height="20">
+                    <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>
+                </ComboBox>
+            </WrapPanel>
+            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Оплата" HorizontalAlignment="Right" Margin="10"/>
+            <ComboBox Grid.Column="0" Grid.Row="3" Name="cmbPayment" Width="200" Height="20" Margin="10" HorizontalAlignment="Right" SelectionChanged="cmbPayment_SelectionChanged">
                 <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="При получении" Margin="5" IsSelected="True"/>
                 <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="Сразу" Margin="5"/>
             </ComboBox>
-            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Номер карты:" HorizontalAlignment="Right" Margin="50 10"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Name="txtBCardNum" Style="{StaticResource txtBoxReg}" Height="20" Width="200" Margin="50 10"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Срок действия карты (месяц/год):" HorizontalAlignment="Right" Margin="50 10"/>
-            <WrapPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="50 10">
+            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource ChakraTB}" Text="Номер карты:" HorizontalAlignment="Right" Margin="10"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="txtBCardNum" Style="{StaticResource txtBoxReg}" Height="20" Width="200" Margin="10"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource ChakraTB}" Text="Срок действия карты (месяц/год):" HorizontalAlignment="Right" Margin="10"/>
+            <WrapPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
                 <TextBox Name="txtBMonth" Style="{StaticResource txtBoxReg}" Width="50" Height="20" Margin="5"/>
                 <TextBlock Style="{StaticResource ChakraTB}" FontWeight="Bold" FontSize="20" Text="/"/>
                 <TextBox Name="txtBYear" Style="{StaticResource txtBoxReg}" Width="50" Height="20" Margin="5"/>
@@ -135,7 +140,7 @@ FontSize="18" LineHeight="15" HorizontalAlignment="Center"
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Margin="50 0 0 0"
+                <Label Grid.Column="0" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Margin="30 0 0 0"
                         VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Количество товаров:"/>
                 <Label Grid.Column="1" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" FontWeight="Bold"
                        VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="100"/>
@@ -145,7 +150,7 @@ FontSize="18" LineHeight="15" HorizontalAlignment="Center"
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Margin="50 0 0 0"
+                <Label Grid.Column="0" FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Margin="30 0 0 0"
        VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Сумма к оплате:"/>
                 <WrapPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" FontWeight="Bold"

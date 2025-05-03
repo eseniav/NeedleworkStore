@@ -80,15 +80,26 @@ namespace NeedleworkStore.Pages
         {
             MessageBox.Show("Оформление заказа");
         }
-
-        private void cmbPickUpPoint_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SetPickUpPointAddress()
         {
-            MessageBox.Show("Выбор пункта выдачи");
+            MessageBox.Show("Выбор адреса пункта выдачи");
+        }
+        private void cmbPickUpPointAddress_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetPickUpPointAddress();
         }
 
         private void cmbPayment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //MessageBox.Show("Выбор оплаты");
+        }
+        private void SetPickUpPointCity()
+        {
+            MessageBox.Show("Выбор города пункта выдачи");
+        }
+        private void cmbPickUpPointCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetPickUpPointCity();
         }
     }
 }
