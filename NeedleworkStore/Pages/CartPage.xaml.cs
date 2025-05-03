@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -53,6 +54,8 @@ namespace NeedleworkStore.Pages{
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public const int maxItemCopacity = 100;
+        // Определение таймера для сохранения
+        DispatcherTimer saveTimer;
         public int TotalQuantity { get; set; }
         public int TotalQty { get; set; }
         public int TotalSum { get; set; }
@@ -75,6 +78,13 @@ namespace NeedleworkStore.Pages{
             // Установка контекста данных для итоговых значений
             totals.DataContext = this;
             ChangeQuantityProducts();
+            // Установка таймера на сохранение
+            saveTimer = new DispatcherTimer();
+            saveTimer.Interval = TimeSpan.FromMilliseconds(500); // задержка 500 мс после последнего нажатия
+            saveTimer.Tick += SaveCart; // добавляем обработчик для сохранения в БД
+            // Включение логирования запросов в БД
+            App.ctx.Database.Log =
+                (s => System.Diagnostics.Debug.WriteLine(s));
         }
         // Получение данных из БД
         private ObservableCollection<Carts> GetCarts() =>
@@ -112,6 +122,26 @@ namespace NeedleworkStore.Pages{
         {
             cart = GetCarts();
             UpdateTotals();
+        }
+        /// <summary>
+        /// Сохраняет данные в БД по таймеру
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveCart(object sender, EventArgs e)
+        {
+            saveTimer.Stop(); // Останавливаем таймер, чтобы не повторять сохранение
+
+            try
+            {
+                App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ResetCart();
+            }
         }
         // Обработчик изменения состава коллекции
         private void Cart_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -197,20 +227,23 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
             MinusQuantity(selectedCartProd, (RepeatButton)sender);
         }
+        /// <summary>
+        /// Реализует логику добавления количества
+        /// </summary>
+        /// <param name="cr"></param>
+        /// <param name="rb"></param>
         private void PlusQuantity(Carts cr, RepeatButton rb)
         {
             cr.Quantity++;
-            try
-            {
-                App.ctx.SaveChanges();
-                mainWindow.UpdateCartState();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                ResetCart();
-            }
+            // Перезапускаем таймер при каждом нажатии
+            saveTimer.Stop();
+            saveTimer.Start();
         }
+        /// <summary>
+        /// Обработчик нажатия на кнопку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
