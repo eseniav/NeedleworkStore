@@ -52,6 +52,7 @@ namespace NeedleworkStore.Pages{
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
             SetTotalSum();
+            ChangeSelectedQuantityBottomMenu();
             cmbIAvail.IsSelected = true;
         }
         private ObservableCollection<Carts> GetCarts() =>
@@ -73,6 +74,10 @@ namespace NeedleworkStore.Pages{
                 ICCart.Visibility = Visibility.Hidden;
                 GrBottomPan.Visibility = Visibility.Hidden;
             }
+        }
+        private void ChangeSelectedQuantityBottomMenu()
+        {
+            lblTotalQuantity.Content = cart.Sum(p => p.QuantityCart).ToString();
         }
         private void SortProd(string cmbName)
         {
@@ -134,6 +139,7 @@ namespace NeedleworkStore.Pages{
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
                 SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
             }
             catch (Exception ex)
             {
@@ -154,6 +160,7 @@ namespace NeedleworkStore.Pages{
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
                 SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
             }
             catch (Exception ex)
             {
@@ -179,6 +186,8 @@ namespace NeedleworkStore.Pages{
                 App.ctx.SaveChanges();
                 cart.Remove(cr);
                 SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+                ICCart.ItemsSource = cart;
             }
             catch (Exception ex)
             {
