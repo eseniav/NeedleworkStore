@@ -192,7 +192,7 @@ namespace NeedleworkStore.Pages{
         private void btnBuy_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
-            MakingOrderOneProduct(selectedCartProd);
+            MakeOrder(new List<Carts> { selectedCartProd });
         }
         // Сохраняет данные в БД по таймеру
         private void SaveCart(object sender, EventArgs e)
@@ -257,13 +257,25 @@ namespace NeedleworkStore.Pages{
         {
             MessageBox.Show("Удаляет выбранные товары.\nПеред удалением появляется специальное окошко с выбором");
         }
-
+        private void MakeOrder(List<Carts> cart)
+        {
+            List<OrderCompositions> order = cart.Select(item => new OrderCompositions
+                {
+                    ProductID = item.ProductID,
+                    OrderPrice = item.Products.ProductPrice ?? 0,
+                    Quantity = item.QuantityCart
+                }
+            ).ToList();
+            this.NavigationService.Navigate(new OrderRegistrationPage(order));
+        }
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Если не выбрано ничего - автоматически выбирает все товары\n" +
-                "Если выбраны определенные товары - формирует заказ из них");
+            // Если не выбрано ничего - автоматически выбирает все товары
+            if (!cart.Any(item => item.IsChecked))
+                foreach (var item in cart) item.IsChecked = true;
+            // Если выбраны определенные товары - формирует заказ из них
+            MakeOrder(cart.Where(item => item.IsChecked).ToList());
         }
-
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ProductsPage());
