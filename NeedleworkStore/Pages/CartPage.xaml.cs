@@ -52,6 +52,7 @@ namespace NeedleworkStore.Pages{
             ICCart.DataContext = cart;
             ChangeQuantityProducts();
             SetTotalSum();
+            cmbIAvail.IsSelected = true;
         }
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
@@ -78,6 +79,35 @@ namespace NeedleworkStore.Pages{
                 txtBlQuantity.Text = "0";
             }
         }
+        private void SortProd(string cmbName)
+        {
+            List<Carts> sortedProducts;
+            switch (cmbName)
+            {
+                case "cmbIAZ":
+                    sortedProducts = cart.OrderBy(p => p.Products.ProductName).ToList();
+                    break;
+                case "cmbIZA":
+                    sortedProducts = cart.OrderByDescending(p => p.Products.ProductName).ToList();
+                    break;
+                case "cmbILowPrice":
+                    sortedProducts = cart.OrderBy(p => p.SumProducts).ToList();
+                    break;
+                case "cmbIHighPrice":
+                    sortedProducts = cart.OrderByDescending(p => p.SumProducts).ToList();
+                    break;
+                case "cmbIAvail":
+                    sortedProducts = cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
+                    break;
+                case "cmbINotAvail":
+                    sortedProducts = cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
+                    break;
+                default:
+                    sortedProducts = cart.ToList();
+                    break;
+            }
+            ICCart.ItemsSource = sortedProducts;
+        }
         private void GoAboutProduct(Carts cart)
         {
             this.NavigationService.Navigate(new OneProductPage());
@@ -89,7 +119,7 @@ namespace NeedleworkStore.Pages{
         }
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("Соответствующая сортировка");
+            SortProd((((ComboBox)sender).SelectedItem as ComboBoxItem).Name);
         }
         private void MakingOrderOneProduct(Carts cart)
         {
