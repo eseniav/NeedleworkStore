@@ -333,6 +333,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\ofont.ru_Anticva.ttf" />
+    <Resource Include="Fonts\ofont.ru_Caesar Dressing.ttf" />
+    <Resource Include="Fonts\ofont.ru_Cakra.ttf" />
+    <Resource Include="Fonts\ofont.ru_Hlobus.ttf" />
+    <Resource Include="Fonts\ofont.ru_Acherus Feral.ttf" />
     <EntityDeploy Include="AppData\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -340,11 +345,6 @@
     <None Include="AppData\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
-    <Resource Include="Fonts\ofont.ru_Anticva.ttf" />
-    <Resource Include="Fonts\ofont.ru_Caesar Dressing.ttf" />
-    <Resource Include="Fonts\ofont.ru_Cakra.ttf" />
-    <Resource Include="Fonts\ofont.ru_Hlobus.ttf" />
-    <Resource Include="Fonts\ofont.ru_Acherus Feral.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -367,16 +367,6 @@
     <Resource Include="ResImages\Zaglushka.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppData\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="AppData\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Resource Include="ResImages\NoPicture.png" />
     <Resource Include="ProdImages\01_Dim.jpg" />
     <Resource Include="ProdImages\02_Dim.jpg" />
@@ -431,6 +421,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppData\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="AppData\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

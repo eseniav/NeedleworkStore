@@ -80,7 +80,6 @@ namespace NeedleworkStore.Pages
                         UserID = (int)mainWindow.UserID,
                         ProductID = selectedProduct.ProductID,
                         QuantityCart = 1,
-                        FormationDate = DateTime.Now,
                     };
                     App.ctx.Carts.Add(newprodInCart);
                 }
