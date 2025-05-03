@@ -268,17 +268,25 @@ namespace NeedleworkStore.Pages{
             ).ToList();
             this.NavigationService.Navigate(new OrderRegistrationPage(order));
         }
+        private void GroupSelect(bool IsChecked = true)
+        {
+            foreach (var item in cart) item.IsChecked = IsChecked;
+        }
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
             // Если не выбрано ничего - автоматически выбирает все товары
-            if (!cart.Any(item => item.IsChecked))
-                foreach (var item in cart) item.IsChecked = true;
+            if (!cart.Any(item => item.IsChecked)) GroupSelect();
             // Если выбраны определенные товары - формирует заказ из них
             MakeOrder(cart.Where(item => item.IsChecked).ToList());
         }
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ProductsPage());
+        }
+
+        private void GroupSelect_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupSelect(((CheckBox)sender).IsChecked == true);
         }
     }
 }

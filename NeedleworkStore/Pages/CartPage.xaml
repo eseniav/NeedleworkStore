@@ -24,7 +24,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <CheckBox x:Name="groupCheck" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Click="GroupSelect_Checked" />
             <UniformGrid Grid.Column="1" Columns="3">
                 <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
