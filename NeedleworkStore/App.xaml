@@ -105,5 +105,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="cmbItems" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="{StaticResource fontCakraNormal}"/>
+            <Setter Property="Foreground" Value="#2A3759"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </Application.Resources>
 </Application>
