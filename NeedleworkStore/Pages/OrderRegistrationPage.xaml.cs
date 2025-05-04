@@ -36,14 +36,8 @@ namespace NeedleworkStore.Pages
             cmbPickUpPointAddress.ItemsSource = pickUpPoints;
             selectedCity = null;
             selectedPickUpPoint = null;
-            if (Int32.Parse(txblQuan.Text.ToString()) == 1)
-            {
-                btnMinus.IsEnabled = false;
-            }
-            if (Int32.Parse(txblQuan.Text.ToString()) == 99)
-            {
-                btnPlus.IsEnabled = false;
-            }
+            ICOrderReg.ItemsSource = orderCart;
+            ICOrderReg.DataContext = orderCart;
         }
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
@@ -51,30 +45,10 @@ namespace NeedleworkStore.Pages
         }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            int quant = Int32.Parse(txblQuan.Text.ToString());
-            quant -= 1;
-            txblQuan.Text = quant.ToString();
-            if (Int32.Parse(txblQuan.Text.ToString()) == 1)
-            {
-                btnMinus.IsEnabled = false;
-            }
         }
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            if (Int32.Parse(txblQuan.Text.ToString()) == 99)
-            {
-                MessageBox.Show("Достигнут лимит количества товаров");
-                btnPlus.IsEnabled = false;
-                return;
-            }
-            int quant = Int32.Parse(txblQuan.Text.ToString());
-            quant += 1;
-            txblQuan.Text = quant.ToString();
-            if (Int32.Parse(txblQuan.Text.ToString()) > 1)
-            {
-                btnMinus.IsEnabled = true;
-            }
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
