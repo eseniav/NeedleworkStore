@@ -41,6 +41,7 @@ namespace NeedleworkStore.Pages
             ICOrderReg.DataContext = orderCart;
             ChangeSelectedQuantityBottomMenu();
             SetTotalSum();
+            cmbPayAfter.IsSelected = true;
         }
         private void ChangeSelectedQuantityBottomMenu()
         {
@@ -140,9 +141,27 @@ namespace NeedleworkStore.Pages
             pickUpPoints = App.ctx.PickUpPoints.Where(c => c.CityID == selectedCity.CityID).ToList();
             cmbPickUpPointAddress.ItemsSource = pickUpPoints;
         }
+        private void SetVisibilityPayment(string cmbName)
+        {
+            if (cmbName == "cmbPayAfter")
+            {
+                foreach (UIElement child in grdBottomInterface.Children)
+                {
+                    if (Grid.GetColumn(child) == 1)
+                        child.Visibility = Visibility.Hidden;
+                }
+            } else
+            {
+                foreach (UIElement child in grdBottomInterface.Children)
+                {
+                    if (Grid.GetColumn(child) == 1)
+                        child.Visibility = Visibility.Visible;
+                }
+            }
+        }
         private void cmbPayment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //MessageBox.Show("Выбор оплаты");
+            SetVisibilityPayment(((ComboBoxItem)((ComboBox)sender).SelectedItem).Name);
         }
         private void SetPickUpPointCity(string cityName)
         {
