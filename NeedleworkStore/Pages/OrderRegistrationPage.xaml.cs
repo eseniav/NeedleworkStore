@@ -24,6 +24,8 @@ namespace NeedleworkStore.Pages
         List<Carts> orderCart;
         List<Cities> city;
         List<PickUpPoints> pickUpPoints;
+        Cities selectedCity;
+        PickUpPoints selectedPickUpPoint;
         public OrderRegistrationPage(List<Carts> crt)
         {
             InitializeComponent();
@@ -32,6 +34,8 @@ namespace NeedleworkStore.Pages
             pickUpPoints = App.ctx.PickUpPoints.ToList();
             cmbPickUpPointCity.ItemsSource = city;
             cmbPickUpPointAddress.ItemsSource = pickUpPoints;
+            selectedCity = null;
+            selectedPickUpPoint = null;
             if (Int32.Parse(txblQuan.Text.ToString()) == 1)
             {
                 btnMinus.IsEnabled = false;
@@ -82,26 +86,38 @@ namespace NeedleworkStore.Pages
         {
             MessageBox.Show("Оформление заказа");
         }
-        private void SetPickUpPointAddress()
+        private void SetPickUpPointAddress(string address)
         {
-            MessageBox.Show("Выбор адреса пункта выдачи");
+            selectedPickUpPoint = App.ctx.PickUpPoints.FirstOrDefault(p => p.Adress == address);
+            if (selectedCity == null)
+            {
+                selectedCity = App.ctx.Cities.FirstOrDefault(c => c.CityID == selectedPickUpPoint.CityID);
+                cmbPickUpPointCity.SelectedItem = selectedCity;
+            }
         }
         private void cmbPickUpPointAddress_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetPickUpPointAddress();
+            SetPickUpPointAddress(((PickUpPoints)((ComboBox)sender).SelectedItem).Adress);
         }
-
+        private void FilterAddressList()
+        {
+            pickUpPoints = App.ctx.PickUpPoints.ToList();
+            cmbPickUpPointAddress.SelectedItem = App.ctx.PickUpPoints.FirstOrDefault(c => c.CityID == selectedCity.CityID);
+            pickUpPoints = App.ctx.PickUpPoints.Where(c => c.CityID == selectedCity.CityID).ToList();
+            cmbPickUpPointAddress.ItemsSource = pickUpPoints;
+        }
         private void cmbPayment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //MessageBox.Show("Выбор оплаты");
         }
-        private void SetPickUpPointCity()
+        private void SetPickUpPointCity(string cityName)
         {
-            //MessageBox.Show("Выбор города пункта выдачи");
+            selectedCity = App.ctx.Cities.FirstOrDefault(c => c.CityName == cityName);
+            FilterAddressList();
         }
         private void cmbPickUpPointCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetPickUpPointCity();
+            SetPickUpPointCity(((Cities)((ComboBox)sender).SelectedItem).CityName);
         }
     }
 }
