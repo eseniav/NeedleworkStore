@@ -154,6 +154,7 @@ namespace NeedleworkStore
             if (Mainfrm.NavigationService.CanGoForward)
             {
                 Mainfrm.NavigationService.GoForward();
+                UpdateCartState();
             }
             else
             {
@@ -166,6 +167,7 @@ namespace NeedleworkStore
             if (Mainfrm.NavigationService.CanGoBack)
             {
                 Mainfrm.NavigationService.GoBack();
+                UpdateCartState();
             }
             else
             {

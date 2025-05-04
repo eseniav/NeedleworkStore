@@ -54,6 +54,7 @@ namespace NeedleworkStore.Pages{
             SetTotalSum();
             ChangeSelectedQuantityBottomMenu();
             cmbIAvail.IsSelected = true;
+            mainWindow.UpdateCartState();
         }
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());

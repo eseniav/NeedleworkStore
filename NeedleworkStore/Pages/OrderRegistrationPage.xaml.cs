@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -50,12 +51,43 @@ namespace NeedleworkStore.Pages
         {
             this.NavigationService.Navigate(new OneProductPage());
         }
+        private void MinusQuantity(Carts cr, RepeatButton rb)
+        {
+            cr.Quantity--;
+            try
+            {
+                App.ctx.SaveChanges();
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+            }
+        }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
+            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
+            MinusQuantity(selectedCartProd, (RepeatButton)sender);
         }
-
+        private void PlusQuantity(Carts cr, RepeatButton rb)
+        {
+            cr.Quantity++;
+            try
+            {
+                App.ctx.SaveChanges();
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
+            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
+            PlusQuantity(selectedCartProd, (RepeatButton)sender);
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
