@@ -38,7 +38,14 @@ namespace NeedleworkStore.Pages
             selectedPickUpPoint = null;
             ICOrderReg.ItemsSource = orderCart;
             ICOrderReg.DataContext = orderCart;
+            ChangeSelectedQuantityBottomMenu();
+            SetTotalSum();
         }
+        private void ChangeSelectedQuantityBottomMenu()
+        {
+            lblTotalQuantity.Content = orderCart.Sum(p => p.QuantityCart).ToString();
+        }
+        private void SetTotalSum() => lblTotalSum.Content = orderCart.Sum(c => c.SumProducts).ToString();
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new OneProductPage());
