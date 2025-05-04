@@ -9,75 +9,80 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800" Margin="10">
             <GroupBox>
                 <StackPanel>
-                    <UniformGrid Columns="3">
-                        <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="0 0 10 0"
-                    Content="02.06.2023 15:20"/>
-                        <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="20 0"
-                    Content="г.Москва, проспект Мира, дом 123, корпус 4"
-                    />
-                        <WrapPanel HorizontalAlignment="Right">
-                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="0 0 10 0"
-                        Content="Номер заказа:"/>
-                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Margin="0 0 10 0"
-                        Content="1"/>
-                        </WrapPanel>
-                    </UniformGrid>
-                    <Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap" FontWeight="Bold"
+                                Text="02.06.2023 15:20"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap" FontWeight="Bold"
+                                Text="г.Москва, проспект Мира, дом 123, корпус 4"
+                                />
+                    <WrapPanel Grid.Column="2" HorizontalAlignment="Right">
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap" FontWeight="Bold" FontSize="18"
+                                Text="Номер заказа:"/>
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap" FontWeight="Bold" FontSize="18"
+                                Text="1"/>
+                    </WrapPanel>
+                </Grid>
+                <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
+                    <StackPanel  Grid.Column="0">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" FontFamily="Cakra Normal" Foreground="#2A3759" 
-                        Content="RTO"/>
-                            <Label Grid.Row="0" Grid.Column="1" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="Слушая тишину"/>
-                            <Label Grid.Row="0" Grid.Column="2" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="1"/>
-                            <Label Grid.Row="0" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="1400"/>
-                            <Label Grid.Row="1" Grid.Column="0" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="Овен"/>
-                            <Label Grid.Row="1" Grid.Column="1" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="Хамелеон"/>
-                            <Label Grid.Row="1" Grid.Column="2" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="2"/>
-                            <Label Grid.Row="1" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="300"/>
-                            <Label Grid.Row="2" Grid.Column="0" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="Pony"/>
-                            <Label Grid.Row="2" Grid.Column="1" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="Иглы гобеленовые швейные №18-24"/>
-                            <Label Grid.Row="2" Grid.Column="2" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="1"/>
-                            <Label Grid.Row="2" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="80"/>
-                            <Label Grid.Row="3" Grid.ColumnSpan="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        HorizontalAlignment="Right" Margin="0 0 10 0" Content="Итого:"/>
-                            <Label Grid.Row="3" Grid.Column="3" FontFamily="Cakra Normal" Foreground="#2A3759"
-                        Content="1780"/>
+                            <Rectangle Grid.ColumnSpan="4" Grid.Row="0" Height="1" Fill="White" VerticalAlignment="Bottom"/>
+                            <Rectangle Grid.Column="0" Grid.RowSpan="3" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            <Rectangle Grid.Column="1" Grid.RowSpan="3" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            <Rectangle Grid.Column="2" Grid.RowSpan="3" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap"
+                                        Text="RTO"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap"
+                                        Text="Слушая тишину"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap"
+                                        Text="1"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap"
+                                        Text="1400"/>
                         </Grid>
-                        <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <WrapPanel HorizontalAlignment="Right" Margin="0 10">
+                            <TextBlock Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Right" Style="{StaticResource ChakraTB}" TextWrapping="Wrap" FontWeight="Bold"
+                                        FontSize="18" Text="Итого:"/>
+                            <TextBlock Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource ChakraTB}" TextWrapping="Wrap" FontWeight="Bold"
+                                        FontSize="18" Text="1400"/>
+                        </WrapPanel>
+                    </StackPanel>
+                    <UniformGrid Grid.Column="1" Columns="2">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Label Grid.Row="0" FontFamily="Cakra Normal" Foreground="#431D32" 
-                        FontSize="16" Content="Оформлен"/>
+                                    FontSize="16" Content="Оформлен"/>
                             <Label Grid.Row="1" FontFamily="Cakra Normal" Foreground="#3D5220" 
-                        FontSize="16" Content="Оплачен"/>
+                                    FontSize="16" Content="Оплачен"/>
                             <Label Grid.Row="2" FontFamily="Cakra Normal" Foreground="#852614" 
-                        FontSize="16" Content="Не получен"/>
+                                    FontSize="16" Content="Не получен"/>
                         </StackPanel>
-                    </Grid>
+                        <Button Name="btnChequePdf" MinWidth="100" MaxWidth="120" Margin="10" Height="45" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Style="{StaticResource btnColor}" Click="btnChequePdf_Click"
+                                >
+                            <StackPanel>
+                                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}" HorizontalAlignment="Center" Text="Скачать чек"/>
+                                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}" HorizontalAlignment="Center" Text="в пдф"/>
+                            </StackPanel>
+                        </Button>
+                    </UniformGrid>
+                </Grid>
                 </StackPanel>
             </GroupBox>
         </ScrollViewer>
