@@ -74,7 +74,7 @@
                                     FontSize="16" Content="Не получен"/>
                         </StackPanel>
                         <Button Name="btnChequePdf" MinWidth="100" MaxWidth="120" Margin="10" Height="45" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Style="{StaticResource btnColor}"
+                                Style="{StaticResource btnColor}" Click="btnChequePdf_Click"
                                 >
                             <StackPanel>
                                 <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}" HorizontalAlignment="Center" Text="Скачать чек"/>

@@ -25,32 +25,13 @@ namespace NeedleworkStore.Pages
         {
             InitializeComponent();
         }
-        private void btnForward_Click(object sender, RoutedEventArgs e)
+        private void DownloadChequeInPdf()
         {
-            if (this.NavigationService.CanGoForward)
-            {
-                this.NavigationService.GoForward();
-            }
-            else
-            {
-                MessageBox.Show("No page to go forward");
-            }
+            MessageBox.Show("Скачать чек в пдф");
         }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void btnChequePdf_Click(object sender, RoutedEventArgs e)
         {
-            if (this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            }
-            else
-            {
-                MessageBox.Show("No page to go back");
-            }
-        }       
-        private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MessageBox.Show("Соответствующая сортировка");
+            DownloadChequeInPdf();
         }
     }
 }
