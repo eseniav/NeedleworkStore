@@ -92,6 +92,7 @@
         <Style x:Key="txtBoxReg" TargetType="TextBox">
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Width" Value="150"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         <Style x:Key="btnRep" TargetType="RepeatButton">
             <Setter Property="MinWidth" Value="100"/>
@@ -109,6 +110,7 @@
             <Setter Property="FontFamily" Value="{StaticResource fontCakraNormal}"/>
             <Setter Property="Foreground" Value="#2A3759"/>
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
     </Application.Resources>
 </Application>
