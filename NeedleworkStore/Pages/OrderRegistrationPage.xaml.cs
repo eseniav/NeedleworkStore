@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -36,50 +37,83 @@ namespace NeedleworkStore.Pages
             cmbPickUpPointAddress.ItemsSource = pickUpPoints;
             selectedCity = null;
             selectedPickUpPoint = null;
-            if (Int32.Parse(txblQuan.Text.ToString()) == 1)
-            {
-                btnMinus.IsEnabled = false;
-            }
-            if (Int32.Parse(txblQuan.Text.ToString()) == 99)
-            {
-                btnPlus.IsEnabled = false;
-            }
+            ICOrderReg.ItemsSource = orderCart;
+            ICOrderReg.DataContext = orderCart;
+            ChangeSelectedQuantityBottomMenu();
+            SetTotalSum();
         }
+        private void ChangeSelectedQuantityBottomMenu()
+        {
+            lblTotalQuantity.Content = orderCart.Sum(p => p.QuantityCart).ToString();
+        }
+        private void SetTotalSum() => lblTotalSum.Content = orderCart.Sum(c => c.SumProducts).ToString();
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new OneProductPage());
         }
+        private void MinusQuantity(Carts cr, RepeatButton rb)
+        {
+            cr.Quantity--;
+            try
+            {
+                App.ctx.SaveChanges();
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+            }
+        }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            int quant = Int32.Parse(txblQuan.Text.ToString());
-            quant -= 1;
-            txblQuan.Text = quant.ToString();
-            if (Int32.Parse(txblQuan.Text.ToString()) == 1)
+            MinusQuantity((Carts)((RepeatButton)sender).DataContext, (RepeatButton)sender);
+        }
+        private void PlusQuantity(Carts cr, RepeatButton rb)
+        {
+            cr.Quantity++;
+            try
             {
-                btnMinus.IsEnabled = false;
+                App.ctx.SaveChanges();
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            if (Int32.Parse(txblQuan.Text.ToString()) == 99)
-            {
-                MessageBox.Show("Достигнут лимит количества товаров");
-                btnPlus.IsEnabled = false;
+            PlusQuantity((Carts)((RepeatButton)sender).DataContext, (RepeatButton)sender);
+        }
+        private void DelOneProduct(Carts cr)
+        {
+            MessageBoxResult msgInf = MessageBox.Show
+                    ("Этот товар будет удалён из заказа",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (msgInf != MessageBoxResult.Yes)
                 return;
-            }
-            int quant = Int32.Parse(txblQuan.Text.ToString());
-            quant += 1;
-            txblQuan.Text = quant.ToString();
-            if (Int32.Parse(txblQuan.Text.ToString()) > 1)
+            try
             {
-                btnMinus.IsEnabled = true;
+                orderCart.Remove(cr);
+                if(orderCart.Count == 0)
+                {
+                    this.NavigationService.Navigate(new CartPage());
+                    return;
+                }
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+                ICOrderReg.ItemsSource = orderCart;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
+            DelOneProduct((Carts)((Button)sender).DataContext);
         }
 
         private void btnPOrderReg_Click(object sender, RoutedEventArgs e)
