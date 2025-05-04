@@ -67,8 +67,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            MinusQuantity(selectedCartProd, (RepeatButton)sender);
+            MinusQuantity((Carts)((RepeatButton)sender).DataContext, (RepeatButton)sender);
         }
         private void PlusQuantity(Carts cr, RepeatButton rb)
         {
@@ -86,13 +85,35 @@ namespace NeedleworkStore.Pages
         }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            PlusQuantity(selectedCartProd, (RepeatButton)sender);
+            PlusQuantity((Carts)((RepeatButton)sender).DataContext, (RepeatButton)sender);
         }
-
+        private void DelOneProduct(Carts cr)
+        {
+            MessageBoxResult msgInf = MessageBox.Show
+                    ("Этот товар будет удалён из заказа",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (msgInf != MessageBoxResult.Yes)
+                return;
+            try
+            {
+                orderCart.Remove(cr);
+                if(orderCart.Count == 0)
+                {
+                    this.NavigationService.Navigate(new CartPage());
+                    return;
+                }
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+                ICOrderReg.ItemsSource = orderCart;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаляет конкретный товар.\nПеред удалением появляется специальное окошко с выбором");
+            DelOneProduct((Carts)((Button)sender).DataContext);
         }
 
         private void btnPOrderReg_Click(object sender, RoutedEventArgs e)
