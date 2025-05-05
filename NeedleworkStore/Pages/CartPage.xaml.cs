@@ -132,9 +132,9 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             MakingOrderOneProduct(selectedCartProd);
         }
-        private void MinusQuantity(Carts cr, RepeatButton rb)
+        private void ChangeQuantity(Carts cr, RepeatButton rb, bool isIncrement = true)
         {
-            cr.Quantity--;
+            cr.Quantity = isIncrement? ++cr.Quantity : --cr.Quantity;
             try
             {
                 App.ctx.SaveChanges();
@@ -151,29 +151,13 @@ namespace NeedleworkStore.Pages{
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            MinusQuantity(selectedCartProd, (RepeatButton)sender);
-        }
-        private void PlusQuantity(Carts cr, RepeatButton rb)
-        {
-            cr.Quantity++;
-            try
-            {
-                App.ctx.SaveChanges();
-                mainWindow.UpdateCartState();
-                SetTotalSum();
-                ChangeSelectedQuantityBottomMenu();
-            }
-            catch (Exception ex)
-            {
-                cart = GetCarts();
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            ChangeQuantity(selectedCartProd, (RepeatButton)sender, false);
         }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            PlusQuantity(selectedCartProd, (RepeatButton)sender);
-        }        
+            ChangeQuantity(selectedCartProd, (RepeatButton)sender);
+        }
         private void DelOneProduct(Carts cr)
         {
             MessageBoxResult msgInf = MessageBox.Show
