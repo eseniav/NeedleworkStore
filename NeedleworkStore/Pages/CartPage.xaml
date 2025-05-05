@@ -57,7 +57,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                 <StackPanel Grid.Column="1">
                                     <StackPanel>
                                         <GroupBox Margin="10 0 0 10">

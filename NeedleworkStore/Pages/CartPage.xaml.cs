@@ -188,8 +188,8 @@ namespace NeedleworkStore.Pages{
 
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Если не выбрано ничего - автоматически выбирает все товары\n" +
-                "Если выбраны определенные товары - формирует заказ из них");
+            List<Carts> crt = cart.Where(c => c.IsChecked).ToList();
+            this.NavigationService.Navigate(new OrderRegistrationPage(crt));
         }
 
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
