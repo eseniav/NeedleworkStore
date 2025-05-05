@@ -100,34 +100,29 @@ namespace NeedleworkStore.Pages{
         {
             lblTotalQuantity.Content = cart.Sum(p => p.QuantityCart).ToString();
         }
-        private void SortProd(string cmbName)
+        private List<Carts> GetSortedProd(string cmbName)
         {
-            List<Carts> sortedProducts;
             switch (cmbName)
             {
                 case "cmbIAZ":
-                    sortedProducts = cart.OrderBy(p => p.Products.ProductName).ToList();
-                    break;
+                    return cart.OrderBy(p => p.Products.ProductName).ToList();
                 case "cmbIZA":
-                    sortedProducts = cart.OrderByDescending(p => p.Products.ProductName).ToList();
-                    break;
+                    return cart.OrderByDescending(p => p.Products.ProductName).ToList();
                 case "cmbILowPrice":
-                    sortedProducts = cart.OrderBy(p => p.SumProducts).ToList();
-                    break;
+                    return cart.OrderBy(p => p.SumProducts).ToList();
                 case "cmbIHighPrice":
-                    sortedProducts = cart.OrderByDescending(p => p.SumProducts).ToList();
-                    break;
+                    return cart.OrderByDescending(p => p.SumProducts).ToList();
                 case "cmbIAvail":
-                    sortedProducts = cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
-                    break;
+                    return cart.OrderBy(p => p.Products.AvailabilityStatusID).ToList();
                 case "cmbINotAvail":
-                    sortedProducts = cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
-                    break;
+                    return cart.OrderByDescending(p => p.Products.AvailabilityStatusID).ToList();
                 default:
-                    sortedProducts = cart.ToList();
-                    break;
+                    return cart.ToList();
             }
-            ICCart.ItemsSource = sortedProducts;
+        }
+        private void SortProd(string cmbName)
+        {
+            ICCart.ItemsSource = GetSortedProd(cmbName);
         }
         private void GoAboutProduct(Carts cart)
         {
