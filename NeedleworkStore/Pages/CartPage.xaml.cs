@@ -3,6 +3,7 @@ using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -49,6 +50,8 @@ namespace NeedleworkStore.Pages{
         {
             InitializeComponent();
             cart = GetCarts();
+            foreach (Carts crt in cart)
+                crt.PropertyChanged += CartItem_PropertyChanged;
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
@@ -63,6 +66,12 @@ namespace NeedleworkStore.Pages{
         private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        private void SetGroupCheck() => chbAll.IsChecked = !cart.Any(c => c.IsChecked != true);
+        private void CartItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Carts.IsChecked))
+                SetGroupCheck();
+        }
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
         private void SaveCart()
         {
