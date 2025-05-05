@@ -193,9 +193,22 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             DelOneProduct(selectedCartProd);
         }
+        private void DelSelectedProduct(List<Carts> cr)
+        {
+            MessageBoxResult msgInf = MessageBox.Show
+                    ("Удалить выбранные товары из корзины?",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgInf != MessageBoxResult.Yes)
+                return;
+            App.ctx.Carts.RemoveRange(cr);
+            foreach(Carts crt in cr)
+                cart.Remove(crt);
+            ICCart.ItemsSource = cart;
+            SaveCart();
+        }
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаляет выбранные товары.\nПеред удалением появляется специальное окошко с выбором");
+            DelSelectedProduct(cart.Where(c => c.IsChecked).ToList());
         }
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
