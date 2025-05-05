@@ -44,6 +44,7 @@ namespace NeedleworkStore.Pages{
         ObservableCollection<Carts> cart;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public int? TotalSum;
+        DispatcherTimer saveTimer;
         public CartPage()
         {
             InitializeComponent();
@@ -55,7 +56,11 @@ namespace NeedleworkStore.Pages{
             ChangeSelectedQuantityBottomMenu();
             cmbIAvail.IsSelected = true;
             mainWindow.UpdateCartState();
+            saveTimer = new DispatcherTimer();
+            saveTimer.Interval = TimeSpan.FromMilliseconds(500);
+            saveTimer.Tick += OnSaveCart;
         }
+        private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
@@ -150,7 +155,8 @@ namespace NeedleworkStore.Pages{
         private void ChangeQuantity(Carts cr, RepeatButton rb, bool isIncrement = true)
         {
             cr.Quantity = isIncrement? ++cr.Quantity : --cr.Quantity;
-            SaveCart();
+            saveTimer.Stop();
+            saveTimer.Start();
         }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
