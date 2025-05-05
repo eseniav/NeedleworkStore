@@ -76,8 +76,8 @@ namespace NeedleworkStore.Pages{
         {
             lblTotalSum.Content = cart.Where(c => c.IsChecked).Sum(c => c.SumProducts).ToString();
             lblTotalQuantity.Content = cart.Where(p => p.IsChecked).Sum(p => p.QuantityCart).ToString();
+            txtBlIsSelected.Text = cart.Count(p => p.IsChecked).ToString();
         }
-        //private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
         private void ResetCart()
         {
             cart = GetCarts();
@@ -115,10 +115,6 @@ namespace NeedleworkStore.Pages{
                 GrBottomPan.Visibility = Visibility.Hidden;
             }
         }
-        //private void ChangeSelectedQuantityBottomMenu()
-        //{
-        //    lblTotalQuantity.Content = cart.Sum(p => p.QuantityCart).ToString();
-        //}
         private List<Carts> GetSortedProd(string cmbName)
         {
             switch (cmbName)
