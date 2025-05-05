@@ -31,6 +31,16 @@ namespace NeedleworkStore.AppData
                 OnPropertyChanged(nameof(SumProducts));
             }
         }
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+            }
+        }
         public bool IsNotMin => QuantityCart > minItemCopacity;
         public bool IsNotMax => QuantityCart < maxItemCopacity;
         public int? SumProducts => QuantityCart * Products.ProductPrice;

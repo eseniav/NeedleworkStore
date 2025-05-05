@@ -3,6 +3,7 @@ using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -48,7 +49,7 @@ namespace NeedleworkStore.Pages{
         public CartPage()
         {
             InitializeComponent();
-            cart = GetCarts();
+            ResetCart();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
@@ -63,7 +64,19 @@ namespace NeedleworkStore.Pages{
         private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
+        private void SetGroupCheck() => chbAll.IsChecked = !cart.Any(c => c.IsChecked != true);
+        private void CartItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Carts.IsChecked))
+                SetGroupCheck();
+        }
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
+        private void ResetCart()
+        {
+            cart = GetCarts();
+            foreach (Carts crt in cart)
+                crt.PropertyChanged += CartItem_PropertyChanged;
+        }
         private void SaveCart()
         {
             try
@@ -75,7 +88,7 @@ namespace NeedleworkStore.Pages{
             }
             catch (Exception ex)
             {
-                cart = GetCarts();
+                ResetCart();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
             }
         }
@@ -180,21 +193,45 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             DelOneProduct(selectedCartProd);
         }
-
+        private void DelSelectedProduct(List<Carts> cr)
+        {
+            MessageBoxResult msgInf = MessageBox.Show
+                    ("Удалить выбранные товары из корзины?",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgInf != MessageBoxResult.Yes)
+                return;
+            App.ctx.Carts.RemoveRange(cr);
+            foreach(Carts crt in cr)
+                cart.Remove(crt);
+            ICCart.ItemsSource = cart;
+            SaveCart();
+        }
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаляет выбранные товары.\nПеред удалением появляется специальное окошко с выбором");
+            DelSelectedProduct(cart.Where(c => c.IsChecked).ToList());
         }
-
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Если не выбрано ничего - автоматически выбирает все товары\n" +
-                "Если выбраны определенные товары - формирует заказ из них");
+            List<Carts> crt = cart.Where(c => c.IsChecked).ToList();
+            if(crt.Count == 0)
+            {
+                MessageBox.Show("Выберите товары для формирования заказа");
+                return;
+            }
+            this.NavigationService.Navigate(new OrderRegistrationPage(crt));
         }
-
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ProductsPage());
+        }
+        private void GroupSelect(bool IsChecked = true)
+        {
+            foreach (Carts crt in cart)
+                crt.IsChecked = IsChecked;
+        }
+        private void chbAll_Click(object sender, RoutedEventArgs e)
+        {
+            GroupSelect(((CheckBox)sender).IsChecked == true);
         }
     }
 }
