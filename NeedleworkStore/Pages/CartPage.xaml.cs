@@ -235,5 +235,10 @@ namespace NeedleworkStore.Pages{
         {
             GroupSelect(((CheckBox)sender).IsChecked == true);
         }
+        private void RepeatButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (cmbILowPrice.IsSelected || cmbIHighPrice.IsSelected)
+                SortProd(((ComboBoxItem)cmbSort.SelectedItem).Name);
+        }
     }
 }
