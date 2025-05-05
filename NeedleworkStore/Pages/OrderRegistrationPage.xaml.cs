@@ -209,20 +209,25 @@ namespace NeedleworkStore.Pages
                     ProcessingStatusID = 1,
                 };
                 App.ctx.AssigningStatuses.Add(newAssigningStatuses);
+                foreach (Carts list in orderCart)
+                {
+                    App.ctx.Carts.Remove(list);
+                }
                 App.ctx.SaveChanges();
                 MessageBox.Show(
                             "✅ Ваш заказ успешно оформлен!\n\n" +
                             $"Номер заказа: #{newOrder.OrderID}\n" +
                             "Чек в PDF-формате доступен для скачивания:\n" +
                             "1. Откройте «Профиль»\n" +
-                            "1. Перейдите в раздел «Заказы»\n" +
-                            "2. Найдите текущий заказ\n" +
-                            "3. Нажмите кнопку «Скачать чек»\n\n" +
+                            "2. Перейдите в раздел «Заказы»\n" +
+                            "3. Найдите текущий заказ\n" +
+                            "4. Нажмите кнопку «Скачать чек»\n\n" +
                             "Спасибо за покупку!",
                             "Заказ подтверждён",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
                         );
+                this.NavigationService.Navigate(new OrdersPage());
             }
             catch (Exception ex)
             {
