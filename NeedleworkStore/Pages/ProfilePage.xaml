@@ -59,7 +59,11 @@
                             <TextBlock Text="Логин:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtLog" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
                             <TextBlock Text="Пароль:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
-                            <TextBlock Name="txtPass" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <WrapPanel>
+                                <TextBlock Name="txtPass" Text="********" HorizontalAlignment="Left" Width="140" Style="{StaticResource Data}"/>
+                                <CheckBox Name="chbShowPass" VerticalAlignment="Center" Click="chbShowPass_Click"/>
+                                <TextBlock Text="Показать пароль" VerticalAlignment="Center" FontSize="12" Style="{StaticResource Type}"/>
+                            </WrapPanel>
                             <TextBlock Text="e-mail:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtEmail" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
                             <TextBlock Text="Фамилия:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
