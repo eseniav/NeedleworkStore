@@ -21,9 +21,11 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class OrdersPage : Page
     {
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public OrdersPage()
         {
             InitializeComponent();
+            mainWindow.UpdateCartState();
         }
         private void DownloadChequeInPdf()
         {
