@@ -7,10 +7,17 @@
       mc:Ignorable="d"
       Title="ProfilePage">
     <Page.Resources>
-        <Style x:Key="MainLabel" TargetType="Label">
+        <Style x:Key="Type" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource fontCaesarDressingCyrillic}"/>
             <Setter Property="Foreground" Value="#2A3759"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="2 10"/>
+        </Style>
+        <Style x:Key="Data" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource fontAcherusFeralBold}"/>
+            <Setter Property="Foreground" Value="#2A3759"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="2 10"/>
         </Style>
     </Page.Resources>
     <StackPanel DockPanel.Dock="Top">
@@ -49,22 +56,22 @@
                                     />
                         </WrapPanel>
                         <UniformGrid Columns="2" Rows="8">
-                            <Label Content="Логин:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblLog" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
-                            <Label Content="Пароль:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblPass" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
-                            <Label Content="e-mail:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblEmail" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
-                            <Label Content="Фамилия:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblLastname" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
-                            <Label Content="Имя:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblFirstname" HorizontalAlignment="Left"  Style="{StaticResource MainLabel}"/>
-                            <Label Content="Отчество:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblPatr" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
-                            <Label Content="Дата рождения:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblBirthDate" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
-                            <Label Content="Телефон:" HorizontalAlignment="Right" Style="{StaticResource MainLabel}"/>
-                            <Label Name="lblPhone" HorizontalAlignment="Left" Style="{StaticResource MainLabel}"/>
+                            <TextBlock Text="Логин:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtLog" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBlock Text="Пароль:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtPass" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBlock Text="e-mail:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtEmail" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBlock Text="Фамилия:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtLastname" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBlock Text="Имя:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtFirstname" HorizontalAlignment="Left"  Style="{StaticResource Data}"/>
+                            <TextBlock Text="Отчество:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtPatr" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBlock Text="Дата рождения:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtBirthDate" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBlock Text="Телефон:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
+                            <TextBlock Name="txtPhone" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
                         </UniformGrid>
                     </StackPanel>
                 </GroupBox>
