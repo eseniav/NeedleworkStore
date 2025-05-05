@@ -180,12 +180,10 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             DelOneProduct(selectedCartProd);
         }
-
         private void btnDelAll_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Удаляет выбранные товары.\nПеред удалением появляется специальное окошко с выбором");
         }
-
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
             List<Carts> crt = cart.Where(c => c.IsChecked).ToList();
@@ -196,10 +194,18 @@ namespace NeedleworkStore.Pages{
             }
             this.NavigationService.Navigate(new OrderRegistrationPage(crt));
         }
-
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ProductsPage());
+        }
+        private void GroupSelect(bool IsChecked = true)
+        {
+            foreach (Carts crt in cart)
+                crt.IsChecked = IsChecked;
+        }
+        private void chbAll_Click(object sender, RoutedEventArgs e)
+        {
+            GroupSelect(((CheckBox)sender).IsChecked == true);
         }
     }
 }

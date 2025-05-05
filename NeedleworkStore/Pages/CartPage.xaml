@@ -25,7 +25,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
                 <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <CheckBox Name="chbAll" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" Click="chbAll_Click"/>
                     <TextBlock Foreground="#2A3759" VerticalAlignment="Center"
                                 FontFamily="Caesar Dressing Cyrillic" TextWrapping="Wrap" Margin="10 0 0 0"
                                 FontSize="10" LineHeight="15" HorizontalAlignment="Left"
