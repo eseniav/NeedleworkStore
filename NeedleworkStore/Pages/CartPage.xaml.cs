@@ -59,6 +59,21 @@ namespace NeedleworkStore.Pages{
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
+        private void SaveCart()
+        {
+            try
+            {
+                App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
+                SetTotalSum();
+                ChangeSelectedQuantityBottomMenu();
+            }
+            catch (Exception ex)
+            {
+                cart = GetCarts();
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+            }
+        }
         private void ChangeFullEmptyCart()
         {
             if (App.ctx.Carts.FirstOrDefault(c => c.UserID == mainWindow.UserID) != null)
@@ -132,48 +147,21 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             MakingOrderOneProduct(selectedCartProd);
         }
-        private void MinusQuantity(Carts cr, RepeatButton rb)
+        private void ChangeQuantity(Carts cr, RepeatButton rb, bool isIncrement = true)
         {
-            cr.Quantity--;
-            try
-            {
-                App.ctx.SaveChanges();
-                mainWindow.UpdateCartState();
-                SetTotalSum();
-                ChangeSelectedQuantityBottomMenu();
-            }
-            catch (Exception ex)
-            {
-                cart = GetCarts();
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
-            }
+            cr.Quantity = isIncrement? ++cr.Quantity : --cr.Quantity;
+            SaveCart();
         }
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            MinusQuantity(selectedCartProd, (RepeatButton)sender);
-        }
-        private void PlusQuantity(Carts cr, RepeatButton rb)
-        {
-            cr.Quantity++;
-            try
-            {
-                App.ctx.SaveChanges();
-                mainWindow.UpdateCartState();
-                SetTotalSum();
-                ChangeSelectedQuantityBottomMenu();
-            }
-            catch (Exception ex)
-            {
-                cart = GetCarts();
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            ChangeQuantity(selectedCartProd, (RepeatButton)sender, false);
         }
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
             Carts selectedCartProd = (Carts)((RepeatButton)sender).DataContext;
-            PlusQuantity(selectedCartProd, (RepeatButton)sender);
-        }        
+            ChangeQuantity(selectedCartProd, (RepeatButton)sender);
+        }
         private void DelOneProduct(Carts cr)
         {
             MessageBoxResult msgInf = MessageBox.Show
@@ -181,19 +169,10 @@ namespace NeedleworkStore.Pages{
                     "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (msgInf != MessageBoxResult.Yes)
                 return;
-            try
-            {
-                App.ctx.Carts.Remove(cr);
-                App.ctx.SaveChanges();
-                cart.Remove(cr);
-                SetTotalSum();
-                ChangeSelectedQuantityBottomMenu();
-                ICCart.ItemsSource = cart;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            App.ctx.Carts.Remove(cr);
+            cart.Remove(cr);
+            ICCart.ItemsSource = cart;
+            SaveCart();
         }
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
