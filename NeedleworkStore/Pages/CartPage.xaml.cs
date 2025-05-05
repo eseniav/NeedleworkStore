@@ -53,8 +53,7 @@ namespace NeedleworkStore.Pages{
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
-            SetTotalSum();
-            ChangeSelectedQuantityBottomMenu();
+            SetSelectedProdSumQuantity();
             cmbIAvail.IsSelected = true;
             mainWindow.UpdateCartState();
             saveTimer = new DispatcherTimer();
@@ -68,9 +67,17 @@ namespace NeedleworkStore.Pages{
         private void CartItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Carts.IsChecked))
+            {
                 SetGroupCheck();
+                SetSelectedProdSumQuantity();
+            }
         }
-        private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
+        private void SetSelectedProdSumQuantity()
+        {
+            lblTotalSum.Content = cart.Where(c => c.IsChecked).Sum(c => c.SumProducts).ToString();
+            lblTotalQuantity.Content = cart.Where(p => p.IsChecked).Sum(p => p.QuantityCart).ToString();
+        }
+        //private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
         private void ResetCart()
         {
             cart = GetCarts();
@@ -83,8 +90,7 @@ namespace NeedleworkStore.Pages{
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                SetTotalSum();
-                ChangeSelectedQuantityBottomMenu();
+                SetSelectedProdSumQuantity();
             }
             catch (Exception ex)
             {
@@ -109,10 +115,10 @@ namespace NeedleworkStore.Pages{
                 GrBottomPan.Visibility = Visibility.Hidden;
             }
         }
-        private void ChangeSelectedQuantityBottomMenu()
-        {
-            lblTotalQuantity.Content = cart.Sum(p => p.QuantityCart).ToString();
-        }
+        //private void ChangeSelectedQuantityBottomMenu()
+        //{
+        //    lblTotalQuantity.Content = cart.Sum(p => p.QuantityCart).ToString();
+        //}
         private List<Carts> GetSortedProd(string cmbName)
         {
             switch (cmbName)
