@@ -60,10 +60,7 @@ namespace NeedleworkStore.Pages{
             saveTimer.Interval = TimeSpan.FromMilliseconds(500);
             saveTimer.Tick += OnSaveCart;
         }
-        private void OnSaveCart(object sender, EventArgs e)
-        {
-            SaveCart();
-        }
+        private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
          new ObservableCollection<Carts>(App.ctx.Carts.Where(c => c.UserID == mainWindow.UserID).ToList());
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
