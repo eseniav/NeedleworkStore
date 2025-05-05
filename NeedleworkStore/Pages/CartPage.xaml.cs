@@ -189,6 +189,11 @@ namespace NeedleworkStore.Pages{
         private void btnPlaceOrder_Click(object sender, RoutedEventArgs e)
         {
             List<Carts> crt = cart.Where(c => c.IsChecked).ToList();
+            if(crt.Count == 0)
+            {
+                MessageBox.Show("Выберите товары для формирования заказа");
+                return;
+            }
             this.NavigationService.Navigate(new OrderRegistrationPage(crt));
         }
 
