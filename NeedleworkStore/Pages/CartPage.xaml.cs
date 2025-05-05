@@ -53,8 +53,7 @@ namespace NeedleworkStore.Pages{
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
-            SetTotalSum();
-            ChangeSelectedQuantityBottomMenu();
+            SetSelectedProdSumQuantity();
             cmbIAvail.IsSelected = true;
             mainWindow.UpdateCartState();
             saveTimer = new DispatcherTimer();
@@ -68,9 +67,17 @@ namespace NeedleworkStore.Pages{
         private void CartItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Carts.IsChecked))
+            {
                 SetGroupCheck();
+                SetSelectedProdSumQuantity();
+            }
         }
-        private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
+        private void SetSelectedProdSumQuantity()
+        {
+            lblTotalSum.Content = cart.Where(c => c.IsChecked).Sum(c => c.SumProducts).ToString();
+            lblTotalQuantity.Content = cart.Where(p => p.IsChecked).Sum(p => p.QuantityCart).ToString();
+            txtBlIsSelected.Text = cart.Count(p => p.IsChecked).ToString();
+        }
         private void ResetCart()
         {
             cart = GetCarts();
@@ -83,8 +90,7 @@ namespace NeedleworkStore.Pages{
             {
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                SetTotalSum();
-                ChangeSelectedQuantityBottomMenu();
+                SetSelectedProdSumQuantity();
             }
             catch (Exception ex)
             {
@@ -108,10 +114,6 @@ namespace NeedleworkStore.Pages{
                 ICCart.Visibility = Visibility.Hidden;
                 GrBottomPan.Visibility = Visibility.Hidden;
             }
-        }
-        private void ChangeSelectedQuantityBottomMenu()
-        {
-            lblTotalQuantity.Content = cart.Sum(p => p.QuantityCart).ToString();
         }
         private List<Carts> GetSortedProd(string cmbName)
         {
@@ -232,6 +234,11 @@ namespace NeedleworkStore.Pages{
         private void chbAll_Click(object sender, RoutedEventArgs e)
         {
             GroupSelect(((CheckBox)sender).IsChecked == true);
+        }
+        private void RepeatButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (cmbILowPrice.IsSelected || cmbIHighPrice.IsSelected)
+                SortProd(((ComboBoxItem)cmbSort.SelectedItem).Name);
         }
     }
 }
