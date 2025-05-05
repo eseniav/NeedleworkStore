@@ -49,9 +49,7 @@ namespace NeedleworkStore.Pages{
         public CartPage()
         {
             InitializeComponent();
-            cart = GetCarts();
-            foreach (Carts crt in cart)
-                crt.PropertyChanged += CartItem_PropertyChanged;
+            ResetCart();
             ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
@@ -73,6 +71,12 @@ namespace NeedleworkStore.Pages{
                 SetGroupCheck();
         }
         private void SetTotalSum() => lblTotalSum.Content = cart.Sum(c => c.SumProducts).ToString();
+        private void ResetCart()
+        {
+            cart = GetCarts();
+            foreach (Carts crt in cart)
+                crt.PropertyChanged += CartItem_PropertyChanged;
+        }
         private void SaveCart()
         {
             try
@@ -84,7 +88,7 @@ namespace NeedleworkStore.Pages{
             }
             catch (Exception ex)
             {
-                cart = GetCarts();
+                ResetCart();
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
             }
         }
