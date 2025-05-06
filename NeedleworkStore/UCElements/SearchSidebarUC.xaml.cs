@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using NeedleworkStore.Pages;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,24 +41,29 @@ namespace NeedleworkStore.UCElements
             themes = new List<Themes>(App.ctx.Themes.ToList());
             countries = new List<Countries>(App.ctx.Countries.ToList());
         }
+        private void SetItemSource()
+        {
+            Dictionary<ListBox, IEnumerable> lbxDbData = new Dictionary<ListBox, IEnumerable>
+            {
+                { lbxNedleTypes, nwTypes },
+                { lbxStitchTypes, stitchTypes },
+                { lbxProdTypes, productTypes },
+                { lbxAccess, accessoryTypes },
+                { lbxDesigners, designers },
+                { lbxThemes, themes },
+                { lbxCountries, countries },
+            };
+            foreach (var item in lbxDbData)
+            {
+                item.Key.ItemsSource = item.Value;
+                item.Key.DataContext = item.Value;
+            }
+        }
         public SearchSidebarUC()
         {
             InitializeComponent();
             GetDataToList();
-            lbxNedleTypes.ItemsSource = nwTypes;
-            lbxNedleTypes.DataContext = nwTypes;
-            lbxStitchTypes.ItemsSource = stitchTypes;
-            lbxStitchTypes.DataContext = stitchTypes;
-            lbxProdTypes.ItemsSource = productTypes;
-            lbxProdTypes.DataContext = productTypes;
-            lbxAccess.ItemsSource = accessoryTypes;
-            lbxAccess.DataContext = accessoryTypes;
-            lbxDesigners.ItemsSource = designers;
-            lbxDesigners.DataContext = designers;
-            lbxThemes.ItemsSource = themes;
-            lbxThemes.DataContext = themes;
-            lbxCountries.ItemsSource = countries;
-            lbxCountries.DataContext = countries;
+            SetItemSource();
         }
 
         private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
