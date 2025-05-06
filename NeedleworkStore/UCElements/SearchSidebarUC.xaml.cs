@@ -30,28 +30,32 @@ namespace NeedleworkStore.UCElements
         List<Designers> designers;
         List<Themes> themes;
         List<Countries> countries;
+        private void GetDataToList()
+        {
+            nwTypes = new List<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
+            stitchTypes = new List<StitchTypes>(App.ctx.StitchTypes.ToList());
+            productTypes = new List<ProductTypes>(App.ctx.ProductTypes.ToList());
+            accessoryTypes = new List<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
+            designers = new List<Designers>(App.ctx.Designers.ToList());
+            themes = new List<Themes>(App.ctx.Themes.ToList());
+            countries = new List<Countries>(App.ctx.Countries.ToList());
+        }
         public SearchSidebarUC()
         {
             InitializeComponent();
-            nwTypes = new List<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
+            GetDataToList();
             lbxNedleTypes.ItemsSource = nwTypes;
             lbxNedleTypes.DataContext = nwTypes;
-            stitchTypes = new List<StitchTypes>(App.ctx.StitchTypes.ToList());
             lbxStitchTypes.ItemsSource = stitchTypes;
             lbxStitchTypes.DataContext = stitchTypes;
-            productTypes = new List<ProductTypes>(App.ctx.ProductTypes.ToList());
             lbxProdTypes.ItemsSource = productTypes;
             lbxProdTypes.DataContext = productTypes;
-            accessoryTypes = new List<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
             lbxAccess.ItemsSource = accessoryTypes;
             lbxAccess.DataContext = accessoryTypes;
-            designers = new List<Designers>(App.ctx.Designers.ToList());
             lbxDesigners.ItemsSource = designers;
             lbxDesigners.DataContext = designers;
-            themes = new List<Themes>(App.ctx.Themes.ToList());
             lbxThemes.ItemsSource = themes;
             lbxThemes.DataContext = themes;
-            countries = new List<Countries>(App.ctx.Countries.ToList());
             lbxCountries.ItemsSource = countries;
             lbxCountries.DataContext = countries;
         }
