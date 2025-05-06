@@ -1,6 +1,8 @@
-﻿using NeedleworkStore.Classes;
+﻿using NeedleworkStore.AppData;
+using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +24,70 @@ namespace NeedleworkStore.Pages
     public partial class OrdersPage : Page
     {
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public class OrderViewModel
+        {
+            public int OrderID { get; set; }
+            public DateTime? FormationDate { get; set; }
+            public string PickUpPointAddress { get; set; }
+            public List<OrderItemViewModel> Items { get; set; }
+            public decimal TotalAmount => Items.Sum(i => i.Price * i.Quantity);
+            public string PaymentStatus { get; set; }
+            public string ProcessingStatus { get; set; }
+            public string ReceivingStatus { get; set; }
+        }
+
+        public class OrderItemViewModel
+        {
+            public string ProductName { get; set; }
+            public string DesignName { get; set; }
+            public int Quantity { get; set; }
+            public decimal Price { get; set; }
+        }
         public OrdersPage()
         {
             InitializeComponent();
             mainWindow.UpdateCartState();
+            LoadOrders();
+        }
+        private void LoadOrders()
+        {
+            try
+            {
+                using (var context = new NeedleworkStoreEntities())
+                {
+                    var orders = context.Orders
+                        .Include(o => o.PickUpPoints)
+                        .Include(o => o.OrderCompositions.Select(oc => oc.Products.Designers))
+                        .Include(o => o.AssigningStatuses.Select(a => a.PaymentStatuses))
+                        .Include(o => o.AssigningStatuses.Select(a => a.ProcessingStatuses))
+                        .Include(o => o.AssigningStatuses.Select(a => a.ReceivingStatuses))
+                        .OrderByDescending(o => o.FormationDate)
+                        .Where(o => o.UserID == mainWindow.UserID)
+                        .ToList()
+                        .Select(o => new OrderViewModel
+                        {
+                            OrderID = o.OrderID,
+                            FormationDate = o.FormationDate,
+                            PickUpPointAddress = o.PickUpPoints?.Adress ?? "Адрес не указан",
+                            Items = o.OrderCompositions?.Select(oc => new OrderItemViewModel
+                            {
+                                ProductName = oc.Products?.ProductName ?? "Товар не найден",
+                                DesignName = oc.Products?.Designers?.DesignerName ?? "Производитель не указан",
+                                Quantity = oc.Quantity,
+                                Price = oc.OrderPrice
+                            }).ToList() ?? new List<OrderItemViewModel>(),
+                            PaymentStatus = o.AssigningStatuses?.FirstOrDefault()?.PaymentStatuses?.PaymentStatus ?? "Не определен",
+                            ProcessingStatus = o.AssigningStatuses?.FirstOrDefault()?.ProcessingStatuses?.ProcessingStatus ?? "Не определен",
+                            ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
+                        }).ToList();
+
+                    ICorders.ItemsSource = orders;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}");
+            }
         }
         private void DownloadChequeInPdf()
         {
