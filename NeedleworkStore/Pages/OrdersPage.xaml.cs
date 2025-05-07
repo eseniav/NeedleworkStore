@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -53,14 +54,7 @@ namespace NeedleworkStore.Pages
         {
             try
             {
-                using (var context = new NeedleworkStoreEntities())
-                {
-                    var orders = context.Orders
-                        .Include(o => o.PickUpPoints)
-                        .Include(o => o.OrderCompositions.Select(oc => oc.Products.Designers))
-                        .Include(o => o.AssigningStatuses.Select(a => a.PaymentStatuses))
-                        .Include(o => o.AssigningStatuses.Select(a => a.ProcessingStatuses))
-                        .Include(o => o.AssigningStatuses.Select(a => a.ReceivingStatuses))
+                List<OrderViewModel> orders = App.ctx.Orders
                         .OrderByDescending(o => o.FormationDate)
                         .Where(o => o.UserID == mainWindow.UserID)
                         .ToList()
@@ -81,8 +75,7 @@ namespace NeedleworkStore.Pages
                             ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
                         }).ToList();
 
-                    ICorders.ItemsSource = orders;
-                }
+                ICorders.ItemsSource = orders;
             }
             catch (Exception ex)
             {
