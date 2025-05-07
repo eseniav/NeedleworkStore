@@ -161,5 +161,21 @@ namespace NeedleworkStore.Pages
             popup.IsOpen = true;
             timer.Start();
         }
+        private void SetFilter()
+        {
+            MessageBox.Show("Установить фильтр");
+        }
+        private void btnSet_Click(object sender, RoutedEventArgs e)
+        {
+            SetFilter();
+        }
+        private void ResetFilter()
+        {
+            MessageBox.Show("Сбросить все фильтры");
+        }
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            ResetFilter();
+        }
     }
 }

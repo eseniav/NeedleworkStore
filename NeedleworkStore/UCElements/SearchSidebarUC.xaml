@@ -179,22 +179,6 @@
                     </WrapPanel>
                 </Grid>
             </GroupBox>
-            <Button Name="btnSet" MinWidth="100" MaxWidth="150" Height="25"
-        Margin="10" Style="{StaticResource btnColor}" Grid.Row="2"
-        HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
-        >
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16">Применить</TextBlock>
-                </WrapPanel>
-            </Button>
-            <Button Name="btnReset" MinWidth="100" MaxWidth="150" Height="25"
-                    Margin="10" Style="{StaticResource btnOpacity}" Grid.Row="2"
-                    HorizontalAlignment="Center" IsDefault="True" Click="btnReset_Click"
-                    >
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Сбросить все</TextBlock>
-                </WrapPanel>
-            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

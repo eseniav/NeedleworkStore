@@ -33,13 +33,13 @@ namespace NeedleworkStore.UCElements
         List<Countries> countries;
         private void GetDataToList()
         {
-            nwTypes = new List<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
-            stitchTypes = new List<StitchTypes>(App.ctx.StitchTypes.ToList());
-            productTypes = new List<ProductTypes>(App.ctx.ProductTypes.ToList());
-            accessoryTypes = new List<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
-            designers = new List<Designers>(App.ctx.Designers.ToList());
-            themes = new List<Themes>(App.ctx.Themes.ToList());
-            countries = new List<Countries>(App.ctx.Countries.ToList());
+            nwTypes = App.ctx.NeedleworkTypes.ToList();
+            stitchTypes = App.ctx.StitchTypes.ToList();
+            productTypes = App.ctx.ProductTypes.ToList();
+            accessoryTypes = App.ctx.AccessoryTypes.ToList();
+            designers = App.ctx.Designers.ToList();
+            themes = App.ctx.Themes.ToList();
+            countries = App.ctx.Countries.ToList();
         }
         private void SetItemSource()
         {
@@ -74,22 +74,6 @@ namespace NeedleworkStore.UCElements
         private void txtFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
-        }
-        private void SetFilter()
-        {
-            MessageBox.Show("Установить фильтр");
-        }
-        private void btnSet_Click(object sender, RoutedEventArgs e)
-        {
-            SetFilter();
-        }
-        private void ResetFilter()
-        {
-            MessageBox.Show("Сбросить все фильтры");
-        }
-        private void btnReset_Click(object sender, RoutedEventArgs e)
-        {
-            ResetFilter();
         }
     }
 }
