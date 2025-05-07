@@ -240,5 +240,11 @@ namespace NeedleworkStore.Pages{
             if (cmbILowPrice.IsSelected || cmbIHighPrice.IsSelected)
                 SortProd(((ComboBoxItem)cmbSort.SelectedItem).Name);
         }
+
+        private void RepeatButton_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((cmbILowPrice.IsSelected || cmbIHighPrice.IsSelected) && !((RepeatButton)sender).IsEnabled)
+                SortProd(((ComboBoxItem)cmbSort.SelectedItem).Name);
+        }
     }
 }

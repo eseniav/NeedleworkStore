@@ -126,7 +126,7 @@
                                                     <WrapPanel HorizontalAlignment="Center">
                                                         <RepeatButton Margin="0 0 10 0" Style="{StaticResource btnRep}"
                                                                         VerticalAlignment="Bottom" MinWidth="20" Click="btnMinus_Click"
-                                                                        IsEnabled="{Binding IsNotMin}" PreviewMouseUp="RepeatButton_PreviewMouseUp"
+                                                                        IsEnabled="{Binding IsNotMin}" PreviewMouseUp="RepeatButton_PreviewMouseUp" IsEnabledChanged="RepeatButton_IsEnabledChanged"
                                                                         >
                                                             <RepeatButton.Background>
                                                                 <SolidColorBrush Opacity="0.25"/>
