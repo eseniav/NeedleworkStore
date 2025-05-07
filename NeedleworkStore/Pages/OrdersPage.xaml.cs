@@ -56,11 +56,6 @@ namespace NeedleworkStore.Pages
                 using (var context = new NeedleworkStoreEntities())
                 {
                     var orders = context.Orders
-                        .Include(o => o.PickUpPoints)
-                        .Include(o => o.OrderCompositions.Select(oc => oc.Products.Designers))
-                        .Include(o => o.AssigningStatuses.Select(a => a.PaymentStatuses))
-                        .Include(o => o.AssigningStatuses.Select(a => a.ProcessingStatuses))
-                        .Include(o => o.AssigningStatuses.Select(a => a.ReceivingStatuses))
                         .OrderByDescending(o => o.FormationDate)
                         .Where(o => o.UserID == mainWindow.UserID)
                         .ToList()
