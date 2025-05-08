@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -88,7 +89,7 @@ namespace NeedleworkStore.Pages{
             // Установка таймера на сохранение
             saveTimer = new DispatcherTimer();
             saveTimer.Interval = TimeSpan.FromMilliseconds(500); // задержка 500 мс после последнего нажатия
-            saveTimer.Tick += SaveCart; // добавляем обработчик для сохранения в БД
+            saveTimer.Tick += OnSaveCart; // добавляем обработчик для сохранения в БД
             // Включение логирования запросов в БД
             App.ctx.Database.Log =
                 (s => System.Diagnostics.Debug.WriteLine(s));
@@ -248,10 +249,10 @@ namespace NeedleworkStore.Pages{
             Carts selectedCartProd = (Carts)((Button)sender).DataContext;
             MakeOrder(new List<Carts> { selectedCartProd });
         }
-        // Сохраняет данные в БД по таймеру
-        private void SaveCart(object sender, EventArgs e)
+        // Сохраняет данные в БД
+        private void SaveCart()
         {
-            saveTimer.Stop(); // Останавливаем таймер, чтобы не повторять сохранение
+            Debug.WriteLine("SaveCart");
             try
             {
                 App.ctx.SaveChanges();
@@ -263,12 +264,14 @@ namespace NeedleworkStore.Pages{
                 ResetCart();
             }
         }
+        // Сохраняет данные в БД по таймеру
+        private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         // Реализует условную логику изменения количества
         private void ChangeQuantity(Carts cr, RepeatButton rb, bool IsAscending = true)
         {
             cr.Quantity = IsAscending ? ++cr.Quantity : --cr.Quantity;
             // Перезапускаем таймер при каждом нажатии
-            saveTimer.Stop();
+            saveTimer.Stop(); // Останавливаем таймер, чтобы не повторять сохранение
             saveTimer.Start();
         }
         // Обработчики нажатий
