@@ -7,6 +7,29 @@
       xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
       mc:Ignorable="d"
       Title="ProductsPage">
+    <Page.Resources>
+        <Style x:Key="lbxOpacity" TargetType="ListBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="tbCOpacity" TargetType="TabControl">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="tbIOpacity" TargetType="TabItem">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid  Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -19,7 +42,43 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800"
                   Grid.Column="0">
             <StackPanel>
-                <ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>
+                <!--<ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>-->
+                <GroupBox Header="Виды рукоделия" Style="{StaticResource GrBHeader}">
+                    <TabControl Style="{StaticResource tbCOpacity}">
+                        <TabItem Header="Рукоделие" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                            <StackPanel>
+                                <ListBox Style="{StaticResource lbxOpacity}">
+                                    <ListBoxItem>
+                                        <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    </ListBoxItem>
+                                </ListBox>
+                                <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding myNWTypes}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding NeedleworkTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Вышивка" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                            <StackPanel>
+                                <ListBox Style="{StaticResource lbxOpacity}">
+                                    <ListBoxItem>
+                                        <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    </ListBoxItem>
+                                </ListBox>
+                                <ListBox Name="lbxStitchTypes" Style="{StaticResource lbxOpacity}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding StitchTypeName}" Foreground="#2A3759"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                </GroupBox>
                 <Button Name="btnSet" MinWidth="100" MaxWidth="150" Height="25"
 Margin="10" Style="{StaticResource btnColor}" Grid.Row="2"
 HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"

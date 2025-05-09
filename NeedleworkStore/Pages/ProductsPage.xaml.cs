@@ -19,6 +19,22 @@ using NeedleworkStore.Classes;
 
 namespace NeedleworkStore.Pages
 {
+    public class MyNWTypes : NeedleworkTypes
+    {
+        public MyNWTypes(NeedleworkTypes p)
+        {
+            foreach (var property in typeof(NeedleworkTypes).GetProperties()) property.SetValue(this, property.GetValue(p));
+        }
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                _isChecked = value;
+            }
+        }
+    }
     /// <summary>
     /// Логика взаимодействия для ProductsPage.xaml
     /// </summary>
@@ -27,6 +43,7 @@ namespace NeedleworkStore.Pages
         List<AppData.Products> products;
         List<MyProducts> myProducts;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public List<MyNWTypes> myNWTypes { get; set; } = App.ctx.NeedleworkTypes.ToList().Select(t => new MyNWTypes(t)).ToList();
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -44,6 +61,7 @@ namespace NeedleworkStore.Pages
             ProdList.ItemsSource = myProducts;
             ProdList.DataContext = myProducts;
             cmbIAvail.IsSelected = true;
+            DataContext = this;
         }
         private void ShowAddedPopup()
         {
@@ -163,7 +181,13 @@ namespace NeedleworkStore.Pages
         }
         private void SetFilter()
         {
-            MessageBox.Show("Установить фильтр");
+            List<MyProducts> filterProd;
+            List<int> nw = myNWTypes.Where(n => n.IsChecked).Select(k => k.NeedleworkTypeID).ToList();
+            filterProd = myProducts.Where(p => p.ProductNeedleworkTypes.Any(c => nw.Contains(c.NeedleworkTypeID))).ToList();
+            ProdList.ItemsSource = filterProd;
+            ProdList.DataContext = filterProd;
+            //myNWTypes.Where(n => n.IsChecked)
+            //MessageBox.Show(filterProd.Count.ToString());
         }
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
