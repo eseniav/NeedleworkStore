@@ -16,25 +16,10 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using NeedleworkStore.AppData;
 using NeedleworkStore.Classes;
+using NeedleworkStore.UCElements;
 
 namespace NeedleworkStore.Pages
 {
-    public class MyNWTypes : NeedleworkTypes
-    {
-        public MyNWTypes(NeedleworkTypes p)
-        {
-            foreach (var property in typeof(NeedleworkTypes).GetProperties()) property.SetValue(this, property.GetValue(p));
-        }
-        private bool _isChecked;
-        public bool IsChecked
-        {
-            get => _isChecked;
-            set
-            {
-                _isChecked = value;
-            }
-        }
-    }
     /// <summary>
     /// Логика взаимодействия для ProductsPage.xaml
     /// </summary>
@@ -43,7 +28,7 @@ namespace NeedleworkStore.Pages
         List<AppData.Products> products;
         List<MyProducts> myProducts;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-        public List<MyNWTypes> myNWTypes { get; set; } = App.ctx.NeedleworkTypes.ToList().Select(t => new MyNWTypes(t)).ToList();
+        public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -182,12 +167,10 @@ namespace NeedleworkStore.Pages
         private void SetFilter()
         {
             List<MyProducts> filterProd;
-            List<int> nw = myNWTypes.Where(n => n.IsChecked).Select(k => k.NeedleworkTypeID).ToList();
-            filterProd = myProducts.Where(p => p.ProductNeedleworkTypes.Any(c => nw.Contains(c.NeedleworkTypeID))).ToList();
+            List<int> selectedNWID = FilterVM.nwTypes.Where(n => n.IsChecked).Select(k => k.Item.NeedleworkTypeID).ToList();
+            filterProd = myProducts.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
             ProdList.ItemsSource = filterProd;
             ProdList.DataContext = filterProd;
-            //myNWTypes.Where(n => n.IsChecked)
-            //MessageBox.Show(filterProd.Count.ToString());
         }
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {

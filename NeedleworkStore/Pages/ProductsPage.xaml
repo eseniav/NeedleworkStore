@@ -42,43 +42,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800"
                   Grid.Column="0">
             <StackPanel>
-                <!--<ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>-->
-                <GroupBox Header="Виды рукоделия" Style="{StaticResource GrBHeader}">
-                    <TabControl Style="{StaticResource tbCOpacity}">
-                        <TabItem Header="Рукоделие" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
-                            <StackPanel>
-                                <ListBox Style="{StaticResource lbxOpacity}">
-                                    <ListBoxItem>
-                                        <CheckBox Content="Все" Foreground="#2A3759"/>
-                                    </ListBoxItem>
-                                </ListBox>
-                                <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding myNWTypes}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Content="{Binding NeedleworkTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem Header="Вышивка" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
-                            <StackPanel>
-                                <ListBox Style="{StaticResource lbxOpacity}">
-                                    <ListBoxItem>
-                                        <CheckBox Content="Все" Foreground="#2A3759"/>
-                                    </ListBoxItem>
-                                </ListBox>
-                                <ListBox Name="lbxStitchTypes" Style="{StaticResource lbxOpacity}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Content="{Binding StitchTypeName}" Foreground="#2A3759"/>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </TabItem>
-                    </TabControl>
-                </GroupBox>
+                <ucSB:SearchSidebarUC Grid.Column="0" Margin="3" DataContext="{Binding FilterVM}"/>
                 <Button Name="btnSet" MinWidth="100" MaxWidth="150" Height="25"
 Margin="10" Style="{StaticResource btnColor}" Grid.Row="2"
 HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
