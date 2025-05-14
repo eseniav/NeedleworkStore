@@ -167,7 +167,7 @@ namespace NeedleworkStore.Pages
         private void SetFilter()
         {
             List<MyProducts> filterProd;
-            List<int> selectedNWID = FilterVM.nwTypes.Where(n => n.IsChecked).Select(k => k.Item.NeedleworkTypeID).ToList();
+            List<int> selectedNWID = FilterVM.AllProd.Items.Where(n => n.IsChecked).Select(k => k.Item.NeedleworkTypeID).ToList();
             filterProd = myProducts.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
             ProdList.ItemsSource = filterProd;
             ProdList.DataContext = filterProd;

@@ -40,10 +40,10 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding AllNeedleworkTypeChecked}"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding AllProd.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding nwTypes}">
+                            <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllProd.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Item.NeedleworkTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
