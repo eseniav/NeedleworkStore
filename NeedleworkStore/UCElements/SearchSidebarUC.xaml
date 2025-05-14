@@ -40,7 +40,7 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding AllProd.AllChecked}"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProd.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
                             <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllProd.Items}">
