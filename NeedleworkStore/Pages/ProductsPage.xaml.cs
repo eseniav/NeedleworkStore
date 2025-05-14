@@ -143,7 +143,8 @@ namespace NeedleworkStore.Pages
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new OneProductPage());
+            Products myProd = (Products)((Hyperlink)sender).DataContext;
+            this.NavigationService.Navigate(new OneProductWithoutFeedbackPage(myProd));
         }
 
         private void btnFavor_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using NeedleworkStore.Classes;
+﻿using NeedleworkStore.AppData;
+using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,33 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class OneProductWithoutFeedbackPage : Page
     {
-        public OneProductWithoutFeedbackPage()
+        public Products _product;
+        public OneProductWithoutFeedbackPage(Products prod)
         {
             InitializeComponent();
+            _product = prod;
+            SetProdValues();
+            txtDescription.Text = _product.Description;
+            List<string> themes = App.ctx.ProductThemes.Where(pt => pt.ProductID == _product.ProductID).Select(pt => pt.Themes.ThemeName).Distinct().ToList();
+            lblThemes.Content = string.Join(" ", themes);
+        }
+        private void SetProdValues()
+        {
+            Dictionary<string, string> prodData = new Dictionary<string, string>
+            {
+                { "lblDiz", _product.Designers.DesignerName },
+                { "lblNameProd", _product.ProductName },
+                { "lblCountry", _product.Designers.Countries.CountryName },
+                { "lblAvail", _product.AvailabilityStatuses.AvailabilityStatus },
+            };
+            string defaultText = "Данные не указаны";
+            SolidColorBrush defaultColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#852614"));
+            foreach (var item in prodData)
+            {
+                Label label = (Label)FindName(item.Key);
+                label.Content = string.IsNullOrEmpty(item.Value) ? defaultText : item.Value;
+                label.Foreground = string.IsNullOrEmpty(item.Value) ? defaultColor : label.Foreground;
+            }
         }
         private void btnForward_Click(object sender, RoutedEventArgs e)
         {
@@ -79,46 +104,9 @@ namespace NeedleworkStore.Pages
             ppFavorIn.IsOpen = true;
             timer.Start();
         }
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с этим товаром");
-        }
         private void imQR_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Переход на страницу сайта с готовыми работами");
-        }
-
-        private void hlThemes_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Переход на страницу с отфильтрованными товарами по каждой теме");
-        }
-
-        private void rbtnColor_Checked(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("Выбор соответствующего цвета");
-            if (((RadioButton)e.Source).IsChecked == true)
-            {
-
-            }
-        }
-        private void cmbRating_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MessageBox.Show("Выбор рейтинга");
-        }
-
-        private void ImageDel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("Удаляет картинку, предварительно узнав о необходимости");
-        }
-
-        private void btnAddImage_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Диалоговое окно для добавления картинки");
-        }
-
-        private void btnAddFeedback_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Публикует отзыв");
         }
     }
 }
