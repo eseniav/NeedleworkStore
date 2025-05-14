@@ -56,13 +56,13 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding AllStitch.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxStitchTypes" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxStitchTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllStitch.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding StitchTypeName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.StitchTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -141,22 +141,6 @@
                         </StackPanel>
                     </TabItem>
                 </TabControl>
-            </GroupBox>
-            <GroupBox Header="Страны" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
-                <StackPanel>
-                    <ListBox Style="{StaticResource lbxOpacity}">
-                        <ListBoxItem>
-                            <CheckBox Content="Все" Foreground="#2A3759"/>
-                        </ListBoxItem>
-                    </ListBox>
-                    <ListBox Name="lbxCountries" Style="{StaticResource lbxOpacity}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding CountryName}" Foreground="#2A3759"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
             </GroupBox>
             <GroupBox Header="Цена" Style="{StaticResource GrBHeader}">
                 <Grid>
