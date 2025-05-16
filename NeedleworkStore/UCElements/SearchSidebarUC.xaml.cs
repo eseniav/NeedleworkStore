@@ -31,20 +31,14 @@ namespace NeedleworkStore.UCElements
         {
             AllProd = new NeedleworkAllTypeWrapper(App.ctx.NeedleworkTypes.ToList());
             AllStitch = new StitchAllTypeWrapper(App.ctx.StitchTypes.ToList());
-            foreach (NeedleworkTypeWrapper item in AllProd.Items)
-            {
-                item.PropertyChanged += NeedleworkItem_PropertyChange;
-            }
+            AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).PropertyChanged += NeedleworkItem_PropertyChange;
         }
         public NeedleworkAllTypeWrapper AllProd { get; set; }
         public StitchAllTypeWrapper AllStitch { get; set; }
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             NeedleworkTypeWrapper itemWrapper = sender as NeedleworkTypeWrapper;
-            if(itemWrapper.Item.NeedleworkTypeID == 1)
-            {
-                AllStitch.AllChecked = itemWrapper.IsChecked;
-            }
+            AllStitch.AllChecked = itemWrapper.IsChecked;
         }
     }
     public class NeedleworkTypeWrapper : INotifyPropertyChanged
