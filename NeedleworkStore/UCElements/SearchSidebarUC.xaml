@@ -52,7 +52,7 @@
                             </ListBox>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Вышивка" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                    <TabItem Header="Вышивка" Foreground="#2A3759" Style="{StaticResource tbIOpacity}" IsEnabled="{Binding IsStitchTabEnabled}">
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>

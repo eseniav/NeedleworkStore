@@ -39,7 +39,9 @@ namespace NeedleworkStore.UCElements
         {
             NeedleworkTypeWrapper itemWrapper = sender as NeedleworkTypeWrapper;
             AllStitch.AllChecked = itemWrapper.IsChecked;
+            OnPropertyChanged(nameof(IsStitchTabEnabled));
         }
+        public bool IsStitchTabEnabled => AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).IsChecked;
     }
     public class NeedleworkTypeWrapper : INotifyPropertyChanged
     {
