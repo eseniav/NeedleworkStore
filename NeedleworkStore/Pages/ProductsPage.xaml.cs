@@ -173,8 +173,10 @@ namespace NeedleworkStore.Pages
             filterProd = myProducts.Where(p =>
             {
                 bool nwMatch = p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID));
-                bool stitchMatch = selectedStitchID.Count == 0 || FilterVM.AllStitch.AllChecked
-                || p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
+                bool stitchMatch = selectedStitchID.Count == 0 ||
+                                   FilterVM.AllStitch.AllChecked ||
+                                   p.ProductNeedleworkTypes.Any(c => c.NeedleworkTypeID == 2) ||
+                                   p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
                 return nwMatch && stitchMatch;
             }).ToList();
             ProdList.ItemsSource = filterProd;
