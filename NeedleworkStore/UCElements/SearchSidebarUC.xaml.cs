@@ -34,15 +34,15 @@ namespace NeedleworkStore.UCElements
         }
         public ProductFilterViewModel()
         {
-            AllProd = new NeedleworkAllTypeWrapper(App.ctx.NeedleworkTypes.ToList());
+            AllProd = new AllTypeWrapper<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
             AllStitch = new AllTypeWrapper<StitchTypes>(App.ctx.StitchTypes.ToList());
             AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).PropertyChanged += NeedleworkItem_PropertyChange;
         }
-        public NeedleworkAllTypeWrapper AllProd { get; set; }
+        public AllTypeWrapper<NeedleworkTypes> AllProd { get; set; }
         public AllTypeWrapper<StitchTypes> AllStitch { get; set; }
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
-            NeedleworkTypeWrapper itemWrapper = sender as NeedleworkTypeWrapper;
+            ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
             AllStitch.AllChecked = itemWrapper.IsChecked;
             OnPropertyChanged(nameof(IsStitchTabEnabled));
         }
@@ -110,73 +110,6 @@ namespace NeedleworkStore.UCElements
         public AllTypeWrapper(List<T> items)
         {
             Items = items.Select(t => new ItemWrapper<T>(t)).ToList();
-        }
-    }
-    public class NeedleworkTypeWrapper : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public NeedleworkTypes Item { get; set; }
-        public NeedleworkTypeWrapper(NeedleworkTypes item)
-        {
-            Item = item;
-        }
-        private bool _isChecked;
-        public bool IsChecked
-        {
-            get => _isChecked;
-            set
-            {
-                _isChecked = value;
-                OnPropertyChanged(nameof(IsChecked));
-            }
-        }
-    }
-    public class NeedleworkAllTypeWrapper : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private List<NeedleworkTypeWrapper> _items;
-        public List<NeedleworkTypeWrapper> Items
-        {
-            get => _items;
-            set
-            {
-                _items = value;
-                foreach (NeedleworkTypeWrapper item in _items)
-                {
-                    item.PropertyChanged += Item_PropertyChanged;
-                }
-            }
-        }
-        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(NeedleworkTypeWrapper.IsChecked))
-            {
-                OnPropertyChanged(nameof(AllChecked));
-                OnPropertyChanged(nameof(CheckedIDs));
-            }
-        }
-        public bool AllChecked
-        {
-            get => Items.All(x => x.IsChecked);
-            set
-            {
-                Items.ForEach(f => f.IsChecked = value);
-                OnPropertyChanged(nameof(AllChecked));
-            }
-        }
-        public void Reset() => AllChecked = false;
-        public List<int> CheckedIDs => Items.Where(n => n.IsChecked).Select(k => k.Item.NeedleworkTypeID).ToList();
-        public NeedleworkAllTypeWrapper(List<NeedleworkTypes> items)
-        {
-            Items = items.Select(t => new NeedleworkTypeWrapper(t)).ToList();
         }
     }
     /// <summary>

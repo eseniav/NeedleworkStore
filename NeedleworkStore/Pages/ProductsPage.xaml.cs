@@ -167,7 +167,7 @@ namespace NeedleworkStore.Pages
         private List<MyProducts> GetFilteredProd(List<MyProducts> myPr, ProductFilterViewModel filter)
         {
             List<MyProducts> filterProd;
-            List<int> selectedNWID = filter.AllProd.CheckedIDs;
+            List<int> selectedNWID = filter.AllProd.GetIDs(n => n.NeedleworkTypeID);
             List<int> selectedStitchID = filter.AllStitch.GetIDs(n => n.StitchTypeID);
             filterProd = myPr.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
             filterProd = myPr.Where(p =>
