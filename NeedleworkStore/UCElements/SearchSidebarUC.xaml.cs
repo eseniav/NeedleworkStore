@@ -94,7 +94,10 @@ namespace NeedleworkStore.UCElements
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(NeedleworkTypeWrapper.IsChecked))
+            {
                 OnPropertyChanged(nameof(AllChecked));
+                OnPropertyChanged(nameof(CheckedIDs));
+            }
         }
         public bool AllChecked
         {
@@ -106,6 +109,7 @@ namespace NeedleworkStore.UCElements
             }
         }
         public void Reset() => AllChecked = false;
+        public List<int> CheckedIDs => Items.Where(n => n.IsChecked).Select(k => k.Item.NeedleworkTypeID).ToList();
         public NeedleworkAllTypeWrapper(List<NeedleworkTypes> items)
         {
             Items = items.Select(t => new NeedleworkTypeWrapper(t)).ToList();
@@ -157,7 +161,10 @@ namespace NeedleworkStore.UCElements
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(StitchTypeWrapper.IsChecked))
+            {
                 OnPropertyChanged(nameof(AllChecked));
+                OnPropertyChanged(nameof(CheckedIDs));
+            }
         }
         public bool AllChecked
         {
@@ -169,6 +176,7 @@ namespace NeedleworkStore.UCElements
             }
         }
         public void Reset() => AllChecked = false;
+        public List<int> CheckedIDs => Items.Where(n => n.IsChecked).Select(k => k.Item.StitchTypeID).ToList();
         public StitchAllTypeWrapper(List<StitchTypes> items)
         {
             Items = items.Select(t => new StitchTypeWrapper(t)).ToList();
