@@ -36,7 +36,7 @@
         <StackPanel>
             <GroupBox Header="Виды рукоделия" Style="{StaticResource GrBHeader}">
                 <TabControl Style="{StaticResource tbCOpacity}">
-                    <TabItem Header="Рукоделие" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                    <TabItem Name="TINeedle" Header="Рукоделие" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>

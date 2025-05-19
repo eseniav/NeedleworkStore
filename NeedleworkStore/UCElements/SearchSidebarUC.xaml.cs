@@ -183,6 +183,10 @@ namespace NeedleworkStore.UCElements
         List<AccessoryTypes> accessoryTypes;
         List<Designers> designers;
         List<Themes> themes;
+        public void SetTab()
+        {
+            TINeedle.IsSelected = true;
+        }
         private void GetDataToList()
         {
             productTypes = App.ctx.ProductTypes.ToList();

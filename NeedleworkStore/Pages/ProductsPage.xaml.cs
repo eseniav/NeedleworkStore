@@ -195,6 +195,7 @@ namespace NeedleworkStore.Pages
             filterProducts = myProducts.ToList();
             SortProd();
             FilterVM.Reset();
+            SearchBar.SetTab();
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
