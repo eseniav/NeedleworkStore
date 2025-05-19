@@ -183,8 +183,8 @@ namespace NeedleworkStore.Pages
         }
         private void SetFilter()
         {
-            filterProducts = GetFilteredProd(myProducts, FilterVM);
-            SortProd();
+            filterProducts = GetSortedProd(sortCrit, GetFilteredProd(myProducts, FilterVM));
+            ProdList.ItemsSource = filterProducts;
         }
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
