@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using NeedleworkStore.AppData;
 using NeedleworkStore.Classes;
+using NeedleworkStore.UCElements;
 
 namespace NeedleworkStore.Pages
 {
@@ -26,7 +27,10 @@ namespace NeedleworkStore.Pages
     {
         List<AppData.Products> products;
         List<MyProducts> myProducts;
+        private List<MyProducts> filterProducts;
+        string sortCrit = "cmbIAvail";
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         public class MyProducts : Products
         {
             public MyProducts(Products p)
@@ -41,9 +45,11 @@ namespace NeedleworkStore.Pages
             InitializeComponent();
             products = App.ctx.Products.ToList();
             myProducts = products.Select(p => new MyProducts(p)).ToList();
-            ProdList.ItemsSource = myProducts;
-            ProdList.DataContext = myProducts;
+            filterProducts = myProducts.ToList();
+            ProdList.ItemsSource = filterProducts;
+            ProdList.DataContext = filterProducts;
             cmbIAvail.IsSelected = true;
+            DataContext = this;
         }
         private void ShowAddedPopup()
         {
@@ -105,40 +111,37 @@ namespace NeedleworkStore.Pages
             }
             AddInCart((MyProducts)((Button)sender).DataContext);
         }
-        private void SortProd(string cmbName)
+        private List<MyProducts> GetSortedProd(string sortCrit, List<MyProducts> myProd)
         {
-            List<MyProducts> sortedProducts;
-            switch (cmbName)
+            switch (sortCrit)
             {
                 case "cmbIAZ":
-                    sortedProducts = myProducts.OrderBy(p => p.ProductName).ToList();
-                    break;
+                    return myProd.OrderBy(p => p.ProductName).ToList();
                 case "cmbIZA":
-                    sortedProducts = myProducts.OrderByDescending(p => p.ProductName).ToList();
-                    break;
+                    return myProd.OrderByDescending(p => p.ProductName).ToList();
                 case "cmbILowPrice":
-                    sortedProducts = myProducts.OrderBy(p => p.ProductPrice).ToList();
-                    break;
+                    return myProd.OrderBy(p => p.ProductPrice).ToList();
                 case "cmbIHighPrice":
-                    sortedProducts = myProducts.OrderByDescending(p => p.ProductPrice).ToList();
-                    break;
+                    return myProd.OrderByDescending(p => p.ProductPrice).ToList();
                 case "cmbIAvail":
-                    sortedProducts = myProducts.OrderBy(p => p.AvailabilityStatusID).ToList();
-                    break;
+                    return myProd.OrderBy(p => p.AvailabilityStatusID).ToList();
                 case "cmbINotAvail":
-                    sortedProducts = myProducts.OrderByDescending(p => p.AvailabilityStatusID).ToList();
-                    break;
+                    return myProd.OrderByDescending(p => p.AvailabilityStatusID).ToList();
                 default:
-                    sortedProducts = myProducts;
-                    break;
+                    return myProd;
             }
-            ProdList.ItemsSource = sortedProducts;
+        }
+        private void SortProd()
+        {
+            filterProducts = GetSortedProd(sortCrit, filterProducts);
+            ProdList.ItemsSource = filterProducts;
         }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem selectedItem = ((ComboBox)sender).SelectedItem as ComboBoxItem;
-            SortProd(selectedItem.Name);
+            sortCrit = selectedItem.Name;
+            SortProd();
         }
 
         private void hlAbout_Click(object sender, RoutedEventArgs e)
@@ -161,9 +164,27 @@ namespace NeedleworkStore.Pages
             popup.IsOpen = true;
             timer.Start();
         }
+        private List<MyProducts> GetFilteredProd(List<MyProducts> myPr, ProductFilterViewModel filter)
+        {
+            List<MyProducts> filterProd;
+            List<int> selectedNWID = filter.AllProd.GetIDs(n => n.NeedleworkTypeID);
+            List<int> selectedStitchID = filter.AllStitch.GetIDs(n => n.StitchTypeID);
+            filterProd = myPr.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
+            filterProd = myPr.Where(p =>
+            {
+                bool nwMatch = p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID));
+                bool stitchMatch = selectedStitchID.Count == 0 ||
+                                   filter.AllStitch.AllChecked ||
+                                   p.ProductNeedleworkTypes.Any(c => c.NeedleworkTypeID == 2) ||
+                                   p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
+                return nwMatch && stitchMatch;
+            }).ToList();
+            return filterProd;
+        }
         private void SetFilter()
         {
-            MessageBox.Show("Установить фильтр");
+            filterProducts = GetSortedProd(sortCrit, GetFilteredProd(myProducts, FilterVM));
+            ProdList.ItemsSource = filterProducts;
         }
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
@@ -171,7 +192,10 @@ namespace NeedleworkStore.Pages
         }
         private void ResetFilter()
         {
-            MessageBox.Show("Сбросить все фильтры");
+            filterProducts = myProducts.ToList();
+            SortProd();
+            FilterVM.Reset();
+            SearchBar.SetTab();
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {

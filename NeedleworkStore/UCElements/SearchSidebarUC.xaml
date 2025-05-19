@@ -36,33 +36,33 @@
         <StackPanel>
             <GroupBox Header="Виды рукоделия" Style="{StaticResource GrBHeader}">
                 <TabControl Style="{StaticResource tbCOpacity}">
-                    <TabItem Header="Рукоделие" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                    <TabItem Name="TINeedle" Header="Рукоделие" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProd.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxNedleTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllProd.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding NeedleworkTypeName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.NeedleworkTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Вышивка" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                    <TabItem Header="Вышивка" Foreground="#2A3759" Style="{StaticResource tbIOpacity}" IsEnabled="{Binding IsStitchTabEnabled}">
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding AllStitch.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxStitchTypes" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxStitchTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllStitch.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding StitchTypeName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.StitchTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -141,22 +141,6 @@
                         </StackPanel>
                     </TabItem>
                 </TabControl>
-            </GroupBox>
-            <GroupBox Header="Страны" FontFamily="Cakra Normal" Foreground="White" Margin="5 0 5 10">
-                <StackPanel>
-                    <ListBox Style="{StaticResource lbxOpacity}">
-                        <ListBoxItem>
-                            <CheckBox Content="Все" Foreground="#2A3759"/>
-                        </ListBoxItem>
-                    </ListBox>
-                    <ListBox Name="lbxCountries" Style="{StaticResource lbxOpacity}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding CountryName}" Foreground="#2A3759"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
             </GroupBox>
             <GroupBox Header="Цена" Style="{StaticResource GrBHeader}">
                 <Grid>

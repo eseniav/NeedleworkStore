@@ -7,6 +7,29 @@
       xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
       mc:Ignorable="d"
       Title="ProductsPage">
+    <Page.Resources>
+        <Style x:Key="lbxOpacity" TargetType="ListBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="tbCOpacity" TargetType="TabControl">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="tbIOpacity" TargetType="TabItem">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid  Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -19,7 +42,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800"
                   Grid.Column="0">
             <StackPanel>
-                <ucSB:SearchSidebarUC Grid.Column="0" Margin="3"/>
+                <ucSB:SearchSidebarUC x:Name="SearchBar" Grid.Column="0" Margin="3" DataContext="{Binding FilterVM}"/>
                 <Button Name="btnSet" MinWidth="100" MaxWidth="150" Height="25"
 Margin="10" Style="{StaticResource btnColor}" Grid.Row="2"
 HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
