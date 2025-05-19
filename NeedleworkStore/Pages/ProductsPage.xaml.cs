@@ -192,7 +192,9 @@ namespace NeedleworkStore.Pages
         }
         private void ResetFilter()
         {
-            MessageBox.Show("Сбросить все фильтры");
+            filterProducts = myProducts.ToList();
+            SortProd();
+            FilterVM.Reset();
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {

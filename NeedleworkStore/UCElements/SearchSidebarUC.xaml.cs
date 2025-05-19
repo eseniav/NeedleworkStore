@@ -22,6 +22,11 @@ namespace NeedleworkStore.UCElements
 {
     public class ProductFilterViewModel : INotifyPropertyChanged
     {
+        public void Reset()
+        {
+            AllProd.Reset();
+            AllStitch.Reset();
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -100,6 +105,7 @@ namespace NeedleworkStore.UCElements
                 OnPropertyChanged(nameof(AllChecked));
             }
         }
+        public void Reset() => AllChecked = false;
         public NeedleworkAllTypeWrapper(List<NeedleworkTypes> items)
         {
             Items = items.Select(t => new NeedleworkTypeWrapper(t)).ToList();
@@ -162,6 +168,7 @@ namespace NeedleworkStore.UCElements
                 OnPropertyChanged(nameof(AllChecked));
             }
         }
+        public void Reset() => AllChecked = false;
         public StitchAllTypeWrapper(List<StitchTypes> items)
         {
             Items = items.Select(t => new StitchTypeWrapper(t)).ToList();
