@@ -26,6 +26,8 @@ namespace NeedleworkStore.UCElements
         {
             AllProd.Reset();
             AllStitch.Reset();
+            AllProdTypes.Reset();
+            AllAccessoryTypes.Reset();
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -37,9 +39,14 @@ namespace NeedleworkStore.UCElements
             AllProd = new AllTypeWrapper<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
             AllStitch = new AllTypeWrapper<StitchTypes>(App.ctx.StitchTypes.ToList());
             AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).PropertyChanged += NeedleworkItem_PropertyChange;
+            AllProdTypes = new AllTypeWrapper<ProductTypes>(App.ctx.ProductTypes.ToList());
+            AllAccessoryTypes = new AllTypeWrapper<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
+            AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).PropertyChanged += ProductTypeItem_PropertyChange;
         }
         public AllTypeWrapper<NeedleworkTypes> AllProd { get; set; }
         public AllTypeWrapper<StitchTypes> AllStitch { get; set; }
+        public AllTypeWrapper<ProductTypes> AllProdTypes { get; set; }
+        public AllTypeWrapper<AccessoryTypes> AllAccessoryTypes { get; set; }
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
@@ -47,6 +54,13 @@ namespace NeedleworkStore.UCElements
             OnPropertyChanged(nameof(IsStitchTabEnabled));
         }
         public bool IsStitchTabEnabled => AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).IsChecked;
+        private void ProductTypeItem_PropertyChange(object sender, PropertyChangedEventArgs e)
+        {
+            ItemWrapper<ProductTypes> itemWrapper = sender as ItemWrapper<ProductTypes>;
+            AllAccessoryTypes.AllChecked = itemWrapper.IsChecked;
+            OnPropertyChanged(nameof(IsAccessoryTabEnabled));
+        }
+        public bool IsAccessoryTabEnabled => AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).IsChecked;
     }
     public class ItemWrapper<T> : INotifyPropertyChanged
     {
@@ -117,18 +131,15 @@ namespace NeedleworkStore.UCElements
     /// </summary>
     public partial class SearchSidebarUC : UserControl
     {
-        List<ProductTypes> productTypes;
-        List<AccessoryTypes> accessoryTypes;
         List<Designers> designers;
         List<Themes> themes;
         public void SetTab()
         {
             TINeedle.IsSelected = true;
+            TIProdTypes.IsSelected = true;
         }
         private void GetDataToList()
         {
-            productTypes = App.ctx.ProductTypes.ToList();
-            accessoryTypes = App.ctx.AccessoryTypes.ToList();
             designers = App.ctx.Designers.ToList();
             themes = App.ctx.Themes.ToList();
         }
@@ -136,8 +147,6 @@ namespace NeedleworkStore.UCElements
         {
             Dictionary<ListBox, IEnumerable> lbxDbData = new Dictionary<ListBox, IEnumerable>
             {
-                { lbxProdTypes, productTypes },
-                { lbxAccess, accessoryTypes },
                 { lbxDesigners, designers },
                 { lbxThemes, themes },
             };

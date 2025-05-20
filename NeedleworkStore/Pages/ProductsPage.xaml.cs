@@ -169,6 +169,8 @@ namespace NeedleworkStore.Pages
             List<MyProducts> filterProd;
             List<int> selectedNWID = filter.AllProd.GetIDs(n => n.NeedleworkTypeID);
             List<int> selectedStitchID = filter.AllStitch.GetIDs(n => n.StitchTypeID);
+            List<int> selectedProdTypesID = filter.AllProdTypes.GetIDs(n => n.ProductTypeID);
+            List<int> selectedAccessoryTypesID = filter.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
             filterProd = myPr.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
             filterProd = myPr.Where(p =>
             {
@@ -177,7 +179,19 @@ namespace NeedleworkStore.Pages
                                    filter.AllStitch.AllChecked ||
                                    p.ProductNeedleworkTypes.Any(c => c.NeedleworkTypeID == 2) ||
                                    p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
+
                 return nwMatch && stitchMatch;
+            }).ToList();
+            filterProd = myPr.Where(p => selectedProdTypesID.Contains(p.ProductTypeID)).ToList();
+            filterProd = myPr.Where(p =>
+            {
+                bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
+                bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
+                                    filter.AllAccessoryTypes.AllChecked ||
+                                    (p.ProductTypeID == 1 &&
+                                     p.ProductTypeID == 3 &&
+                                     p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID)));
+                return prodTypeMatch && accessoryMatch;
             }).ToList();
             return filterProd;
         }
