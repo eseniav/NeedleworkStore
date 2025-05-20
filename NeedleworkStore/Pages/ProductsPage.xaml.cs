@@ -179,7 +179,19 @@ namespace NeedleworkStore.Pages
                                    filter.AllStitch.AllChecked ||
                                    p.ProductNeedleworkTypes.Any(c => c.NeedleworkTypeID == 2) ||
                                    p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
+
                 return nwMatch && stitchMatch;
+            }).ToList();
+            filterProd = myPr.Where(p => selectedProdTypesID.Contains(p.ProductTypeID)).ToList();
+            filterProd = myPr.Where(p =>
+            {
+                bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
+                bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
+                                    filter.AllAccessoryTypes.AllChecked ||
+                                    (p.ProductTypeID == 1 &&
+                                     p.ProductTypeID == 3 &&
+                                     p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID)));
+                return prodTypeMatch && accessoryMatch;
             }).ToList();
             return filterProd;
         }
