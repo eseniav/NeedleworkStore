@@ -169,6 +169,8 @@ namespace NeedleworkStore.Pages
             List<MyProducts> filterProd;
             List<int> selectedNWID = filter.AllProd.GetIDs(n => n.NeedleworkTypeID);
             List<int> selectedStitchID = filter.AllStitch.GetIDs(n => n.StitchTypeID);
+            List<int> selectedProdTypesID = filter.AllProdTypes.GetIDs(n => n.ProductTypeID);
+            List<int> selectedAccessoryTypesID = filter.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
             filterProd = myPr.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
             filterProd = myPr.Where(p =>
             {

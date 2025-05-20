@@ -72,33 +72,33 @@
             </GroupBox>
             <GroupBox Header="Категории" Style="{StaticResource GrBHeader}">
                 <TabControl Style="{StaticResource tbCOpacity}">
-                    <TabItem Header="Категории" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                    <TabItem Name="TIProdTypes" Header="Категории" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProdTypes.AllChecked, Mode=TwoWay}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxProdTypes" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxProdTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllProdTypes.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding ProductTypeName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.ProductTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Аксессуары" Foreground="#2A3759" Style="{StaticResource tbIOpacity}">
+                    <TabItem Header="Аксессуары" Foreground="#2A3759" Style="{StaticResource tbIOpacity}" IsEnabled="{Binding IsAccessoryTabEnabled}">
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllAccessoryTypes.AllChecked, Mode=TwoWay}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxAccess" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxAccess" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllAccessoryTypes.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding AccessoryTypeName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.AccessoryTypeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
