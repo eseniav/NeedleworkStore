@@ -172,9 +172,11 @@ namespace NeedleworkStore.Pages
             List<int> selectedStitchID = filter.AllStitch.GetIDs(n => n.StitchTypeID);
             List<int> selectedProdTypesID = filter.AllProdTypes.GetIDs(n => n.ProductTypeID);
             List<int> selectedAccessoryTypesID = filter.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
-            //filterProd = myPr.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
+            List<int> selectedDesignersID = filter.AllDesigners.GetIDs(n => n.DesignerID);
             filterProd = myPr.Where(p =>
             {
+                if (selectedNWID.Count == 0)
+                    return true;
                 bool nwMatch = p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID));
                 bool stitchMatch = selectedStitchID.Count == 0 ||
                                    filter.AllStitch.AllChecked ||
@@ -182,15 +184,24 @@ namespace NeedleworkStore.Pages
                                    p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
                 return nwMatch && stitchMatch;
             }).ToList();
-            //filterProd = myPr.Where(p => selectedProdTypesID.Contains(p.ProductTypeID)).ToList();
             filterProd = filterProd.Where(p =>
             {
+                if (selectedProdTypesID.Count == 0)
+                    return true;
                 bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
                 bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
                                     filter.AllAccessoryTypes.AllChecked ||
                                     p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID));
                 return prodTypeMatch && accessoryMatch;
             }).ToList();
+            //filterProd = filterProd.Where(p =>
+            //{
+            //    bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
+            //    bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
+            //                        filter.AllAccessoryTypes.AllChecked ||
+            //                        p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID));
+            //    return prodTypeMatch && accessoryMatch;
+            //}).ToList();
             return filterProd;
         }
         private void SetFilter()
