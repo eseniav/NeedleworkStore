@@ -191,6 +191,7 @@ namespace NeedleworkStore.Pages
                 bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
                 bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
                                     filter.AllAccessoryTypes.AllChecked ||
+                                    p.ProductTypes.ProductTypeID == 1 || p.ProductTypes.ProductTypeID == 3 ||
                                     p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID));
                 return prodTypeMatch && accessoryMatch;
             }).ToList();
