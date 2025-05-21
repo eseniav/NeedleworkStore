@@ -208,6 +208,7 @@ namespace NeedleworkStore.Pages
                     return true;
                 return p.ProductThemes.Any(c => selectedThemesID.Contains(c.ThemeID));
             }).ToList();
+            filterProd = filterProd.Where(p => p.ProductPrice >= FilterVM.MinPrice && p.ProductPrice <= FilterVM.MaxPrice).ToList();
             return filterProd;
         }
         private void SetFilter()

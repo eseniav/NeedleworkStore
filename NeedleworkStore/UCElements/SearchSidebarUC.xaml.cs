@@ -53,6 +53,8 @@ namespace NeedleworkStore.UCElements
         public AllTypeWrapper<AccessoryTypes> AllAccessoryTypes { get; set; }
         public AllTypeWrapper<Designers> AllDesigners { get; set; }
         public AllTypeWrapper<Themes> AllThemes { get; set; }
+        public int MinPrice { get; set; }
+        public int MaxPrice { get; set; }
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
@@ -146,15 +148,40 @@ namespace NeedleworkStore.UCElements
         {
             InitializeComponent();
         }
-
+        public bool ContainsOnlyDigits(string input) => input.All(char.IsDigit);
         private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
         }
-
         private void txtFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
+        }
+        private void ShowWarning()
+        {
+            MessageBox.Show("Введены неверные данные!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void txtFrom_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!ContainsOnlyDigits(txtFrom.Text))
+            {
+                ShowWarning();
+                return;
+            }
+            ProductFilterViewModel viewModel = DataContext as ProductFilterViewModel;
+            viewModel.MinPrice = Int32.Parse(txtFrom.Text);
+        }
+
+        private void txtTo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!ContainsOnlyDigits(txtTo.Text))
+            {
+                ShowWarning();
+                return;
+            }
+            ProductFilterViewModel viewModel = DataContext as ProductFilterViewModel;
+            viewModel.MaxPrice = Int32.Parse(txtTo.Text);
         }
     }
 }
