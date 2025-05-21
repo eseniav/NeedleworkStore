@@ -172,32 +172,66 @@ namespace NeedleworkStore.Pages
             List<int> selectedStitchID = filter.AllStitch.GetIDs(n => n.StitchTypeID);
             List<int> selectedProdTypesID = filter.AllProdTypes.GetIDs(n => n.ProductTypeID);
             List<int> selectedAccessoryTypesID = filter.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
-            filterProd = myPr.Where(p => p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID))).ToList();
+            List<int> selectedDesignersID = filter.AllDesigners.GetIDs(n => n.DesignerID);
+            List<int> selectedThemesID = filter.AllThemes.GetIDs(n => n.ThemeID);
             filterProd = myPr.Where(p =>
             {
+                if (selectedNWID.Count == 0)
+                    return true;
                 bool nwMatch = p.ProductNeedleworkTypes.Any(c => selectedNWID.Contains(c.NeedleworkTypeID));
                 bool stitchMatch = selectedStitchID.Count == 0 ||
                                    filter.AllStitch.AllChecked ||
                                    p.ProductNeedleworkTypes.Any(c => c.NeedleworkTypeID == 2) ||
                                    p.ProductStitchTypes.Any(c => selectedStitchID.Contains(c.StitchTypeID));
-
                 return nwMatch && stitchMatch;
             }).ToList();
-            filterProd = myPr.Where(p => selectedProdTypesID.Contains(p.ProductTypeID)).ToList();
-            filterProd = myPr.Where(p =>
+            filterProd = filterProd.Where(p =>
             {
+                if (selectedProdTypesID.Count == 0)
+                    return true;
                 bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
                 bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
                                     filter.AllAccessoryTypes.AllChecked ||
-                                    (p.ProductTypeID == 1 &&
-                                     p.ProductTypeID == 3 &&
-                                     p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID)));
+                                    p.ProductTypes.ProductTypeID == 1 || p.ProductTypes.ProductTypeID == 3 ||
+                                    p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID));
                 return prodTypeMatch && accessoryMatch;
+            }).ToList();
+            filterProd = filterProd.Where(p =>
+            {
+                if (selectedDesignersID.Count == 0)
+                    return true;
+                return p.Designers.Products.Any(c => selectedDesignersID.Contains(c.DesignerID));
+            }).ToList();
+            filterProd = filterProd.Where(p =>
+            {
+                if (selectedThemesID.Count == 0)
+                    return true;
+                return p.ProductThemes.Any(c => selectedThemesID.Contains(c.ThemeID));
+            }).ToList();
+            filterProd = filterProd.Where(p =>
+            {
+                if (FilterVM.MinPrice == null && FilterVM.MaxPrice == null)
+                    return true;
+                if (FilterVM.MinPrice == null)
+                    return p.ProductPrice <= FilterVM.MaxPrice;
+                if (FilterVM.MaxPrice == null)
+                    return p.ProductPrice >= FilterVM.MinPrice;
+                return p.ProductPrice >= FilterVM.MinPrice && p.ProductPrice <= FilterVM.MaxPrice;
             }).ToList();
             return filterProd;
         }
+        private void ShowWarning()
+        {
+            MessageBox.Show("Проверьте правильность вводимых данных",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
         private void SetFilter()
         {
+            if(!FilterVM.IsValid || FilterVM.MaxPrice < FilterVM.MinPrice)
+            {
+                ShowWarning();
+                return;
+            }
             filterProducts = GetSortedProd(sortCrit, GetFilteredProd(myProducts, FilterVM));
             ProdList.ItemsSource = filterProducts;
             SetInfoForEmptyList();
@@ -211,7 +245,7 @@ namespace NeedleworkStore.Pages
             filterProducts = myProducts.ToList();
             SortProd();
             FilterVM.Reset();
-            SearchBar.SetTab();
+            SearchBar.Reset();
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {

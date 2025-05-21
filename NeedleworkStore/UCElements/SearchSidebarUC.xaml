@@ -152,13 +152,13 @@
                     <WrapPanel  Grid.Row="0">
                         <Label Content="От" Foreground="#2A3759"/>
                         <TextBox Name="txtFrom" MaxHeight="18" MinWidth="100"
-                                 FontSize="16" MouseDoubleClick="txtFrom_MouseDoubleClick"
+                                 FontSize="16" MouseDoubleClick="txtFrom_MouseDoubleClick" LostFocus="txtFrom_LostFocus"
                                  />
                     </WrapPanel>
                     <WrapPanel  Grid.Row="1">
                         <Label Content="До" Foreground="#2A3759"/>
                         <TextBox Name="txtTo" MaxHeight="18" MinWidth="100"
-                                 FontSize="16" MouseDoubleClick="txtTo_MouseDoubleClick"
+                                 FontSize="16" MouseDoubleClick="txtTo_MouseDoubleClick" LostFocus="txtTo_LostFocus"
                                  />
                     </WrapPanel>
                 </Grid>
