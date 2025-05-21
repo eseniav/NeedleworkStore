@@ -208,11 +208,30 @@ namespace NeedleworkStore.Pages
                     return true;
                 return p.ProductThemes.Any(c => selectedThemesID.Contains(c.ThemeID));
             }).ToList();
-            filterProd = filterProd.Where(p => p.ProductPrice >= FilterVM.MinPrice && p.ProductPrice <= FilterVM.MaxPrice).ToList();
+            filterProd = filterProd.Where(p =>
+            {
+                if (FilterVM.MinPrice == null && FilterVM.MaxPrice == null)
+                    return true;
+                if (FilterVM.MinPrice == null)
+                    return p.ProductPrice <= FilterVM.MaxPrice;
+                if (FilterVM.MaxPrice == null)
+                    return p.ProductPrice >= FilterVM.MinPrice;
+                return p.ProductPrice >= FilterVM.MinPrice && p.ProductPrice <= FilterVM.MaxPrice;
+            }).ToList();
             return filterProd;
+        }
+        private void ShowWarning()
+        {
+            MessageBox.Show("Проверьте правильность вводимых данных",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void SetFilter()
         {
+            if(!FilterVM.IsValid || FilterVM.MaxPrice < FilterVM.MinPrice)
+            {
+                ShowWarning();
+                return;
+            }
             filterProducts = GetSortedProd(sortCrit, GetFilteredProd(myProducts, FilterVM));
             ProdList.ItemsSource = filterProducts;
             SetInfoForEmptyList();

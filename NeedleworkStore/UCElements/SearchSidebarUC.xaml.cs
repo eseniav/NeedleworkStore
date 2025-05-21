@@ -53,8 +53,9 @@ namespace NeedleworkStore.UCElements
         public AllTypeWrapper<AccessoryTypes> AllAccessoryTypes { get; set; }
         public AllTypeWrapper<Designers> AllDesigners { get; set; }
         public AllTypeWrapper<Themes> AllThemes { get; set; }
-        public int MinPrice { get; set; }
-        public int MaxPrice { get; set; }
+        public int? MinPrice { get; set; } = null;
+        public int? MaxPrice { get; set; } = null;
+        public bool IsValid { get; set; } = true;
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
@@ -148,7 +149,7 @@ namespace NeedleworkStore.UCElements
         {
             InitializeComponent();
         }
-        public bool ContainsOnlyDigits(string input) => input.All(char.IsDigit);
+        public bool ContainsOnlyDigits(string input) =>  input.All(char.IsDigit);
         private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
@@ -157,31 +158,34 @@ namespace NeedleworkStore.UCElements
         {
             ((TextBox)sender).SelectAll();
         }
-        private void ShowWarning()
-        {
-            MessageBox.Show("Введены неверные данные!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
         private void txtFrom_LostFocus(object sender, RoutedEventArgs e)
         {
+            ProductFilterViewModel viewModel = DataContext as ProductFilterViewModel;
             if (!ContainsOnlyDigits(txtFrom.Text))
             {
-                ShowWarning();
+                viewModel.IsValid = false;
                 return;
             }
-            ProductFilterViewModel viewModel = DataContext as ProductFilterViewModel;
-            viewModel.MinPrice = Int32.Parse(txtFrom.Text);
+            if (string.IsNullOrEmpty(txtFrom.Text))
+                viewModel.MinPrice = null;
+            else
+                viewModel.MinPrice = Int32.Parse(txtFrom.Text);
+            viewModel.IsValid = true;
         }
 
         private void txtTo_LostFocus(object sender, RoutedEventArgs e)
         {
+            ProductFilterViewModel viewModel = DataContext as ProductFilterViewModel;
             if (!ContainsOnlyDigits(txtTo.Text))
             {
-                ShowWarning();
+                viewModel.IsValid = false;
                 return;
             }
-            ProductFilterViewModel viewModel = DataContext as ProductFilterViewModel;
-            viewModel.MaxPrice = Int32.Parse(txtTo.Text);
+            if (string.IsNullOrEmpty(txtTo.Text))
+                viewModel.MaxPrice = null;
+            else
+                viewModel.MaxPrice = Int32.Parse(txtTo.Text);
+            viewModel.IsValid = true;
         }
     }
 }
