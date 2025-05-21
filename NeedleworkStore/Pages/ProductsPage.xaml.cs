@@ -173,6 +173,7 @@ namespace NeedleworkStore.Pages
             List<int> selectedProdTypesID = filter.AllProdTypes.GetIDs(n => n.ProductTypeID);
             List<int> selectedAccessoryTypesID = filter.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
             List<int> selectedDesignersID = filter.AllDesigners.GetIDs(n => n.DesignerID);
+            List<int> selectedThemesID = filter.AllThemes.GetIDs(n => n.ThemeID);
             filterProd = myPr.Where(p =>
             {
                 if (selectedNWID.Count == 0)
@@ -200,6 +201,12 @@ namespace NeedleworkStore.Pages
                 if (selectedDesignersID.Count == 0)
                     return true;
                 return p.Designers.Products.Any(c => selectedDesignersID.Contains(c.DesignerID));
+            }).ToList();
+            filterProd = filterProd.Where(p =>
+            {
+                if (selectedThemesID.Count == 0)
+                    return true;
+                return p.ProductThemes.Any(c => selectedThemesID.Contains(c.ThemeID));
             }).ToList();
             return filterProd;
         }
