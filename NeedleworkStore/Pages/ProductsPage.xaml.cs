@@ -194,14 +194,12 @@ namespace NeedleworkStore.Pages
                                     p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID));
                 return prodTypeMatch && accessoryMatch;
             }).ToList();
-            //filterProd = filterProd.Where(p =>
-            //{
-            //    bool prodTypeMatch = p.ProductTypes.Products.Any(c => selectedProdTypesID.Contains(c.ProductTypeID));
-            //    bool accessoryMatch = selectedAccessoryTypesID.Count == 0 ||
-            //                        filter.AllAccessoryTypes.AllChecked ||
-            //                        p.ProductAccessoryTypes.Any(c => selectedAccessoryTypesID.Contains(c.AccessoryTypeID));
-            //    return prodTypeMatch && accessoryMatch;
-            //}).ToList();
+            filterProd = filterProd.Where(p =>
+            {
+                if (selectedDesignersID.Count == 0)
+                    return true;
+                return p.Designers.Products.Any(c => selectedDesignersID.Contains(c.DesignerID));
+            }).ToList();
             return filterProd;
         }
         private void SetFilter()
