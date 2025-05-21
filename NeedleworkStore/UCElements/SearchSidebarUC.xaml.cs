@@ -30,6 +30,8 @@ namespace NeedleworkStore.UCElements
             AllAccessoryTypes.Reset();
             AllDesigners.Reset();
             AllThemes.Reset();
+            MinPrice = null;
+            MaxPrice = null;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -140,10 +142,20 @@ namespace NeedleworkStore.UCElements
     /// </summary>
     public partial class SearchSidebarUC : UserControl
     {
+        public void ClearInputs()
+        {
+            txtTo.Clear();
+            txtFrom.Clear();
+        }
         public void SetTab()
         {
             TINeedle.IsSelected = true;
             TIProdTypes.IsSelected = true;
+        }
+        public void Reset()
+        {
+            SetTab();
+            ClearInputs();
         }
         public SearchSidebarUC()
         {
