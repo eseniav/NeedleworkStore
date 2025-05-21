@@ -65,7 +65,17 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                   Grid.Column="1"
                   >
             <StackPanel>
-                <WrapPanel HorizontalAlignment="Right" Margin="20 10">
+                <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
+                    <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="По Вашему запросу ничего не нашлось..." Margin="15" FontSize="20"/>
+                    <Button Name="btnEmptyBuy" Margin="0 10" MaxWidth="150"
+            Style="{StaticResource btnColor}" HorizontalAlignment="Center" Click="btnEmptyBuy_Click"
+            >
+                        <WrapPanel>
+                            <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">Показать все</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                </StackPanel>
+                <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 10">
                     <TextBlock Style="{StaticResource ChakraTB}" Text="Сортировать"/>
                     <ComboBox Name="cmbSort" HorizontalContentAlignment="Left" Width="130" SelectionChanged="cmbSort_SelectionChanged">
                         <ComboBoxItem Name="cmbILowPrice" FontFamily="Cakra Normal" Foreground="#2A3759" Content="дешевле" Margin="5"/>

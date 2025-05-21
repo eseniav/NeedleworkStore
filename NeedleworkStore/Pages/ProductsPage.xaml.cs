@@ -50,6 +50,7 @@ namespace NeedleworkStore.Pages
             ProdList.DataContext = filterProducts;
             cmbIAvail.IsSelected = true;
             DataContext = this;
+            SetInfoForEmptyList();
         }
         private void ShowAddedPopup()
         {
@@ -199,6 +200,7 @@ namespace NeedleworkStore.Pages
         {
             filterProducts = GetSortedProd(sortCrit, GetFilteredProd(myProducts, FilterVM));
             ProdList.ItemsSource = filterProducts;
+            SetInfoForEmptyList();
         }
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
@@ -214,6 +216,15 @@ namespace NeedleworkStore.Pages
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
             ResetFilter();
+        }
+        private void SetInfoForEmptyList()
+        {
+            stPEmpty.Visibility = filterProducts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+        }
+        private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ProductsPage());
         }
     }
 }
