@@ -28,6 +28,8 @@ namespace NeedleworkStore.UCElements
             AllStitch.Reset();
             AllProdTypes.Reset();
             AllAccessoryTypes.Reset();
+            AllDesigners.Reset();
+            AllThemes.Reset();
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -42,11 +44,15 @@ namespace NeedleworkStore.UCElements
             AllProdTypes = new AllTypeWrapper<ProductTypes>(App.ctx.ProductTypes.ToList());
             AllAccessoryTypes = new AllTypeWrapper<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
             AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).PropertyChanged += ProductTypeItem_PropertyChange;
+            AllDesigners = new AllTypeWrapper<Designers>(App.ctx.Designers.ToList());
+            AllThemes = new AllTypeWrapper<Themes>(App.ctx.Themes.ToList());
         }
         public AllTypeWrapper<NeedleworkTypes> AllProd { get; set; }
         public AllTypeWrapper<StitchTypes> AllStitch { get; set; }
         public AllTypeWrapper<ProductTypes> AllProdTypes { get; set; }
         public AllTypeWrapper<AccessoryTypes> AllAccessoryTypes { get; set; }
+        public AllTypeWrapper<Designers> AllDesigners { get; set; }
+        public AllTypeWrapper<Themes> AllThemes { get; set; }
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
@@ -131,36 +137,14 @@ namespace NeedleworkStore.UCElements
     /// </summary>
     public partial class SearchSidebarUC : UserControl
     {
-        List<Designers> designers;
-        List<Themes> themes;
         public void SetTab()
         {
             TINeedle.IsSelected = true;
             TIProdTypes.IsSelected = true;
         }
-        private void GetDataToList()
-        {
-            designers = App.ctx.Designers.ToList();
-            themes = App.ctx.Themes.ToList();
-        }
-        private void SetItemSource()
-        {
-            Dictionary<ListBox, IEnumerable> lbxDbData = new Dictionary<ListBox, IEnumerable>
-            {
-                { lbxDesigners, designers },
-                { lbxThemes, themes },
-            };
-            foreach (var item in lbxDbData)
-            {
-                item.Key.ItemsSource = item.Value;
-                item.Key.DataContext = item.Value;
-            }
-        }
         public SearchSidebarUC()
         {
             InitializeComponent();
-            GetDataToList();
-            SetItemSource();
         }
 
         private void txtTo_MouseDoubleClick(object sender, MouseButtonEventArgs e)

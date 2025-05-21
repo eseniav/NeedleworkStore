@@ -76,7 +76,7 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProdTypes.AllChecked, Mode=TwoWay}"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProdTypes.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
                             <ListBox Name="lbxProdTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllProdTypes.Items}">
@@ -92,7 +92,7 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllAccessoryTypes.AllChecked, Mode=TwoWay}"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllAccessoryTypes.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
                             <ListBox Name="lbxAccess" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllAccessoryTypes.Items}">
@@ -112,13 +112,13 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllDesigners.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxDesigners" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxDesigners" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllDesigners.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding DesignerName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.DesignerName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -128,13 +128,13 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllThemes.AllChecked}"/>
                                 </ListBoxItem>
                             </ListBox>
-                            <ListBox Name="lbxThemes" Style="{StaticResource lbxOpacity}">
+                            <ListBox Name="lbxThemes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllThemes.Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding ThemeName}" Foreground="#2A3759"/>
+                                        <CheckBox Content="{Binding Item.ThemeName}" Foreground="#2A3759" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
