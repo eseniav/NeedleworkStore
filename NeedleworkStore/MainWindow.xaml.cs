@@ -146,15 +146,12 @@ namespace NeedleworkStore
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Переход на страницу с найденной информацией\n" +
-                "или подсвеченная информация на этой странице");
-            }
-            else
+            if(!CheckValidation.CheckEmptyNull(txtSearch.Text))
             {
                 MessageBox.Show("Заполните поле!");
+                return;
             }
+            Mainfrm.Navigate(new ProductsPage(txtSearch.Text));
         }
         private void btnProd_Click(object sender, RoutedEventArgs e)
         {

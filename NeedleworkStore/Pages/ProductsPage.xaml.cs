@@ -40,12 +40,14 @@ namespace NeedleworkStore.Pages
             public string ImagePath => "/ProdImages/" + ProductImage;
         }
 
-        public ProductsPage()
+        public ProductsPage(string searchText = null)
         {
             InitializeComponent();
             products = App.ctx.Products.ToList();
             myProducts = products.Select(p => new MyProducts(p)).ToList();
-            filterProducts = myProducts.ToList();
+            filterProducts = searchText == null ? myProducts.ToList() : myProducts.Where(p => p.ProductName.Contains(searchText)
+            || p.Designers.DesignerName.Contains(searchText)
+            || p.Description.Contains(searchText)).ToList();
             ProdList.ItemsSource = filterProducts;
             ProdList.DataContext = filterProducts;
             cmbIAvail.IsSelected = true;
