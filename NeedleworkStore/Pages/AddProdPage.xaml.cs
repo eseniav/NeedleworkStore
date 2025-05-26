@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeedleworkStore.UCElements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class AddProdPage : Page
     {
+        public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         public AddProdPage()
         {
             InitializeComponent();
+            DataContext = this;
         }
     }
 }
