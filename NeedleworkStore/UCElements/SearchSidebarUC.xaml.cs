@@ -142,6 +142,13 @@ namespace NeedleworkStore.UCElements
     /// </summary>
     public partial class SearchSidebarUC : UserControl
     {
+        public bool IsPriceVisible
+        {
+            get => (bool)GetValue(IsPriceVisibleProperty);
+            set => SetValue(IsPriceVisibleProperty, value);
+        }
+        public static readonly DependencyProperty IsPriceVisibleProperty =
+            DependencyProperty.Register("IsPriceVisible", typeof(bool), typeof(SearchSidebarUC), new PropertyMetadata(false));
         public void ClearInputs()
         {
             txtTo.Clear();

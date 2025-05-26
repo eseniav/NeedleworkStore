@@ -42,7 +42,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800"
                   Grid.Column="0">
             <StackPanel>
-                <ucSB:SearchSidebarUC x:Name="SearchBar" Grid.Column="0" Margin="3" DataContext="{Binding FilterVM}"/>
+                <ucSB:SearchSidebarUC x:Name="SearchBar" Grid.Column="0" Margin="3" DataContext="{Binding FilterVM}" IsPriceVisible="True"/>
                 <Button Name="btnSet" MinWidth="100" MaxWidth="150" Height="25"
 Margin="10" Style="{StaticResource btnColor}" Grid.Row="2"
 HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
