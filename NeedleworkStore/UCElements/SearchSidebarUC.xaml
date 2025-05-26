@@ -28,6 +28,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -142,7 +143,8 @@
                     </TabItem>
                 </TabControl>
             </GroupBox>
-            <GroupBox Header="Цена" Style="{StaticResource GrBHeader}">
+            <GroupBox Header="Цена" Style="{StaticResource GrBHeader}"
+                      Visibility="{Binding IsPriceVisible, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVis}}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
