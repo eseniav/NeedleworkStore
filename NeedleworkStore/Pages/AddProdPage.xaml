@@ -23,9 +23,9 @@
                         <ComboBoxItem Style="{StaticResource cmbItems}"/>
                     </ComboBox>
                     <Label Content="Цена" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <TextBox Name="txtbAddPriceProd" Style="{StaticResource txtBoxReg}" Height="25"/>
+                    <TextBox Name="txtbAddPriceProd" Style="{StaticResource txtBoxReg}" Height="25" Width="300"/>
                     <Label Content="Наличие" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
-                    <ComboBox Name="cmbAvail" Width="150" HorizontalAlignment="Right" Height="25">
+                    <ComboBox Name="cmbAvail" Width="300" HorizontalAlignment="Right" Height="25">
                         <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
                         <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
                     </ComboBox>
