@@ -1,0 +1,92 @@
+﻿<Page x:Class="NeedleworkStore.Pages.AddProdPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NeedleworkStore.Pages"
+      xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddProdPage">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ucSB:SearchSidebarUC x:Name="SearchBar" Grid.Column="0" Margin="10" DataContext="{Binding FilterVM}"/>
+            <UniformGrid Grid.Column="1" Columns="2">
+                <StackPanel Margin="20">
+                    <Label Content="Название" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <ComboBox Name="cmbAddNameProd" Height="25" IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
+                              Width="300" HorizontalAlignment="Right">
+                        <ComboBoxItem Style="{StaticResource cmbItems}"/>
+                    </ComboBox>
+                    <Label Content="Цена" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <TextBox Name="txtbAddPriceProd" Style="{StaticResource txtBoxReg}" Height="25"/>
+                    <Label Content="Наличие" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <ComboBox Name="cmbAvail" Width="150" HorizontalAlignment="Right" Height="25">
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="есть в наличии" Margin="5"/>
+                        <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="нет в наличии" Margin="5"/>
+                    </ComboBox>
+                    <Label Content="Описание" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                    <TextBox Name="txtbAdddescriptionProd" TextWrapping="Wrap" Style="{StaticResource txtBoxReg}" Height="100"
+                             AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Width="300"/>
+                </StackPanel>
+                <StackPanel Margin="20">
+                    <StackPanel HorizontalAlignment="Center" Margin="10">
+                        <Label Content="QR" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
+                        <TextBox Name="txtbQR" Style="{StaticResource txtBoxReg}" Height="25"/>
+                    </StackPanel>
+                    <Image Source="\ResImages\NoPicture.png" MaxWidth="180" MaxHeight="180"
+                            HorizontalAlignment="Center" Margin="5"/>
+                    <Button Name="btnAddPicture" HorizontalAlignment="Center"
+                            Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25">
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16" Text="Добавить"/>
+                        </WrapPanel>
+                    </Button>
+                </StackPanel>
+            </UniformGrid>
+        </Grid>
+        <Grid Name="GrBottomPan" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button  Name="btnDel" Grid.Column="0" Margin="0 10 0 0"
+             Style="{StaticResource btnOpacity}" HorizontalAlignment="Left" Width="130"
+             >
+                <StackPanel>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}"
+                       HorizontalAlignment="Center" Margin="5 0"
+                       >Удалить
+                    </TextBlock>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}"
+                       HorizontalAlignment="Center" Margin="5 0"
+                       >товар
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+            <StackPanel Grid.Column="1">
+                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"/>
+                </WrapPanel>
+            </StackPanel>
+            <Button Name="btnSave" Margin="0 10 0 0" Style="{StaticResource btnColor}"
+            HorizontalAlignment="Right" Grid.Column="2" Width="130">
+                <StackPanel>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
+                       HorizontalAlignment="Center" Margin="25 0"
+                       >Сохранить
+                    </TextBlock>
+                    <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
+                       HorizontalAlignment="Center" Margin="25 0"
+                       >изменения
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </StackPanel>
+</Page>

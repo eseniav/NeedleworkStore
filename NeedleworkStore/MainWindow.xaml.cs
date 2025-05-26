@@ -102,7 +102,8 @@ namespace NeedleworkStore
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу О магазине");
+            //MessageBox.Show("Переход на страницу О магазине");
+            Mainfrm.Navigate(new AddProdPage());
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
