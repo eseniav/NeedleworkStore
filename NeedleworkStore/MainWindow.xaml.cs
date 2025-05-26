@@ -130,8 +130,7 @@ namespace NeedleworkStore
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Переход на страницу О магазине");
-            Mainfrm.Navigate(new AddProdPage());
+            MessageBox.Show("Переход на страницу О магазине");
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
@@ -217,6 +216,16 @@ namespace NeedleworkStore
             };
             foreach (var item in topMenu) item.Value.IsEnabled = true;
             if (topMenu.ContainsKey(page)) topMenu[page].IsEnabled = false;
+        }
+
+        private void btnAddProd_Click(object sender, RoutedEventArgs e)
+        {
+            Mainfrm.Navigate(new AddProdPage());
+        }
+
+        private void btnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Mainfrm.Navigate(new OrdersPage());
         }
     }
 }
