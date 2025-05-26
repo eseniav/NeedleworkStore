@@ -29,21 +29,34 @@ namespace NeedleworkStore
     {
         public static Frame frame;
         private int? _userID;
+        public int RoleID;
         List<UIElement> topMenu;
         List<UIElement> topMenuUser;
+        List<UIElement> topMenuAdmin;
+        List<UIElement> topMenuAdminUnv;
         public int? UserID {
             get => _userID;
             set {
                 _userID = value;
-
-                if(value == null)
+                RoleID = App.ctx.Users.FirstOrDefault(u => u.UserID == _userID)?.RoleID ?? 3;
+                if (value == null)
                 {
                     topMenu.ForEach(el => el.Visibility = Visibility.Collapsed);
                     topMenuUser.ForEach(el => el.Visibility = Visibility.Visible);
+                    btnAddProd.Visibility = Visibility.Collapsed;
+                    btnOrders.Visibility = Visibility.Collapsed;
                 } else
                 {
-                    topMenu.ForEach(el => el.Visibility = Visibility.Visible);
-                    topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
+                    if(RoleID == 2)
+                    {
+                        topMenu.ForEach(el => el.Visibility = Visibility.Visible);
+                        topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
+                    }
+                    if (RoleID == 1)
+                    {
+                        topMenuAdmin.ForEach(el => el.Visibility = Visibility.Visible);
+                        topMenuAdminUnv.ForEach(el => el.Visibility = Visibility.Collapsed);
+                    }
                 }
                 UpdateCartState();
                 SetUserGreeting();
@@ -66,6 +79,21 @@ namespace NeedleworkStore
                     btnReg,
                     btnAuthReg,
                 };
+            topMenuAdmin = new List<UIElement>
+            {
+                btnAddProd,
+                btnProd,
+                btnOrders,
+                btnProfile,
+                btnExit
+            };
+            topMenuAdminUnv = new List<UIElement>
+            {
+                btnShop,
+                btnCart,
+                btnReg,
+                btnAuthReg,
+            };
             frame = Mainfrm;
             UserID = null;
         }
@@ -102,8 +130,7 @@ namespace NeedleworkStore
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Переход на страницу О магазине");
-            Mainfrm.Navigate(new AddProdPage());
+            MessageBox.Show("Переход на страницу О магазине");
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
@@ -189,6 +216,16 @@ namespace NeedleworkStore
             };
             foreach (var item in topMenu) item.Value.IsEnabled = true;
             if (topMenu.ContainsKey(page)) topMenu[page].IsEnabled = false;
+        }
+
+        private void btnAddProd_Click(object sender, RoutedEventArgs e)
+        {
+            Mainfrm.Navigate(new AddProdPage());
+        }
+
+        private void btnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Mainfrm.Navigate(new OrdersPage());
         }
     }
 }
