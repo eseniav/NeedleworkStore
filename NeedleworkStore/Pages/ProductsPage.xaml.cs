@@ -45,9 +45,11 @@ namespace NeedleworkStore.Pages
             InitializeComponent();
             products = App.ctx.Products.ToList();
             myProducts = products.Select(p => new MyProducts(p)).ToList();
-            filterProducts = searchText == null ? myProducts.ToList() : myProducts.Where(p => p.ProductName.Contains(searchText)
-            || p.Designers.DesignerName.Contains(searchText)
-            || p.Description.Contains(searchText)).ToList();
+            filterProducts = searchText == null
+                ? myProducts.ToList()
+                : myProducts.Where(p => p.ProductName.Contains(searchText)
+                || p.Designers.DesignerName.Contains(searchText)
+                || p.Description.Contains(searchText)).ToList();
             ProdList.ItemsSource = filterProducts;
             ProdList.DataContext = filterProducts;
             cmbIAvail.IsSelected = true;
