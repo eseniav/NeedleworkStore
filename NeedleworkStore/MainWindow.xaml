@@ -31,6 +31,14 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Column="0" Grid.Row="0">
+                    <Button  Name="btnAddProd" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25">
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0.25"/>
+                        </Button.Background>
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Новый товар</TextBlock>
+                        </WrapPanel>
+                    </Button>
                     <Button  Name="btnShop" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnShop_Click">
                         <Button.Background>
                             <SolidColorBrush Opacity="0.25"/>
@@ -47,6 +55,14 @@
                         </WrapPanel>
                     </Button>
                 </WrapPanel>
+                <Button  Name="btnOrders" Grid.Column="1" Grid.Row="0" Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25">
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0.25"/>
+                    </Button.Background>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Заказы</TextBlock>
+                    </WrapPanel>
+                </Button>
                 <Button Name="btnCart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
                             Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnCart_Click"
                             >
