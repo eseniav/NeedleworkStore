@@ -220,7 +220,9 @@ namespace NeedleworkStore
                 { "ProductsPage", btnProd },
                 { "CartPage", btnCart },
                 { "AuthPage", btnAuthReg },
-                { "ProfilePage", btnProfile }
+                { "ProfilePage", btnProfile },
+                { "AddProdPage", btnAddProd },
+                { "OrdersPage", btnOrders },
             };
             foreach (var item in topMenu) item.Value.IsEnabled = true;
             if (topMenu.ContainsKey(page)) topMenu[page].IsEnabled = false;
