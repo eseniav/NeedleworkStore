@@ -44,11 +44,21 @@ namespace NeedleworkStore.Pages
             public int Quantity { get; set; }
             public decimal Price { get; set; }
         }
+        public void SetAdminMenu()
+        {
+            if (mainWindow.RoleID != 1)
+            {
+                wrPSort.Visibility = Visibility.Collapsed;
+                return;
+            }
+            wrPSort.Visibility = Visibility.Visible;
+        }
         public OrdersPage()
         {
             InitializeComponent();
             mainWindow.UpdateCartState();
             LoadOrders();
+            SetAdminMenu();
         }
         private void LoadOrders()
         {
