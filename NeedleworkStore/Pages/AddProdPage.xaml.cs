@@ -73,6 +73,42 @@ namespace NeedleworkStore.Pages
                 DesignerID = FilterVM.AllDesigners.GetIDs(n => n.DesignerID).FirstOrDefault(),
                 ProductTypeID = FilterVM.AllProdTypes.GetIDs(n => n.ProductTypeID).FirstOrDefault(),
             };
+            List<int> selectedNWID = FilterVM.AllProd.GetIDs(n => n.NeedleworkTypeID);
+            foreach(int id in selectedNWID)
+            {
+                product.ProductNeedleworkTypes.Add(new ProductNeedleworkTypes
+                {
+                    NeedleworkTypeID = id,
+                    Products = product,
+                });
+            }
+            List<int> selectedStitchID = FilterVM.AllStitch.GetIDs(n => n.StitchTypeID);
+            foreach (int id in selectedStitchID)
+            {
+                product.ProductStitchTypes.Add(new ProductStitchTypes
+                {
+                    StitchTypeID = id,
+                    Products = product,
+                });
+            }
+            List<int> selectedAccessoryTypesID = FilterVM.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
+            foreach (int id in selectedAccessoryTypesID)
+            {
+                product.ProductAccessoryTypes.Add(new ProductAccessoryTypes
+                {
+                    AccessoryTypeID = id,
+                    Products = product,
+                });
+            }
+            List<int> selectedThemesID = FilterVM.AllThemes.GetIDs(n => n.ThemeID);
+            foreach (int id in selectedThemesID)
+            {
+                product.ProductThemes.Add(new ProductThemes
+                {
+                    ThemeID = id,
+                    Products = product,
+                });
+            }
             try
             {
                 App.ctx.Products.Add(product);
