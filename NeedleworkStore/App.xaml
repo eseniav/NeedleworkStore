@@ -9,6 +9,31 @@
         <FontFamily x:Key="fontCakraNormal">pack://application:,,,/Fonts/#Cakra Normal</FontFamily>
         <FontFamily x:Key="fontHlobus">pack://application:,,,/Fonts/#Hlobus</FontFamily>
         <FontFamily x:Key="fontAcherusFeralBold">pack://application:,,,/Fonts/#Acherus Feral Bold</FontFamily>
+        <Style x:Key="btnClear" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#852614"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#B7CB99"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="btnOpacity" TargetType="Button">
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Margin" Value="10 0"/>
