@@ -47,5 +47,90 @@ namespace NeedleworkStore.Pages
                 return;
             }
         }
+        public bool CheckValid()
+        {
+            return true;
+        }
+        public void Clear()
+        {
+            txtAddNameProd.Clear();
+            txtbAddPriceProd.Clear();
+            txtbAdddescriptionProd.Clear();
+            txtbQR.Clear();
+            cmbAvail.SelectedIndex = -1;
+            FilterVM.Reset();
+        }
+        public void SaveProd()
+        {
+            Products product = new Products
+            {
+                ProductName = txtAddNameProd.Text,
+                ProductPrice = Int32.Parse(txtbAddPriceProd.Text),
+                Description = txtbAdddescriptionProd.Text,
+                QRLink = txtbQR.Text,
+                AvailabilityStatusID = cmbAvail.SelectedIndex == 0 ? 1 : 2,
+                ProductImage = null,
+                DesignerID = FilterVM.AllDesigners.GetIDs(n => n.DesignerID).FirstOrDefault(),
+                ProductTypeID = FilterVM.AllProdTypes.GetIDs(n => n.ProductTypeID).FirstOrDefault(),
+            };
+            List<int> selectedNWID = FilterVM.AllProd.GetIDs(n => n.NeedleworkTypeID);
+            foreach(int id in selectedNWID)
+            {
+                product.ProductNeedleworkTypes.Add(new ProductNeedleworkTypes
+                {
+                    NeedleworkTypeID = id,
+                    Products = product,
+                });
+            }
+            List<int> selectedStitchID = FilterVM.AllStitch.GetIDs(n => n.StitchTypeID);
+            foreach (int id in selectedStitchID)
+            {
+                product.ProductStitchTypes.Add(new ProductStitchTypes
+                {
+                    StitchTypeID = id,
+                    Products = product,
+                });
+            }
+            List<int> selectedAccessoryTypesID = FilterVM.AllAccessoryTypes.GetIDs(n => n.AccessoryTypeID);
+            foreach (int id in selectedAccessoryTypesID)
+            {
+                product.ProductAccessoryTypes.Add(new ProductAccessoryTypes
+                {
+                    AccessoryTypeID = id,
+                    Products = product,
+                });
+            }
+            List<int> selectedThemesID = FilterVM.AllThemes.GetIDs(n => n.ThemeID);
+            foreach (int id in selectedThemesID)
+            {
+                product.ProductThemes.Add(new ProductThemes
+                {
+                    ThemeID = id,
+                    Products = product,
+                });
+            }
+            try
+            {
+                App.ctx.Products.Add(product);
+                App.ctx.SaveChanges();
+                MessageBox.Show(
+                            "✅ Товар успешно добавлен!\n\n",
+                            "Добавление товара",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+            }
+        }
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (!CheckValid())
+                return;
+            SaveProd();
+        }
     }
 }
