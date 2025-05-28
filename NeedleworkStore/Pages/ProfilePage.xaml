@@ -58,24 +58,34 @@
                         <UniformGrid Columns="2" Rows="8">
                             <TextBlock Text="Логин:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtLog" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBox Name="boxLog" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                             <TextBlock Text="Пароль:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <WrapPanel>
                                 <TextBlock Name="txtPass" Text="********" HorizontalAlignment="Left" Width="140" Style="{StaticResource Data}"/>
+                                <TextBox Name="boxPass" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                                 <CheckBox Name="chbShowPass" VerticalAlignment="Center" Click="chbShowPass_Click"/>
-                                <TextBlock Text="Показать пароль" VerticalAlignment="Center" FontSize="12" Style="{StaticResource Type}"/>
+                                <TextBlock Name="txtShowPass" Text="Показать пароль" VerticalAlignment="Center" FontSize="12" Style="{StaticResource Type}"/>
+                                <TextBlock Name="txtRepeatPass" Text="Повторите пароль" VerticalAlignment="Center" FontSize="12" Style="{StaticResource Type}"/>
+                                <TextBox Name="boxPass2" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                             </WrapPanel>
                             <TextBlock Text="e-mail:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtEmail" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBox Name="boxEmail" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                             <TextBlock Text="Фамилия:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtLastname" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBox Name="boxLastName" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                             <TextBlock Text="Имя:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtFirstname" HorizontalAlignment="Left"  Style="{StaticResource Data}"/>
+                            <TextBox Name="boxFirstname" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                             <TextBlock Text="Отчество:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtPatr" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBox Name="boxPatr" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                             <TextBlock Text="Дата рождения:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtBirthDate" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <DatePicker Name="boxBirthDate" HorizontalAlignment="Left" Height="25" Width="150"/>
                             <TextBlock Text="Телефон:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtPhone" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
+                            <TextBox Name="boxPhone" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
                         </UniformGrid>
                     </StackPanel>
                 </GroupBox>
@@ -88,7 +98,28 @@
                         <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16" Text="редактировать"/>
                     </StackPanel>
                 </Button>
+                <Button Name="btnBackProfile" Width="140" Margin="10" Height="30"
+                        Style="{StaticResource btnColor}" Click="btnBackProfile_Click">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16" Text="назад"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Grid>
+        <StackPanel Name="BottomPanel" HorizontalAlignment="Center">
+            <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="Чтобы сохранить данные, введите пароль повторно" Margin="15"/>
+            <Button Name="btnSavechanges" Margin="0 10 0 0" Style="{StaticResource btnColor}" Click="btnSavechanges_Click">
+            <StackPanel>
+                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
+                   HorizontalAlignment="Center" Margin="25 0"
+                   >Сохранить
+                </TextBlock>
+                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
+                   HorizontalAlignment="Center" Margin="25 0"
+                   >изменения
+                </TextBlock>
+            </StackPanel>
+            </Button>
+        </StackPanel>
     </StackPanel>
 </Page>
