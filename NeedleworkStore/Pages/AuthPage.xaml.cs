@@ -13,7 +13,7 @@ using NeedleworkStore.AppData;
 namespace NeedleworkStore.Pages
 {  
     public partial class AuthPage : Page
-    {       
+    {
         public AuthPage()
         {
             InitializeComponent();
@@ -35,6 +35,7 @@ namespace NeedleworkStore.Pages
                     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
                     mainWindow.UserID = user.UserID;
                     this.NavigationService.Navigate(new ProductsPage());
+                    mainWindow.SetMenuForRoles();
                     return;
                 }
                 if (App.ctx.Users.FirstOrDefault(u => u.Login == txtLog.Text) == null)

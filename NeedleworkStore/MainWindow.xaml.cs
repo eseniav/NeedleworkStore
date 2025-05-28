@@ -30,72 +30,67 @@ namespace NeedleworkStore
         public static Frame frame;
         private int? _userID;
         public int RoleID;
-        List<UIElement> topMenu;
-        List<UIElement> topMenuUser;
-        List<UIElement> topMenuAdmin;
-        List<UIElement> topMenuAdminUnv;
         public int? UserID {
             get => _userID;
             set {
                 _userID = value;
-                RoleID = App.ctx.Users.FirstOrDefault(u => u.UserID == _userID)?.RoleID ?? 3;
-                if (value == null)
-                {
-                    topMenu.ForEach(el => el.Visibility = Visibility.Collapsed);
-                    topMenuUser.ForEach(el => el.Visibility = Visibility.Visible);
-                    btnAddProd.Visibility = Visibility.Collapsed;
-                    btnOrders.Visibility = Visibility.Collapsed;
-                } else
-                {
-                    if(RoleID == 2)
-                    {
-                        topMenu.ForEach(el => el.Visibility = Visibility.Visible);
-                        topMenuUser.ForEach(el => el.Visibility = Visibility.Collapsed);
-                    }
-                    if (RoleID == 1)
-                    {
-                        topMenuAdmin.ForEach(el => el.Visibility = Visibility.Visible);
-                        topMenuAdminUnv.ForEach(el => el.Visibility = Visibility.Collapsed);
-                    }
-                }
                 UpdateCartState();
                 SetUserGreeting();
+            }
+        }
+        public void SetMenuForRoles()
+        {
+            RoleID = App.ctx.Users.FirstOrDefault(u => u.UserID == _userID)?.RoleID ?? 3;
+            if (RoleID == 2)
+            {
+                btnAddProd.Visibility = Visibility.Collapsed;
+                btnShop.Visibility = Visibility.Visible;
+                btnOrders.Visibility = Visibility.Collapsed;
+                btnCart.Visibility = Visibility.Visible;
+                btnProfile.Visibility = Visibility.Visible;
+                btnReg.Visibility = Visibility.Collapsed;
+                btnExit.Visibility = Visibility.Visible;
+                btnAuthReg.Visibility = Visibility.Collapsed;
+                txtBlGreeting.Visibility = Visibility.Visible;
+                txtBlQuanProd.Visibility = Visibility.Visible;
+                txtBlQuan.Visibility = Visibility.Visible;
+            }
+            if (RoleID == 1)
+            {
+                btnAddProd.Visibility = Visibility.Visible;
+                btnShop.Visibility = Visibility.Collapsed;
+                btnOrders.Visibility = Visibility.Visible;
+                btnCart.Visibility = Visibility.Collapsed;
+                btnProfile.Visibility = Visibility.Visible;
+                btnReg.Visibility = Visibility.Collapsed;
+                btnExit.Visibility = Visibility.Visible;
+                btnAuthReg.Visibility = Visibility.Collapsed;
+                txtBlQuanProd.Visibility = Visibility.Collapsed;
+                txtBlQuan.Visibility = Visibility.Collapsed;
+                txtBlGreeting.Visibility = Visibility.Visible;
+            }
+            if (RoleID == 3)
+            {
+                btnAddProd.Visibility = Visibility.Collapsed;
+                btnShop.Visibility = Visibility.Visible;
+                btnOrders.Visibility = Visibility.Collapsed;
+                btnCart.Visibility = Visibility.Visible;
+                btnProfile.Visibility = Visibility.Collapsed;
+                btnReg.Visibility = Visibility.Visible;
+                btnExit.Visibility = Visibility.Collapsed;
+                btnAuthReg.Visibility = Visibility.Visible;
+                txtBlQuanProd.Visibility = Visibility.Collapsed;
+                txtBlQuan.Visibility = Visibility.Collapsed;
+                txtBlGreeting.Visibility = Visibility.Collapsed;
             }
         }
         public bool IsAuthenticated => UserID != null;
         public MainWindow()
         {
             InitializeComponent();
-            topMenu = new List<UIElement> {
-                    btnProfile,
-                    btnExit,
-                    txtBlQuanProd,
-                    txtBlQuan,
-                    txtBlGreeting,
-                    txtblUserName,
-                };
-            topMenuUser = new List<UIElement>
-                {
-                    btnReg,
-                    btnAuthReg,
-                };
-            topMenuAdmin = new List<UIElement>
-            {
-                btnAddProd,
-                btnProd,
-                btnOrders,
-                btnProfile,
-                btnExit
-            };
-            topMenuAdminUnv = new List<UIElement>
-            {
-                btnShop,
-                btnCart,
-                btnReg,
-                btnAuthReg,
-            };
             frame = Mainfrm;
             UserID = null;
+            SetMenuForRoles();
         }
         public void UpdateCartState()
         {
@@ -142,6 +137,7 @@ namespace NeedleworkStore
         {
             UserID = null;
             Mainfrm.Navigate(new AuthPage());
+            SetMenuForRoles();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
