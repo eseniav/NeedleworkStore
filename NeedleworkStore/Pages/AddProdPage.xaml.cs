@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static NeedleworkStore.Pages.ProductsPage;
 
 namespace NeedleworkStore.Pages
 {
@@ -22,7 +23,7 @@ namespace NeedleworkStore.Pages
     public partial class AddProdPage : Page
     {
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
-        public AddProdPage()
+        public AddProdPage(MyProducts selectedProduct = null)
         {
             InitializeComponent();
             DataContext = this;
