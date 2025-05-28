@@ -47,5 +47,54 @@ namespace NeedleworkStore.Pages
                 return;
             }
         }
+        public bool CheckValid()
+        {
+            return true;
+        }
+        public void Clear()
+        {
+            txtAddNameProd.Clear();
+            txtbAddPriceProd.Clear();
+            txtbAdddescriptionProd.Clear();
+            txtbQR.Clear();
+            cmbAvail.SelectedIndex = -1;
+            FilterVM.Reset();
+        }
+        public void SaveProd()
+        {
+            Products product = new Products
+            {
+                ProductName = txtAddNameProd.Text,
+                ProductPrice = Int32.Parse(txtbAddPriceProd.Text),
+                Description = txtbAdddescriptionProd.Text,
+                QRLink = txtbQR.Text,
+                AvailabilityStatusID = cmbAvail.SelectedIndex == 0 ? 1 : 2,
+                ProductImage = null,
+                DesignerID = FilterVM.AllDesigners.GetIDs(n => n.DesignerID).FirstOrDefault(),
+                ProductTypeID = FilterVM.AllProdTypes.GetIDs(n => n.ProductTypeID).FirstOrDefault(),
+            };
+            try
+            {
+                App.ctx.Products.Add(product);
+                App.ctx.SaveChanges();
+                MessageBox.Show(
+                            "✅ Товар успешно добавлен!\n\n",
+                            "Добавление товара",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+            }
+        }
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (!CheckValid())
+                return;
+            SaveProd();
+        }
     }
 }
