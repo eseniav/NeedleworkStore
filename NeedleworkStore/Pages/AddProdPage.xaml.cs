@@ -1,4 +1,5 @@
-﻿using NeedleworkStore.UCElements;
+﻿using NeedleworkStore.AppData;
+using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static NeedleworkStore.Pages.ProductsPage;
 
 namespace NeedleworkStore.Pages
 {
@@ -21,11 +23,29 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class AddProdPage : Page
     {
+        Products prod;
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
-        public AddProdPage()
+        public void SetProduct()
+        {
+            txtAddNameProd.Text = prod.ProductName;
+            txtbAddPriceProd.Text = prod.ProductPrice.ToString();
+            txtbAdddescriptionProd.Text = prod.Description;
+            txtbQR.Text = prod.QRLink;
+            if(prod.AvailabilityStatusID == 1)
+                cmbAvailYes.IsSelected = true;
+            else
+                cmbAvailNo.IsSelected = true;
+        }
+        public AddProdPage(MyProducts selectedProduct = null)
         {
             InitializeComponent();
             DataContext = this;
+            prod = selectedProduct;
+            if (prod != null)
+            {
+                SetProduct();
+                return;
+            }
         }
     }
 }

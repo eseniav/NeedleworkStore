@@ -29,20 +29,37 @@ namespace NeedleworkStore.Pages
         List<MyProducts> myProducts;
         private List<MyProducts> filterProducts;
         string sortCrit = "cmbIAvail";
-        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        MainWindow mainWindow;
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         public class MyProducts : Products
         {
+            private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
             public MyProducts(Products p)
             {
                 foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
+                UpdateButtonTexts();
             }
             public string ImagePath => "/ProdImages/" + ProductImage;
+            public string ButtonTextCart { get; set; }
+            public string ButtonTextFav { get; set; }
+            public void UpdateButtonTexts()
+            {
+                ButtonTextCart = _mainWindow.RoleID != 1 ? "В корзину" : "Редактировать";
+                ButtonTextFav = _mainWindow.RoleID != 1 ? "В избранное" : "Удалить";
+            }
         }
-
+        public void UpdateButtonsForRole()
+        {
+            foreach (var product in myProducts)
+            {
+                product.UpdateButtonTexts();
+            }
+            ProdList.Items.Refresh();
+        }
         public ProductsPage(string searchText = null)
         {
             InitializeComponent();
+            mainWindow = (MainWindow)Application.Current.MainWindow;
             products = App.ctx.Products.ToList();
             myProducts = products.Select(p => new MyProducts(p)).ToList();
             filterProducts = searchText == null
@@ -55,6 +72,8 @@ namespace NeedleworkStore.Pages
             cmbIAvail.IsSelected = true;
             DataContext = this;
             SetInfoForEmptyList();
+            mainWindow.SetMenuForRoles();
+            UpdateButtonsForRole();
         }
         private void ShowAddedPopup()
         {
@@ -74,6 +93,11 @@ namespace NeedleworkStore.Pages
         {
             try
             {
+                if(mainWindow.RoleID == 1)
+                {
+                    this.NavigationService.Navigate(new AddProdPage(selectedProduct));
+                    return;
+                }
                 Carts existingCartItem = App.ctx.Carts
                     .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
                 if (existingCartItem?.QuantityCart == Carts.maxItemCopacity)
@@ -153,7 +177,29 @@ namespace NeedleworkStore.Pages
         {
             this.NavigationService.Navigate(new OneProductPage());
         }
-
+        public void AddInFav(MyProducts selectedProduct)
+        {
+            if (mainWindow.RoleID == 1)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Удалить выбранный товар из корзины?",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (msgInf != MessageBoxResult.Yes)
+                    return;
+                App.ctx.Products.Remove(selectedProduct);
+                try
+                {
+                    App.ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                    return;
+                }
+                ProdList.Items.Refresh();
+                return;
+            }
+        }
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
             // @TODO: Add to favorites
@@ -168,6 +214,7 @@ namespace NeedleworkStore.Pages
 
             popup.IsOpen = true;
             timer.Start();
+            AddInFav((MyProducts)((Button)sender).DataContext);
         }
         private List<MyProducts> GetFilteredProd(List<MyProducts> myPr, ProductFilterViewModel filter)
         {
