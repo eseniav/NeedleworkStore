@@ -27,7 +27,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <StackPanel HorizontalAlignment="Center" Grid.Column="0">
+            <StackPanel Name="LeftPanel" HorizontalAlignment="Center" Grid.Column="0">
                 <Button Name="btnFav" MinWidth="100" MaxWidth="120" Margin="10"
                     Style="{StaticResource btnColor}" Click="btnFav_Click"
                 >

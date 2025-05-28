@@ -47,11 +47,13 @@ namespace NeedleworkStore.Pages
                 textBlock.Foreground = string.IsNullOrEmpty(item.Value) ? defaultColor : textBlock.Foreground;
             }
         }
+        public void SetAdminPanel() => LeftPanel.Visibility = mainWindow.RoleID == 1 ? Visibility.Hidden : Visibility.Visible;
         public ProfilePage()
         {
             InitializeComponent();
             user = App.ctx.Users.FirstOrDefault(u => u.UserID == mainWindow.UserID);
             SetProfileValues();
+            SetAdminPanel();
         }
         private void btnFav_Click(object sender, RoutedEventArgs e)
         {
