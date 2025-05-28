@@ -49,7 +49,13 @@ namespace NeedleworkStore.Pages
         }
         public bool CheckValid()
         {
-            return true;
+            return !string.IsNullOrEmpty(txtAddNameProd.Text) &&
+                !string.IsNullOrEmpty(txtbAdddescriptionProd.Text) &&
+                !string.IsNullOrEmpty(txtbAddPriceProd.Text) &&
+                txtbAddPriceProd.Text.All(char.IsDigit) &&
+                FilterVM.AllDesigners.Items.Any(x => x.IsChecked) &&
+                FilterVM.AllProdTypes.Items.Any(x => x.IsChecked) &&
+                cmbAvail.SelectedIndex != -1;
         }
         public void Clear()
         {
@@ -129,7 +135,15 @@ namespace NeedleworkStore.Pages
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckValid())
+            {
+                MessageBox.Show(
+                            "Проверьте данные в обязательных полях!\n\n",
+                            "Предупреждение",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning
+                        );
                 return;
+            }
             SaveProd();
         }
     }
