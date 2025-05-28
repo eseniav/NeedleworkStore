@@ -13,6 +13,9 @@
         Background="#B7CB99"
         Icon="ResImages\1675591832_papik-pro-p-katushka-nitok-risunok-44.jpg"
         >
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVis"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -96,7 +99,12 @@
                             <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16">Войти</TextBlock>
                         </WrapPanel>
                     </Button>
-                    <TextBox Name="txtSearch" MinWidth="100" MaxHeight="20"></TextBox>
+                    <Grid>
+                        <TextBox Name="txtSearch" Width="100" Height="25" Padding="0 0 20 0" VerticalContentAlignment="Center"
+                                 Text="{Binding Path=SearchTxt, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Name="btnClear" Content="✕" Style="{StaticResource btnClear}"
+                                Visibility="{Binding IsSearchText, Converter={StaticResource boolToVis}}" Click="btnClear_Click"/>
+                    </Grid>
                     <Button Name="btnSearch" Style="{StaticResource btnOpacity}" 
                             HorizontalAlignment="Right" MaxWidth="120" Height="25" Click="btnSearch_Click"
                             >

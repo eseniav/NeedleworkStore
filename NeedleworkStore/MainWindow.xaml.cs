@@ -4,6 +4,7 @@ using NeedleworkStore.Pages;
 using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,31 @@ namespace NeedleworkStore
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     ///
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public static Frame frame;
         private int? _userID;
         public int RoleID;
+        private string searchTxt;
+        public string SearchTxt
+        {
+            get => searchTxt;
+            set
+            {
+                if (value == searchTxt)
+                    return;
+                searchTxt = value;
+                OnPropertyChanged(nameof(SearchTxt));
+                OnPropertyChanged(nameof(IsSearchText));
+            }
+        }
+        public bool IsSearchText => !string.IsNullOrEmpty(SearchTxt);
         public int? UserID {
             get => _userID;
             set {
@@ -89,6 +110,7 @@ namespace NeedleworkStore
             frame = Mainfrm;
             UserID = null;
             SetMenuForRoles();
+            DataContext = this;
         }
         public void UpdateCartState()
         {
@@ -140,12 +162,7 @@ namespace NeedleworkStore
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if(!CheckValidation.CheckEmptyNull(txtSearch.Text))
-            {
-                MessageBox.Show("Заполните поле!");
-                return;
-            }
-            Mainfrm.Navigate(new ProductsPage(txtSearch.Text));
+            Mainfrm.Navigate(new ProductsPage(SearchTxt));
         }
         private void btnProd_Click(object sender, RoutedEventArgs e)
         {
@@ -217,6 +234,12 @@ namespace NeedleworkStore
         private void btnOrders_Click(object sender, RoutedEventArgs e)
         {
             Mainfrm.Navigate(new OrdersPage());
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTxt = string.Empty;
+            txtSearch.Focus();
         }
     }
 }
