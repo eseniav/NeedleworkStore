@@ -177,7 +177,29 @@ namespace NeedleworkStore.Pages
         {
             this.NavigationService.Navigate(new OneProductPage());
         }
-
+        public void AddInFav(MyProducts selectedProduct)
+        {
+            if (mainWindow.RoleID == 1)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Удалить выбранный товар из корзины?",
+                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (msgInf != MessageBoxResult.Yes)
+                    return;
+                App.ctx.Products.Remove(selectedProduct);
+                try
+                {
+                    App.ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                    return;
+                }
+                ProdList.Items.Refresh();
+                return;
+            }
+        }
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
             // @TODO: Add to favorites
@@ -192,6 +214,7 @@ namespace NeedleworkStore.Pages
 
             popup.IsOpen = true;
             timer.Start();
+            AddInFav((MyProducts)((Button)sender).DataContext);
         }
         private List<MyProducts> GetFilteredProd(List<MyProducts> myPr, ProductFilterViewModel filter)
         {
