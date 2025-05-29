@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,13 +42,42 @@ namespace NeedleworkStore.Pages
                 get
                 {
                     if (!_mainWindow.IsAuthenticated)
-                        return Visibility.Hidden;
+                        return Visibility.Collapsed;
 
                     return App.ctx.Favourities.Any(f =>
+                       f.UserID == _mainWindow.UserID &&
+                       f.ProductID == ProductID)
+                   ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+            public Visibility NotFavoriteIconVisibility
+            {
+                get
+                {
+                    if (!_mainWindow.IsAuthenticated)
+                        return Visibility.Visible;
+
+                    return !App.ctx.Favourities.Any(f =>
                         f.UserID == _mainWindow.UserID &&
                         f.ProductID == ProductID)
                         ? Visibility.Visible
-                        : Visibility.Hidden;
+                        : Visibility.Collapsed;
+                }
+            }
+            public BitmapImage InFavImage
+            {
+                get
+                {
+                    var uri = new Uri("pack://application:,,,/NeedleworkStore;component/ResImages/inFav.png", UriKind.Absolute);
+                    return new BitmapImage(uri);
+                }
+            }
+            public BitmapImage NoFavImage
+            {
+                get
+                {
+                    var uri = new Uri("pack://application:,,,/NeedleworkStore;component/ResImages/noFav.png", UriKind.Absolute);
+                    return new BitmapImage(uri);
                 }
             }
             public MyProducts(Products p, bool prPage)

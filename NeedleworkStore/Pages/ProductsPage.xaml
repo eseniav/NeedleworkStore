@@ -29,6 +29,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Page.Resources>
     <Grid  Margin="10">
         <Grid.ColumnDefinitions>
@@ -102,11 +103,11 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Grid.Row="0">
-                                        <WrapPanel HorizontalAlignment="Right">
-                                            <Image Source="\ResImages\InFav.png" MaxWidth="15" Visibility="{Binding FavoriteIconVisibility}"
-                                                   Margin="0 7 0 0"/>
-                                            <Image Source="\ResImages\noFav.png" MaxWidth="15" Visibility="{Binding FavoriteIconVisibility}"
-                                                   Margin="0 7 0 0"/>
+                                        <WrapPanel HorizontalAlignment="Right" Margin="0 7 0 0" Height="20">
+                                            <Image Source="{Binding InFavImage}" Width="15" Stretch="Uniform"
+                                                   Visibility="{Binding FavoriteIconVisibility, Converter={StaticResource BoolToVis}}"/>
+                                            <Image Source="{Binding NoFavImage}" Width="15" Stretch="Uniform"
+                                                   Visibility="{Binding NotFavoriteIconVisibility, Converter={StaticResource BoolToVis}}"/>
                                         </WrapPanel>
                                         <Image Source="{Binding ImagePath}" MaxWidth="180" MaxHeight="180"
                                                HorizontalAlignment="Right" Margin="20 0"
