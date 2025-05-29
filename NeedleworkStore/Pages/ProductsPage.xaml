@@ -104,10 +104,10 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Grid.Row="0">
                                         <WrapPanel HorizontalAlignment="Right" Margin="0 7 0 0" Height="20">
-                                            <Image Source="{Binding InFavImage}" Width="15" Stretch="Uniform"
-                                                   Visibility="{Binding FavoriteIconVisibility, Converter={StaticResource BoolToVis}}"/>
-                                            <Image Source="{Binding NoFavImage}" Width="15" Stretch="Uniform"
-                                                   Visibility="{Binding NotFavoriteIconVisibility, Converter={StaticResource BoolToVis}}"/>
+                                            <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform"
+                                                    Visibility="{Binding FavoriteIconVisibility, Converter={StaticResource BoolToVis}}"/>
+                                            <Image Source="/ResImages/noFav.png" Width="15" Stretch="Uniform"
+                                                    Visibility="{Binding NotFavoriteIconVisibility, Converter={StaticResource BoolToVis}}"/>
                                         </WrapPanel>
                                         <Image Source="{Binding ImagePath}" MaxWidth="180" MaxHeight="180"
                                                HorizontalAlignment="Right" Margin="20 0"

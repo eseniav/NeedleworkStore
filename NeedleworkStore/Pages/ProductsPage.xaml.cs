@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -33,56 +34,55 @@ namespace NeedleworkStore.Pages
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public bool IsProdPage { get; set; }
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
-        public class MyProducts : Products
+        public class MyProducts : Products, INotifyPropertyChanged
         {
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
             private readonly bool _isProdPage;
+            private Visibility _favoriteIconVisibility;
+            private Visibility _notFavoriteIconVisibility;
             public Visibility FavoriteIconVisibility
             {
                 get
                 {
-                    if (!_mainWindow.IsAuthenticated)
-                        return Visibility.Collapsed;
+                    bool isFavorite = _mainWindow.IsAuthenticated &&
+                                    App.ctx.Favourities.Any(f =>
+                                        f.UserID == _mainWindow.UserID &&
+                                        f.ProductID == ProductID);
 
-                    return App.ctx.Favourities.Any(f =>
-                       f.UserID == _mainWindow.UserID &&
-                       f.ProductID == ProductID)
-                   ? Visibility.Visible : Visibility.Collapsed;
+                    return isFavorite ? Visibility.Visible : Visibility.Collapsed;
                 }
+                set => _favoriteIconVisibility = value;
             }
+
             public Visibility NotFavoriteIconVisibility
             {
                 get
                 {
-                    if (!_mainWindow.IsAuthenticated)
-                        return Visibility.Visible;
+                    bool isNotFavorite = !_mainWindow.IsAuthenticated ||
+                                       !App.ctx.Favourities.Any(f =>
+                                           f.UserID == _mainWindow.UserID &&
+                                           f.ProductID == ProductID);
 
-                    return !App.ctx.Favourities.Any(f =>
-                        f.UserID == _mainWindow.UserID &&
-                        f.ProductID == ProductID)
-                        ? Visibility.Visible
-                        : Visibility.Collapsed;
+                    return isNotFavorite ? Visibility.Visible : Visibility.Collapsed;
                 }
+                set => _notFavoriteIconVisibility = value;
             }
-            public BitmapImage InFavImage
+            public void RefreshFavorites()
             {
-                get
-                {
-                    var uri = new Uri("pack://application:,,,/NeedleworkStore;component/ResImages/inFav.png", UriKind.Absolute);
-                    return new BitmapImage(uri);
-                }
-            }
-            public BitmapImage NoFavImage
-            {
-                get
-                {
-                    var uri = new Uri("pack://application:,,,/NeedleworkStore;component/ResImages/noFav.png", UriKind.Absolute);
-                    return new BitmapImage(uri);
-                }
+                OnPropertyChanged(nameof(FavoriteIconVisibility));
+                OnPropertyChanged(nameof(NotFavoriteIconVisibility));
             }
             public MyProducts(Products p, bool prPage)
             {
                 foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
+
+                FavoriteIconVisibility = Visibility.Collapsed;
+                NotFavoriteIconVisibility = Visibility.Visible;
                 UpdateButtonTexts();
                 _isProdPage = prPage;
             }
@@ -273,6 +273,7 @@ namespace NeedleworkStore.Pages
                     {
                         App.ctx.SaveChanges();
                         MessageBox.Show("Товар удален из избранного", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                        selectedProduct.RefreshFavorites();
                     }
                     catch (Exception ex)
                     {
@@ -297,6 +298,7 @@ namespace NeedleworkStore.Pages
                 };
                 App.ctx.Favourities.Add(newprodInFav);
                 App.ctx.SaveChanges();
+                selectedProduct.RefreshFavorites();
                 ShowAddedPopup(2);
         }
             catch (Exception ex)
