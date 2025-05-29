@@ -75,9 +75,9 @@ namespace NeedleworkStore.Pages
             mainWindow.SetMenuForRoles();
             UpdateButtonsForRole();
         }
-        private void ShowAddedPopup()
+        private void ShowAddedPopup(int type)
         {
-            txtBlPopup.Text = "Товар добавлен в корзину";
+            txtBlPopup.Text = type == 1 ? "Товар добавлен в корзину" : "Товар добавлен в избранное";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
@@ -120,7 +120,7 @@ namespace NeedleworkStore.Pages
                 }
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                ShowAddedPopup();
+                ShowAddedPopup(1);
             }
             catch (Exception ex)
             {
@@ -179,41 +179,62 @@ namespace NeedleworkStore.Pages
         }
         public void AddInFav(MyProducts selectedProduct)
         {
-            if (mainWindow.RoleID == 1)
+            try
             {
-                MessageBoxResult msgInf = MessageBox.Show
-                    ("Удалить выбранный товар из корзины?",
-                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (msgInf != MessageBoxResult.Yes)
-                    return;
-                App.ctx.Products.Remove(selectedProduct);
-                try
+                if (mainWindow.RoleID == 1)
                 {
-                    App.ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                    MessageBoxResult msgInf = MessageBox.Show
+                        ("Удалить выбранный товар из корзины?",
+                        "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (msgInf != MessageBoxResult.Yes)
+                        return;
+                    App.ctx.Products.Remove(selectedProduct);
+                    try
+                    {
+                        App.ctx.SaveChanges();
+                        ProdList.Items.Refresh();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                        return;
+                    }
+                    ProdList.Items.Refresh();
                     return;
                 }
-                ProdList.Items.Refresh();
-                return;
+                bool alreadyInFavorites = App.ctx.Favourities
+                                         .Any(f => f.UserID == mainWindow.UserID && f.ProductID == selectedProduct.ProductID);
+                if (alreadyInFavorites)
+                {
+                    MessageBox.Show("Товар уже есть в избранном",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                Favourities newprodInFav = new Favourities
+                {
+                    UserID = (int)mainWindow.UserID,
+                    ProductID = selectedProduct.ProductID,
+                };
+                App.ctx.Favourities.Add(newprodInFav);
+                App.ctx.SaveChanges();
+                ShowAddedPopup(2);
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
-            // @TODO: Add to favorites
-            txtBlPopup.Text = "Товар добавлен в избранное";
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            if (!mainWindow.IsAuthenticated)
             {
-                popup.IsOpen = false;
-                timer.Stop();
-            };
-
-            popup.IsOpen = true;
-            timer.Start();
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в избранное могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
             AddInFav((MyProducts)((Button)sender).DataContext);
         }
         private List<MyProducts> GetFilteredProd(List<MyProducts> myPr, ProductFilterViewModel filter)
