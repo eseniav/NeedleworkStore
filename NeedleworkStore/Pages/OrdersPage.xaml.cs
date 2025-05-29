@@ -25,6 +25,7 @@ namespace NeedleworkStore.Pages
     public partial class OrdersPage : Page
     {
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
         public class OrderViewModel
         {
             public int OrderID { get; set; }
@@ -60,7 +61,52 @@ namespace NeedleworkStore.Pages
             LoadOrders();
             SetAdminMenu();
             mainWindow.btnProd.IsEnabled = true;
+            DataContext = this;
         }
+        private void LoadOrdersByAdmin(int orderID)
+        {
+            try
+            {
+                List<OrderViewModel> orders = App.ctx.Orders
+                    .Where(o => o.OrderID == orderID)
+                    .ToList()
+                    .Select(o => new OrderViewModel
+                    {
+                        OrderID = o.OrderID,
+                        FormationDate = o.FormationDate,
+                        PickUpPointAddress = o.PickUpPoints?.Adress ?? "Адрес не указан",
+                        Items = o.OrderCompositions?.Select(oc => new OrderItemViewModel
+                        {
+                            ProductName = oc.Products?.ProductName ?? "Товар не найден",
+                            DesignName = oc.Products?.Designers?.DesignerName ?? "Производитель не указан",
+                            Quantity = oc.Quantity,
+                            Price = oc.OrderPrice
+                        }).ToList() ?? new List<OrderItemViewModel>(),
+                        PaymentStatus = o.AssigningStatuses?.FirstOrDefault()?.PaymentStatuses?.PaymentStatus ?? "Не определен",
+                        ProcessingStatus = o.AssigningStatuses?.FirstOrDefault()?.ProcessingStatuses?.ProcessingStatus ?? "Не определен",
+                        ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
+                    }).ToList();
+
+                ICorders.ItemsSource = orders;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}");
+            }
+        }
+
+        private void cmbOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (mainWindow.RoleID == 1 && cmbOrders.SelectedItem != null)
+            {
+                var selectedOrder = cmbOrders.SelectedItem as Orders;
+                if (selectedOrder != null)
+                {
+                    LoadOrdersByAdmin(selectedOrder.OrderID);
+                }
+            }
+        }
+
         private void LoadOrders()
         {
             try

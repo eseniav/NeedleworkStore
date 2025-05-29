@@ -9,8 +9,17 @@
     <StackPanel>
         <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 10">
             <TextBlock Style="{StaticResource ChakraTB}" Text="Номер заказа"/>
-            <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130">
-                <ComboBoxItem FontFamily="Cakra Normal" Foreground="#2A3759" Content="" Margin="5"/>
+            <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}" SelectionChanged="cmbOrders_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock Text="{Binding OrderID}"
+                      FontFamily="Cakra Normal"
+                      Foreground="#2A3759"
+                      Margin="5"/>
+                        </ScrollViewer>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
         </WrapPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800" Margin="10">
