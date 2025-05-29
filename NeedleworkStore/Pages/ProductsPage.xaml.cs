@@ -30,6 +30,7 @@ namespace NeedleworkStore.Pages
         private List<MyProducts> filterProducts;
         string sortCrit = "cmbIAvail";
         MainWindow mainWindow;
+        public bool IsProdPage { get; set; }
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         public class MyProducts : Products
         {
@@ -56,11 +57,23 @@ namespace NeedleworkStore.Pages
             }
             ProdList.Items.Refresh();
         }
-        public ProductsPage(string searchText = null)
+        public ProductsPage(string searchText = null, bool prodPage = true)
         {
             InitializeComponent();
             mainWindow = (MainWindow)Application.Current.MainWindow;
-            products = App.ctx.Products.ToList();
+            IsProdPage = prodPage;
+            if (!IsProdPage)
+            {
+                var favoriteProductIds = App.ctx.Favourities.Where(f => f.UserID == mainWindow.UserID)
+                                        .Select(f => f.ProductID).ToList();
+                products = App.ctx.Products.Where(p => favoriteProductIds.Contains(p.ProductID)).ToList();
+                mainWindow.btnProd.IsEnabled = true;
+            }
+            else
+            {
+                products = App.ctx.Products.ToList();
+                mainWindow.btnProd.IsEnabled = false;
+            }
             myProducts = products.Select(p => new MyProducts(p)).ToList();
             filterProducts = searchText == null
                 ? myProducts.ToList()
@@ -184,7 +197,7 @@ namespace NeedleworkStore.Pages
                 if (mainWindow.RoleID == 1)
                 {
                     MessageBoxResult msgInf = MessageBox.Show
-                        ("Удалить выбранный товар из корзины?",
+                        ("Удалить выбранный товар?",
                         "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (msgInf != MessageBoxResult.Yes)
                         return;
@@ -193,6 +206,28 @@ namespace NeedleworkStore.Pages
                     {
                         App.ctx.SaveChanges();
                         ProdList.Items.Refresh();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                        return;
+                    }
+                    ProdList.Items.Refresh();
+                    return;
+                }
+                if(!IsProdPage)
+                {
+                    MessageBoxResult msgInf = MessageBox.Show
+                        ("Удалить выбранный товар из избранного?",
+                        "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (msgInf != MessageBoxResult.Yes)
+                        return;
+                    Favourities delFav = App.ctx.Favourities.Where(f => f.ProductID == selectedProduct.ProductID).FirstOrDefault();
+                    App.ctx.Favourities.Remove(delFav);
+                    try
+                    {
+                        App.ctx.SaveChanges();
+                        MessageBox.Show("Товар удален из избранного", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
@@ -321,6 +356,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
+            stPEmpty.Visibility = Visibility.Collapsed;
             ResetFilter();
         }
         private void SetInfoForEmptyList()
@@ -330,7 +366,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ProductsPage());
+            this.NavigationService.Navigate(new ProductsPage(null, IsProdPage));
         }
     }
 }

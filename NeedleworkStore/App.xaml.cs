@@ -18,7 +18,6 @@ namespace NeedleworkStore
     public partial class App : Application
     {
         public static NeedleworkStoreEntities ctx = new NeedleworkStoreEntities();
-
         public App()
         {
             var culture = new CultureInfo("ru-RU");

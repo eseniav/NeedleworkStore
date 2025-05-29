@@ -217,7 +217,6 @@ namespace NeedleworkStore
             Dictionary<string, Button> topMenu = new Dictionary<string, Button>
             {
                 { "RegistrationPage", btnReg },
-                { "ProductsPage", btnProd },
                 { "CartPage", btnCart },
                 { "AuthPage", btnAuthReg },
                 { "ProfilePage", btnProfile },

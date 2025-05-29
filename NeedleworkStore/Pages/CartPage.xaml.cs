@@ -59,6 +59,7 @@ namespace NeedleworkStore.Pages{
             saveTimer = new DispatcherTimer();
             saveTimer.Interval = TimeSpan.FromMilliseconds(500);
             saveTimer.Tick += OnSaveCart;
+            mainWindow.btnProd.IsEnabled = true;
         }
         private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
