@@ -35,10 +35,12 @@ namespace NeedleworkStore.Pages
         public class MyProducts : Products
         {
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
-            public MyProducts(Products p)
+            private readonly bool _isProdPage;
+            public MyProducts(Products p, bool prPage)
             {
                 foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
                 UpdateButtonTexts();
+                _isProdPage = prPage;
             }
             public string ImagePath => "/ProdImages/" + ProductImage;
             public string ButtonTextCart { get; set; }
@@ -46,7 +48,7 @@ namespace NeedleworkStore.Pages
             public void UpdateButtonTexts()
             {
                 ButtonTextCart = _mainWindow.RoleID != 1 ? "В корзину" : "Редактировать";
-                ButtonTextFav = _mainWindow.RoleID != 1 ? "В избранное" : "Удалить";
+                ButtonTextFav = (_mainWindow.RoleID == 1 || !_isProdPage) ? "Удалить" : "В избранное";
             }
         }
         public void UpdateButtonsForRole()
@@ -74,7 +76,7 @@ namespace NeedleworkStore.Pages
                 products = App.ctx.Products.ToList();
                 mainWindow.btnProd.IsEnabled = false;
             }
-            myProducts = products.Select(p => new MyProducts(p)).ToList();
+            myProducts = products.Select(p => new MyProducts(p, IsProdPage)).ToList();
             filterProducts = searchText == null
                 ? myProducts.ToList()
                 : myProducts.Where(p => p.ProductName.ToLower().Contains(searchText.ToLower())
