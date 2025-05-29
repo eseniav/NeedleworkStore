@@ -29,13 +29,27 @@ namespace NeedleworkStore.Pages
         List<MyProducts> myProducts;
         private List<MyProducts> filterProducts;
         string sortCrit = "cmbIAvail";
-        MainWindow mainWindow;
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public bool IsProdPage { get; set; }
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         public class MyProducts : Products
         {
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
             private readonly bool _isProdPage;
+            public Visibility FavoriteIconVisibility
+            {
+                get
+                {
+                    if (!_mainWindow.IsAuthenticated)
+                        return Visibility.Hidden;
+
+                    return App.ctx.Favourities.Any(f =>
+                        f.UserID == _mainWindow.UserID &&
+                        f.ProductID == ProductID)
+                        ? Visibility.Visible
+                        : Visibility.Hidden;
+                }
+            }
             public MyProducts(Products p, bool prPage)
             {
                 foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
@@ -62,7 +76,6 @@ namespace NeedleworkStore.Pages
         public ProductsPage(string searchText = null, bool prodPage = true)
         {
             InitializeComponent();
-            mainWindow = (MainWindow)Application.Current.MainWindow;
             IsProdPage = prodPage;
             if (!IsProdPage)
             {
