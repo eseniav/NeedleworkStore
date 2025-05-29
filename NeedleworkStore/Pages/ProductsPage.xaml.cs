@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,15 +31,60 @@ namespace NeedleworkStore.Pages
         List<MyProducts> myProducts;
         private List<MyProducts> filterProducts;
         string sortCrit = "cmbIAvail";
-        MainWindow mainWindow;
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public bool IsProdPage { get; set; }
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
-        public class MyProducts : Products
+        public class MyProducts : Products, INotifyPropertyChanged
         {
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
-            public MyProducts(Products p)
+            private readonly bool _isProdPage;
+            private Visibility _favoriteIconVisibility;
+            private Visibility _notFavoriteIconVisibility;
+            public Visibility FavoriteIconVisibility
+            {
+                get
+                {
+                    bool isFavorite = _mainWindow.IsAuthenticated &&
+                                    App.ctx.Favourities.Any(f =>
+                                        f.UserID == _mainWindow.UserID &&
+                                        f.ProductID == ProductID);
+
+                    return isFavorite ? Visibility.Visible : Visibility.Collapsed;
+                }
+                set => _favoriteIconVisibility = value;
+            }
+
+            public Visibility NotFavoriteIconVisibility
+            {
+                get
+                {
+                    bool isNotFavorite = !_mainWindow.IsAuthenticated ||
+                                       !App.ctx.Favourities.Any(f =>
+                                           f.UserID == _mainWindow.UserID &&
+                                           f.ProductID == ProductID);
+
+                    return isNotFavorite ? Visibility.Visible : Visibility.Collapsed;
+                }
+                set => _notFavoriteIconVisibility = value;
+            }
+            public void RefreshFavorites()
+            {
+                OnPropertyChanged(nameof(FavoriteIconVisibility));
+                OnPropertyChanged(nameof(NotFavoriteIconVisibility));
+            }
+            public MyProducts(Products p, bool prPage)
             {
                 foreach (var property in typeof(Products).GetProperties()) property.SetValue(this, property.GetValue(p));
+
+                FavoriteIconVisibility = Visibility.Collapsed;
+                NotFavoriteIconVisibility = Visibility.Visible;
                 UpdateButtonTexts();
+                _isProdPage = prPage;
             }
             public string ImagePath => "/ProdImages/" + ProductImage;
             public string ButtonTextCart { get; set; }
@@ -45,7 +92,7 @@ namespace NeedleworkStore.Pages
             public void UpdateButtonTexts()
             {
                 ButtonTextCart = _mainWindow.RoleID != 1 ? "В корзину" : "Редактировать";
-                ButtonTextFav = _mainWindow.RoleID != 1 ? "В избранное" : "Удалить";
+                ButtonTextFav = (_mainWindow.RoleID == 1 || !_isProdPage) ? "Удалить" : "В избранное";
             }
         }
         public void UpdateButtonsForRole()
@@ -56,12 +103,23 @@ namespace NeedleworkStore.Pages
             }
             ProdList.Items.Refresh();
         }
-        public ProductsPage(string searchText = null)
+        public ProductsPage(string searchText = null, bool prodPage = true)
         {
             InitializeComponent();
-            mainWindow = (MainWindow)Application.Current.MainWindow;
-            products = App.ctx.Products.ToList();
-            myProducts = products.Select(p => new MyProducts(p)).ToList();
+            IsProdPage = prodPage;
+            if (!IsProdPage)
+            {
+                var favoriteProductIds = App.ctx.Favourities.Where(f => f.UserID == mainWindow.UserID)
+                                        .Select(f => f.ProductID).ToList();
+                products = App.ctx.Products.Where(p => favoriteProductIds.Contains(p.ProductID)).ToList();
+                mainWindow.btnProd.IsEnabled = true;
+            }
+            else
+            {
+                products = App.ctx.Products.ToList();
+                mainWindow.btnProd.IsEnabled = false;
+            }
+            myProducts = products.Select(p => new MyProducts(p, IsProdPage)).ToList();
             filterProducts = searchText == null
                 ? myProducts.ToList()
                 : myProducts.Where(p => p.ProductName.ToLower().Contains(searchText.ToLower())
@@ -75,9 +133,9 @@ namespace NeedleworkStore.Pages
             mainWindow.SetMenuForRoles();
             UpdateButtonsForRole();
         }
-        private void ShowAddedPopup()
+        private void ShowAddedPopup(int type)
         {
-            txtBlPopup.Text = "Товар добавлен в корзину";
+            txtBlPopup.Text = type == 1 ? "Товар добавлен в корзину" : "Товар добавлен в избранное";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
@@ -120,7 +178,7 @@ namespace NeedleworkStore.Pages
                 }
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
-                ShowAddedPopup();
+                ShowAddedPopup(1);
             }
             catch (Exception ex)
             {
@@ -179,41 +237,86 @@ namespace NeedleworkStore.Pages
         }
         public void AddInFav(MyProducts selectedProduct)
         {
-            if (mainWindow.RoleID == 1)
+            try
             {
-                MessageBoxResult msgInf = MessageBox.Show
-                    ("Удалить выбранный товар из корзины?",
-                    "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (msgInf != MessageBoxResult.Yes)
-                    return;
-                App.ctx.Products.Remove(selectedProduct);
-                try
+                if (mainWindow.RoleID == 1)
                 {
-                    App.ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                    MessageBoxResult msgInf = MessageBox.Show
+                        ("Удалить выбранный товар?",
+                        "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (msgInf != MessageBoxResult.Yes)
+                        return;
+                    App.ctx.Products.Remove(selectedProduct);
+                    try
+                    {
+                        App.ctx.SaveChanges();
+                        ProdList.Items.Refresh();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                        return;
+                    }
+                    ProdList.Items.Refresh();
                     return;
                 }
-                ProdList.Items.Refresh();
-                return;
+                if(!IsProdPage)
+                {
+                    MessageBoxResult msgInf = MessageBox.Show
+                        ("Удалить выбранный товар из избранного?",
+                        "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (msgInf != MessageBoxResult.Yes)
+                        return;
+                    Favourities delFav = App.ctx.Favourities.Where(f => f.ProductID == selectedProduct.ProductID).FirstOrDefault();
+                    App.ctx.Favourities.Remove(delFav);
+                    try
+                    {
+                        App.ctx.SaveChanges();
+                        MessageBox.Show("Товар удален из избранного", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                        selectedProduct.RefreshFavorites();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                        return;
+                    }
+                    ProdList.Items.Refresh();
+                    return;
+                }
+                bool alreadyInFavorites = App.ctx.Favourities
+                                         .Any(f => f.UserID == mainWindow.UserID && f.ProductID == selectedProduct.ProductID);
+                if (alreadyInFavorites)
+                {
+                    MessageBox.Show("Товар уже есть в избранном",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                Favourities newprodInFav = new Favourities
+                {
+                    UserID = (int)mainWindow.UserID,
+                    ProductID = selectedProduct.ProductID,
+                };
+                App.ctx.Favourities.Add(newprodInFav);
+                App.ctx.SaveChanges();
+                selectedProduct.RefreshFavorites();
+                ShowAddedPopup(2);
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
-            // @TODO: Add to favorites
-            txtBlPopup.Text = "Товар добавлен в избранное";
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            if (!mainWindow.IsAuthenticated)
             {
-                popup.IsOpen = false;
-                timer.Stop();
-            };
-
-            popup.IsOpen = true;
-            timer.Start();
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в избранное могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
             AddInFav((MyProducts)((Button)sender).DataContext);
         }
         private List<MyProducts> GetFilteredProd(List<MyProducts> myPr, ProductFilterViewModel filter)
@@ -300,6 +403,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
+            stPEmpty.Visibility = Visibility.Collapsed;
             ResetFilter();
         }
         private void SetInfoForEmptyList()
@@ -309,7 +413,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ProductsPage());
+            this.NavigationService.Navigate(new ProductsPage(null, IsProdPage));
         }
     }
 }

@@ -21,6 +21,7 @@ namespace NeedleworkStore.Pages
     /// </summary>
     public partial class RegistrationPage : Page
     {
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public RegistrationPage()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace NeedleworkStore.Pages
                 "Пароль должен содержать хотя бы 1 цифру и заглавную букву.";
             txtBlDate.Text = "Регистрация возможна с 14 лет";
             txtBlReqFields.Text = "Поля с * обязательны для заполнения";
+            mainWindow.btnProd.IsEnabled = true;
         }
         
         private void btnReg_Click(object sender, RoutedEventArgs e)

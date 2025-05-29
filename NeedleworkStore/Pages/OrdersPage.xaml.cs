@@ -59,6 +59,7 @@ namespace NeedleworkStore.Pages
             mainWindow.UpdateCartState();
             LoadOrders();
             SetAdminMenu();
+            mainWindow.btnProd.IsEnabled = true;
         }
         private void LoadOrders()
         {

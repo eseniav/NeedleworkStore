@@ -95,10 +95,11 @@ namespace NeedleworkStore.Pages
                     BottomPanel,
                 };
             ChangeRedactionStartPages();
+            mainWindow.btnProd.IsEnabled = true;
         }
         private void btnFav_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new FavorPage());
+            this.NavigationService.Navigate(new ProductsPage(null, false));
         }
 
         private void btnOrders_Click(object sender, RoutedEventArgs e)

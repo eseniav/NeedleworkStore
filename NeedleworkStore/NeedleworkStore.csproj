@@ -440,6 +440,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Pages\noFav.png" />
+    <Resource Include="Pages\inFav.png" />
+    <Resource Include="ResImages\noFav.png" />
+    <Resource Include="ResImages\inFav.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

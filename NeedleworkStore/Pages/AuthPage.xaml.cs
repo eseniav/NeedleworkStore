@@ -14,10 +14,12 @@ namespace NeedleworkStore.Pages
 {  
     public partial class AuthPage : Page
     {
+        MainWindow mainWindow = (MainWindow) Application.Current.MainWindow;
         public AuthPage()
         {
             InitializeComponent();
-            txtLog.Focus();            
+            txtLog.Focus();
+            mainWindow.btnProd.IsEnabled = true;
         } 
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
