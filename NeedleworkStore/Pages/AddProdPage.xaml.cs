@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using NeedleworkStore.AppData;
+using NeedleworkStore.Classes;
 using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +62,9 @@ namespace NeedleworkStore.Pages
             {
                 item.IsChecked = prod.ProductThemes.Select(t => t.ThemeID).ToList().Contains(item.Item.ThemeID);
             }
+            var imagePath = (string)new ImagePathConverter().Convert(prod.ProductImage, typeof(string), null, CultureInfo.CurrentCulture);
+            imgAdd.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+            imgAddT.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
