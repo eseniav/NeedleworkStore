@@ -1,4 +1,5 @@
-﻿using NeedleworkStore.AppData;
+﻿using Microsoft.Win32;
+using NeedleworkStore.AppData;
 using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace NeedleworkStore.Pages
         Products prod;
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        private string imgPath = null;
+        string imgFullName = null;
         public void SetProduct()
         {
             txtAddNameProd.Text = prod.ProductName;
@@ -88,6 +91,8 @@ namespace NeedleworkStore.Pages
             txtbQR.Clear();
             cmbAvail.SelectedIndex = -1;
             FilterVM.Reset();
+            imgFullName = null;
+            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
         }
         public void SaveProd()
         {
@@ -98,7 +103,7 @@ namespace NeedleworkStore.Pages
                 Description = txtbAdddescriptionProd.Text,
                 QRLink = txtbQR.Text,
                 AvailabilityStatusID = cmbAvail.SelectedIndex == 0 ? 1 : 2,
-                ProductImage = null,
+                ProductImage = imgFullName,
                 DesignerID = FilterVM.AllDesigners.GetIDs(n => n.DesignerID).FirstOrDefault(),
                 ProductTypeID = FilterVM.AllProdTypes.GetIDs(n => n.ProductTypeID).FirstOrDefault(),
             };
@@ -168,6 +173,38 @@ namespace NeedleworkStore.Pages
                 return;
             }
             SaveProd();
+            if(imgFullName != null)
+                SaveImg();
+        }
+        public void SetPreviewImage()
+        {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(imgPath);
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+            imgAdd.Source = image;
+        }
+        public void SaveImg()
+        {
+            string basePath = "ProdImages";
+            string appDir = AppDomain.CurrentDomain.BaseDirectory;
+            string projectRoot = System.IO.Path.Combine(appDir, "..", "..");
+            string fullPath = System.IO.Path.GetFullPath(projectRoot);
+            string destFolder = System.IO.Path.Combine(fullPath, basePath);
+            string targetPath = System.IO.Path.Combine(destFolder, imgFullName);
+            System.IO.File.Copy(imgPath, targetPath);
+        }
+        private void btnAddPicture_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Выберите изображение";
+            ofd.Filter = "Изображения (*.jpeg;*.png;*.gif;*jpg)|*.jpeg;*.png;*.gif;*jpg";
+            if (ofd.ShowDialog() != true)
+                return;
+            imgPath = ofd.FileName;
+            imgFullName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imgPath).ToLower();
+            SetPreviewImage();
         }
     }
 }
