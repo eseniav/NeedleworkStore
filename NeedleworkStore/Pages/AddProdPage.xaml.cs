@@ -101,7 +101,7 @@ namespace NeedleworkStore.Pages
                 Description = txtbAdddescriptionProd.Text,
                 QRLink = txtbQR.Text,
                 AvailabilityStatusID = cmbAvail.SelectedIndex == 0 ? 1 : 2,
-                ProductImage = null,
+                ProductImage = imgFullName,
                 DesignerID = FilterVM.AllDesigners.GetIDs(n => n.DesignerID).FirstOrDefault(),
                 ProductTypeID = FilterVM.AllProdTypes.GetIDs(n => n.ProductTypeID).FirstOrDefault(),
             };
@@ -171,6 +171,8 @@ namespace NeedleworkStore.Pages
                 return;
             }
             SaveProd();
+            if(imgFullName != null)
+                SaveImg();
         }
         public void SetPreviewImage()
         {
@@ -201,7 +203,6 @@ namespace NeedleworkStore.Pages
             imgPath = ofd.FileName;
             imgFullName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imgPath).ToLower();
             SetPreviewImage();
-            SaveImg();
         }
     }
 }
