@@ -20,7 +20,7 @@
             <Setter Property="Margin" Value="2 10"/>
         </Style>
     </Page.Resources>
-    <StackPanel DockPanel.Dock="Top">
+    <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

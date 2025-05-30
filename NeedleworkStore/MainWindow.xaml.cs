@@ -145,7 +145,7 @@ namespace NeedleworkStore
         }
         private void btnShop_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Переход на страницу О магазине");
+            Mainfrm.Navigate(new AboutShopPage());
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
@@ -171,10 +171,6 @@ namespace NeedleworkStore
         private void txtSearch_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((TextBox)sender).SelectAll();
-        }        
-        private void btnCartGuest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Предложение зарегистрироваться или авторизоваться");
         }
         private void btnAuthReg_Click(object sender, RoutedEventArgs e)
         {
@@ -222,6 +218,7 @@ namespace NeedleworkStore
                 { "ProfilePage", btnProfile },
                 { "AddProdPage", btnAddProd },
                 { "OrdersPage", btnOrders },
+                { "AboutShopPage", btnShop },
             };
             foreach (var item in topMenu) item.Value.IsEnabled = true;
             if (topMenu.ContainsKey(page)) topMenu[page].IsEnabled = false;
