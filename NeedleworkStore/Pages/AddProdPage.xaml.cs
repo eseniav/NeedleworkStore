@@ -28,6 +28,7 @@ namespace NeedleworkStore.Pages
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         private string imgPath = null;
+        string imgName = null;
         public void SetProduct()
         {
             txtAddNameProd.Text = prod.ProductName;
@@ -171,7 +172,15 @@ namespace NeedleworkStore.Pages
             }
             SaveProd();
         }
-
+        public void SetPreviewImage()
+        {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(imgPath);
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+            imgAdd.Source = image;
+        }
         private void btnAddPicture_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -179,8 +188,9 @@ namespace NeedleworkStore.Pages
             ofd.Filter = "Изображения (*.jpeg;*.png;*.gif;*jpg)|*.jpeg;*.png;*.gif;*jpg";
             if (ofd.ShowDialog() != true)
                 return;
-            imgPath = ofd.SafeFileName;
-            MessageBox.Show(imgPath);
+            imgPath = ofd.FileName;
+            imgName = ofd.SafeFileName;
+            SetPreviewImage();
         }
     }
 }
