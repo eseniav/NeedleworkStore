@@ -25,6 +25,7 @@ namespace NeedleworkStore.Pages
     {
         Products prod;
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public void SetProduct()
         {
             txtAddNameProd.Text = prod.ProductName;
@@ -35,10 +36,32 @@ namespace NeedleworkStore.Pages
                 cmbAvailYes.IsSelected = true;
             else
                 cmbAvailNo.IsSelected = true;
+            foreach (var item in FilterVM.AllProd.Items)
+            {
+                item.IsChecked = prod.ProductNeedleworkTypes.Select(n => n.NeedleworkTypeID).ToList().Contains(item.Item.NeedleworkTypeID);
+            }
+            foreach (var item in FilterVM.AllStitch.Items)
+            {
+                item.IsChecked = prod.ProductStitchTypes.Select(s => s.StitchTypeID).ToList().Contains(item.Item.StitchTypeID);
+            }
+            foreach (var item in FilterVM.AllProdTypes.Items)
+            {
+                item.IsChecked = prod.ProductNeedleworkTypes.Select(s => s.NeedleworkTypeID).ToList().Contains(item.Item.ProductTypeID);
+            }
+            foreach (var item in FilterVM.AllAccessoryTypes.Items)
+            {
+                item.IsChecked = prod.ProductAccessoryTypes.Select(a => a.AccessoryTypeID).ToList().Contains(item.Item.AccessoryTypeID);
+            }
+            FilterVM.AllDesigners.Items.FirstOrDefault(d => d.Item.DesignerID == prod.DesignerID).IsChecked = true;
+            foreach (var item in FilterVM.AllThemes.Items)
+            {
+                item.IsChecked = prod.ProductThemes.Select(t => t.ThemeID).ToList().Contains(item.Item.ThemeID);
+            }
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
             InitializeComponent();
+            mainWindow.btnProd.IsEnabled = true;
             DataContext = this;
             prod = selectedProduct;
             if (prod != null)
