@@ -25,6 +25,7 @@ namespace NeedleworkStore.Pages
     {
         public Products _product;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        public string ProductImage { get; set; }
         public OneProductWithoutFeedbackPage(Products prod)
         {
             InitializeComponent();
@@ -34,6 +35,8 @@ namespace NeedleworkStore.Pages
             List<string> themes = App.ctx.ProductThemes.Where(pt => pt.ProductID == _product.ProductID).Select(pt => pt.Themes.ThemeName).Distinct().ToList();
             lblThemes.Content = string.Join(" ", themes);
             mainWindow.btnProd.IsEnabled = true;
+            ProductImage = prod.ProductImage;
+            DataContext = this;
         }
         private void SetProdValues()
         {
