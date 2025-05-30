@@ -91,6 +91,8 @@ namespace NeedleworkStore.Pages
             txtbQR.Clear();
             cmbAvail.SelectedIndex = -1;
             FilterVM.Reset();
+            imgFullName = null;
+            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
         }
         public void SaveProd()
         {
