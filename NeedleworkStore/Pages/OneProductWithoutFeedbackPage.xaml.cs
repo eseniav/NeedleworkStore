@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -97,34 +98,70 @@ namespace NeedleworkStore.Pages
                 label.Foreground = string.IsNullOrEmpty(item.Value) ? defaultColor : label.Foreground;
             }
         }
-        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        private void ShowAddedPopup(int type)
         {
-            MessageBox.Show("Добавляет товар в корзину");
+            txtBlPopup.Text = type == 1 ? "Товар добавлен в корзину" : "Товар добавлен в избранное";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                ppCartIn.IsOpen = false;
+                popup.IsOpen = false;
                 timer.Stop();
             };
 
-            ppCartIn.IsOpen = true;
+            popup.IsOpen = true;
             timer.Start();
+        }
+        private void AddInCart()
+        {
+            try
+            {
+                Carts existingCartItem = App.ctx.Carts
+                    .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == _product.ProductID);
+                if (existingCartItem?.QuantityCart == Carts.maxItemCopacity)
+                {
+                    MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (existingCartItem != null)
+                    existingCartItem.QuantityCart++;
+                else
+                {
+                    Carts newprodInCart = new Carts
+                    {
+                        UserID = (int)mainWindow.UserID,
+                        ProductID = _product.ProductID,
+                        QuantityCart = 1,
+                    };
+                    App.ctx.Carts.Add(newprodInCart);
+                }
+                App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
+                ShowAddedPopup(1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
+            AddInCart();
         }
         
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Добавляет товар в избранное");
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
-            {
-                ppFavorIn.IsOpen = false;
-                timer.Stop();
-            };
-
-            ppFavorIn.IsOpen = true;
-            timer.Start();
         }
         private void imQR_MouseDown(object sender, MouseButtonEventArgs e)
         {
