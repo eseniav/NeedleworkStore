@@ -70,10 +70,7 @@
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Grid.Column="0">
-                                                    <WrapPanel HorizontalAlignment="Right">
-                                                        <Image Source="\ResImages\Chernika.png" MaxWidth="15"/>
-                                                        <Label Style="{StaticResource Chakra}" Content="4,9" Margin="0 0 20 0"/>
-                                                    </WrapPanel>
+                                                    <WrapPanel HorizontalAlignment="Right" Height="15"/>
                                                     <Image Source="{Binding Products.ProductImage, Converter={StaticResource imgConverter}}"
                                                            MaxWidth="100" MaxHeight="100"
                                                            HorizontalAlignment="Right" Margin="20 0">
