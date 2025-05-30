@@ -1,4 +1,5 @@
-﻿using NeedleworkStore.AppData;
+﻿using Microsoft.Win32;
+using NeedleworkStore.AppData;
 using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace NeedleworkStore.Pages
         Products prod;
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        private string imgPath = null;
         public void SetProduct()
         {
             txtAddNameProd.Text = prod.ProductName;
@@ -168,6 +170,17 @@ namespace NeedleworkStore.Pages
                 return;
             }
             SaveProd();
+        }
+
+        private void btnAddPicture_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Выберите изображение";
+            ofd.Filter = "Изображения (*.jpeg;*.png;*.gif;*jpg)|*.jpeg;*.png;*.gif;*jpg";
+            if (ofd.ShowDialog() != true)
+                return;
+            imgPath = ofd.SafeFileName;
+            MessageBox.Show(imgPath);
         }
     }
 }

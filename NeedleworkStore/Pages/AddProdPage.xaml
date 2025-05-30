@@ -37,7 +37,7 @@
                     <Image Source="\ResImages\NoPicture.png" MaxWidth="180" MaxHeight="180"
                             HorizontalAlignment="Center" Margin="5"/>
                     <Button Name="btnAddPicture" HorizontalAlignment="Center"
-                            Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25">
+                            Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnAddPicture_Click">
                         <WrapPanel>
                             <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16" Text="Добавить"/>
                         </WrapPanel>
