@@ -24,6 +24,7 @@ namespace NeedleworkStore.Pages
     public partial class OneProductWithoutFeedbackPage : Page
     {
         public Products _product;
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public OneProductWithoutFeedbackPage(Products prod)
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace NeedleworkStore.Pages
             txtDescription.Text = _product.Description;
             List<string> themes = App.ctx.ProductThemes.Where(pt => pt.ProductID == _product.ProductID).Select(pt => pt.Themes.ThemeName).Distinct().ToList();
             lblThemes.Content = string.Join(" ", themes);
+            mainWindow.btnProd.IsEnabled = true;
         }
         private void SetProdValues()
         {

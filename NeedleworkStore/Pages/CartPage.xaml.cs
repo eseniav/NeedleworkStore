@@ -142,7 +142,8 @@ namespace NeedleworkStore.Pages{
         }
         private void GoAboutProduct(Carts cart)
         {
-            this.NavigationService.Navigate(new OneProductPage());
+            this.NavigationService
+                .Navigate(new OneProductWithoutFeedbackPage(App.ctx.Products.Where(c => c.ProductID == cart.ProductID).FirstOrDefault()));
         }
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
