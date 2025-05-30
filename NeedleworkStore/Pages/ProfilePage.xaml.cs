@@ -149,7 +149,7 @@ namespace NeedleworkStore.Pages
         }
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.NavigationService.Navigate(new OneProductPage());
+            this.NavigationService.Navigate(new OneProductWithoutFeedbackPage((Products)((Hyperlink)sender).DataContext));
         }
         private void chbShowPass_Click(object sender, RoutedEventArgs e)
         {

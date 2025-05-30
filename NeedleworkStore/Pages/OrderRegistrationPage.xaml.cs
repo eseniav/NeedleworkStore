@@ -53,7 +53,7 @@ namespace NeedleworkStore.Pages
         private void SetTotalSum() => lblTotalSum.Content = orderCart.Sum(c => c.SumProducts).ToString();
         private void hlAbout_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new OneProductPage());
+            this.NavigationService.Navigate(new OneProductWithoutFeedbackPage((Products)((Hyperlink)sender).DataContext));
         }
         private void MinusQuantity(Carts cr, RepeatButton rb)
         {
