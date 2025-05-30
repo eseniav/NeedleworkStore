@@ -181,32 +181,6 @@ namespace NeedleworkStore
         {
             Mainfrm.Navigate(new RegistrationPage());
         }
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-            if (Mainfrm.NavigationService.CanGoForward)
-            {
-                Mainfrm.NavigationService.GoForward();
-                UpdateCartState();
-            }
-            else
-            {
-                MessageBox.Show("No page to go forward");
-            }
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            if (Mainfrm.NavigationService.CanGoBack)
-            {
-                Mainfrm.NavigationService.GoBack();
-                UpdateCartState();
-            }
-            else
-            {
-                MessageBox.Show("No page to go back");
-            }
-        }
-
         private void Mainfrm_Navigated(object sender, NavigationEventArgs e)
         {
             string page = e.Content.GetType().Name;

@@ -146,10 +146,9 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                                    LineHeight="15" TextTrimming="WordEllipsis" TextWrapping="Wrap"
                                                    TextAlignment="Left" Text="{Binding Description}" HorizontalAlignment="Left"/>
                                         <WrapPanel>
-                                            <Label>
+                                            <Label Visibility="{Binding OneProdPageVisibility}">
                                                 <Hyperlink Name="hlAbout" Foreground="#2A3759" FontFamily="Cakra Normal"
-                                                           Click="hlAbout_Click"
-                                                           >Подробнее
+                                                           Click="hlAbout_Click">Подробнее
                                                 </Hyperlink>
                                             </Label>
                                         </WrapPanel>

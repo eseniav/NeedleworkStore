@@ -72,6 +72,13 @@ namespace NeedleworkStore.Pages
                 }
                 set => _notFavoriteIconVisibility = value;
             }
+            public Visibility OneProdPageVisibility
+            {
+                get
+                {
+                    return _mainWindow.RoleID == 1 ? Visibility.Collapsed : Visibility.Visible;
+                }
+            }
             public void RefreshFavorites()
             {
                 OnPropertyChanged(nameof(FavoriteIconVisibility));

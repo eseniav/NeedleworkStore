@@ -80,20 +80,13 @@
                             </TextBlock>
                         </StackPanel>
                     </Button>
-                    <Popup Name="ppFavorIn" StaysOpen="False" Placement="Bottom" 
-                        AllowsTransparency="True" PopupAnimation="Fade" 
-                        PlacementTarget="{Binding ElementName=grdBottom}" 
-                        VerticalOffset="-80"
-                        >
-                        <TextBlock Width="150" Height="50">
+                    <Popup Name="popup" Grid.Row="1" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grdBottom}">
+                        <TextBlock Style="{StaticResource PopupOpacity}">
                             <TextBlock.Background>
                                 <SolidColorBrush Color="White" Opacity="0.9"/>
                             </TextBlock.Background>
-                        <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
-                                    FontSize="12" LineHeight="15" Margin="11"
-                                    >Товар добавлен в избранное
-                        </TextBlock>
-                    </TextBlock>
+        <TextBlock Name="txtBlPopup" Style="{StaticResource txtPopup}"/>
+    </TextBlock>
                     </Popup>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                         <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Посмотреть готовые работы:" FontSize="14"/>
@@ -110,21 +103,6 @@
                             </TextBlock>
                         </StackPanel>
                     </Button>
-                    <Popup Name="ppCartIn" StaysOpen="False" Placement="Bottom" 
-                        AllowsTransparency="True" PopupAnimation="Fade" 
-                        PlacementTarget="{Binding ElementName=grdBottom}" 
-                        VerticalOffset="-80"
-                        >
-                        <TextBlock Width="150" Height="50">
-                            <TextBlock.Background>
-                                <SolidColorBrush Color="White" Opacity="0.9"/>
-                            </TextBlock.Background>
-                        <TextBlock Foreground="#2A3759" FontFamily="Anticva" TextWrapping="Wrap"
-                                FontSize="12" LineHeight="15" Margin="11"
-                                >Товар добавлен в корзину
-                        </TextBlock>
-                    </TextBlock>
-                    </Popup>
                 </Grid>
                 <WrapPanel HorizontalAlignment="Right">
                     <TextBlock Foreground="#2A3759"
