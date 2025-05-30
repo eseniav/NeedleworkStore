@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static NeedleworkStore.Pages.ProductsPage;
 
 namespace NeedleworkStore.Pages
 {
@@ -152,6 +153,46 @@ namespace NeedleworkStore.Pages
         private void imQR_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Переход на страницу сайта с готовыми работами");
+        }
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (mainWindow.RoleID == 1)
+                return;
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в избранное могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
+            bool alreadyInFavorites = App.ctx.Favourities
+                                         .Any(f => f.UserID == mainWindow.UserID && f.ProductID == _product.ProductID);
+            if (alreadyInFavorites)
+            {
+                Favourities delFav = App.ctx.Favourities.Where(f => f.ProductID == _product.ProductID).FirstOrDefault();
+                App.ctx.Favourities.Remove(delFav);
+                try
+                {
+                    App.ctx.SaveChanges();
+                    RefreshFavorites();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                    return;
+                }
+                return;
+            }
+            Favourities newprodInFav = new Favourities
+            {
+                UserID = (int)mainWindow.UserID,
+                ProductID = _product.ProductID,
+            };
+            App.ctx.Favourities.Add(newprodInFav);
+            App.ctx.SaveChanges();
+            RefreshFavorites();
         }
     }
 }
