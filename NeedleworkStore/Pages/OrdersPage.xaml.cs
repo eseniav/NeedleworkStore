@@ -26,6 +26,7 @@ namespace NeedleworkStore.Pages
     {
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
+        public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
         public class OrderViewModel
         {
             public int OrderID { get; set; }
@@ -50,9 +51,11 @@ namespace NeedleworkStore.Pages
             if (mainWindow.RoleID != 1)
             {
                 wrPSort.Visibility = Visibility.Collapsed;
+                btnSavechanges.Visibility = Visibility.Collapsed;
                 return;
             }
             wrPSort.Visibility = Visibility.Visible;
+            btnSavechanges.Visibility = Visibility.Visible;
         }
         public OrdersPage()
         {
@@ -67,6 +70,9 @@ namespace NeedleworkStore.Pages
         {
             try
             {
+                var allStatuses = App.ctx.ProcessingStatuses
+                              .Select(s => s.ProcessingStatus)
+                              .ToList();
                 List<OrderViewModel> orders = App.ctx.Orders
                     .Where(o => o.OrderID == orderID)
                     .ToList()
@@ -146,6 +152,14 @@ namespace NeedleworkStore.Pages
         private void btnChequePdf_Click(object sender, RoutedEventArgs e)
         {
             DownloadChequeInPdf();
+        }
+        public void SaveStatus()
+        {
+            MessageBox.Show("Сохранение в БД");
+        }
+        private void btnSavechanges_Click(object sender, RoutedEventArgs e)
+        {
+            SaveStatus();
         }
     }
 }

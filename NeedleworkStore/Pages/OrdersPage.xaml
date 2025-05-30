@@ -85,6 +85,14 @@
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Label Content="{Binding ProcessingStatus}"
                                        FontFamily="Cakra Normal" Foreground="#431D32" FontSize="16"/>
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding ProcessingStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
+                                                                    Margin="5"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                             <Label Content="{Binding PaymentStatus}"
                                        FontFamily="Cakra Normal" Foreground="#3D5220" FontSize="16"/>
                                             <Label Content="{Binding ReceivingStatus}"
@@ -107,5 +115,17 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+        <Button Name="btnSavechanges" Margin="0 10 0 0" Style="{StaticResource btnColor}" Width="200" Click="btnSavechanges_Click">
+            <StackPanel>
+                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
+        HorizontalAlignment="Center" Margin="25 0"
+        >Сохранить
+                </TextBlock>
+                <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
+        HorizontalAlignment="Center" Margin="25 0"
+        >изменения
+                </TextBlock>
+            </StackPanel>
+        </Button>
     </StackPanel>
 </Page>
