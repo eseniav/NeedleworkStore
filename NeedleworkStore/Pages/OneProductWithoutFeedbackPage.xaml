@@ -5,10 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
+      xmlns:cl="clr-namespace:NeedleworkStore.Classes"
       mc:Ignorable="d"
       Title="OneProductWithoutFeedbackPage">
     <Page.Resources>
-        <local:ImagePathConverter x:Key="imgConverter"/>
+        <cl:ImagePathConverter x:Key="imgConverter"/>
     </Page.Resources>
     <StackPanel Margin="20">
         <ScrollViewer  VerticalScrollBarVisibility="Auto" MaxHeight="730">
