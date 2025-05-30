@@ -416,5 +416,48 @@ namespace NeedleworkStore.Pages
         {
             this.NavigationService.Navigate(new ProductsPage(null, IsProdPage));
         }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (mainWindow.RoleID == 1)
+                return;
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в избранное могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
+            MyProducts selectedProduct = (MyProducts)((Image)sender).DataContext;
+            bool alreadyInFavorites = App.ctx.Favourities
+                                         .Any(f => f.UserID == mainWindow.UserID && f.ProductID == selectedProduct.ProductID);
+            if (alreadyInFavorites)
+            {
+                Favourities delFav = App.ctx.Favourities.Where(f => f.ProductID == selectedProduct.ProductID).FirstOrDefault();
+                App.ctx.Favourities.Remove(delFav);
+                try
+                {
+                    App.ctx.SaveChanges();
+                    selectedProduct.RefreshFavorites();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                    return;
+                }
+                ProdList.Items.Refresh();
+                return;
+            }
+            Favourities newprodInFav = new Favourities
+            {
+                UserID = (int)mainWindow.UserID,
+                ProductID = selectedProduct.ProductID,
+            };
+            App.ctx.Favourities.Add(newprodInFav);
+            App.ctx.SaveChanges();
+            selectedProduct.RefreshFavorites();
+        }
     }
 }

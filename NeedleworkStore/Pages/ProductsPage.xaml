@@ -106,9 +106,9 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                     <StackPanel Grid.Column="0" Grid.Row="0">
                                         <WrapPanel HorizontalAlignment="Right" Margin="0 7 0 0" Height="20">
                                             <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform"
-                                                    Visibility="{Binding FavoriteIconVisibility}"/>
+                                                    Visibility="{Binding FavoriteIconVisibility}" MouseDown="Image_MouseDown"/>
                                             <Image Source="/ResImages/noFav.png" Width="15" Stretch="Uniform"
-                                                    Visibility="{Binding NotFavoriteIconVisibility}"/>
+                                                    Visibility="{Binding NotFavoriteIconVisibility}" MouseDown="Image_MouseDown"/>
                                         </WrapPanel>
                                         <Image Source="{Binding ProductImage, Converter={StaticResource imgConverter}}" MaxWidth="180" MaxHeight="180"
                                                HorizontalAlignment="Right" Margin="20 0"
