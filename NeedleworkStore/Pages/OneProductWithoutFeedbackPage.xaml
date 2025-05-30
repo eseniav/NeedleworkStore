@@ -16,11 +16,11 @@
             <StackPanel Margin="5">
                 <StackPanel>
                     <StackPanel HorizontalAlignment="Center">
-                        <WrapPanel HorizontalAlignment="Right">
-                            <Image Source="\ResImages\Chernika.png" MaxWidth="18"/>
-                            <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="4,9"
-                                       Margin="0 0 20 0" FontSize="14"
-                                       />
+                        <WrapPanel HorizontalAlignment="Right" Margin="0 7 0 0" Height="20">
+                            <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform"
+                                    Visibility="{Binding FavoriteIconVisibility}"/>
+                            <Image Source="/ResImages/noFav.png" Width="15" Stretch="Uniform"
+                                    Visibility="{Binding NotFavoriteIconVisibility}"/>
                         </WrapPanel>
                         <Image Source="{Binding ProductImage, Converter={StaticResource imgConverter}}" MaxWidth="280" MaxHeight="280"
                             HorizontalAlignment="Right" Margin="20 0"

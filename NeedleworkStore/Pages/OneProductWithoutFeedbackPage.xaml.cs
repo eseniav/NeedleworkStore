@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,50 @@ namespace NeedleworkStore.Pages
     /// <summary>
     /// Логика взаимодействия для OneProductWithoutFeedbackPage.xaml
     /// </summary>
-    public partial class OneProductWithoutFeedbackPage : Page
+    public partial class OneProductWithoutFeedbackPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public Products _product;
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public string ProductImage { get; set; }
+        private Visibility _favoriteIconVisibility;
+        private Visibility _notFavoriteIconVisibility;
+        public Visibility FavoriteIconVisibility
+        {
+            get
+            {
+                bool isFavorite = mainWindow.IsAuthenticated &&
+                                App.ctx.Favourities.Any(f =>
+                                    f.UserID == mainWindow.UserID &&
+                                    f.ProductID == _product.ProductID);
+
+                return isFavorite ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set => _favoriteIconVisibility = value;
+        }
+
+        public Visibility NotFavoriteIconVisibility
+        {
+            get
+            {
+                bool isNotFavorite = !mainWindow.IsAuthenticated ||
+                                   !App.ctx.Favourities.Any(f =>
+                                       f.UserID == mainWindow.UserID &&
+                                       f.ProductID == _product.ProductID);
+
+                return isNotFavorite ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set => _notFavoriteIconVisibility = value;
+        }
+        public void RefreshFavorites()
+        {
+            OnPropertyChanged(nameof(FavoriteIconVisibility));
+            OnPropertyChanged(nameof(NotFavoriteIconVisibility));
+        }
         public OneProductWithoutFeedbackPage(Products prod)
         {
             InitializeComponent();
