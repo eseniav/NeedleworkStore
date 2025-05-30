@@ -211,5 +211,16 @@ namespace NeedleworkStore.Pages
             imgFullName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imgPath).ToLower();
             SetPreviewImage();
         }
+
+        private void btnDelPicture_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msgInf = MessageBox.Show
+                        ("Удалить изображение?",
+                        "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgInf != MessageBoxResult.Yes)
+                return;
+            imgFullName = null;
+            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
+        }
     }
 }

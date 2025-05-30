@@ -42,12 +42,25 @@
                             </ToolTip>
                         </Image.ToolTip>
                     </Image>
-                    <Button Name="btnAddPicture" HorizontalAlignment="Center"
-                            Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnAddPicture_Click">
-                        <WrapPanel>
-                            <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16" Text="Добавить"/>
-                        </WrapPanel>
-                    </Button>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Name="btnAddPicture" Grid.Column="0" HorizontalAlignment="Right"
+                                    Style="{StaticResource btnColor}" Width="100" Height="25" Click="btnAddPicture_Click">
+                            <WrapPanel>
+                                <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16" Text="Добавить"/>
+                            </WrapPanel>
+                        </Button>
+                        <Button Name="btnDelPicture" Grid.Column="2" HorizontalAlignment="Left"
+                                Style="{StaticResource btnOpacity}" Width="100" Height="25" Click="btnDelPicture_Click">
+                            <WrapPanel>
+                                <TextBlock Style="{StaticResource txtButtonOpacity}" FontSize="16" Text="Удалить"/>
+                            </WrapPanel>
+                        </Button>
+                    </Grid>
                 </StackPanel>
             </UniformGrid>
         </Grid>
