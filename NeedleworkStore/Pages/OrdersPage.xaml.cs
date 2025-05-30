@@ -2,6 +2,7 @@
 using NeedleworkStore.Classes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -27,8 +28,16 @@ namespace NeedleworkStore.Pages
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
         public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
-        public class OrderViewModel
+        public class OrderViewModel : INotifyPropertyChanged
         {
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
+            private Visibility _AdminCmb;
+            private Visibility _StatusLabel;
             public int OrderID { get; set; }
             public DateTime? FormationDate { get; set; }
             public string PickUpPointAddress { get; set; }
@@ -37,6 +46,21 @@ namespace NeedleworkStore.Pages
             public string PaymentStatus { get; set; }
             public string ProcessingStatus { get; set; }
             public string ReceivingStatus { get; set; }
+            public Visibility AdminCmb
+            {
+                get => _mainWindow.RoleID == 1 ? Visibility.Visible : Visibility.Collapsed;
+                set => _AdminCmb = value;
+            }
+            public Visibility StatusLabel
+            {
+                get => _mainWindow.RoleID != 1 ? Visibility.Visible : Visibility.Collapsed;
+                set => _StatusLabel = value;
+            }
+            public void UpdateVisibility()
+            {
+                OnPropertyChanged(nameof(AdminCmb));
+                OnPropertyChanged(nameof(StatusLabel));
+            }
         }
 
         public class OrderItemViewModel

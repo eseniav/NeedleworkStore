@@ -84,8 +84,11 @@
                                     <UniformGrid Grid.Column="1" Columns="2">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Label Content="{Binding ProcessingStatus}"
+                                                   Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#431D32" FontSize="16"/>
-                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}">
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}"
+                                                      Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                      Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding ProcessingStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
