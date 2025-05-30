@@ -158,10 +158,45 @@ namespace NeedleworkStore.Pages
             }
             AddInCart();
         }
-        
+        public void AddInFav()
+        {
+            try
+            {
+                bool alreadyInFavorites = App.ctx.Favourities
+                                         .Any(f => f.UserID == mainWindow.UserID && f.ProductID == _product.ProductID);
+                if (alreadyInFavorites)
+                {
+                    MessageBox.Show("Товар уже есть в избранном",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                Favourities newprodInFav = new Favourities
+                {
+                    UserID = (int)mainWindow.UserID,
+                    ProductID = _product.ProductID,
+                };
+                App.ctx.Favourities.Add(newprodInFav);
+                App.ctx.SaveChanges();
+                RefreshFavorites();
+                ShowAddedPopup(2);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Добавляет товар в избранное");
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в избранное могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    this.NavigationService.Navigate(new RegistrationPage());
+                return;
+            }
+            AddInFav();
         }
         private void imQR_MouseDown(object sender, MouseButtonEventArgs e)
         {
