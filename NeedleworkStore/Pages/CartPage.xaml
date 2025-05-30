@@ -5,8 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
+      xmlns:cl="clr-namespace:NeedleworkStore.Classes"
       mc:Ignorable="d"
       Title="CartPage">
+    <Page.Resources>
+        <cl:ImagePathConverter x:Key="imgConverter"/>
+    </Page.Resources>
     <StackPanel Margin="10">
         <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
             <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="В корзине пока пусто..." Margin="15"/>
@@ -47,9 +51,6 @@
             </Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Height="400">
             <ItemsControl Name="ICCart" Margin="10">
-                    <ItemsControl.Resources>
-                        <local:ImagePathConverter x:Key="imgConverter"/>
-                    </ItemsControl.Resources>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>

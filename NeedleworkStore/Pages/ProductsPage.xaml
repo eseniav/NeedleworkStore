@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
+      xmlns:cl="clr-namespace:NeedleworkStore.Classes"
       mc:Ignorable="d"
       Title="ProductsPage">
     <Page.Resources>
@@ -29,6 +30,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <cl:ImagePathConverter x:Key="imgConverter"/>
     </Page.Resources>
     <Grid  Margin="10">
         <Grid.ColumnDefinitions>
@@ -108,7 +110,7 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                             <Image Source="/ResImages/noFav.png" Width="15" Stretch="Uniform"
                                                     Visibility="{Binding NotFavoriteIconVisibility}"/>
                                         </WrapPanel>
-                                        <Image Source="{Binding ImagePath}" MaxWidth="180" MaxHeight="180"
+                                        <Image Source="{Binding ProductImage, Converter={StaticResource imgConverter}}" MaxWidth="180" MaxHeight="180"
                                                HorizontalAlignment="Right" Margin="20 0"
                                                >
                                             <Image.ToolTip>

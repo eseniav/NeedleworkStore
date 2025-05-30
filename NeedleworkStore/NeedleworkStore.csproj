@@ -161,6 +161,7 @@
     <Compile Include="AppData\Users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Converters.cs" />
     <Compile Include="Pages\AddProdPage.xaml.cs">
       <DependentUpon>AddProdPage.xaml</DependentUpon>
     </Compile>
