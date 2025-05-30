@@ -64,6 +64,7 @@ namespace NeedleworkStore.Pages
             }
             var imagePath = (string)new ImagePathConverter().Convert(prod.ProductImage, typeof(string), null, CultureInfo.CurrentCulture);
             imgAdd.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+            imgAddT.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
