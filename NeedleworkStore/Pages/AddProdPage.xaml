@@ -34,7 +34,7 @@
                         <Label Content="QR" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" Margin="0 10 0 0"/>
                         <TextBox Name="txtbQR" Style="{StaticResource txtBoxReg}" Height="25"/>
                     </StackPanel>
-                    <Image Source="/ResImages/NoPicture.png" Name="imgAdd" MaxWidth="180" MaxHeight="180"
+                    <Image Name="imgAdd" Source="/ResImages/NoPicture.png" MaxWidth="180" MaxHeight="180"
                             HorizontalAlignment="Center" Margin="5"/>
                     <Button Name="btnAddPicture" HorizontalAlignment="Center"
                             Style="{StaticResource btnOpacity}" MaxWidth="120" Height="25" Click="btnAddPicture_Click">
