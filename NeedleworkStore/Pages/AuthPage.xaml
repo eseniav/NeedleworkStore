@@ -6,22 +6,25 @@
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       xmlns:us="clr-namespace:NeedleworkStore"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d"       
+      mc:Ignorable="d" Style="{StaticResource Page}"
       Title="AuthPage"
       >
-    <StackPanel>
+    <Page.Background>
+        <ImageBrush ImageSource="\ResImages\green.png" Stretch="UniformToFill"/>
+    </Page.Background>
+    <StackPanel Margin="0 280 0 0">
         <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 30">
-            <Label Content="Мастерская" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center"/>
-            <Label Content="вдохновения" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center"/>
+            <Label Content="Мастерская" FontSize="62" Style="{StaticResource Hlobus}" Foreground="White" HorizontalAlignment="Center"/>
+            <Label Content="вдохновения" FontSize="62" Style="{StaticResource Hlobus}" Foreground="White" HorizontalAlignment="Center"/>
         </WrapPanel>
-        <StackPanel x:Name="Login" MaxWidth="150" MinHeight="30">
-            <Label Content="Логин" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}"/>
-            <TextBox Name="txtLog"/>
-            <Label Content="Пароль" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}"/>
-            <PasswordBox Name="txtPass"/>
-            <Button  Name="btnSignIn" Margin="0 10" MaxWidth="70" Style="{StaticResource btnColor}" IsDefault="True" Click="btnSignIn_Click">
+        <StackPanel x:Name="Login" Width="200">
+            <Label Content="Логин" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" FontSize="25"/>
+            <TextBox Name="txtLog" Height="30"/>
+            <Label Content="Пароль" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" FontSize="25"/>
+            <PasswordBox Name="txtPass" Height="30"/>
+            <Button  Name="btnSignIn" Height="40" Margin="0 20" Width="170" Style="{StaticResource btnColor}" IsDefault="True" Click="btnSignIn_Click">
                 <WrapPanel>
-                    <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16">Войти</TextBlock>
+                    <TextBlock Style="{StaticResource txtButtonColor}" FontSize="25">Войти</TextBlock>
                 </WrapPanel>
             </Button>
         </StackPanel>
