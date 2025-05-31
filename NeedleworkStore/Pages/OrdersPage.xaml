@@ -9,7 +9,8 @@
     <StackPanel>
         <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 10">
             <TextBlock Style="{StaticResource ChakraTB}" Text="Номер заказа"/>
-            <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}" SelectionChanged="cmbOrders_SelectionChanged">
+            <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}"
+                      SelectionChanged="cmbOrders_SelectionChanged" IsEditable="True" TextSearch.TextPath="OrderID">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -84,8 +85,11 @@
                                     <UniformGrid Grid.Column="1" Columns="2">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Label Content="{Binding ProcessingStatus}"
+                                                   Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#431D32" FontSize="16"/>
-                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}">
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}"
+                                                      Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                      Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding ProcessingStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
@@ -93,10 +97,30 @@
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
-                                            <Label Content="{Binding PaymentStatus}"
+                                            <Label Content="{Binding PaymentStatus}" Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#3D5220" FontSize="16"/>
-                                            <Label Content="{Binding ReceivingStatus}"
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130"
+                                                        Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        Margin="0 3">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding PaymentStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
+                                                                    Margin="5"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <Label Content="{Binding ReceivingStatus}" Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#852614" FontSize="16"/>
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130"
+                                                        Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        Margin="0 3">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding ReceivingStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
+                                                                    Margin="5"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </StackPanel>
                                         <Button Name="btnChequePdf" MinWidth="100" MaxWidth="120" Margin="10" Height="45"
                                     Style="{StaticResource btnColor}" Click="btnChequePdf_Click">
