@@ -19,9 +19,9 @@
         </WrapPanel>
         <StackPanel x:Name="Login" Width="200">
             <Label Content="Логин" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" FontSize="25"/>
-            <TextBox Name="txtLog" Height="30"/>
+            <TextBox Name="txtLog" Height="30" VerticalContentAlignment="Center"/>
             <Label Content="Пароль" HorizontalAlignment="Right" Style="{StaticResource DarkCaesar}" FontSize="25"/>
-            <PasswordBox Name="txtPass" Height="30"/>
+            <PasswordBox Name="txtPass" Height="30" VerticalContentAlignment="Center"/>
             <Button  Name="btnSignIn" Height="40" Margin="0 20" Width="170" Style="{StaticResource btnColor}" IsDefault="True" Click="btnSignIn_Click">
                 <WrapPanel>
                     <TextBlock Style="{StaticResource txtButtonColor}" FontSize="25">Войти</TextBlock>
