@@ -71,7 +71,13 @@
             <Setter Property="MaxWidth" Value="1200"/>
             <Setter Property="MinHeight" Value="1000"/>
             <Setter Property="MaxHeight" Value="1100"/>
-        </Style>        
+        </Style>
+        <Style x:Key="Page" TargetType="Page">
+            <Setter Property="MinWidth" Value="900"/>
+            <Setter Property="MaxWidth" Value="1200"/>
+            <Setter Property="MinHeight" Value="1000"/>
+            <Setter Property="MaxHeight" Value="1100"/>
+        </Style>
         <Style x:Key="btnColor" TargetType="Button">
             <Setter Property="BorderBrush" Value="#431D32"/>
             <Setter Property="Background" Value="#778FD2"/>

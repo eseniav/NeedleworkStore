@@ -74,12 +74,16 @@ namespace NeedleworkStore.Pages
         {
             if (mainWindow.RoleID != 1)
             {
-                wrPSort.Visibility = Visibility.Collapsed;
+                txtOrders.Visibility = Visibility.Collapsed;
+                cmbOrders.Visibility = Visibility.Collapsed;
                 btnSavechanges.Visibility = Visibility.Collapsed;
+                btnBackProfile.Visibility = Visibility.Visible;
                 return;
             }
-            wrPSort.Visibility = Visibility.Visible;
+            txtOrders.Visibility = Visibility.Visible;
+            cmbOrders.Visibility = Visibility.Visible; ;
             btnSavechanges.Visibility = Visibility.Visible;
+            btnBackProfile.Visibility = Visibility.Collapsed;
         }
         public OrdersPage()
         {
@@ -186,6 +190,10 @@ namespace NeedleworkStore.Pages
         private void btnSavechanges_Click(object sender, RoutedEventArgs e)
         {
             SaveStatus();
+        }
+        private void btnBackProfile_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ProfilePage());
         }
     }
 }

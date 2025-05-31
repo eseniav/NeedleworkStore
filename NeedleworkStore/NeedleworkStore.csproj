@@ -378,6 +378,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="ResImages\green.png" />
     <Resource Include="ResImages\unnamed.png" />
     <Resource Include="ResImages\Purple charm_YalanaDesign_clusters %282%29.png" />
     <Resource Include="ResImages\noFav.png" />

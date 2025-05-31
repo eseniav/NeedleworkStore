@@ -4,67 +4,70 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
+      Style="{StaticResource Page}"
       mc:Ignorable="d"
       Title="AboutShopPage">
+    <Page.Background>
+        <ImageBrush ImageSource="\ResImages\green.png" Stretch="UniformToFill"/>
+    </Page.Background>
     <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800">
     <StackPanel>
-            <Grid>
+            <Grid Margin="0 90 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="1">
-                        <StackPanel>
-                            <Border Background="Transparent" CornerRadius="10" Padding="2">
-                                <StackPanel Margin="20">
-                                    <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 10">
-                                        <Label Content="Мастерская" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White"/>
-                                        <Label Content="вдохновения" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White"/>
-                                    </WrapPanel>
-                                    <TextBlock Style="{StaticResource txtAboutShopMain}">
+                    <StackPanel>
+                        <Border Background="Transparent" CornerRadius="10" Padding="2">
+                            <StackPanel Margin="20">
+                                <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 10">
+                                    <Label Content="Мастерская" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White"/>
+                                    <Label Content="вдохновения" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White"/>
+                                </WrapPanel>
+                                <TextBlock Style="{StaticResource txtAboutShopMain}">
                 Добро пожаловать в "Мастерскую вдохновения"!
-                                    </TextBlock>
-                                    <TextBlock Style="{StaticResource txtAboutShopMain}">
+                                </TextBlock>
+                                <TextBlock Style="{StaticResource txtAboutShopMain}">
                 ваш идеальный помощник в мире рукоделия и творчества!
-                                    </TextBlock>
-                                    <TextBlock Style="{StaticResource txtAboutShop}" Margin="10 0 0 0">
+                                </TextBlock>
+                                <TextBlock Style="{StaticResource txtAboutShop}" Margin="10 0 0 0">
                 У нас вы найдете всё для вашего хобби:
-                                    </TextBlock>
-                                    <ItemsControl Margin="25">
-                                        <WrapPanel>
-                                            <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
-                                            <TextBlock Style="{StaticResource txtAboutShop}">Наборы для вышивки - от небольших схем до масштабных картин</TextBlock>
-                                        </WrapPanel>
-                                        <WrapPanel>
-                                            <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
-                                            <TextBlock Style="{StaticResource txtAboutShop}">Инструменты для рукоделия - качественные ножницы, иглы разных видов</TextBlock>
-                                        </WrapPanel>
-                                        <WrapPanel>
-                                            <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
-                                            <TextBlock Style="{StaticResource txtAboutShop}">Аксессуары - удобные игольницы, магнитные держатели</TextBlock>
-                                        </WrapPanel>
-                                        <WrapPanel>
-                                            <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
-                                            <TextBlock Style="{StaticResource txtAboutShop}">Схемы для вышивки - авторские дизайны от известных художников</TextBlock>
-                                        </WrapPanel>
-                                    </ItemsControl>
-                                    <TextBlock Style="{StaticResource txtAboutShop}" Margin="10 0 0 0">
+                                </TextBlock>
+                                <ItemsControl Margin="25">
+                                    <WrapPanel>
+                                        <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
+                                        <TextBlock Style="{StaticResource txtAboutShop}">Наборы для вышивки - от небольших схем до масштабных картин</TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
+                                        <TextBlock Style="{StaticResource txtAboutShop}">Инструменты для рукоделия - качественные ножницы, иглы разных видов</TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
+                                        <TextBlock Style="{StaticResource txtAboutShop}">Аксессуары - удобные игольницы, магнитные держатели</TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Image Source="/ResImages/InFav.png" Width="15" Stretch="Uniform" Margin="5 0"/>
+                                        <TextBlock Style="{StaticResource txtAboutShop}">Схемы для вышивки - авторские дизайны от известных художников</TextBlock>
+                                    </WrapPanel>
+                                </ItemsControl>
+                                <TextBlock Style="{StaticResource txtAboutShop}" Margin="10 0 0 0">
                 Мы работаем с лучшими мировыми брендами рукоделия, такими как 
                                     <Run Foreground="#778FD2">Dimensions, Gamma, Prym, Owl Forest</Run> и другими. В нашем ассортименте вы найдете товары для всех видов рукоделия - от классической вышивки до создания авторских игрушек.
-                                    </TextBlock>
-                                    <TextBlock Style="{StaticResource txtAboutShopMain}">
+                                </TextBlock>
+                                <TextBlock Style="{StaticResource txtAboutShopMain}">
                 Присоединяйтесь к нашему творческому сообществу!
-                                    </TextBlock>
-                                    <TextBlock Style="{StaticResource txtAboutShopMain}">
+                                </TextBlock>
+                                <TextBlock Style="{StaticResource txtAboutShopMain}">
                 Создавайте красоту своими руками вместе с "Мастерской вдохновения"!
-                                    </TextBlock>
+                                </TextBlock>
                             </StackPanel>
-                            </Border>
-                        </StackPanel>
+                        </Border>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
-            <Image Source="\ResImages\unnamed.png" Width="800" Stretch="Uniform" HorizontalAlignment="Center"/>
         </StackPanel>
     </ScrollViewer>
 </Page>
