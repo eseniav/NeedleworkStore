@@ -7,8 +7,8 @@
       mc:Ignorable="d"
       Title="OrdersPage">
     <StackPanel>
-        <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 10">
-            <TextBlock Style="{StaticResource ChakraTB}" Text="Номер заказа"/>
+        <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 0">
+            <TextBlock Name="txtOrders" Style="{StaticResource ChakraTB}" Text="Номер заказа"/>
             <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}"
                       SelectionChanged="cmbOrders_SelectionChanged" IsEditable="True" TextSearch.TextPath="OrderID">
                 <ComboBox.ItemTemplate>
@@ -22,6 +22,12 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <Button Name="btnBackProfile" Width="100" Height="30"
+         Style="{StaticResource btnColor}" Click="btnBackProfile_Click">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16" Text="назад"/>
+                </StackPanel>
+            </Button>
         </WrapPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="800" Margin="10">
             <ItemsControl Name="ICorders">
