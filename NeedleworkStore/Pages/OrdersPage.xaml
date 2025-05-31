@@ -9,7 +9,8 @@
     <StackPanel>
         <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 10">
             <TextBlock Style="{StaticResource ChakraTB}" Text="Номер заказа"/>
-            <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}" SelectionChanged="cmbOrders_SelectionChanged">
+            <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}"
+                      SelectionChanged="cmbOrders_SelectionChanged" IsEditable="True" TextSearch.TextPath="OrderID">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
