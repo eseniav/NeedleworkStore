@@ -104,7 +104,7 @@
                                                         Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock FontFamily="Cakra Normal" Foreground="#2A3759"
+                                                        <TextBlock Text="{Binding PaymentStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
                                                                     Margin="5"/>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
@@ -116,7 +116,7 @@
                                                         Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock FontFamily="Cakra Normal" Foreground="#2A3759"
+                                                        <TextBlock Text="{Binding ReceivingStatus}" FontFamily="Cakra Normal" Foreground="#2A3759"
                                                                     Margin="5"/>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>

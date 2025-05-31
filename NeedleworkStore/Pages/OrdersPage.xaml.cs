@@ -53,7 +53,7 @@ namespace NeedleworkStore.Pages
             }
             public Visibility StatusLabel
             {
-                get => _mainWindow.RoleID != 1 ? Visibility.Visible : Visibility.Collapsed;
+                get => _mainWindow.RoleID == 1 ? Visibility.Collapsed : Visibility.Visible;
                 set => _StatusLabel = value;
             }
             public void UpdateVisibility()
@@ -88,6 +88,8 @@ namespace NeedleworkStore.Pages
             LoadOrders();
             SetAdminMenu();
             mainWindow.btnProd.IsEnabled = true;
+            OrderViewModel om = new OrderViewModel();
+            om.UpdateVisibility();
             DataContext = this;
         }
         private void LoadOrdersByAdmin(int orderID)
