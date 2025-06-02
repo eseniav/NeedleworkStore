@@ -153,14 +153,22 @@ namespace NeedleworkStore.Pages
             if(prod != null)
             {
                 Products p = App.ctx.Products.FirstOrDefault(c => c.ProductID == prod.ProductID);
-                p.ProductName = product.ProductName;
-                p.ProductPrice = product.ProductPrice;
-                p.Description = product.Description;
-                p.QRLink = product.QRLink;
-                p.AvailabilityStatusID = product.AvailabilityStatusID;
-                p.ProductImage = product.ProductImage;
-                p.DesignerID = product.DesignerID;
-                p.ProductTypeID = product.ProductTypeID;
+                string[] props = new string[] {
+                    "ProductName",
+                    "ProductPrice",
+                    "Description",
+                    "QRLink",
+                    "AvailabilityStatusID",
+                    "ProductImage",
+                    "DesignerID",
+                    "ProductTypeID",
+                };
+                foreach(var propName in props)
+                {
+                    PropertyInfo prop = typeof(Products).GetProperty(propName);
+                    var value = prop.GetValue(product);
+                    prop.SetValue(p, value);
+                }
             }
             try
             {
