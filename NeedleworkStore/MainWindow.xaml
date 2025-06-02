@@ -121,7 +121,7 @@
                     </TextBlock>
             </Grid>
         </WrapPanel>
-        <Frame Name="Mainfrm" Grid.Row="1" Source="Pages/AboutShopPage.xaml" NavigationUIVisibility="Hidden" Navigated="Mainfrm_Navigated"/>
+        <Frame Name="Mainfrm" Grid.Row="1" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden" Navigated="Mainfrm_Navigated"/>
         <Grid Grid.Row="2" Name="grdBottom" VerticalAlignment="Bottom">
             <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 10">
                 <Label Content="Мастерская" Style="{StaticResource Hlobus}" FontSize="28" HorizontalAlignment="Center"/>
