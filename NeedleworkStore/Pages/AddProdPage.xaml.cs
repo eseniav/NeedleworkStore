@@ -42,6 +42,8 @@ namespace NeedleworkStore.Pages
                 cmbAvailYes.IsSelected = true;
             else
                 cmbAvailNo.IsSelected = true;
+            FilterVM.AllProdTypes.Items.FirstOrDefault(d => d.Item.ProductTypeID == prod.ProductTypeID).IsChecked = true;
+            FilterVM.AllDesigners.Items.FirstOrDefault(d => d.Item.DesignerID == prod.DesignerID).IsChecked = true;
             foreach (var item in FilterVM.AllProd.Items)
             {
                 item.IsChecked = prod.ProductNeedleworkTypes.Select(n => n.NeedleworkTypeID).ToList().Contains(item.Item.NeedleworkTypeID);
@@ -50,20 +52,15 @@ namespace NeedleworkStore.Pages
             {
                 item.IsChecked = prod.ProductStitchTypes.Select(s => s.StitchTypeID).ToList().Contains(item.Item.StitchTypeID);
             }
-            foreach (var item in FilterVM.AllProdTypes.Items)
-            {
-                item.IsChecked = prod.ProductNeedleworkTypes.Select(s => s.NeedleworkTypeID).ToList().Contains(item.Item.ProductTypeID);
-            }
             foreach (var item in FilterVM.AllAccessoryTypes.Items)
             {
                 item.IsChecked = prod.ProductAccessoryTypes.Select(a => a.AccessoryTypeID).ToList().Contains(item.Item.AccessoryTypeID);
             }
-            FilterVM.AllDesigners.Items.FirstOrDefault(d => d.Item.DesignerID == prod.DesignerID).IsChecked = true;
             foreach (var item in FilterVM.AllThemes.Items)
             {
                 item.IsChecked = prod.ProductThemes.Select(t => t.ThemeID).ToList().Contains(item.Item.ThemeID);
             }
-            if(string.IsNullOrEmpty(prod.ProductImage))
+            if (string.IsNullOrEmpty(prod.ProductImage))
             {
                 imgPath = null;
                 SetDefaultImg();
