@@ -162,7 +162,7 @@ namespace NeedleworkStore.Pages
                     Products = product,
                 });
             }
-            if(prod != null)
+            if (prod != null)
             {
                 Products p = App.ctx.Products.FirstOrDefault(c => c.ProductID == prod.ProductID);
                 string[] props = new string[] {
@@ -175,11 +175,59 @@ namespace NeedleworkStore.Pages
                     "DesignerID",
                     "ProductTypeID",
                 };
-                foreach(var propName in props)
+                foreach (var propName in props)
                 {
                     PropertyInfo prop = typeof(Products).GetProperty(propName);
                     var value = prop.GetValue(product);
                     prop.SetValue(p, value);
+                }
+                foreach (var oldItem in p.ProductNeedleworkTypes.ToList())
+                {
+                    App.ctx.ProductNeedleworkTypes.Remove(oldItem);
+                }
+                foreach (var oldItem in p.ProductStitchTypes.ToList())
+                {
+                    App.ctx.ProductStitchTypes.Remove(oldItem);
+                }
+                foreach (var oldItem in p.ProductThemes.ToList())
+                {
+                    App.ctx.ProductThemes.Remove(oldItem);
+                }
+                foreach (var oldItem in p.ProductAccessoryTypes.ToList())
+                {
+                    App.ctx.ProductAccessoryTypes.Remove(oldItem);
+                }
+                foreach (int id in selectedNWID)
+                {
+                    p.ProductNeedleworkTypes.Add(new ProductNeedleworkTypes
+                    {
+                        NeedleworkTypeID = id,
+                        Products = p,
+                    });
+                }
+                foreach (int id in selectedStitchID)
+                {
+                    p.ProductStitchTypes.Add(new ProductStitchTypes
+                    {
+                        StitchTypeID = id,
+                        Products = p,
+                    });
+                }
+                foreach (int id in selectedThemesID)
+                {
+                    p.ProductThemes.Add(new ProductThemes
+                    {
+                        ThemeID = id,
+                        Products = p,
+                    });
+                }
+                foreach (int id in selectedAccessoryTypesID)
+                {
+                    p.ProductAccessoryTypes.Add(new ProductAccessoryTypes
+                    {
+                        AccessoryTypeID = id,
+                        Products = p,
+                    });
                 }
             }
             try
