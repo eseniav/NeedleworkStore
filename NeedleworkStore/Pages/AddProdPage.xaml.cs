@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,6 +66,7 @@ namespace NeedleworkStore.Pages
             var imagePath = (string)new ImagePathConverter().Convert(prod.ProductImage, typeof(string), null, CultureInfo.CurrentCulture);
             imgAdd.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
             imgAddT.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+            imgFullName = prod.ProductImage;
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
@@ -148,17 +150,31 @@ namespace NeedleworkStore.Pages
                     Products = product,
                 });
             }
+            if(prod != null)
+            {
+                Products p = App.ctx.Products.FirstOrDefault(c => c.ProductID == prod.ProductID);
+                p.ProductName = product.ProductName;
+                p.ProductPrice = product.ProductPrice;
+                p.Description = product.Description;
+                p.QRLink = product.QRLink;
+                p.AvailabilityStatusID = product.AvailabilityStatusID;
+                p.ProductImage = product.ProductImage;
+                p.DesignerID = product.DesignerID;
+                p.ProductTypeID = product.ProductTypeID;
+            }
             try
             {
-                App.ctx.Products.Add(product);
+                if(prod == null)
+                    App.ctx.Products.Add(product);
                 App.ctx.SaveChanges();
                 MessageBox.Show(
-                            "✅ Товар успешно добавлен!\n\n",
-                            "Добавление товара",
+                            "✅ Товар успешно сохранен!\n\n",
+                            "Сохранение товара",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
                         );
-                Clear();
+                if (prod == null)
+                    Clear();
             }
             catch (Exception ex)
             {
@@ -211,7 +227,6 @@ namespace NeedleworkStore.Pages
             imgFullName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imgPath).ToLower();
             SetPreviewImage();
         }
-
         private void btnDelPicture_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult msgInf = MessageBox.Show
