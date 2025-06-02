@@ -72,6 +72,7 @@ namespace NeedleworkStore.Pages
                 imgPath = System.IO.Path.GetFullPath(filePath);
                 SetPreviewImage();
             }
+            imgFullName = prod.ProductImage;
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
@@ -238,8 +239,6 @@ namespace NeedleworkStore.Pages
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
                         );
-                if (prod == null)
-                    Clear();
             }
             catch (Exception ex)
             {
@@ -259,8 +258,10 @@ namespace NeedleworkStore.Pages
                 return;
             }
             SaveProd();
-            if(imgFullName != null)
+            if(imgFullName != null && imgFullName != prod?.ProductImage)
                 SaveImg();
+            if (prod == null)
+                Clear();
         }
         public void SetPreviewImage()
         {
