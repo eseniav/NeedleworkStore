@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,6 +42,8 @@ namespace NeedleworkStore.Pages
                 cmbAvailYes.IsSelected = true;
             else
                 cmbAvailNo.IsSelected = true;
+            FilterVM.AllProdTypes.Items.FirstOrDefault(d => d.Item.ProductTypeID == prod.ProductTypeID).IsChecked = true;
+            FilterVM.AllDesigners.Items.FirstOrDefault(d => d.Item.DesignerID == prod.DesignerID).IsChecked = true;
             foreach (var item in FilterVM.AllProd.Items)
             {
                 item.IsChecked = prod.ProductNeedleworkTypes.Select(n => n.NeedleworkTypeID).ToList().Contains(item.Item.NeedleworkTypeID);
@@ -49,22 +52,27 @@ namespace NeedleworkStore.Pages
             {
                 item.IsChecked = prod.ProductStitchTypes.Select(s => s.StitchTypeID).ToList().Contains(item.Item.StitchTypeID);
             }
-            foreach (var item in FilterVM.AllProdTypes.Items)
-            {
-                item.IsChecked = prod.ProductNeedleworkTypes.Select(s => s.NeedleworkTypeID).ToList().Contains(item.Item.ProductTypeID);
-            }
             foreach (var item in FilterVM.AllAccessoryTypes.Items)
             {
                 item.IsChecked = prod.ProductAccessoryTypes.Select(a => a.AccessoryTypeID).ToList().Contains(item.Item.AccessoryTypeID);
             }
-            FilterVM.AllDesigners.Items.FirstOrDefault(d => d.Item.DesignerID == prod.DesignerID).IsChecked = true;
             foreach (var item in FilterVM.AllThemes.Items)
             {
                 item.IsChecked = prod.ProductThemes.Select(t => t.ThemeID).ToList().Contains(item.Item.ThemeID);
             }
-            var imagePath = (string)new ImagePathConverter().Convert(prod.ProductImage, typeof(string), null, CultureInfo.CurrentCulture);
-            imgAdd.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
-            imgAddT.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+            if (string.IsNullOrEmpty(prod.ProductImage))
+            {
+                imgPath = null;
+                SetDefaultImg();
+            } else
+            {
+                string basePath = "ProdImages";
+                string appDir = AppDomain.CurrentDomain.BaseDirectory;
+                string filePath = System.IO.Path.Combine(appDir, "..", "..", basePath, prod.ProductImage);
+                imgPath = System.IO.Path.GetFullPath(filePath);
+                SetPreviewImage();
+            }
+            imgFullName = prod.ProductImage;
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
@@ -77,6 +85,10 @@ namespace NeedleworkStore.Pages
                 SetProduct();
                 return;
             }
+        }
+        public void SetDefaultImg()
+        {
+            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
         }
         public bool CheckValid()
         {
@@ -97,7 +109,7 @@ namespace NeedleworkStore.Pages
             cmbAvail.SelectedIndex = -1;
             FilterVM.Reset();
             imgFullName = null;
-            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
+            SetDefaultImg();
         }
         public void SaveProd()
         {
@@ -148,17 +160,85 @@ namespace NeedleworkStore.Pages
                     Products = product,
                 });
             }
+            if (prod != null)
+            {
+                Products p = App.ctx.Products.FirstOrDefault(c => c.ProductID == prod.ProductID);
+                string[] props = new string[] {
+                    "ProductName",
+                    "ProductPrice",
+                    "Description",
+                    "QRLink",
+                    "AvailabilityStatusID",
+                    "ProductImage",
+                    "DesignerID",
+                    "ProductTypeID",
+                };
+                foreach (var propName in props)
+                {
+                    PropertyInfo prop = typeof(Products).GetProperty(propName);
+                    var value = prop.GetValue(product);
+                    prop.SetValue(p, value);
+                }
+                foreach (var oldItem in p.ProductNeedleworkTypes.ToList())
+                {
+                    App.ctx.ProductNeedleworkTypes.Remove(oldItem);
+                }
+                foreach (var oldItem in p.ProductStitchTypes.ToList())
+                {
+                    App.ctx.ProductStitchTypes.Remove(oldItem);
+                }
+                foreach (var oldItem in p.ProductThemes.ToList())
+                {
+                    App.ctx.ProductThemes.Remove(oldItem);
+                }
+                foreach (var oldItem in p.ProductAccessoryTypes.ToList())
+                {
+                    App.ctx.ProductAccessoryTypes.Remove(oldItem);
+                }
+                foreach (int id in selectedNWID)
+                {
+                    p.ProductNeedleworkTypes.Add(new ProductNeedleworkTypes
+                    {
+                        NeedleworkTypeID = id,
+                        Products = p,
+                    });
+                }
+                foreach (int id in selectedStitchID)
+                {
+                    p.ProductStitchTypes.Add(new ProductStitchTypes
+                    {
+                        StitchTypeID = id,
+                        Products = p,
+                    });
+                }
+                foreach (int id in selectedThemesID)
+                {
+                    p.ProductThemes.Add(new ProductThemes
+                    {
+                        ThemeID = id,
+                        Products = p,
+                    });
+                }
+                foreach (int id in selectedAccessoryTypesID)
+                {
+                    p.ProductAccessoryTypes.Add(new ProductAccessoryTypes
+                    {
+                        AccessoryTypeID = id,
+                        Products = p,
+                    });
+                }
+            }
             try
             {
-                App.ctx.Products.Add(product);
+                if(prod == null)
+                    App.ctx.Products.Add(product);
                 App.ctx.SaveChanges();
                 MessageBox.Show(
-                            "✅ Товар успешно добавлен!\n\n",
-                            "Добавление товара",
+                            "✅ Товар успешно сохранен!\n\n",
+                            "Сохранение товара",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
                         );
-                Clear();
             }
             catch (Exception ex)
             {
@@ -178,8 +258,10 @@ namespace NeedleworkStore.Pages
                 return;
             }
             SaveProd();
-            if(imgFullName != null)
+            if(imgFullName != null && imgFullName != prod?.ProductImage)
                 SaveImg();
+            if (prod == null)
+                Clear();
         }
         public void SetPreviewImage()
         {
@@ -211,7 +293,6 @@ namespace NeedleworkStore.Pages
             imgFullName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imgPath).ToLower();
             SetPreviewImage();
         }
-
         private void btnDelPicture_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult msgInf = MessageBox.Show
