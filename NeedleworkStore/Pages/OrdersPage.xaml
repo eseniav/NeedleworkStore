@@ -94,7 +94,7 @@
                                                    Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#431D32" FontSize="16"/>
                                             <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}"
-                                                      Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                      Visibility="{Binding AdminCmb}"
                                                       Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -106,7 +106,7 @@
                                             <Label Content="{Binding PaymentStatus}" Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#3D5220" FontSize="16"/>
                                             <ComboBox HorizontalContentAlignment="Left" Width="130"
-                                                        Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        Visibility="{Binding AdminCmb}"
                                                         Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -118,7 +118,7 @@
                                             <Label Content="{Binding ReceivingStatus}" Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#852614" FontSize="16"/>
                                             <ComboBox HorizontalContentAlignment="Left" Width="130"
-                                                        Visibility="{Binding DataContext.AdminCmb, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        Visibility="{Binding AdminCmb}"
                                                         Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
