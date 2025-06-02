@@ -63,10 +63,18 @@ namespace NeedleworkStore.Pages
             {
                 item.IsChecked = prod.ProductThemes.Select(t => t.ThemeID).ToList().Contains(item.Item.ThemeID);
             }
-            var imagePath = (string)new ImagePathConverter().Convert(prod.ProductImage, typeof(string), null, CultureInfo.CurrentCulture);
-            imgAdd.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
-            imgAddT.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
-            imgFullName = prod.ProductImage;
+            if(string.IsNullOrEmpty(prod.ProductImage))
+            {
+                imgPath = null;
+                SetDefaultImg();
+            } else
+            {
+                string basePath = "ProdImages";
+                string appDir = AppDomain.CurrentDomain.BaseDirectory;
+                string filePath = System.IO.Path.Combine(appDir, "..", "..", basePath, prod.ProductImage);
+                imgPath = System.IO.Path.GetFullPath(filePath);
+                SetPreviewImage();
+            }
         }
         public AddProdPage(MyProducts selectedProduct = null)
         {
@@ -79,6 +87,10 @@ namespace NeedleworkStore.Pages
                 SetProduct();
                 return;
             }
+        }
+        public void SetDefaultImg()
+        {
+            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
         }
         public bool CheckValid()
         {
@@ -99,7 +111,7 @@ namespace NeedleworkStore.Pages
             cmbAvail.SelectedIndex = -1;
             FilterVM.Reset();
             imgFullName = null;
-            imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
+            SetDefaultImg();
         }
         public void SaveProd()
         {
