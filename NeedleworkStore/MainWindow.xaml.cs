@@ -190,7 +190,6 @@ namespace NeedleworkStore
                 { "CartPage", btnCart },
                 { "AuthPage", btnAuthReg },
                 { "ProfilePage", btnProfile },
-                { "AddProdPage", btnAddProd },
                 { "OrdersPage", btnOrders },
                 { "AboutShopPage", btnShop },
             };

@@ -92,6 +92,7 @@ namespace NeedleworkStore.Pages
             LoadOrders();
             SetAdminMenu();
             mainWindow.btnProd.IsEnabled = true;
+            mainWindow.btnAddProd.IsEnabled = true;
             OrderViewModel om = new OrderViewModel();
             om.UpdateVisibility();
             DataContext = this;

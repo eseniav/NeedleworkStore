@@ -76,12 +76,14 @@ namespace NeedleworkStore.Pages
         }
         public string PageTitle => prod != null ? "Редактирование товара" : "Новый товар";
         public string SetTextToAddButton => prod.ProductImage == null ? "Добавить" : "Изменить";
+        public bool SetEnableTopMenuButon() => mainWindow.btnAddProd.IsEnabled = prod != null;
         public AddProdPage(MyProducts selectedProduct = null)
         {
             InitializeComponent();
             mainWindow.btnProd.IsEnabled = true;
             DataContext = this;
             prod = selectedProduct;
+            SetEnableTopMenuButon();
             if (prod != null)
             {
                 SetProduct();

@@ -96,6 +96,7 @@ namespace NeedleworkStore.Pages
                 };
             ChangeRedactionStartPages();
             mainWindow.btnProd.IsEnabled = true;
+            mainWindow.btnAddProd.IsEnabled = true;
         }
         private void btnFav_Click(object sender, RoutedEventArgs e)
         {
