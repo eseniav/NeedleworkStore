@@ -69,11 +69,23 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
             <StackPanel>
                 <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
                     <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="По Вашему запросу ничего не нашлось..." Margin="15" FontSize="20"/>
-                    <Button Name="btnEmptyBuy" Margin="0 10" MaxWidth="150"
+                    <Button Name="btnEmptyBuy" Margin="0 10" Width="200" Height="35"
             Style="{StaticResource btnColor}" HorizontalAlignment="Center" Click="btnEmptyBuy_Click"
             >
                         <WrapPanel>
-                            <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">Показать все</TextBlock>
+                            <TextBlock FontSize="26" Style="{StaticResource txtButtonColor}">Показать все</TextBlock>
+                        </WrapPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Name="stPFav">
+                    <Label Content="Избранное" FontFamily="Caesar Dressing Cyrillic" FontSize="34"
+                            HorizontalAlignment="Center" Foreground="#431D32"/>
+                </StackPanel>
+                <StackPanel Name="stPEmptyFav">
+                    <TextBlock  Style="{StaticResource txtButtonOpacity}" Text="В избранном пока пусто..." Margin="15" FontSize="20" HorizontalAlignment="Center"/>
+                    <Button Name="btnFavToProd" Margin="0 10" Width="200" Height="35" Style="{StaticResource btnColor}" HorizontalAlignment="Center" Click="btnFavToProd_Click">
+                        <WrapPanel>
+                            <TextBlock FontSize="26" Style="{StaticResource txtButtonColor}">За покупками</TextBlock>
                         </WrapPanel>
                     </Button>
                 </StackPanel>

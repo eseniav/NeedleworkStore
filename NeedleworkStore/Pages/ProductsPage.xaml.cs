@@ -119,10 +119,12 @@ namespace NeedleworkStore.Pages
             }
             ProdList.Items.Refresh();
         }
+        public void SetFavHead() => stPFav.Visibility = !IsProdPage ? Visibility.Visible : Visibility.Collapsed;
         public ProductsPage(string searchText = null, bool prodPage = true)
         {
             InitializeComponent();
             IsProdPage = prodPage;
+            SetFavHead();
             if (!IsProdPage)
             {
                 var favoriteProductIds = App.ctx.Favourities.Where(f => f.UserID == mainWindow.UserID)
@@ -145,9 +147,9 @@ namespace NeedleworkStore.Pages
             ProdList.DataContext = filterProducts;
             cmbIAvail.IsSelected = true;
             DataContext = this;
-            SetInfoForEmptyList();
             mainWindow.SetMenuForRoles();
             UpdateButtonsForRole();
+            SetInfoForEmptyList();
         }
         private void ShowAddedPopup(int type)
         {
@@ -431,8 +433,16 @@ namespace NeedleworkStore.Pages
         }
         private void SetInfoForEmptyList()
         {
+            if (!IsProdPage)
+            {
+                stPEmpty.Visibility = Visibility.Collapsed;
+                wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+                stPEmptyFav.Visibility = filterProducts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                return;
+            }
             stPEmpty.Visibility = filterProducts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+            stPEmptyFav.Visibility = Visibility.Collapsed;
         }
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
@@ -480,6 +490,10 @@ namespace NeedleworkStore.Pages
             App.ctx.Favourities.Add(newprodInFav);
             App.ctx.SaveChanges();
             selectedProduct.RefreshFavorites();
+        }
+        private void btnFavToProd_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductsPage(null, IsProdPage));
         }
     }
 }
