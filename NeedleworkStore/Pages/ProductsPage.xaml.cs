@@ -147,9 +147,9 @@ namespace NeedleworkStore.Pages
             ProdList.DataContext = filterProducts;
             cmbIAvail.IsSelected = true;
             DataContext = this;
-            SetInfoForEmptyList();
             mainWindow.SetMenuForRoles();
             UpdateButtonsForRole();
+            SetInfoForEmptyList();
         }
         private void ShowAddedPopup(int type)
         {
@@ -433,6 +433,12 @@ namespace NeedleworkStore.Pages
         }
         private void SetInfoForEmptyList()
         {
+            if (!IsProdPage)
+            {
+                stPEmpty.Visibility = Visibility.Collapsed;
+                wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+                return;
+            }
             stPEmpty.Visibility = filterProducts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
