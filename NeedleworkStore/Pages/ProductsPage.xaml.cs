@@ -437,10 +437,12 @@ namespace NeedleworkStore.Pages
             {
                 stPEmpty.Visibility = Visibility.Collapsed;
                 wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+                stPEmptyFav.Visibility = filterProducts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
                 return;
             }
             stPEmpty.Visibility = filterProducts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             wrPSort.Visibility = filterProducts.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+            stPEmptyFav.Visibility = Visibility.Collapsed;
         }
         private void btnEmptyBuy_Click(object sender, RoutedEventArgs e)
         {
@@ -488,6 +490,10 @@ namespace NeedleworkStore.Pages
             App.ctx.Favourities.Add(newprodInFav);
             App.ctx.SaveChanges();
             selectedProduct.RefreshFavorites();
+        }
+        private void btnFavToProd_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductsPage(null, IsProdPage));
         }
     }
 }
