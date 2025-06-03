@@ -7,7 +7,9 @@
       mc:Ignorable="d"
       Title="OrdersPage">
     <StackPanel>
-        <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 0">
+        <TextBlock Text="Заказы" FontFamily="Caesar Dressing Cyrillic" FontSize="34"
+            HorizontalAlignment="Center" Foreground="#431D32"/>
+        <WrapPanel Name="wrPSort" HorizontalAlignment="Right" Margin="20 10">
             <TextBlock Name="txtOrders" Style="{StaticResource ChakraTB}" Text="Номер заказа"/>
             <ComboBox Name="cmbOrders" HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding OrdersList}"
                       SelectionChanged="cmbOrders_SelectionChanged" IsEditable="True" TextSearch.TextPath="OrderID">

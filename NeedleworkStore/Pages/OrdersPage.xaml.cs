@@ -60,6 +60,7 @@ namespace NeedleworkStore.Pages
             {
                 OnPropertyChanged(nameof(AdminCmb));
                 OnPropertyChanged(nameof(StatusLabel));
+                OnPropertyChanged(nameof(cmbOrders));
             }
         }
 
@@ -82,7 +83,7 @@ namespace NeedleworkStore.Pages
             }
             txtOrders.Visibility = Visibility.Visible;
             cmbOrders.Visibility = Visibility.Visible; ;
-            btnSavechanges.Visibility = Visibility.Visible;
+            btnSavechanges.Visibility = cmbOrders.SelectedIndex != -1 ? Visibility.Visible : Visibility.Collapsed;
             btnBackProfile.Visibility = Visibility.Collapsed;
         }
         public OrdersPage()
@@ -140,6 +141,7 @@ namespace NeedleworkStore.Pages
                 if (selectedOrder != null)
                 {
                     LoadOrdersByAdmin(selectedOrder.OrderID);
+                    SetAdminMenu();
                 }
             }
         }
