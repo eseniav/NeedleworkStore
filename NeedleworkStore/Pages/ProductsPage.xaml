@@ -135,8 +135,19 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                             <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                                                 <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding Designers.DesignerName}"/>
                                                 <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding ProductName}"/>
-                                                <TextBlock FontFamily="Cakra Normal" Foreground="#3D5220"
-                                                       Text="{Binding AvailabilityStatuses.AvailabilityStatus}" Margin="5"/>
+                                                <TextBlock FontFamily="Cakra Normal" Text="{Binding AvailabilityStatuses.AvailabilityStatus}"
+                                                            Margin="5">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="#3D5220"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding AvailabilityStatuses.AvailabilityStatusID}" Value="2">
+                                                                    <Setter Property="Foreground" Value="#852614"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
                                             </StackPanel>
                                         </Grid>
                                         <WrapPanel HorizontalAlignment="Center">
@@ -159,7 +170,7 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                                    Content="{Binding ProductPrice}"/>
                                             <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17" Content="руб"/>
                                         </StackPanel>
-                                        <Button Name="btnCartIn" Margin="0 10" Width="120"
+                                        <Button Name="btnCartIn" Margin="0 10" Width="120" IsEnabled="{Binding CanAddToCart}"
                                                 Style="{StaticResource btnColor}" Click="btnCartIn_Click"
                                                 >
                                             <WrapPanel>

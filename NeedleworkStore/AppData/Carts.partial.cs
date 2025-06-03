@@ -11,6 +11,7 @@ namespace NeedleworkStore.AppData
     {
         public const int maxItemCopacity = 100;
         public const int minItemCopacity = 1;
+        public const int maxItemCart = 2000;
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) 
         {

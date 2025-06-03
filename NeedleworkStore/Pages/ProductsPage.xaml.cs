@@ -101,6 +101,15 @@ namespace NeedleworkStore.Pages
                 ButtonTextCart = _mainWindow.RoleID != 1 ? "В корзину" : "Редактировать";
                 ButtonTextFav = (_mainWindow.RoleID == 1 || !_isProdPage) ? "Удалить" : "В избранное";
             }
+            public bool CanAddToCart
+            {
+                get
+                {
+                    if (_mainWindow.RoleID == 1)
+                        return true;
+                    return AvailabilityStatusID == 1;
+                }
+            }
         }
         public void UpdateButtonsForRole()
         {
@@ -168,6 +177,12 @@ namespace NeedleworkStore.Pages
                 if (existingCartItem?.QuantityCart == Carts.maxItemCopacity)
                 {
                     MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (existingCartItem?.QuantityCart == Carts.maxItemCart)
+                {
+                    MessageBox.Show("Максимальное количество товара в корзине не может превышать 2000 позиций",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
