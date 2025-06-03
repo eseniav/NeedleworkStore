@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace NeedleworkStore.Pages
 {
@@ -28,6 +29,9 @@ namespace NeedleworkStore.Pages
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
         public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
+        private DispatcherTimer _checkTimer;
+        private string _currentText = "";
+        private string _lastValidText = "";
         public class OrderViewModel : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler PropertyChanged;
@@ -92,6 +96,7 @@ namespace NeedleworkStore.Pages
             mainWindow.UpdateCartState();
             LoadOrders();
             SetAdminMenu();
+            _lastValidText = "";
             mainWindow.btnProd.IsEnabled = true;
             mainWindow.btnAddProd.IsEnabled = true;
             OrderViewModel om = new OrderViewModel();
@@ -132,7 +137,63 @@ namespace NeedleworkStore.Pages
                 MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}");
             }
         }
-
+        private void CheckOrderTimer_Tick(object sender, EventArgs e)
+        {
+            ((DispatcherTimer)sender).Stop();
+            if (int.TryParse(_currentText, out int orderId))
+            {
+                if (!OrdersList.Any(o => o.OrderID == orderId))
+                {
+                    MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    cmbOrders.Text = _lastValidText;
+                }
+                else
+                {
+                    _lastValidText = _currentText;
+                }
+            }
+            else
+            {
+                cmbOrders.Text = _lastValidText;
+            }
+        }
+        private void cmbOrders_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text[0]))
+            {
+                e.Handled = true;
+                return;
+            }
+            _currentText = cmbOrders.Text + e.Text;
+            if (_checkTimer != null)
+            {
+                _checkTimer.Stop();
+            }
+            _checkTimer = new DispatcherTimer()
+            {
+                Interval = TimeSpan.FromMilliseconds(500)
+            };
+            _checkTimer.Tick += CheckOrderTimer_Tick;
+            _checkTimer.Start();
+        }
+        public void CheckExistingOrder(string idOrder)
+        {
+            try
+            {
+                int orderId = int.Parse(idOrder);
+                if (!OrdersList.Any(o => o.OrderID == orderId))
+                {
+                    MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    cmbOrders.Text = _lastValidText;
+                    return;
+                }
+                _lastValidText = idOrder;
+            }
+            catch (FormatException)
+            {
+                cmbOrders.Text = _lastValidText;
+            }
+        }
         private void cmbOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (mainWindow.RoleID == 1 && cmbOrders.SelectedItem != null)
@@ -140,12 +201,12 @@ namespace NeedleworkStore.Pages
                 var selectedOrder = cmbOrders.SelectedItem as Orders;
                 if (selectedOrder != null)
                 {
+                    CheckExistingOrder(selectedOrder.OrderID.ToString());
                     LoadOrdersByAdmin(selectedOrder.OrderID);
                     SetAdminMenu();
                 }
             }
         }
-
         private void LoadOrders()
         {
             try
