@@ -74,7 +74,8 @@ namespace NeedleworkStore.Pages
             }
             imgFullName = prod.ProductImage;
         }
-        public Visibility SetRedProdHeadVisibility => Visibility = prod != null ? Visibility.Visible : Visibility.Collapsed;
+        public string PageTitle => prod != null ? "Редактирование товара" : "Новый товар";
+        public string SetTextToAddButton => prod.ProductImage == null ? "Добавить" : "Изменить";
         public AddProdPage(MyProducts selectedProduct = null)
         {
             InitializeComponent();
