@@ -119,10 +119,12 @@ namespace NeedleworkStore.Pages
             }
             ProdList.Items.Refresh();
         }
+        public void SetFavHead() => stPFav.Visibility = !IsProdPage ? Visibility.Visible : Visibility.Collapsed;
         public ProductsPage(string searchText = null, bool prodPage = true)
         {
             InitializeComponent();
             IsProdPage = prodPage;
+            SetFavHead();
             if (!IsProdPage)
             {
                 var favoriteProductIds = App.ctx.Favourities.Where(f => f.UserID == mainWindow.UserID)
