@@ -140,12 +140,14 @@ namespace NeedleworkStore.Pages
         private void CheckOrderTimer_Tick(object sender, EventArgs e)
         {
             ((DispatcherTimer)sender).Stop();
+
             if (int.TryParse(_currentText, out int orderId))
             {
                 if (!OrdersList.Any(o => o.OrderID == orderId))
                 {
                     MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    cmbOrders.Text = _lastValidText;
+                    cmbOrders.Text = "";
+                    cmbOrders.SelectedIndex = -1;
                 }
                 else
                 {
@@ -154,7 +156,8 @@ namespace NeedleworkStore.Pages
             }
             else
             {
-                cmbOrders.Text = _lastValidText;
+                cmbOrders.Text = "";
+                cmbOrders.SelectedIndex = -1;
             }
         }
         private void cmbOrders_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -173,26 +176,31 @@ namespace NeedleworkStore.Pages
             {
                 Interval = TimeSpan.FromMilliseconds(500)
             };
+
             _checkTimer.Tick += CheckOrderTimer_Tick;
             _checkTimer.Start();
         }
         public void CheckExistingOrder(string idOrder)
         {
-            try
+            if (int.TryParse(idOrder, out int orderId))
             {
-                int orderId = int.Parse(idOrder);
                 if (!OrdersList.Any(o => o.OrderID == orderId))
                 {
                     MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    cmbOrders.Text = _lastValidText;
-                    return;
+                    cmbOrders.Text = "";
+                    cmbOrders.SelectedIndex = -1;
                 }
-                _lastValidText = idOrder;
+                else
+                {
+                    _lastValidText = idOrder;
+                }
             }
-            catch (FormatException)
+            else
             {
-                cmbOrders.Text = _lastValidText;
+                cmbOrders.Text = "";
+                cmbOrders.SelectedIndex = -1;
             }
+
         }
         private void cmbOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
