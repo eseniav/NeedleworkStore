@@ -75,7 +75,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button  Name="btnDel" Grid.Column="0" Margin="0 10 0 0"
-             Style="{StaticResource btnOpacity}" HorizontalAlignment="Left" Width="130"
+             Style="{StaticResource btnOpacity}" HorizontalAlignment="Left" Width="130" Height="50" VerticalAlignment="Top"
              >
                 <StackPanel>
                     <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}"
@@ -90,10 +90,23 @@
             </Button>
             <StackPanel Grid.Column="1">
                 <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label FontFamily="Anticva" Foreground="#2A3759" FontSize="17"/>
+                    <TextBlock FontFamily="Anticva" Foreground="#2A3759" FontSize="17" TextWrapping="Wrap">
+                        <Run Text="Обязательные поля для заполнения:" FontWeight="Bold"/>
+                        <LineBreak/><LineBreak/>
+                        <StackPanel Margin="20,0,0,0" Orientation="Vertical">
+                            <TextBlock Text="▸ Название товара"/>
+                            <TextBlock Text="▸ Цена (только цифры)"/>
+                            <TextBlock Text="▸ Статус наличия"/>
+                            <TextBlock Text="▸ Подробное описание"/>
+                            <TextBlock Text="▸ Категория товара"/>
+                            <TextBlock Text="▸ Производитель"/>
+                        </StackPanel>
+                        <LineBreak/><LineBreak/>
+                        <Run Text="Пожалуйста, проверьте введенные данные."/>
+                    </TextBlock>
                 </WrapPanel>
             </StackPanel>
-            <Button Name="btnSave" Margin="0 10 0 0" Style="{StaticResource btnColor}"
+            <Button Name="btnSave" Margin="0 10 0 0" Style="{StaticResource btnColor}" Height="50" VerticalAlignment="Top"
             HorizontalAlignment="Right" Grid.Column="2" Width="130" Click="btnSave_Click">
                 <StackPanel>
                     <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
