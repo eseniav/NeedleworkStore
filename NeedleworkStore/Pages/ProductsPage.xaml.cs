@@ -148,6 +148,7 @@ namespace NeedleworkStore.Pages
             cmbIAvail.IsSelected = true;
             DataContext = this;
             mainWindow.SetMenuForRoles();
+            mainWindow.btnAddProd.IsEnabled = true;
             UpdateButtonsForRole();
             SetInfoForEmptyList();
         }
