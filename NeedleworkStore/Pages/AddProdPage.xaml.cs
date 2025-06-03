@@ -74,6 +74,7 @@ namespace NeedleworkStore.Pages
             }
             imgFullName = prod.ProductImage;
         }
+        public Visibility SetRedProdHeadVisibility => Visibility = prod != null ? Visibility.Visible : Visibility.Collapsed;
         public AddProdPage(MyProducts selectedProduct = null)
         {
             InitializeComponent();
