@@ -4,6 +4,7 @@ using NeedleworkStore.Classes;
 using NeedleworkStore.UCElements;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -25,8 +26,13 @@ namespace NeedleworkStore.Pages
     /// <summary>
     /// Логика взаимодействия для AddProdPage.xaml
     /// </summary>
-    public partial class AddProdPage : Page
+    public partial class AddProdPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         Products prod;
         public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel(false);
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
@@ -75,7 +81,7 @@ namespace NeedleworkStore.Pages
             imgFullName = prod.ProductImage;
         }
         public string PageTitle => prod != null ? "Редактирование товара" : "Новый товар";
-        public string SetTextToAddButton => prod.ProductImage == null ? "Добавить" : "Изменить";
+        public string SetTextToAddButton => imgFullName == null ? "Добавить" : "Изменить";
         public bool SetEnableTopMenuButon() => mainWindow.btnAddProd.IsEnabled = prod != null;
         public AddProdPage(MyProducts selectedProduct = null)
         {
@@ -296,6 +302,7 @@ namespace NeedleworkStore.Pages
             imgPath = ofd.FileName;
             imgFullName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imgPath).ToLower();
             SetPreviewImage();
+            OnPropertyChanged(nameof(SetTextToAddButton));
         }
         private void btnDelPicture_Click(object sender, RoutedEventArgs e)
         {
@@ -306,6 +313,7 @@ namespace NeedleworkStore.Pages
                 return;
             imgFullName = null;
             imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
+            OnPropertyChanged(nameof(SetTextToAddButton));
         }
     }
 }
