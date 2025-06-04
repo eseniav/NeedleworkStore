@@ -162,6 +162,13 @@ namespace NeedleworkStore.UCElements
         }
         public static readonly DependencyProperty IsPriceVisibleProperty =
             DependencyProperty.Register("IsPriceVisible", typeof(bool), typeof(SearchSidebarUC), new PropertyMetadata(false));
+        public bool IsMultiselect
+        {
+            get => (bool)GetValue(IsMultiselectProperty);
+            set => SetValue(IsMultiselectProperty, value);
+        }
+        public static readonly DependencyProperty IsMultiselectProperty =
+            DependencyProperty.Register("IsMultiselect", typeof(bool), typeof(SearchSidebarUC), new PropertyMetadata(true));
         public void ClearInputs()
         {
             txtTo.Clear();
