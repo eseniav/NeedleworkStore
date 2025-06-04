@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище NeedleworkStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище NeedleworkStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccessoryTypes">
           <Key>
             <PropertyRef Name="AccessoryTypeID" />
@@ -285,7 +285,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Carts_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -321,7 +323,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favourities_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Favourities" Type="Self.Favourities" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -357,7 +361,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderCompositions_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="OrderCompositions" Type="Self.OrderCompositions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -417,7 +423,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductAccessoryTypes_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProductAccessoryTypes" Type="Self.ProductAccessoryTypes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -441,7 +449,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductNeedleworkTypes_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProductNeedleworkTypes" Type="Self.ProductNeedleworkTypes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -453,7 +463,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_AvailabilityStatuses">
-          <End Role="AvailabilityStatuses" Type="Self.AvailabilityStatuses" Multiplicity="1" />
+          <End Role="AvailabilityStatuses" Type="Self.AvailabilityStatuses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AvailabilityStatuses">
@@ -465,7 +477,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Designers">
-          <End Role="Designers" Type="Self.Designers" Multiplicity="1" />
+          <End Role="Designers" Type="Self.Designers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Designers">
@@ -477,7 +491,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_ProductTypes">
-          <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="1" />
+          <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductTypes">
@@ -489,7 +505,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductStitchTypes_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProductStitchTypes" Type="Self.ProductStitchTypes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -513,7 +531,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductThemes_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProductThemes" Type="Self.ProductThemes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -537,7 +557,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reviews_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -713,8 +735,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NeedleworkStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
