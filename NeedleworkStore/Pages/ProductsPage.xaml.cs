@@ -272,10 +272,13 @@ namespace NeedleworkStore.Pages
                         "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (msgInf != MessageBoxResult.Yes)
                         return;
-                    App.ctx.Products.Remove(selectedProduct);
                     try
                     {
+                        App.ctx.Products.Remove(App.ctx.Products.FirstOrDefault(c => c.ProductID == selectedProduct.ProductID));
                         App.ctx.SaveChanges();
+                        MessageBox.Show("Товар удален из каталога", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                        filterProducts.Remove(selectedProduct);
+                        myProducts.Remove(selectedProduct);
                         ProdList.Items.Refresh();
                     }
                     catch (Exception ex)
