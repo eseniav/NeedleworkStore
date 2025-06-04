@@ -38,15 +38,15 @@ namespace NeedleworkStore.UCElements
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ProductFilterViewModel()
+        public ProductFilterViewModel(bool isMultiselect = true)
         {
             AllProd = new AllTypeWrapper<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
             AllStitch = new AllTypeWrapper<StitchTypes>(App.ctx.StitchTypes.ToList());
             AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).PropertyChanged += NeedleworkItem_PropertyChange;
-            AllProdTypes = new AllTypeWrapper<ProductTypes>(App.ctx.ProductTypes.ToList());
+            AllProdTypes = new AllTypeWrapper<ProductTypes>(App.ctx.ProductTypes.ToList(), isMultiselect);
             AllAccessoryTypes = new AllTypeWrapper<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
             AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).PropertyChanged += ProductTypeItem_PropertyChange;
-            AllDesigners = new AllTypeWrapper<Designers>(App.ctx.Designers.ToList());
+            AllDesigners = new AllTypeWrapper<Designers>(App.ctx.Designers.ToList(), isMultiselect);
             AllThemes = new AllTypeWrapper<Themes>(App.ctx.Themes.ToList());
         }
         public AllTypeWrapper<NeedleworkTypes> AllProd { get; set; }
@@ -119,7 +119,18 @@ namespace NeedleworkStore.UCElements
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ItemWrapper<T>.IsChecked))
+            {
+                var changedItem = sender as ItemWrapper<T>;
+                if(!IsMultiselect && changedItem.IsChecked)
+                {
+                    foreach (var item in Items)
+                    {
+                        if (!ReferenceEquals(item, changedItem))
+                            item.IsChecked = false;
+                    }
+                }
                 OnPropertyChanged(nameof(AllChecked));
+            }
         }
         public bool AllChecked
         {
@@ -132,10 +143,12 @@ namespace NeedleworkStore.UCElements
         }
         public void Reset() => AllChecked = false;
         public List<int> GetIDs(Func<T, int> idSelector) => Items.Where(n => n.IsChecked).Select(k => idSelector(k.Item)).ToList();
-        public AllTypeWrapper(List<T> items)
+        public AllTypeWrapper(List<T> items, bool isMultiselect = true)
         {
+            IsMultiselect = isMultiselect;
             Items = items.Select(t => new ItemWrapper<T>(t)).ToList();
         }
+        public bool IsMultiselect { get; set; }
     }
     /// <summary>
     /// Логика взаимодействия для SearchSidebarUC.xaml

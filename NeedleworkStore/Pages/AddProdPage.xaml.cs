@@ -28,7 +28,7 @@ namespace NeedleworkStore.Pages
     public partial class AddProdPage : Page
     {
         Products prod;
-        public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel();
+        public ProductFilterViewModel FilterVM { get; set; } = new ProductFilterViewModel(false);
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         private string imgPath = null;
         string imgFullName = null;
