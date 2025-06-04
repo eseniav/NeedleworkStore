@@ -38,8 +38,10 @@ namespace NeedleworkStore.UCElements
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public bool IsAllSelect { get; set; }
         public ProductFilterViewModel(bool isMultiselect = true)
         {
+            IsAllSelect = isMultiselect;
             AllProd = new AllTypeWrapper<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
             AllStitch = new AllTypeWrapper<StitchTypes>(App.ctx.StitchTypes.ToList());
             AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).PropertyChanged += NeedleworkItem_PropertyChange;
@@ -60,16 +62,20 @@ namespace NeedleworkStore.UCElements
         public bool IsValid { get; set; } = true;
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
+            OnPropertyChanged(nameof(IsStitchTabEnabled));
+            if (!IsAllSelect)
+                return;
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
             AllStitch.AllChecked = itemWrapper.IsChecked;
-            OnPropertyChanged(nameof(IsStitchTabEnabled));
         }
         public bool IsStitchTabEnabled => AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).IsChecked;
         private void ProductTypeItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
+            OnPropertyChanged(nameof(IsAccessoryTabEnabled));
+            if (!IsAllSelect)
+                return;
             ItemWrapper<ProductTypes> itemWrapper = sender as ItemWrapper<ProductTypes>;
             AllAccessoryTypes.AllChecked = itemWrapper.IsChecked;
-            OnPropertyChanged(nameof(IsAccessoryTabEnabled));
         }
         public bool IsAccessoryTabEnabled => AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).IsChecked;
     }
