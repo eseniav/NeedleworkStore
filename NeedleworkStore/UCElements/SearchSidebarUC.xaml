@@ -77,7 +77,8 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProdTypes.AllChecked}"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllProdTypes.AllChecked}"
+                                              Visibility="{Binding IsMultiselect, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVis}}"/>
                                 </ListBoxItem>
                             </ListBox>
                             <ListBox Name="lbxProdTypes" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllProdTypes.Items}">
@@ -113,7 +114,8 @@
                         <StackPanel>
                             <ListBox Style="{StaticResource lbxOpacity}">
                                 <ListBoxItem>
-                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllDesigners.AllChecked}"/>
+                                    <CheckBox Content="Все" Foreground="#2A3759" IsChecked="{Binding Path=AllDesigners.AllChecked}"
+                                              Visibility="{Binding IsMultiselect, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVis}}"/>
                                 </ListBoxItem>
                             </ListBox>
                             <ListBox Name="lbxDesigners" Style="{StaticResource lbxOpacity}" ItemsSource="{Binding AllDesigners.Items}">

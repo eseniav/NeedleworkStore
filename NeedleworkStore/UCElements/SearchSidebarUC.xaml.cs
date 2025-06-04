@@ -38,15 +38,17 @@ namespace NeedleworkStore.UCElements
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ProductFilterViewModel()
+        public bool IsAllSelect { get; set; }
+        public ProductFilterViewModel(bool isMultiselect = true)
         {
+            IsAllSelect = isMultiselect;
             AllProd = new AllTypeWrapper<NeedleworkTypes>(App.ctx.NeedleworkTypes.ToList());
             AllStitch = new AllTypeWrapper<StitchTypes>(App.ctx.StitchTypes.ToList());
             AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).PropertyChanged += NeedleworkItem_PropertyChange;
-            AllProdTypes = new AllTypeWrapper<ProductTypes>(App.ctx.ProductTypes.ToList());
+            AllProdTypes = new AllTypeWrapper<ProductTypes>(App.ctx.ProductTypes.ToList(), isMultiselect);
             AllAccessoryTypes = new AllTypeWrapper<AccessoryTypes>(App.ctx.AccessoryTypes.ToList());
             AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).PropertyChanged += ProductTypeItem_PropertyChange;
-            AllDesigners = new AllTypeWrapper<Designers>(App.ctx.Designers.ToList());
+            AllDesigners = new AllTypeWrapper<Designers>(App.ctx.Designers.ToList(), isMultiselect);
             AllThemes = new AllTypeWrapper<Themes>(App.ctx.Themes.ToList());
         }
         public AllTypeWrapper<NeedleworkTypes> AllProd { get; set; }
@@ -60,16 +62,20 @@ namespace NeedleworkStore.UCElements
         public bool IsValid { get; set; } = true;
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
+            OnPropertyChanged(nameof(IsStitchTabEnabled));
+            if (!IsAllSelect)
+                return;
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
             AllStitch.AllChecked = itemWrapper.IsChecked;
-            OnPropertyChanged(nameof(IsStitchTabEnabled));
         }
         public bool IsStitchTabEnabled => AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).IsChecked;
         private void ProductTypeItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
+            OnPropertyChanged(nameof(IsAccessoryTabEnabled));
+            if (!IsAllSelect)
+                return;
             ItemWrapper<ProductTypes> itemWrapper = sender as ItemWrapper<ProductTypes>;
             AllAccessoryTypes.AllChecked = itemWrapper.IsChecked;
-            OnPropertyChanged(nameof(IsAccessoryTabEnabled));
         }
         public bool IsAccessoryTabEnabled => AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).IsChecked;
     }
@@ -119,7 +125,18 @@ namespace NeedleworkStore.UCElements
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ItemWrapper<T>.IsChecked))
+            {
+                var changedItem = sender as ItemWrapper<T>;
+                if(!IsMultiselect && changedItem.IsChecked)
+                {
+                    foreach (var item in Items)
+                    {
+                        if (!ReferenceEquals(item, changedItem))
+                            item.IsChecked = false;
+                    }
+                }
                 OnPropertyChanged(nameof(AllChecked));
+            }
         }
         public bool AllChecked
         {
@@ -132,10 +149,12 @@ namespace NeedleworkStore.UCElements
         }
         public void Reset() => AllChecked = false;
         public List<int> GetIDs(Func<T, int> idSelector) => Items.Where(n => n.IsChecked).Select(k => idSelector(k.Item)).ToList();
-        public AllTypeWrapper(List<T> items)
+        public AllTypeWrapper(List<T> items, bool isMultiselect = true)
         {
+            IsMultiselect = isMultiselect;
             Items = items.Select(t => new ItemWrapper<T>(t)).ToList();
         }
+        public bool IsMultiselect { get; set; }
     }
     /// <summary>
     /// Логика взаимодействия для SearchSidebarUC.xaml
@@ -149,6 +168,13 @@ namespace NeedleworkStore.UCElements
         }
         public static readonly DependencyProperty IsPriceVisibleProperty =
             DependencyProperty.Register("IsPriceVisible", typeof(bool), typeof(SearchSidebarUC), new PropertyMetadata(false));
+        public bool IsMultiselect
+        {
+            get => (bool)GetValue(IsMultiselectProperty);
+            set => SetValue(IsMultiselectProperty, value);
+        }
+        public static readonly DependencyProperty IsMultiselectProperty =
+            DependencyProperty.Register("IsMultiselect", typeof(bool), typeof(SearchSidebarUC), new PropertyMetadata(true));
         public void ClearInputs()
         {
             txtTo.Clear();
