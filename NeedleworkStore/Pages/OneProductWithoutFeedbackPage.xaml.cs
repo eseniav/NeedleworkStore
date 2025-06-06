@@ -18,6 +18,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using static NeedleworkStore.Pages.ProductsPage;
+using QRCoder;
+using System.IO;
 
 namespace NeedleworkStore.Pages
 {
@@ -68,6 +70,31 @@ namespace NeedleworkStore.Pages
             OnPropertyChanged(nameof(FavoriteIconVisibility));
             OnPropertyChanged(nameof(NotFavoriteIconVisibility));
         }
+        private BitmapImage GetQRImage(byte[] imageData)
+        {
+            using (var ms = new MemoryStream(imageData))
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
+        }
+        private byte[] GetQRData(string url)
+        {
+            QRCodeGenerator qRCodeGenerator = new QRCodeGenerator();
+            QRCodeData qRCodeData = qRCodeGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+            PngByteQRCode qRCode = new PngByteQRCode(qRCodeData);
+            return qRCode.GetGraphic(20);
+        }
+        private void SetQR()
+        {
+            string baseUrl = "https://www.stitch.su/";
+            string url = baseUrl + _product.QRLink;
+            imQR.Source = GetQRImage(GetQRData(url));
+        }
         public OneProductWithoutFeedbackPage(Products prod)
         {
             InitializeComponent();
@@ -79,6 +106,11 @@ namespace NeedleworkStore.Pages
             mainWindow.btnProd.IsEnabled = true;
             ProductImage = prod.ProductImage;
             DataContext = this;
+            if (!string.IsNullOrEmpty(_product.QRLink))
+            {
+                SetQR();
+                stPQR.Visibility = Visibility.Visible;
+            }
         }
         private void SetProdValues()
         {
