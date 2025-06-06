@@ -89,8 +89,10 @@ namespace NeedleworkStore.Pages
             PngByteQRCode qRCode = new PngByteQRCode(qRCodeData);
             return qRCode.GetGraphic(20);
         }
-        private void SetQR(string url)
+        private void SetQR()
         {
+            string baseUrl = "https://www.stitch.su/";
+            string url = baseUrl + _product.QRLink;
             imQR.Source = GetQRImage(GetQRData(url));
         }
         public OneProductWithoutFeedbackPage(Products prod)
@@ -104,9 +106,11 @@ namespace NeedleworkStore.Pages
             mainWindow.btnProd.IsEnabled = true;
             ProductImage = prod.ProductImage;
             DataContext = this;
-            string baseUrl = "https://www.stitch.su/";
-            string url = baseUrl + _product.QRLink;
-            SetQR(url);
+            if (!string.IsNullOrEmpty(_product.QRLink))
+            {
+                SetQR();
+                stPQR.Visibility = Visibility.Visible;
+            }
         }
         private void SetProdValues()
         {

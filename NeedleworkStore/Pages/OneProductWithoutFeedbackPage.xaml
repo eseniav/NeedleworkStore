@@ -88,7 +88,7 @@
         <TextBlock Name="txtBlPopup" Style="{StaticResource txtPopup}"/>
     </TextBlock>
                     </Popup>
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <StackPanel Name="stPQR" Grid.Column="1" HorizontalAlignment="Center" Visibility="Hidden">
                         <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Посмотреть готовые работы:" FontSize="14"/>
                         <Image Name="imQR" MaxWidth="100" MaxHeight="100" MouseDown="imQR_MouseDown"/>
                     </StackPanel>
