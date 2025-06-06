@@ -28,7 +28,6 @@ namespace NeedleworkStore.Pages
     {
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
-        public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
         private DispatcherTimer _checkTimer;
         private string _currentText = "";
         private string _lastValidText = "";
@@ -42,14 +41,24 @@ namespace NeedleworkStore.Pages
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
             private Visibility _AdminCmb;
             private Visibility _StatusLabel;
+            public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
+            public List<PaymentStatuses> AvailablePaymentStatuses { get; set; } = App.ctx.PaymentStatuses.ToList();
+            public List<ReceivingStatuses> AvailableReceivingStatuses { get; set; } = App.ctx.ReceivingStatuses.ToList();
             public int OrderID { get; set; }
             public DateTime? FormationDate { get; set; }
             public string PickUpPointAddress { get; set; }
             public List<OrderItemViewModel> Items { get; set; }
             public decimal TotalAmount => Items.Sum(i => i.Price * i.Quantity);
-            public string PaymentStatus { get; set; }
-            public string ProcessingStatus { get; set; }
-            public string ReceivingStatus { get; set; }
+            public PaymentStatuses PaymentStatus { get; set; }
+            private ProcessingStatuses _processingStatuses;
+            public ProcessingStatuses ProcessingStatus { get => _processingStatuses;
+                set
+                {
+                    _processingStatuses = value;
+                    OnPropertyChanged(nameof(ProcessingStatus));
+                }
+            }
+            public ReceivingStatuses ReceivingStatus { get; set; }
             public Visibility AdminCmb
             {
                 get => _mainWindow.RoleID == 1 ? Visibility.Visible : Visibility.Collapsed;
@@ -125,12 +134,13 @@ namespace NeedleworkStore.Pages
                             Quantity = oc.Quantity,
                             Price = oc.OrderPrice
                         }).ToList() ?? new List<OrderItemViewModel>(),
-                        PaymentStatus = o.AssigningStatuses?.FirstOrDefault()?.PaymentStatuses?.PaymentStatus ?? "Не определен",
-                        ProcessingStatus = o.AssigningStatuses?.FirstOrDefault()?.ProcessingStatuses?.ProcessingStatus ?? "Не определен",
-                        ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
+                        PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                        ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
+                        ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                     }).ToList();
 
                 ICorders.ItemsSource = orders;
+                ICorders.DataContext = orders;
             }
             catch (Exception ex)
             {
@@ -235,12 +245,13 @@ namespace NeedleworkStore.Pages
                                 Quantity = oc.Quantity,
                                 Price = oc.OrderPrice
                             }).ToList() ?? new List<OrderItemViewModel>(),
-                            PaymentStatus = o.AssigningStatuses?.FirstOrDefault()?.PaymentStatuses?.PaymentStatus ?? "Не определен",
-                            ProcessingStatus = o.AssigningStatuses?.FirstOrDefault()?.ProcessingStatuses?.ProcessingStatus ?? "Не определен",
-                            ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
+                            PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                            ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
+                            ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                         }).ToList();
 
                 ICorders.ItemsSource = orders;
+                ICorders.DataContext = orders;
             }
             catch (Exception ex)
             {
