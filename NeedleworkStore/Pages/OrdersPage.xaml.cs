@@ -157,6 +157,8 @@ namespace NeedleworkStore.Pages
             {
                 if (!OrdersList.Any(o => o.OrderID == orderId))
                 {
+                    ICorders.Visibility = Visibility.Collapsed;
+                    btnSavechanges.Visibility = Visibility.Collapsed;
                     MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     cmbOrders.Text = "";
                     cmbOrders.SelectedIndex = -1;
@@ -164,6 +166,7 @@ namespace NeedleworkStore.Pages
                 else
                 {
                     _lastValidText = _currentText;
+                    ICorders.Visibility = Visibility.Visible;
                 }
             }
             else
