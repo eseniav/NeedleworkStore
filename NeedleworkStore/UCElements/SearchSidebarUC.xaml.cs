@@ -63,19 +63,17 @@ namespace NeedleworkStore.UCElements
         private void NeedleworkItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(nameof(IsStitchTabEnabled));
-            if (!IsAllSelect)
-                return;
             ItemWrapper<NeedleworkTypes> itemWrapper = sender as ItemWrapper<NeedleworkTypes>;
-            AllStitch.AllChecked = itemWrapper.IsChecked;
+            if (IsAllSelect || !itemWrapper.IsChecked)
+                AllStitch.AllChecked = itemWrapper.IsChecked;
         }
         public bool IsStitchTabEnabled => AllProd.Items.FirstOrDefault(c => c.Item.NeedleworkTypeID == 1).IsChecked;
         private void ProductTypeItem_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(nameof(IsAccessoryTabEnabled));
-            if (!IsAllSelect)
-                return;
             ItemWrapper<ProductTypes> itemWrapper = sender as ItemWrapper<ProductTypes>;
-            AllAccessoryTypes.AllChecked = itemWrapper.IsChecked;
+            if (IsAllSelect || !itemWrapper.IsChecked)
+                AllAccessoryTypes.AllChecked = itemWrapper.IsChecked;
         }
         public bool IsAccessoryTabEnabled => AllProdTypes.Items.FirstOrDefault(c => c.Item.ProductTypeID == 2).IsChecked;
     }
