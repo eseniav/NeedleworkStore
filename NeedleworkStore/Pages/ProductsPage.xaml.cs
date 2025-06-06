@@ -286,7 +286,6 @@ namespace NeedleworkStore.Pages
                         MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
                         return;
                     }
-                    ProdList.Items.Refresh();
                     return;
                 }
                 if(!IsProdPage)
@@ -309,6 +308,8 @@ namespace NeedleworkStore.Pages
                         MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
                         return;
                     }
+                    filterProducts.Remove(selectedProduct);
+                    myProducts.Remove(selectedProduct);
                     ProdList.Items.Refresh();
                     return;
                 }
@@ -483,6 +484,8 @@ namespace NeedleworkStore.Pages
                     MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
                     return;
                 }
+                filterProducts.Remove(selectedProduct);
+                myProducts.Remove(selectedProduct);
                 ProdList.Items.Refresh();
                 return;
             }
