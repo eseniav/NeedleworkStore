@@ -93,11 +93,11 @@
                                     </WrapPanel>
                                     <UniformGrid Grid.Column="1" Columns="2">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Label Content="{Binding ProcessingStatus}"
+                                            <Label Content="{Binding ProcessingStatus.ProcessingStatus}"
                                                    Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#431D32" FontSize="16"/>
                                             <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableProcessingStatuses}"
-                                                      Visibility="{Binding AdminCmb}"
+                                                      Visibility="{Binding AdminCmb}" SelectedItem="{Binding ProcessingStatus}"
                                                       Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -108,8 +108,8 @@
                                             </ComboBox>
                                             <Label Content="{Binding PaymentStatus}" Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#3D5220" FontSize="16"/>
-                                            <ComboBox HorizontalContentAlignment="Left" Width="130"
-                                                        Visibility="{Binding AdminCmb}"
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailablePaymentStatuses}"
+                                                        Visibility="{Binding AdminCmb}" SelectedItem="{Binding PaymentStatus}"
                                                         Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -120,8 +120,8 @@
                                             </ComboBox>
                                             <Label Content="{Binding ReceivingStatus}" Visibility="{Binding StatusLabel}"
                                        FontFamily="Cakra Normal" Foreground="#852614" FontSize="16"/>
-                                            <ComboBox HorizontalContentAlignment="Left" Width="130"
-                                                        Visibility="{Binding AdminCmb}"
+                                            <ComboBox HorizontalContentAlignment="Left" Width="130" ItemsSource="{Binding AvailableReceivingStatuses}"
+                                                        Visibility="{Binding AdminCmb}" SelectedItem="{Binding ReceivingStatus}"
                                                         Margin="0 3">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>

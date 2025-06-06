@@ -28,10 +28,11 @@ namespace NeedleworkStore.Pages
     {
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
-        public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
         private DispatcherTimer _checkTimer;
         private string _currentText = "";
         private string _lastValidText = "";
+        List<OrderViewModel> orders = new List<OrderViewModel>();
+        OrderViewModel CurrentOrder;
         public class OrderViewModel : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler PropertyChanged;
@@ -42,14 +43,24 @@ namespace NeedleworkStore.Pages
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
             private Visibility _AdminCmb;
             private Visibility _StatusLabel;
+            public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
+            public List<PaymentStatuses> AvailablePaymentStatuses { get; set; } = App.ctx.PaymentStatuses.ToList();
+            public List<ReceivingStatuses> AvailableReceivingStatuses { get; set; } = App.ctx.ReceivingStatuses.ToList();
             public int OrderID { get; set; }
             public DateTime? FormationDate { get; set; }
             public string PickUpPointAddress { get; set; }
             public List<OrderItemViewModel> Items { get; set; }
             public decimal TotalAmount => Items.Sum(i => i.Price * i.Quantity);
-            public string PaymentStatus { get; set; }
-            public string ProcessingStatus { get; set; }
-            public string ReceivingStatus { get; set; }
+            public PaymentStatuses PaymentStatus { get; set; }
+            private ProcessingStatuses _processingStatuses;
+            public ProcessingStatuses ProcessingStatus { get => _processingStatuses;
+                set
+                {
+                    _processingStatuses = value;
+                    OnPropertyChanged(nameof(ProcessingStatus));
+                }
+            }
+            public ReceivingStatuses ReceivingStatus { get; set; }
             public Visibility AdminCmb
             {
                 get => _mainWindow.RoleID == 1 ? Visibility.Visible : Visibility.Collapsed;
@@ -110,7 +121,7 @@ namespace NeedleworkStore.Pages
                 var allStatuses = App.ctx.ProcessingStatuses
                               .Select(s => s.ProcessingStatus)
                               .ToList();
-                List<OrderViewModel> orders = App.ctx.Orders
+                orders = App.ctx.Orders
                     .Where(o => o.OrderID == orderID)
                     .ToList()
                     .Select(o => new OrderViewModel
@@ -125,12 +136,13 @@ namespace NeedleworkStore.Pages
                             Quantity = oc.Quantity,
                             Price = oc.OrderPrice
                         }).ToList() ?? new List<OrderItemViewModel>(),
-                        PaymentStatus = o.AssigningStatuses?.FirstOrDefault()?.PaymentStatuses?.PaymentStatus ?? "Не определен",
-                        ProcessingStatus = o.AssigningStatuses?.FirstOrDefault()?.ProcessingStatuses?.ProcessingStatus ?? "Не определен",
-                        ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
+                        PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                        ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
+                        ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                     }).ToList();
 
                 ICorders.ItemsSource = orders;
+                ICorders.DataContext = orders;
             }
             catch (Exception ex)
             {
@@ -145,6 +157,8 @@ namespace NeedleworkStore.Pages
             {
                 if (!OrdersList.Any(o => o.OrderID == orderId))
                 {
+                    ICorders.Visibility = Visibility.Collapsed;
+                    btnSavechanges.Visibility = Visibility.Collapsed;
                     MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     cmbOrders.Text = "";
                     cmbOrders.SelectedIndex = -1;
@@ -152,6 +166,7 @@ namespace NeedleworkStore.Pages
                 else
                 {
                     _lastValidText = _currentText;
+                    ICorders.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -206,12 +221,13 @@ namespace NeedleworkStore.Pages
         {
             if (mainWindow.RoleID == 1 && cmbOrders.SelectedItem != null)
             {
-                var selectedOrder = cmbOrders.SelectedItem as Orders;
+                Orders selectedOrder = cmbOrders.SelectedItem as Orders;
                 if (selectedOrder != null)
                 {
                     CheckExistingOrder(selectedOrder.OrderID.ToString());
                     LoadOrdersByAdmin(selectedOrder.OrderID);
                     SetAdminMenu();
+                    CurrentOrder = orders.FirstOrDefault(c => c.OrderID == selectedOrder.OrderID);
                 }
             }
         }
@@ -219,7 +235,7 @@ namespace NeedleworkStore.Pages
         {
             try
             {
-                List<OrderViewModel> orders = App.ctx.Orders
+               orders = App.ctx.Orders
                         .OrderByDescending(o => o.FormationDate)
                         .Where(o => o.UserID == mainWindow.UserID)
                         .ToList()
@@ -235,12 +251,13 @@ namespace NeedleworkStore.Pages
                                 Quantity = oc.Quantity,
                                 Price = oc.OrderPrice
                             }).ToList() ?? new List<OrderItemViewModel>(),
-                            PaymentStatus = o.AssigningStatuses?.FirstOrDefault()?.PaymentStatuses?.PaymentStatus ?? "Не определен",
-                            ProcessingStatus = o.AssigningStatuses?.FirstOrDefault()?.ProcessingStatuses?.ProcessingStatus ?? "Не определен",
-                            ReceivingStatus = o.AssigningStatuses?.FirstOrDefault()?.ReceivingStatuses?.ReceivingStatus ?? "Не определен"
+                            PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                            ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
+                            ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                         }).ToList();
 
                 ICorders.ItemsSource = orders;
+                ICorders.DataContext = orders;
             }
             catch (Exception ex)
             {
@@ -257,7 +274,24 @@ namespace NeedleworkStore.Pages
         }
         public void SaveStatus()
         {
-            MessageBox.Show("Сохранение в БД");
+            try
+            {
+                AssigningStatuses assigningStatuses = new AssigningStatuses
+                {
+                    PaymentStatusID = CurrentOrder.PaymentStatus.PaymentID,
+                    ReceivingStatusID = CurrentOrder.ReceivingStatus.ReceivingStatusID,
+                    ModifiedDate = DateTime.Now,
+                    OrderID = CurrentOrder.OrderID,
+                    ProcessingStatusID = CurrentOrder.ProcessingStatus.ProcessingStatusID,
+                };
+                App.ctx.AssigningStatuses.Add(assigningStatuses);
+                App.ctx.SaveChanges();
+                MessageBox.Show("Данные обновлены", "Сохранение", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка сохранения: {ex.Message}");
+            }
         }
         private void btnSavechanges_Click(object sender, RoutedEventArgs e)
         {
