@@ -31,6 +31,8 @@ namespace NeedleworkStore.Pages
         private DispatcherTimer _checkTimer;
         private string _currentText = "";
         private string _lastValidText = "";
+        List<OrderViewModel> orders = new List<OrderViewModel>();
+        OrderViewModel CurrentOrder;
         public class OrderViewModel : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler PropertyChanged;
@@ -119,7 +121,7 @@ namespace NeedleworkStore.Pages
                 var allStatuses = App.ctx.ProcessingStatuses
                               .Select(s => s.ProcessingStatus)
                               .ToList();
-                List<OrderViewModel> orders = App.ctx.Orders
+                orders = App.ctx.Orders
                     .Where(o => o.OrderID == orderID)
                     .ToList()
                     .Select(o => new OrderViewModel
@@ -216,12 +218,13 @@ namespace NeedleworkStore.Pages
         {
             if (mainWindow.RoleID == 1 && cmbOrders.SelectedItem != null)
             {
-                var selectedOrder = cmbOrders.SelectedItem as Orders;
+                Orders selectedOrder = cmbOrders.SelectedItem as Orders;
                 if (selectedOrder != null)
                 {
                     CheckExistingOrder(selectedOrder.OrderID.ToString());
                     LoadOrdersByAdmin(selectedOrder.OrderID);
                     SetAdminMenu();
+                    CurrentOrder = orders.FirstOrDefault(c => c.OrderID == selectedOrder.OrderID);
                 }
             }
         }
@@ -229,7 +232,7 @@ namespace NeedleworkStore.Pages
         {
             try
             {
-                List<OrderViewModel> orders = App.ctx.Orders
+               orders = App.ctx.Orders
                         .OrderByDescending(o => o.FormationDate)
                         .Where(o => o.UserID == mainWindow.UserID)
                         .ToList()
@@ -268,7 +271,24 @@ namespace NeedleworkStore.Pages
         }
         public void SaveStatus()
         {
-            MessageBox.Show("Сохранение в БД");
+            try
+            {
+                AssigningStatuses assigningStatuses = new AssigningStatuses
+                {
+                    PaymentStatusID = CurrentOrder.PaymentStatus.PaymentID,
+                    ReceivingStatusID = CurrentOrder.ReceivingStatus.ReceivingStatusID,
+                    ModifiedDate = DateTime.Now,
+                    OrderID = CurrentOrder.OrderID,
+                    ProcessingStatusID = CurrentOrder.ProcessingStatus.ProcessingStatusID,
+                };
+                App.ctx.AssigningStatuses.Add(assigningStatuses);
+                App.ctx.SaveChanges();
+                MessageBox.Show("Данные обновлены", "Сохранение", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка сохранения: {ex.Message}");
+            }
         }
         private void btnSavechanges_Click(object sender, RoutedEventArgs e)
         {
