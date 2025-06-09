@@ -150,7 +150,7 @@ namespace NeedleworkStore.Pages
                 return false;
             if (cmbPayNow.IsSelected == true)
             {
-                if (!ContainsOnlyDigits(txtBCardNum.Text) || txtBCardNum.Text.Length < 16)
+                if (!ContainsOnlyDigits(txtBCardNum.Text) || txtBCardNum.Text.Length != 16)
                     return false;
                 if (!IsNotExpired(txtBMonth.Text, txtBYear.Text))
                     return false;
@@ -187,6 +187,7 @@ namespace NeedleworkStore.Pages
                     UserID = (int)mainWindow.UserID,
                     PickUpPointID = selectedPickUpPoint.PickUpPointID,
                     FormationDate = DateTime.Now,
+                    CardNumber = txtBCardNum.Text,
                 };
                 App.ctx.Orders.Add(newOrder);
                 foreach (Carts list in orderCart)

@@ -25,6 +25,7 @@ namespace NeedleworkStore.AppData
         public int UserID { get; set; }
         public int PickUpPointID { get; set; }
         public Nullable<System.DateTime> FormationDate { get; set; }
+        public string CardNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssigningStatuses> AssigningStatuses { get; set; }
