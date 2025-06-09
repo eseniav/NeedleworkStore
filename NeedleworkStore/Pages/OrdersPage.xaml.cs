@@ -18,6 +18,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using PdfSharp.Xps;
+using System.Windows.Xps.Packaging;
+using Microsoft.Win32;
+using System.IO.Packaging;
+using System.IO;
 
 namespace NeedleworkStore.Pages
 {
@@ -51,6 +56,7 @@ namespace NeedleworkStore.Pages
             public string PickUpPointAddress { get; set; }
             public List<OrderItemViewModel> Items { get; set; }
             public decimal TotalAmount => Items.Sum(i => i.Price * i.Quantity);
+            public string CardNumber { get; set; }
             public PaymentStatuses PaymentStatus { get; set; }
             private ProcessingStatuses _processingStatuses;
             public ProcessingStatuses ProcessingStatus { get => _processingStatuses;
@@ -85,6 +91,7 @@ namespace NeedleworkStore.Pages
             public string DesignName { get; set; }
             public int Quantity { get; set; }
             public decimal Price { get; set; }
+            public decimal Amount => Quantity * Price;
         }
         public void SetAdminMenu()
         {
@@ -128,6 +135,7 @@ namespace NeedleworkStore.Pages
                     {
                         OrderID = o.OrderID,
                         FormationDate = o.FormationDate,
+                        CardNumber = o.CardNumber,
                         PickUpPointAddress = o.PickUpPoints?.Adress ?? "Адрес не указан",
                         Items = o.OrderCompositions?.Select(oc => new OrderItemViewModel
                         {
@@ -215,7 +223,6 @@ namespace NeedleworkStore.Pages
                 cmbOrders.Text = "";
                 cmbOrders.SelectedIndex = -1;
             }
-
         }
         private void cmbOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -243,6 +250,7 @@ namespace NeedleworkStore.Pages
                         {
                             OrderID = o.OrderID,
                             FormationDate = o.FormationDate,
+                            CardNumber = o.CardNumber,
                             PickUpPointAddress = o.PickUpPoints?.Adress ?? "Адрес не указан",
                             Items = o.OrderCompositions?.Select(oc => new OrderItemViewModel
                             {
@@ -264,13 +272,91 @@ namespace NeedleworkStore.Pages
                 MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}");
             }
         }
-        private void DownloadChequeInPdf()
+
+    public FlowDocument GenerateCheckDocument(OrderViewModel orderViewModel)
+    {
+        FlowDocument document = new FlowDocument();
+        document.PagePadding = new Thickness(20);
+        document.FontFamily = new FontFamily("Arial");
+        document.FontSize = 12;
+        document.Blocks.Add(CreateParagraph("Кассовый чек. Приход", FontWeights.Bold, 14));
+        foreach(var item in orderViewModel.Items.Select((val, index) => new { val, index }))
+            {
+                document.Blocks.Add(CreateParagraph($"{item.index + 1}. {item.val.DesignName} - {item.val.ProductName}", FontWeights.Normal, 12));
+                document.Blocks.Add(CreateParagraph(item.val.Quantity + " × " + String.Format("{0:0.00}", item.val.Price) + " = " + String.Format("{0:0.00}", item.val.Amount), FontWeights.Light, 10));
+            }
+        document.Blocks.Add(new Section()
         {
-            MessageBox.Show("Скачать чек в пдф");
+            Blocks = {
+            CreateParagraph("ИТОГО: " + String.Format("{0:0.00}", orderViewModel.TotalAmount), FontWeights.Bold, 12),
+            CreateParagraph("НДС 20%: 73.20", FontWeights.Normal, 10),
+            CreateParagraph("Безналичными: 439.20", FontWeights.Normal, 10)
+        }
+        });
+        document.Blocks.Add(new Section()
+        {
+            Blocks = {
+            CreateParagraph("Пользователь АО \"Планета увлечений\"", FontWeights.Normal, 10),
+            CreateParagraph("ИНН 7705814643", FontWeights.Normal, 10),
+            CreateParagraph("Адрес: 195297, Россия, г. Санкт-Петербург", FontWeights.Normal, 10),
+            CreateParagraph("Магазин \"Леонардо\"", FontWeights.Normal, 10)
+        }
+        });
+        document.Blocks.Add(new Section()
+        {
+            Blocks = {
+            CreateParagraph("Дата выдачи: 07.01.2025 18:10", FontWeights.Normal, 10),
+            CreateParagraph("Кассир: Балтаг Галина Васильевна", FontWeights.Normal, 10),
+            CreateParagraph("Номер чека: 133", FontWeights.Normal, 10)
+        }
+        });
+        return document;
+    }
+    private Paragraph CreateParagraph(string text, FontWeight weight, double size)
+    {
+        return new Paragraph(
+            new Run(text)
+            {
+                FontWeight = weight,
+                FontSize = size
+            }
+        );
+    }
+    private void DownloadChequeInPdf(FlowDocument doc)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                FileName = "Check",
+                DefaultExt = ".pdf",
+                Filter = "Документ (*.pdf)|*.pdf"
+            };
+            if (sfd.ShowDialog() == true)
+            {
+                try
+                {
+                    string pdfPath = sfd.FileName;
+                    string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".xps");
+                    using (Package package = Package.Open(tempPath, System.IO.FileMode.Create))
+                    {
+                        XpsDocument xpsDoc = new XpsDocument(package);
+                        var xpsWriter = XpsDocument.CreateXpsDocumentWriter(xpsDoc);
+                        var paginator = ((IDocumentPaginatorSource)doc).DocumentPaginator;
+                        xpsWriter.Write(paginator);
+                        xpsDoc.Close();
+                    }
+                    XpsConverter.Convert(tempPath, pdfPath, 0);
+                    File.Delete(tempPath);
+                    MessageBox.Show("Файл успешно сохранен", "Сохранение", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Ошибка сохранения: {ex.Message}");
+                }
+            }
         }
         private void btnChequePdf_Click(object sender, RoutedEventArgs e)
         {
-            DownloadChequeInPdf();
+            DownloadChequeInPdf(GenerateCheckDocument((OrderViewModel)((Button)sender).DataContext));
         }
         public void SaveStatus()
         {
