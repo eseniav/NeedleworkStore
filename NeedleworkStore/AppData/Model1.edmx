@@ -95,6 +95,7 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PickUpPointID" Type="int" Nullable="false" />
           <Property Name="FormationDate" Type="datetime" />
+          <Property Name="CardNumber" Type="char" MaxLength="16" />
         </EntityType>
         <EntityType Name="PaymentStatuses">
           <Key>
@@ -850,6 +851,7 @@
           <NavigationProperty Name="OrderCompositions" Relationship="Self.FK_OrderCompositions_Orders" FromRole="Orders" ToRole="OrderCompositions" />
           <NavigationProperty Name="PickUpPoints" Relationship="Self.FK_Orders_PickUpPoints" FromRole="Orders" ToRole="PickUpPoints" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+          <Property Name="CardNumber" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="PaymentStatuses">
           <Key>
@@ -1604,6 +1606,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="NeedleworkStoreModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="PickUpPointID" ColumnName="PickUpPointID" />
