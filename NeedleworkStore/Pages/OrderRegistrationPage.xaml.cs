@@ -293,6 +293,10 @@ namespace NeedleworkStore.Pages
             var textBox = sender as TextBox;
             if (textBox == null) return;
             string text = textBox.Text.Replace(" ", "");
+            if (text.Length > 16)
+            {
+                text = text.Substring(0, 16);
+            }
             StringBuilder formattedText = new StringBuilder();
             for (int i = 0; i < text.Length; i++)
             {
