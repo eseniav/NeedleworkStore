@@ -144,13 +144,13 @@ namespace NeedleworkStore.Pages
                 return true;
             return int.Parse(monthText) >= DateTime.Now.Month;
         }
-        private bool CheckConditions()
+        private bool CheckConditions(string card)
         {
             if (cmbPickUpPointCity.SelectedItem == null || cmbPickUpPointAddress.SelectedItem == null || cmbPayment.SelectedItem == null)
                 return false;
             if (cmbPayNow.IsSelected == true)
             {
-                if (!ContainsOnlyDigits(txtBCardNum.Text) || txtBCardNum.Text.Length != 16)
+                if (!ContainsOnlyDigits(card) || card.Length != 16)
                     return false;
                 if (!IsNotExpired(txtBMonth.Text, txtBYear.Text))
                     return false;
@@ -159,7 +159,8 @@ namespace NeedleworkStore.Pages
         }
         private void btnPOrderReg_Click(object sender, RoutedEventArgs e)
         {
-             if (!CheckConditions())
+            string card = txtBCardNum.Text.Replace(" ", "");
+            if (!CheckConditions(card))
             {
                 string errorMessage = "Не удалось оформить заказ.\n";
                 if (cmbPickUpPointCity.SelectedItem == null)
@@ -168,7 +169,7 @@ namespace NeedleworkStore.Pages
                     errorMessage += "• Не выбран пункт выдачи\n";
                 if (cmbPayment.SelectedItem == null)
                     errorMessage += "• Не выбран способ оплаты\n";
-                if (cmbPayNow.IsSelected == true && !ContainsOnlyDigits(txtBCardNum.Text))
+                if (cmbPayNow.IsSelected == true && !ContainsOnlyDigits(card))
                     errorMessage += "• Номер карты должен содержать только цифры\n";
 
                 MessageBox.Show(
@@ -187,7 +188,7 @@ namespace NeedleworkStore.Pages
                     UserID = (int)mainWindow.UserID,
                     PickUpPointID = selectedPickUpPoint.PickUpPointID,
                     FormationDate = DateTime.Now,
-                    CardNumber = txtBCardNum.Text,
+                    CardNumber = card,
                 };
                 App.ctx.Orders.Add(newOrder);
                 foreach (Carts list in orderCart)
@@ -285,6 +286,32 @@ namespace NeedleworkStore.Pages
         private void cmbPickUpPointCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetPickUpPointCity(((Cities)((ComboBox)sender).SelectedItem).CityName);
+        }
+
+        private void txtBCardNum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox == null) return;
+            string text = textBox.Text.Replace(" ", "");
+            if (text.Length > 16)
+            {
+                text = text.Substring(0, 16);
+            }
+            StringBuilder formattedText = new StringBuilder();
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (i > 0 && i % 4 == 0)
+                {
+                    formattedText.Append(" ");
+                }
+                formattedText.Append(text[i]);
+            }
+            if (textBox.Text != formattedText.ToString())
+            {
+                int caretPos = textBox.CaretIndex;
+                textBox.Text = formattedText.ToString();
+                textBox.CaretIndex = caretPos + (formattedText.Length - text.Length);
+            }
         }
     }
 }
