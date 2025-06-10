@@ -24,7 +24,7 @@
                             <StackPanel Margin="20">
                                 <WrapPanel HorizontalAlignment="Center" MaxHeight="120"   Margin="0 10 0 10">
                                     <Label Content="Мастерская" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White"/>
-                                    <Label Content="вдохновения" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White"/>
+                                    <Label Content="вдохновения" FontSize="42" Style="{StaticResource Hlobus}" HorizontalAlignment="Center" Foreground="White" Margin="20 0 0 0"/>
                                 </WrapPanel>
                                 <TextBlock Style="{StaticResource txtAboutShopMain}">
                 Добро пожаловать в "Мастерскую вдохновения"!

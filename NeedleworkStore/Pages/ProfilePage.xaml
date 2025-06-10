@@ -58,34 +58,35 @@
                         <UniformGrid Columns="2" Rows="8">
                             <TextBlock Text="Логин:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtLog" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
-                            <TextBox Name="boxLog" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <TextBox Name="boxLog" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25" TextChanged="boxLog_TextChanged"/>
                             <TextBlock Text="Пароль:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <WrapPanel>
                                 <TextBlock Name="txtPass" Text="********" HorizontalAlignment="Left" Width="140" Style="{StaticResource Data}"/>
-                                <TextBox Name="boxPass" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                                <PasswordBox Name="boxPass" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="150" Height="25" PasswordChanged="boxPass_PasswordChanged"/>
                                 <CheckBox Name="chbShowPass" VerticalAlignment="Center" Click="chbShowPass_Click"/>
                                 <TextBlock Name="txtShowPass" Text="Показать пароль" VerticalAlignment="Center" FontSize="12" Style="{StaticResource Type}"/>
                                 <TextBlock Name="txtRepeatPass" Text="Повторите пароль" VerticalAlignment="Center" FontSize="12" Style="{StaticResource Type}"/>
-                                <TextBox Name="boxPass2" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                                <PasswordBox Name="boxPass2" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="150" Height="25" PasswordChanged="boxPass2_PasswordChanged"/>
                             </WrapPanel>
                             <TextBlock Text="e-mail:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtEmail" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
-                            <TextBox Name="boxEmail" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <TextBox Name="boxEmail" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25" TextChanged="boxEmail_TextChanged"/>
                             <TextBlock Text="Фамилия:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtLastname" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
-                            <TextBox Name="boxLastName" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <TextBox Name="boxLastName" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25" TextChanged="boxLastName_TextChanged"/>
                             <TextBlock Text="Имя:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtFirstname" HorizontalAlignment="Left"  Style="{StaticResource Data}"/>
-                            <TextBox Name="boxFirstname" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <TextBox Name="boxFirstname" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25" TextChanged="boxFirstname_TextChanged"/>
                             <TextBlock Text="Отчество:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtPatr" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
-                            <TextBox Name="boxPatr" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <TextBox Name="boxPatr" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25" TextChanged="boxPatr_TextChanged"/>
                             <TextBlock Text="Дата рождения:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtBirthDate" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
-                            <DatePicker Name="boxBirthDate" HorizontalAlignment="Left" Height="25" Width="150"/>
+                            <DatePicker Name="boxBirthDate" HorizontalAlignment="Left" Height="25" Width="150" SelectedDateChanged="boxBirthDate_SelectedDateChanged"/>
                             <TextBlock Text="Телефон:" HorizontalAlignment="Right" Style="{StaticResource Type}"/>
                             <TextBlock Name="txtPhone" HorizontalAlignment="Left" Style="{StaticResource Data}"/>
-                            <TextBox Name="boxPhone" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"/>
+                            <TextBox Name="boxPhone" HorizontalAlignment="Left" Style="{StaticResource txtBoxReg}" Height="25"
+                                     TextChanged="boxPhone_TextChanged" PreviewTextInput="boxPhone_PreviewTextInput" PreviewKeyDown="boxPhone_PreviewKeyDown"/>
                         </UniformGrid>
                     </StackPanel>
                 </GroupBox>
