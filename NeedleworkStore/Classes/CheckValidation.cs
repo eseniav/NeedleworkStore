@@ -16,14 +16,10 @@ namespace NeedleworkStore.Classes
     {      
         public static bool CheckLogin(string txt)
         {
-            foreach (char ch in txt)
-            {
-                if (ch == '&' || ch == '+' || ch == '=' || ch == '<' || ch == '>' || ch == ',' || ch == '-' || ch == '"' || ch == '\'')
-                {
-                    return false;
-                }
-            }
-            return true;
+            if (txt.Length < 3)
+                return false;
+            char[] forbiddenChars = { '&', '+', '=', '<', '>', ',', '-', '"', '\'' };
+            return !txt.Any(c => forbiddenChars.Contains(c));
         }
         public static ValidationState CheckLogin(TextBox txtBLogin)
         {
