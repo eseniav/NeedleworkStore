@@ -57,7 +57,8 @@ namespace NeedleworkStore.Pages
             CheckPassError();
             CheckRepeatPassError();
             CheckPhoneError();
-            if(CheckValidation.CheckEmptyNull(txtBPhone.Text))
+            CheckEmailError();
+            if (CheckValidation.CheckEmptyNull(txtBPhone.Text))
             {
                 string correctPhone = CheckValidation.CorrectPhone(txtBPhone.Text);
                 if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
@@ -65,6 +66,15 @@ namespace NeedleworkStore.Pages
                     state.SetError("На этот телефон уже зарегистрирован аккаунт");
                     ColorInputControl(txtBPhone, state.IsError);
                     errorPhone.Text = state.ErrorMessage;
+                }
+            }
+            if (CheckValidation.CheckEmptyNull(txtBEmail.Text))
+            {
+                if (App.ctx.Users.FirstOrDefault(u => u.UserEmail == txtBEmail.Text) != null)
+                {
+                    state.SetError("На этот email уже зарегистрирован аккаунт");
+                    ColorInputControl(txtBEmail, state.IsError);
+                    errorEmail.Text = state.ErrorMessage;
                 }
             }
             if (CheckLoginError() || CheckPassError() || CheckRepeatPassError() || CheckPhoneError())
@@ -182,6 +192,17 @@ namespace NeedleworkStore.Pages
             {
                 e.Handled = true;
             }
+        }
+        public bool CheckEmailError()
+        {
+            ValidationState state = CheckValidation.CheckEmail(txtBEmail);
+            ColorInputControl(txtBEmail, state.IsError);
+            errorEmail.Text = state.ErrorMessage;
+            return state.IsError;
+        }
+        private void txtBEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckEmailError();
         }
     }
 }

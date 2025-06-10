@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -89,6 +90,28 @@ namespace NeedleworkStore.Classes
                 state.SetError("Поле обязательно для заполнения");
             else if (!CheckValidation.CheckPhone(digitsOnly))
                 state.SetError("Телефонный номер должен быть указан в формате 10 цифр без кода страны");
+            return state;
+        }
+        public static bool CheckEmail(string email)
+        {
+            string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
+                    + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
+                    + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
+            if (!Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase))
+            {
+                return false;
+            }
+            return true;
+        }
+        public static ValidationState CheckEmail(TextBox email)
+        {
+            ValidationState state = new ValidationState();
+            if (!CheckValidation.CheckEmptyNull(email.Text))
+                state.SetError("Поле обязательно для заполнения");
+            else if (!CheckValidation.CheckEmail(email.Text))
+                state.SetError("Некорректный формат email");
+            else if (email.Text.Length > 254)
+                state.SetError("Email слишком длинный");
             return state;
         }
         public static bool CheckEmptyNull(string txt) => !String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt);
