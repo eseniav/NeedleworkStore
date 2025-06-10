@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NeedleworkStore.Classes
 {
@@ -69,34 +70,25 @@ namespace NeedleworkStore.Classes
         }
         public static bool CheckPhone(string txt)
         {
-            if (txt.Length != 12 && txt.Length != 11)
+            if (txt.Length != 11)
                 return false;
-            if (txt.StartsWith("+7") && txt.Length != 12)
-                return false;
-            if (txt.StartsWith("8") && txt.Length != 11)
-                return false;
-            for (int i = 1; i < txt.Length; i++)
-            {
-                if (!char.IsDigit(txt[i]))
-                    return false;
-            }
             return true;
         }
         public static string CorrectPhone(string txt)
         {
-            if (txt.StartsWith("+7") && txt.Length == 12)
-                return txt.Substring(2);
-            if (txt.StartsWith("8") && txt.Length == 11)
-                return txt.Substring(1);
-            return txt;
+            string digitsOnly = new string(txt.Where(char.IsDigit).ToArray());
+            if (digitsOnly.Length == 1)
+                return digitsOnly;
+            return digitsOnly.Substring(1);
         }
         public static ValidationState CheckPhone(TextBox txtBPhone)
         {
             ValidationState state = new ValidationState();
+            string digitsOnly = new string(txtBPhone.Text.Where(char.IsDigit).ToArray());
             if (!CheckValidation.CheckEmptyNull(txtBPhone.Text))
                 state.SetError("Поле обязательно для заполнения");
-            else if (!CheckValidation.CheckPhone(txtBPhone.Text))
-                state.SetError("Телефон должен начинаться с +7 или 8 и содержать 11 цифр");
+            else if (!CheckValidation.CheckPhone(digitsOnly))
+                state.SetError("Телефонный номер должен быть указан в формате 10 цифр без кода страны");
             return state;
         }
         public static bool CheckEmptyNull(string txt) => !String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt);

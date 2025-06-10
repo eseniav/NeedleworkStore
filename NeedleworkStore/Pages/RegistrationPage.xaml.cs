@@ -28,7 +28,7 @@ namespace NeedleworkStore.Pages
             InitializeComponent();
             txtBlLog.Text = "Минимальная длина - 3 символа. " +
                 "Нельзя использовать: & + = < > , \" \' ` ~";
-            txtBlPass.Text = "Минимальная длина - 8 символов. " +
+            txtBlPass.Text = "Длина от 8 до 50 символов. " +
                 "Пароль должен содержать хотя бы 1 цифру и заглавную букву.";
             txtBlDate.Text = "Регистрация возможна с 14 лет";
             txtBlReqFields.Text = "Поля с * обязательны для заполнения";
@@ -57,12 +57,15 @@ namespace NeedleworkStore.Pages
             CheckPassError();
             CheckRepeatPassError();
             CheckPhoneError();
-            string correctPhone = CheckValidation.CorrectPhone(txtBPhone.Text);
-            if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
+            if(CheckValidation.CheckEmptyNull(txtBPhone.Text))
             {
-                state.SetError("На этот телефон уже зарегистрирован аккаунт");
-                ColorInputControl(txtBPhone, state.IsError);
-                errorPhone.Text = state.ErrorMessage;
+                string correctPhone = CheckValidation.CorrectPhone(txtBPhone.Text);
+                if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
+                {
+                    state.SetError("На этот телефон уже зарегистрирован аккаунт");
+                    ColorInputControl(txtBPhone, state.IsError);
+                    errorPhone.Text = state.ErrorMessage;
+                }
             }
             if (CheckLoginError() || CheckPassError() || CheckRepeatPassError() || CheckPhoneError())
             {
@@ -127,9 +130,58 @@ namespace NeedleworkStore.Pages
             errorPhone.Text = state.ErrorMessage;
             return state.IsError;
         }
+        public void SetPhoneFormat(TextBox textBox)
+        {
+            string text = textBox.Text;
+            string digitsOnly = new string(text.Where(c => char.IsDigit(c) || c == '+').ToArray());
+            if (digitsOnly.StartsWith("+7") && digitsOnly.Length > 2)
+            {
+                string numbers = digitsOnly.Substring(2);
+                string formatted = "+7 (";
+
+                if (numbers.Length > 0)
+                    formatted += numbers.Length > 3 ? numbers.Substring(0, 3) + ") " : numbers + ") ";
+                if (numbers.Length > 3)
+                    formatted += numbers.Length > 6 ? numbers.Substring(3, 3) + " " : numbers.Substring(3);
+                if (numbers.Length > 6)
+                    formatted += numbers.Length > 8 ? numbers.Substring(6, 2) + " " : numbers.Substring(6);
+                if (numbers.Length > 8)
+                    formatted += numbers.Substring(8);
+
+                textBox.Text = formatted.Trim();
+                textBox.CaretIndex = textBox.Text.Length;
+            }
+        }
         private void txtBPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
             CheckPhoneError();
+            TextBox textBox = sender as TextBox;
+            if (e.Changes.Any(change => change.AddedLength > 1))
+                return;
+            SetPhoneFormat(textBox);
+        }
+
+        private void txtBPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (!char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+                return;
+            }
+            if (textBox.Text.Length == 0)
+            {
+                textBox.Text = "+7 (";
+                textBox.CaretIndex = textBox.Text.Length;
+            }
+        }
+        private void txtBPhone_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (e.Key == Key.Back && textBox.SelectionStart <= 4)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
