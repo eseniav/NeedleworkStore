@@ -52,10 +52,19 @@ namespace NeedleworkStore.Pages
         }
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
+            ValidationState state = new ValidationState();
             CheckLoginError();
             CheckPassError();
             CheckRepeatPassError();
-            if (CheckLoginError() || CheckPassError())
+            CheckPhoneError();
+            string correctPhone = CheckValidation.CorrectPhone(txtBPhone.Text);
+            if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
+            {
+                state.SetError("На этот телефон уже зарегистрирован аккаунт");
+                ColorInputControl(txtBPhone, state.IsError);
+                errorPhone.Text = state.ErrorMessage;
+            }
+            if (CheckLoginError() || CheckPassError() || CheckRepeatPassError() || CheckPhoneError())
             {
                 MessageBox.Show("Проверьте форму на ошибки!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
@@ -69,7 +78,7 @@ namespace NeedleworkStore.Pages
                     UserPatronymic = txtBPatr.Text,
                     Login = txtBLogin.Text,
                     Password = psxB.Password,
-                    UserPhone = txtBPhone.Text,
+                    UserPhone = CheckValidation.CorrectPhone(txtBPhone.Text),
                     UserEmail = txtBEmail.Text,
                     Birthday = dtPBirth.SelectedDate,
                     RoleID = 2
@@ -110,6 +119,17 @@ namespace NeedleworkStore.Pages
         private void pswBRepeat_PasswordChanged(object sender, RoutedEventArgs e)
         {
             CheckRepeatPassError();
+        }
+        public bool CheckPhoneError()
+        {
+            ValidationState state = CheckValidation.CheckPhone(txtBPhone);
+            ColorInputControl(txtBPhone, state.IsError);
+            errorPhone.Text = state.ErrorMessage;
+            return state.IsError;
+        }
+        private void txtBPhone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckPhoneError();
         }
     }
 }

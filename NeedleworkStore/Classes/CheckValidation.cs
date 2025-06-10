@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -64,6 +65,38 @@ namespace NeedleworkStore.Classes
             ValidationState state = new ValidationState();
             if (!CheckValidation.CheckEmptyNull(pswBRepeat.Password))
                 state.SetError("Поле обязательно для заполнения");
+            return state;
+        }
+        public static bool CheckPhone(string txt)
+        {
+            if (txt.Length != 12 && txt.Length != 11)
+                return false;
+            if (txt.StartsWith("+7") && txt.Length != 12)
+                return false;
+            if (txt.StartsWith("8") && txt.Length != 11)
+                return false;
+            for (int i = 1; i < txt.Length; i++)
+            {
+                if (!char.IsDigit(txt[i]))
+                    return false;
+            }
+            return true;
+        }
+        public static string CorrectPhone(string txt)
+        {
+            if (txt.StartsWith("+7") && txt.Length == 12)
+                return txt.Substring(2);
+            if (txt.StartsWith("8") && txt.Length == 11)
+                return txt.Substring(1);
+            return txt;
+        }
+        public static ValidationState CheckPhone(TextBox txtBPhone)
+        {
+            ValidationState state = new ValidationState();
+            if (!CheckValidation.CheckEmptyNull(txtBPhone.Text))
+                state.SetError("Поле обязательно для заполнения");
+            else if (!CheckValidation.CheckPhone(txtBPhone.Text))
+                state.SetError("Телефон должен начинаться с +7 или 8 и содержать 11 цифр");
             return state;
         }
         public static bool CheckEmptyNull(string txt) => !String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt);
