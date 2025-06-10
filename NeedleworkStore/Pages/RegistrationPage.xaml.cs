@@ -40,7 +40,7 @@ namespace NeedleworkStore.Pages
                 throw new ArgumentNullException(nameof(control));
             var brush = isError
                 ? new SolidColorBrush(Color.FromArgb(100, 251, 174, 210))
-                : new SolidColorBrush(Colors.White);
+                : Brushes.White;
             control.Background = brush;
         }
         public bool CheckLoginError()
@@ -54,6 +54,7 @@ namespace NeedleworkStore.Pages
         {
             CheckLoginError();
             CheckPassError();
+            CheckRepeatPassError();
             if (CheckLoginError() || CheckPassError())
             {
                 MessageBox.Show("Проверьте форму на ошибки!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -96,6 +97,19 @@ namespace NeedleworkStore.Pages
         private void psxB_PasswordChanged(object sender, RoutedEventArgs e)
         {
             CheckPassError();
+        }
+        public bool CheckRepeatPassError()
+        {
+            ValidationState state = CheckValidation.CheckRepeatPass(pswBRepeat);
+            if (psxB.Password != pswBRepeat.Password)
+                state.SetError("Пароли не совпадают");
+            ColorInputControl(pswBRepeat, state.IsError);
+            errorRepPass.Text = state.ErrorMessage;
+            return state.IsError;
+        }
+        private void pswBRepeat_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            CheckRepeatPassError();
         }
     }
 }

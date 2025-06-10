@@ -50,13 +50,20 @@ namespace NeedleworkStore.Classes
             }
             return hasCapital && hasNumber;
         }
-        public  static ValidationState CheckPassword(PasswordBox psxB)
+        public static ValidationState CheckPassword(PasswordBox psxB)
         {
             ValidationState state = new ValidationState();
             if (!CheckValidation.CheckEmptyNull(psxB.Password))
                 state.SetError("Поле обязательно для заполнения");
             else if (!CheckValidation.CheckPass(psxB.Password))
                 state.SetError("Поле заполнено неправильно");
+            return state;
+        }
+        public static ValidationState CheckRepeatPass(PasswordBox pswBRepeat)
+        {
+            ValidationState state = new ValidationState();
+            if (!CheckValidation.CheckEmptyNull(pswBRepeat.Password))
+                state.SetError("Поле обязательно для заполнения");
             return state;
         }
         public static bool CheckEmptyNull(string txt) => !String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt);
