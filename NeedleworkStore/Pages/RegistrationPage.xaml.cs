@@ -50,34 +50,48 @@ namespace NeedleworkStore.Pages
             errorLog.Text = state.ErrorMessage;
             return state.IsError;
         }
-        private void btnReg_Click(object sender, RoutedEventArgs e)
+        private bool CheckAllBlocks()
         {
-            ValidationState state = new ValidationState();
+            return CheckLoginError() || CheckPassError() || CheckRepeatPassError() || CheckPhoneError() || CheckLNError() || CheckEmailError() ||
+                CheckFNError() || CheckPatrError() || CheckDateError();
+        }
+        private void CheckEmpty()
+        {
             CheckLoginError();
             CheckPassError();
             CheckRepeatPassError();
             CheckPhoneError();
             CheckEmailError();
+        }
+        private void CheckPhoneExistInDB()
+        {
+            ValidationState state = new ValidationState();
+            string correctPhone = CheckValidation.CorrectPhone(txtBPhone.Text);
+            if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
+            {
+                state.SetError("На этот телефон уже зарегистрирован аккаунт");
+                ColorInputControl(txtBPhone, state.IsError);
+                errorPhone.Text = state.ErrorMessage;
+            }
+        }
+        private void CheckEmailExistInDB()
+        {
+            ValidationState state = new ValidationState();
+            if (App.ctx.Users.FirstOrDefault(u => u.UserEmail == txtBEmail.Text) != null)
+            {
+                state.SetError("На этот email уже зарегистрирован аккаунт");
+                ColorInputControl(txtBEmail, state.IsError);
+                errorEmail.Text = state.ErrorMessage;
+            }
+        }
+        private void btnReg_Click(object sender, RoutedEventArgs e)
+        {
+            CheckEmpty();
             if (CheckValidation.CheckEmptyNull(txtBPhone.Text))
-            {
-                string correctPhone = CheckValidation.CorrectPhone(txtBPhone.Text);
-                if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
-                {
-                    state.SetError("На этот телефон уже зарегистрирован аккаунт");
-                    ColorInputControl(txtBPhone, state.IsError);
-                    errorPhone.Text = state.ErrorMessage;
-                }
-            }
+                CheckPhoneExistInDB();
             if (CheckValidation.CheckEmptyNull(txtBEmail.Text))
-            {
-                if (App.ctx.Users.FirstOrDefault(u => u.UserEmail == txtBEmail.Text) != null)
-                {
-                    state.SetError("На этот email уже зарегистрирован аккаунт");
-                    ColorInputControl(txtBEmail, state.IsError);
-                    errorEmail.Text = state.ErrorMessage;
-                }
-            }
-            if (CheckLoginError() || CheckPassError() || CheckRepeatPassError() || CheckPhoneError())
+                CheckEmailExistInDB();
+            if (CheckAllBlocks())
             {
                 MessageBox.Show("Проверьте форму на ошибки!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
@@ -203,6 +217,40 @@ namespace NeedleworkStore.Pages
         private void txtBEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
             CheckEmailError();
+        }
+        public bool CheckCyrillicError(TextBox textBox, FrameworkElement errorControl)
+        {
+            ValidationState state = CheckValidation.CheckCyrillic(textBox);
+            ColorInputControl(textBox, state.IsError);
+            if (errorControl is TextBlock textBlock)
+                textBlock.Text = state.ErrorMessage;
+            return state.IsError;
+        }
+        public bool CheckLNError() => CheckCyrillicError(txtBLastName, errorLN);
+        private void txtBLastName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckLNError();
+        }
+        public bool CheckFNError() => CheckCyrillicError(txtBFirstName, errorFN);
+        private void txtBFirstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckFNError();
+        }
+        public bool CheckPatrError() => CheckCyrillicError(txtBPatr, errorPatr);
+        private void txtBPatr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckPatrError();
+        }
+        public bool CheckDateError()
+        {
+            ValidationState state = CheckValidation.CheckBirthDate(dtPBirth);
+            ColorInputControl(dtPBirth, state.IsError);
+            errorDate.Text = state.ErrorMessage;
+            return state.IsError;
+        }
+        private void dtPBirth_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckDateError();
         }
     }
 }

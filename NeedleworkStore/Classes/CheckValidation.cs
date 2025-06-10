@@ -114,6 +114,28 @@ namespace NeedleworkStore.Classes
                 state.SetError("Email слишком длинный");
             return state;
         }
+        public static ValidationState CheckCyrillic(TextBox input)
+        {
+            ValidationState state = new ValidationState();
+            if (!CheckValidation.CheckEmptyNull(input.Text))
+                return state;
+            if (!Regex.IsMatch(input.Text, @"^[\p{IsCyrillic}-]+$"))
+            state.SetError("Разрешены только кириллица и дефис");
+            return state;
+        }
+        public static ValidationState CheckBirthDate(DatePicker birthDate)
+        {
+            var state = new ValidationState();
+            if (!CheckValidation.CheckEmptyNull(birthDate.Text))
+                return state;
+            DateTime minDate = DateTime.Today.AddYears(-120);
+            DateTime maxDate = DateTime.Today.AddYears(-14);
+            if (birthDate.SelectedDate.Value < minDate)
+                state.SetError("Возраст не может быть более 120 лет");
+            else if (birthDate.SelectedDate.Value > maxDate)
+                state.SetError("Регистрация возможна только с 14 лет");
+            return state;
+        }
         public static bool CheckEmptyNull(string txt) => !String.IsNullOrEmpty(txt) && !String.IsNullOrWhiteSpace(txt);
         public static bool CheckInt(string txt) => Int32.TryParse(txt.Trim(), out int a);
     }
