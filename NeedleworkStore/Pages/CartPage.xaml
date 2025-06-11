@@ -10,6 +10,8 @@
       Title="CartPage">
     <Page.Resources>
         <cl:ImagePathConverter x:Key="imgConverter"/>
+        <cl:IntToBoolConverter x:Key="IntToBoolConverter"/>
+        <cl:IntToColorConverter x:Key="IntToColorConverter"/>
     </Page.Resources>
     <StackPanel Margin="10">
         <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
@@ -58,7 +60,8 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding IsChecked}"/>
+                                <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding IsChecked}"
+                                          IsEnabled="{Binding Products.AvailabilityStatusID, Converter={StaticResource IntToBoolConverter}}"/>
                                 <StackPanel Grid.Column="1">
                                     <StackPanel>
                                         <GroupBox Margin="10 0 0 10">
@@ -96,8 +99,10 @@
                                                         <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                                                             <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding Products.Designers.DesignerName}"/>
                                                             <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding Products.ProductName}"/>
-                                                            <TextBlock FontFamily="Cakra Normal" Foreground="#3D5220"
-                                                                        Text="{Binding Products.AvailabilityStatuses.AvailabilityStatus}" Margin="5"/>
+                                                            <TextBlock FontFamily="Cakra Normal"
+                                                                       Foreground="{Binding Products.AvailabilityStatusID, Converter={StaticResource IntToColorConverter}}"
+                                                                        Text="{Binding Products.AvailabilityStatuses.AvailabilityStatus}" Margin="5">
+                                                            </TextBlock>
                                                         </StackPanel>
                                                     </Grid>
                                                     <WrapPanel>
@@ -115,7 +120,7 @@
                                                 <StackPanel Grid.Column="3" VerticalAlignment="Center">
                                                     <Button Margin="0 10" MaxWidth="150"
                                                             Style="{StaticResource btnColor}" HorizontalAlignment="Center"
-                                                            Click="btnBuy_Click"
+                                                            Click="btnBuy_Click" IsEnabled="{Binding Products.AvailabilityStatusID, Converter={StaticResource IntToBoolConverter}}"
                                                             >
                                                         <WrapPanel>
                                                             <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}">Купить</TextBlock>
