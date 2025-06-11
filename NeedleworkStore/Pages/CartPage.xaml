@@ -11,6 +11,7 @@
     <Page.Resources>
         <cl:ImagePathConverter x:Key="imgConverter"/>
         <cl:IntToBoolConverter x:Key="IntToBoolConverter"/>
+        <cl:IntToColorConverter x:Key="IntToColorConverter"/>
     </Page.Resources>
     <StackPanel Margin="10">
         <StackPanel Name="stPEmpty" HorizontalAlignment="Center">
@@ -98,8 +99,10 @@
                                                         <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                                                             <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding Products.Designers.DesignerName}"/>
                                                             <TextBlock Style="{StaticResource ChakraTB}" Text="{Binding Products.ProductName}"/>
-                                                            <TextBlock FontFamily="Cakra Normal" Foreground="#3D5220"
-                                                                        Text="{Binding Products.AvailabilityStatuses.AvailabilityStatus}" Margin="5"/>
+                                                            <TextBlock FontFamily="Cakra Normal"
+                                                                       Foreground="{Binding Products.AvailabilityStatusID, Converter={StaticResource IntToColorConverter}}"
+                                                                        Text="{Binding Products.AvailabilityStatuses.AvailabilityStatus}" Margin="5">
+                                                            </TextBlock>
                                                         </StackPanel>
                                                     </Grid>
                                                     <WrapPanel>
