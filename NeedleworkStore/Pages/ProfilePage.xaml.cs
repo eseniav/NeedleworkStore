@@ -28,7 +28,6 @@ namespace NeedleworkStore.Pages
         Users user;
         List<UIElement> Start;
         List<UIElement> Redaction;
-        string errorMessage;
         private void SetProfileValues()
         {
             Dictionary<string, string> profileData = new Dictionary<string, string>

@@ -23,6 +23,7 @@ using System.Windows.Xps.Packaging;
 using Microsoft.Win32;
 using System.IO.Packaging;
 using System.IO;
+using System.Windows.Media.Animation;
 
 namespace NeedleworkStore.Pages
 {
@@ -136,7 +137,9 @@ namespace NeedleworkStore.Pages
                         OrderID = o.OrderID,
                         FormationDate = o.FormationDate,
                         CardNumber = o.CardNumber,
-                        PickUpPointAddress = o.PickUpPoints?.Adress ?? "Адрес не указан",
+                        PickUpPointAddress = o.PickUpPoints != null ? (o.PickUpPoints.Cities != null ?
+                                            o.PickUpPoints.Cities.CityName + ", " + o.PickUpPoints.Adress
+                                            : o.PickUpPoints.Adress) : "Адрес не указан",
                         Items = o.OrderCompositions?.Select(oc => new OrderItemViewModel
                         {
                             ProductName = oc.Products?.ProductName ?? "Товар не найден",
@@ -251,7 +254,9 @@ namespace NeedleworkStore.Pages
                             OrderID = o.OrderID,
                             FormationDate = o.FormationDate,
                             CardNumber = o.CardNumber,
-                            PickUpPointAddress = o.PickUpPoints?.Adress ?? "Адрес не указан",
+                            PickUpPointAddress = o.PickUpPoints != null ? (o.PickUpPoints.Cities != null ?
+                                            o.PickUpPoints.Cities.CityName + ", " + o.PickUpPoints.Adress
+                                            : o.PickUpPoints.Adress) : "Адрес не указан",
                             Items = o.OrderCompositions?.Select(oc => new OrderItemViewModel
                             {
                                 ProductName = oc.Products?.ProductName ?? "Товар не найден",
@@ -282,32 +287,49 @@ namespace NeedleworkStore.Pages
         document.Blocks.Add(CreateParagraph("Кассовый чек. Приход", FontWeights.Bold, 14));
         foreach(var item in orderViewModel.Items.Select((val, index) => new { val, index }))
             {
-                document.Blocks.Add(CreateParagraph($"{item.index + 1}. {item.val.DesignName} - {item.val.ProductName}", FontWeights.Normal, 12));
+                var paragraph = new Paragraph();
+                paragraph.Inlines.Add(new Run((item.index + 1).ToString())
+                {
+                    FontWeight = FontWeights.Bold,
+                });
+                paragraph.Inlines.Add(".");
+                paragraph.Inlines.Add($" {item.val.DesignName} - {item.val.ProductName}");
+
+                document.Blocks.Add(paragraph);
                 document.Blocks.Add(CreateParagraph(item.val.Quantity + " × " + String.Format("{0:0.00}", item.val.Price) + " = " + String.Format("{0:0.00}", item.val.Amount), FontWeights.Light, 10));
+                if (item.index < orderViewModel.Items.Count)
+                {
+                    document.Blocks.Add(new Paragraph(new Run(new string('_', 30)))
+                    {
+                        FontSize = 10,
+                        Foreground = Brushes.LightGray,
+                        Margin = new Thickness(0, 5, 0, 5)
+                    });
+                }
             }
         document.Blocks.Add(new Section()
         {
             Blocks = {
             CreateParagraph("ИТОГО: " + String.Format("{0:0.00}", orderViewModel.TotalAmount), FontWeights.Bold, 12),
-            CreateParagraph("НДС 20%: 73.20", FontWeights.Normal, 10),
-            CreateParagraph("Безналичными: 439.20", FontWeights.Normal, 10)
+            CreateParagraph("НДС 20%: " + orderViewModel.TotalAmount / 100 * 20, FontWeights.Normal, 10),
+            CreateParagraph("Номер карты: **** **** **** " + orderViewModel.CardNumber.Substring(12), FontWeights.Normal, 10),
         }
         });
-        document.Blocks.Add(new Section()
+            document.Blocks.Add(new Section()
         {
             Blocks = {
+            CreateParagraph("Магазин \"Мастерская вдохновения\"", FontWeights.Normal, 10),
             CreateParagraph("Пользователь АО \"Планета увлечений\"", FontWeights.Normal, 10),
             CreateParagraph("ИНН 7705814643", FontWeights.Normal, 10),
-            CreateParagraph("Адрес: 195297, Россия, г. Санкт-Петербург", FontWeights.Normal, 10),
-            CreateParagraph("Магазин \"Леонардо\"", FontWeights.Normal, 10)
+            CreateParagraph("Адрес пункта выдачи: ", FontWeights.Normal, 10),
+            CreateParagraph(orderViewModel.PickUpPointAddress, FontWeights.Normal, 10)
         }
         });
         document.Blocks.Add(new Section()
         {
             Blocks = {
-            CreateParagraph("Дата выдачи: 07.01.2025 18:10", FontWeights.Normal, 10),
-            CreateParagraph("Кассир: Балтаг Галина Васильевна", FontWeights.Normal, 10),
-            CreateParagraph("Номер чека: 133", FontWeights.Normal, 10)
+            CreateParagraph("Дата выдачи: " + orderViewModel.FormationDate, FontWeights.Normal, 10),
+            CreateParagraph("Номер заказа: " + orderViewModel.OrderID, FontWeights.Normal, 10)
         }
         });
         return document;
