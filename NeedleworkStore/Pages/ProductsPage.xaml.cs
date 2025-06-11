@@ -500,7 +500,7 @@ namespace NeedleworkStore.Pages
         }
         private void btnFavToProd_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ProductsPage(null, IsProdPage));
+            NavigationService.Navigate(new ProductsPage(null, true));
         }
     }
 }
