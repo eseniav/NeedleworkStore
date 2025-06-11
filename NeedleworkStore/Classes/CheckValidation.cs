@@ -71,9 +71,9 @@ namespace NeedleworkStore.Classes
         public static string CorrectPhone(string txt)
         {
             string digitsOnly = new string(txt.Where(char.IsDigit).ToArray());
-            if (digitsOnly.Length == 1)
-                return digitsOnly;
-            return digitsOnly.Substring(1);
+            if(digitsOnly.Length == 11)
+                return digitsOnly.Substring(1);
+            return digitsOnly;
         }
         public static ValidationState CheckPhone(TextBox txtBPhone)
         {
