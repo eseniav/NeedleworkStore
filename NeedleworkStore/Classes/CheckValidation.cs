@@ -67,9 +67,8 @@ namespace NeedleworkStore.Classes
         }
         public static bool CheckPhone(string txt)
         {
-            if (txt.Length != 11)
-                return false;
-            return true;
+            string pattern = @"^[0-9]{11}$";
+            return Regex.IsMatch(txt, pattern);
         }
         public static string CorrectPhone(string txt)
         {
