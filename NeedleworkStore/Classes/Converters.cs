@@ -56,4 +56,19 @@ namespace NeedleworkStore.Classes
             return directory.FullName;
         }
     }
+    public class IntToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return false;
+            if (int.TryParse(value.ToString(), out int statusId))
+                return statusId == 1;
+            return false;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
