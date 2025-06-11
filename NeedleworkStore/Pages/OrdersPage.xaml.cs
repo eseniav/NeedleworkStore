@@ -60,6 +60,7 @@ namespace NeedleworkStore.Pages
             public decimal TotalAmount => Items.Sum(i => i.Price * i.Quantity);
             public string CardNumber { get; set; }
             public PaymentStatuses PaymentStatus { get; set; }
+            public bool IsPayed { get; set; }
             private ProcessingStatuses _processingStatuses;
             public ProcessingStatuses ProcessingStatus { get => _processingStatuses;
                 set
@@ -149,6 +150,7 @@ namespace NeedleworkStore.Pages
                             Price = oc.OrderPrice
                         }).ToList() ?? new List<OrderItemViewModel>(),
                         PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                        IsPayed = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses.PaymentID == 1 ? true : false,
                         ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
                         ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                     }).ToList();
@@ -266,6 +268,7 @@ namespace NeedleworkStore.Pages
                                 Price = oc.OrderPrice
                             }).ToList() ?? new List<OrderItemViewModel>(),
                             PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                            IsPayed = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses.PaymentID == 1 ? true : false,
                             ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
                             ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                         }).ToList();

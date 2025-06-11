@@ -6,6 +6,9 @@
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
       mc:Ignorable="d"
       Title="OrdersPage">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
     <StackPanel>
         <TextBlock Text="Заказы" FontFamily="Caesar Dressing Cyrillic" FontSize="34"
             HorizontalAlignment="Center" Foreground="#431D32"/>
@@ -131,7 +134,7 @@
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
                                         </StackPanel>
-                                        <Button Name="btnChequePdf" MinWidth="100" MaxWidth="120" Margin="10" Height="45"
+                                        <Button Name="btnChequePdf" MinWidth="100" MaxWidth="120" Margin="10" Height="45" Visibility="{Binding IsPayed, Converter={StaticResource BoolToVis}}"
                                     Style="{StaticResource btnColor}" Click="btnChequePdf_Click">
                                             <StackPanel>
                                                 <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
