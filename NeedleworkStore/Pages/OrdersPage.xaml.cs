@@ -24,6 +24,7 @@ using Microsoft.Win32;
 using System.IO.Packaging;
 using System.IO;
 using System.Windows.Media.Animation;
+using static NeedleworkStore.Pages.OrdersPage;
 
 namespace NeedleworkStore.Pages
 {
@@ -311,10 +312,15 @@ namespace NeedleworkStore.Pages
         {
             Blocks = {
             CreateParagraph("ИТОГО: " + String.Format("{0:0.00}", orderViewModel.TotalAmount), FontWeights.Bold, 12),
-            CreateParagraph("НДС 20%: " + orderViewModel.TotalAmount / 100 * 20, FontWeights.Normal, 10),
-            CreateParagraph("Номер карты: **** **** **** " + orderViewModel.CardNumber.Substring(12), FontWeights.Normal, 10),
+            CreateParagraph("НДС 20%: " + orderViewModel.TotalAmount / 100 * 20, FontWeights.Normal, 10)
         }
         });
+            if (orderViewModel.CardNumber != null)
+            {
+                document.Blocks.Add(
+                    CreateParagraph("Номер карты: **** **** **** " + orderViewModel.CardNumber.Substring(12), FontWeights.Normal, 10)
+                );
+            }
             document.Blocks.Add(new Section()
         {
             Blocks = {
@@ -344,11 +350,11 @@ namespace NeedleworkStore.Pages
             }
         );
     }
-    private void DownloadChequeInPdf(FlowDocument doc)
+    private void DownloadChequeInPdf(FlowDocument doc, OrderViewModel order)
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
-                FileName = "Check",
+                FileName = "Check_" + order.OrderID + "_" + order.FormationDate?.ToString("dd_MM_yyyy"),
                 DefaultExt = ".pdf",
                 Filter = "Документ (*.pdf)|*.pdf"
             };
@@ -378,7 +384,8 @@ namespace NeedleworkStore.Pages
         }
         private void btnChequePdf_Click(object sender, RoutedEventArgs e)
         {
-            DownloadChequeInPdf(GenerateCheckDocument((OrderViewModel)((Button)sender).DataContext));
+            OrderViewModel order = (OrderViewModel)((Button)sender).DataContext;
+            DownloadChequeInPdf(GenerateCheckDocument(order), order);
         }
         public void SaveStatus()
         {
