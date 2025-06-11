@@ -27,11 +27,11 @@ namespace NeedleworkStore.Pages
         {
             InitializeComponent();
             txtBlLog.Text = "Минимальная длина - 3 символа. " +
-                "Нельзя использовать: & + = < > , \" \' ` ~";
+                "Допустимы только латинские буквы и цифры.";
             txtBlPass.Text = "Длина от 8 до 50 символов. " +
                 "Пароль должен содержать хотя бы 1 цифру и заглавную букву.";
-            txtBlDate.Text = "Регистрация возможна с 14 лет";
-            txtBlReqFields.Text = "Поля с * обязательны для заполнения";
+            txtBlDate.Text = "Регистрация возможна с 14 лет.";
+            txtBlReqFields.Text = "Поля с * обязательны для заполнения.";
             mainWindow.btnProd.IsEnabled = true;
         }
         private void ColorInputControl(Control control, bool isError)

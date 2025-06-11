@@ -266,8 +266,10 @@ namespace NeedleworkStore.Pages
             ValidationState state = new ValidationState();
             if (!CheckValidation.CheckEmptyNull(boxPass2.Password))
                 return state.IsError;
+            state = CheckValidation.CheckRepeatPass(boxPass2);
             if (boxPass.Password != boxPass2.Password)
-                ColorInputControl(boxPass2, state.IsError);
+                state.IsError = true;
+            ColorInputControl(boxPass2, state.IsError);
             return state.IsError;
         }
         private void boxPass2_PasswordChanged(object sender, RoutedEventArgs e)
