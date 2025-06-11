@@ -16,10 +16,8 @@ namespace NeedleworkStore.Classes
     {      
         public static bool CheckLogin(string txt)
         {
-            if (txt.Length < 3)
-                return false;
-            char[] forbiddenChars = { '&', '+', '=', '<', '>', ',', '-', '"', '\'' };
-            return !txt.Any(c => forbiddenChars.Contains(c));
+            string pattern = @"^[A-z0-9]{3,}$";
+            return Regex.IsMatch(txt, pattern);
         }
         public static ValidationState CheckLogin(TextBox txtBLogin)
         {
@@ -67,9 +65,8 @@ namespace NeedleworkStore.Classes
         }
         public static bool CheckPhone(string txt)
         {
-            if (txt.Length != 11)
-                return false;
-            return true;
+            string pattern = @"^[0-9]{11}$";
+            return Regex.IsMatch(txt, pattern);
         }
         public static string CorrectPhone(string txt)
         {
