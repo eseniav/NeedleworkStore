@@ -112,22 +112,9 @@
                        >Возможно, Вас заинтересует:
                     </TextBlock>
                 </WrapPanel>
-                <Grid Margin="0 10" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="15 0">
-                        <ucSB:RecomendationUC/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="15 0">
-                        <ucSB:RecomendationUC/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2" Margin="15 0">
-                        <ucSB:RecomendationUC/>
-                    </StackPanel>
-                </Grid>
+                <StackPanel HorizontalAlignment="Center">
+                    <ucSB:Recomendations/>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </StackPanel>
