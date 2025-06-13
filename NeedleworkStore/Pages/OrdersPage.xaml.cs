@@ -31,15 +31,29 @@ namespace NeedleworkStore.Pages
     /// <summary>
     /// Логика взаимодействия для OrdersPage.xaml
     /// </summary>
-    public partial class OrdersPage : Page
+    public partial class OrdersPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
         private DispatcherTimer _checkTimer;
         private string _currentText = "";
         private string _lastValidText = "";
-        List<OrderViewModel> orders = new List<OrderViewModel>();
-        OrderViewModel CurrentOrder;
+        public List<OrderViewModel> orders = new List<OrderViewModel>();
+        private OrderViewModel currentOrder;
+        public OrderViewModel CurrentOrder
+        {
+            get => currentOrder;
+            set
+            {
+                currentOrder = value;
+                OnPropertyChanged(nameof(CurrentOrder));
+            }
+        }
         public class OrderViewModel : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler PropertyChanged;
@@ -50,6 +64,10 @@ namespace NeedleworkStore.Pages
             private readonly MainWindow _mainWindow = (MainWindow)Application.Current.MainWindow;
             private Visibility _AdminCmb;
             private Visibility _StatusLabel;
+            public ProcessingStatuses _processingStatus;
+            public PaymentStatuses _paymentStatus;
+            public ReceivingStatuses _receivingStatus;
+            public bool IsModified => _processingStatus != processingStatus || _paymentStatus != paymentStatus || _receivingStatus != receivingStatus;
             public List<ProcessingStatuses> AvailableProcessingStatuses { get; set; } = App.ctx.ProcessingStatuses.ToList();
             public List<PaymentStatuses> AvailablePaymentStatuses { get; set; } = App.ctx.PaymentStatuses.ToList();
             public List<ReceivingStatuses> AvailableReceivingStatuses { get; set; } = App.ctx.ReceivingStatuses.ToList();
@@ -59,17 +77,38 @@ namespace NeedleworkStore.Pages
             public List<OrderItemViewModel> Items { get; set; }
             public decimal TotalAmount => Items.Sum(i => i.Price * i.Quantity);
             public string CardNumber { get; set; }
-            public PaymentStatuses PaymentStatus { get; set; }
-            public bool IsPayed { get; set; }
-            private ProcessingStatuses _processingStatuses;
-            public ProcessingStatuses ProcessingStatus { get => _processingStatuses;
+            private PaymentStatuses paymentStatus;
+            public PaymentStatuses PaymentStatus
+            {
+                get => paymentStatus;
                 set
                 {
-                    _processingStatuses = value;
-                    OnPropertyChanged(nameof(ProcessingStatus));
+                    paymentStatus = value;
+                    OnPropertyChanged(nameof(PaymentStatus));
+                    OnPropertyChanged(nameof(IsModified));
                 }
             }
-            public ReceivingStatuses ReceivingStatus { get; set; }
+            public bool IsPayed { get; set; }
+            private ProcessingStatuses processingStatus;
+            public ProcessingStatuses ProcessingStatus { get => processingStatus;
+                set
+                {
+                    processingStatus = value;
+                    OnPropertyChanged(nameof(ProcessingStatus));
+                    OnPropertyChanged(nameof(IsModified));
+                }
+            }
+            private ReceivingStatuses receivingStatus;
+            public ReceivingStatuses ReceivingStatus
+            {
+                get => receivingStatus;
+                set
+                {
+                    receivingStatus = value;
+                    OnPropertyChanged(nameof(ReceivingStatus));
+                    OnPropertyChanged(nameof(IsModified));
+                }
+            }
             public Visibility AdminCmb
             {
                 get => _mainWindow.RoleID == 1 ? Visibility.Visible : Visibility.Collapsed;
@@ -87,7 +126,6 @@ namespace NeedleworkStore.Pages
                 OnPropertyChanged(nameof(cmbOrders));
             }
         }
-
         public class OrderItemViewModel
         {
             public string ProductName { get; set; }
@@ -150,9 +188,12 @@ namespace NeedleworkStore.Pages
                             Price = oc.OrderPrice
                         }).ToList() ?? new List<OrderItemViewModel>(),
                         PaymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
+                        _paymentStatus = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses,
                         IsPayed = o.AssigningStatuses?.LastOrDefault()?.PaymentStatuses.PaymentID == 1 ? true : false,
                         ProcessingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
-                        ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
+                        _processingStatus = o.AssigningStatuses?.LastOrDefault()?.ProcessingStatuses,
+                        ReceivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses,
+                        _receivingStatus = o.AssigningStatuses?.LastOrDefault()?.ReceivingStatuses
                     }).ToList();
 
                 ICorders.ItemsSource = orders;

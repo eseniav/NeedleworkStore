@@ -151,7 +151,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Button Name="btnSavechanges" Margin="0 10 0 0" Style="{StaticResource btnColor}" Width="200" Click="btnSavechanges_Click">
+        <Button Name="btnSavechanges" Margin="0 10 0 0" Style="{StaticResource btnColor}" Width="200" Click="btnSavechanges_Click"
+                IsEnabled="{Binding CurrentOrder.IsModified}">
             <StackPanel>
                 <TextBlock FontSize="16" Style="{StaticResource txtButtonColor}"
         HorizontalAlignment="Center" Margin="25 0"
