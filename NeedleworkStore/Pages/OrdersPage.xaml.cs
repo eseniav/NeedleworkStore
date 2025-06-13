@@ -41,7 +41,6 @@ namespace NeedleworkStore.Pages
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public List<Orders> OrdersList { get; set; } = App.ctx.Orders.ToList();
         private DispatcherTimer _checkTimer;
-        private string _currentText = "";
         private string _lastValidText = "";
         public List<OrderViewModel> orders = new List<OrderViewModel>();
         private OrderViewModel currentOrder;
@@ -207,28 +206,7 @@ namespace NeedleworkStore.Pages
         private void CheckOrderTimer_Tick(object sender, EventArgs e)
         {
             ((DispatcherTimer)sender).Stop();
-
-            if (int.TryParse(_currentText, out int orderId))
-            {
-                if (!OrdersList.Any(o => o.OrderID == orderId))
-                {
-                    ICorders.Visibility = Visibility.Collapsed;
-                    btnSavechanges.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    cmbOrders.Text = "";
-                    cmbOrders.SelectedIndex = -1;
-                }
-                else
-                {
-                    _lastValidText = _currentText;
-                    ICorders.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                cmbOrders.Text = "";
-                cmbOrders.SelectedIndex = -1;
-            }
+            CheckExistingOrder(cmbOrders.Text);
         }
         private void cmbOrders_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -237,7 +215,6 @@ namespace NeedleworkStore.Pages
                 e.Handled = true;
                 return;
             }
-            _currentText = cmbOrders.Text + e.Text;
             if (_checkTimer != null)
             {
                 _checkTimer.Stop();
@@ -256,7 +233,7 @@ namespace NeedleworkStore.Pages
             {
                 if (!OrdersList.Any(o => o.OrderID == orderId))
                 {
-                    MessageBox.Show("Заказ с таким номером не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Заказ с номером {orderId} не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     cmbOrders.Text = "";
                     cmbOrders.SelectedIndex = -1;
                 }
