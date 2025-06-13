@@ -144,7 +144,7 @@ namespace NeedleworkStore.Pages
                 return;
             }
             txtOrders.Visibility = Visibility.Visible;
-            cmbOrders.Visibility = Visibility.Visible; ;
+            cmbOrders.Visibility = Visibility.Visible;
             btnSavechanges.Visibility = cmbOrders.SelectedIndex != -1 ? Visibility.Visible : Visibility.Collapsed;
             btnBackProfile.Visibility = Visibility.Collapsed;
         }
@@ -206,7 +206,7 @@ namespace NeedleworkStore.Pages
         private void CheckOrderTimer_Tick(object sender, EventArgs e)
         {
             ((DispatcherTimer)sender).Stop();
-            CheckExistingOrder(cmbOrders.Text);
+            SetOrderLayout(CheckExistingOrder(cmbOrders.Text));
         }
         private void cmbOrders_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -227,26 +227,29 @@ namespace NeedleworkStore.Pages
             _checkTimer.Tick += CheckOrderTimer_Tick;
             _checkTimer.Start();
         }
-        public void CheckExistingOrder(string idOrder)
+        public void SetOrderLayout(bool state)
         {
-            if (int.TryParse(idOrder, out int orderId))
-            {
-                if (!OrdersList.Any(o => o.OrderID == orderId))
-                {
-                    MessageBox.Show($"Заказ с номером {orderId} не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    cmbOrders.Text = "";
-                    cmbOrders.SelectedIndex = -1;
-                }
-                else
-                {
-                    _lastValidText = idOrder;
-                }
-            }
-            else
+            ICorders.Visibility = state ? Visibility.Visible : Visibility.Collapsed;
+            btnSavechanges.Visibility = state ? Visibility.Visible : Visibility.Collapsed;
+            if (!state)
             {
                 cmbOrders.Text = "";
                 cmbOrders.SelectedIndex = -1;
             }
+        }
+        public bool CheckExistingOrder(string idOrder)
+        {
+            if (int.TryParse(idOrder, out int orderId))
+            {
+                if (OrdersList.Any(o => o.OrderID == orderId))
+                {
+                    _lastValidText = idOrder;
+                    return true;
+                }
+                MessageBox.Show($"Заказ с номером {orderId} не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return false;
         }
         private void cmbOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -255,7 +258,7 @@ namespace NeedleworkStore.Pages
                 Orders selectedOrder = cmbOrders.SelectedItem as Orders;
                 if (selectedOrder != null)
                 {
-                    CheckExistingOrder(selectedOrder.OrderID.ToString());
+                    SetOrderLayout(CheckExistingOrder(selectedOrder.OrderID.ToString()));
                     LoadOrdersByAdmin(selectedOrder.OrderID);
                     SetAdminMenu();
                     CurrentOrder = orders.FirstOrDefault(c => c.OrderID == selectedOrder.OrderID);
