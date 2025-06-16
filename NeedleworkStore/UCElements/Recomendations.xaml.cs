@@ -28,23 +28,33 @@ namespace NeedleworkStore.UCElements
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public List<Products> ListException
+        {
+            get => (List<Products>)GetValue(ListExceptionProperty);
+            set => SetValue(ListExceptionProperty, value);
+        }
+        public static readonly DependencyProperty ListExceptionProperty =
+            DependencyProperty.Register("ListException", typeof(List<Products>), typeof(Recomendations), new PropertyMetadata(new List<Products>()));
+
         private List<Products> products;
+        private List<Products> productsList;
         public List<Products> ProductsList {
-            get => products;
+            get => productsList;
             set {
-                products = value;
+                productsList = value;
                 OnPropertyChanged(nameof(ProductsList));
             }
         }
         public void RandomSubset()
         {
             Random random = new Random();
-            ProductsList = ProductsList.OrderBy(p => random.Next()).Take(3).ToList();
+            ProductsList = products.OrderBy(p => random.Next()).Take(3).ToList();
         }
         public Recomendations()
         {
             InitializeComponent();
-            ProductsList = App.ctx.Products.Where(p => p.ProductID != 3).ToList();
+            products = App.ctx.Products.Where(p => !ListException.Any(ex => ex.ProductID == p.ProductID)).ToList();
             DataContext = this;
             RandomSubset();
         }
