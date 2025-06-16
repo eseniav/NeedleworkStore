@@ -46,6 +46,7 @@ namespace NeedleworkStore.Pages{
             saveTimer.Interval = TimeSpan.FromMilliseconds(500);
             saveTimer.Tick += OnSaveCart;
             mainWindow.btnProd.IsEnabled = true;
+            RecomendUC.ListException = cart.Select(p => p.Products).ToList();
         }
         private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
