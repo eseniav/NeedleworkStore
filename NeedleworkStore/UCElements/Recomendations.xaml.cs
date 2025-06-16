@@ -57,6 +57,7 @@ namespace NeedleworkStore.UCElements
             }
         }
         MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        private DispatcherTimer _randomSubsetTimer;
         public void RandomSubset()
         {
             Random random = new Random();
@@ -65,6 +66,19 @@ namespace NeedleworkStore.UCElements
         public Recomendations()
         {
             InitializeComponent();
+            InitializeTimer();
+        }
+        private void InitializeTimer()
+        {
+            _randomSubsetTimer = new DispatcherTimer();
+            _randomSubsetTimer.Interval = TimeSpan.FromSeconds(5);
+            _randomSubsetTimer.Tick += RandomSubsetTimer_Tick;
+            _randomSubsetTimer.Start();
+        }
+
+        private void RandomSubsetTimer_Tick(object sender, EventArgs e)
+        {
+            RandomSubset();
         }
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -181,6 +195,14 @@ namespace NeedleworkStore.UCElements
             products = App.ctx.Products.Where(p => !excludedIds.Contains(p.ProductID)).Where(pr => pr.AvailabilityStatusID == 1).ToList();
             DataContext = this;
             RandomSubset();
+            if (_randomSubsetTimer == null)
+                InitializeTimer();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _randomSubsetTimer?.Stop();
+            _randomSubsetTimer = null;
         }
     }
 }
