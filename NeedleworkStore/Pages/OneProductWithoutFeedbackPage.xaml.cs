@@ -106,6 +106,7 @@ namespace NeedleworkStore.Pages
             mainWindow.btnProd.IsEnabled = true;
             ProductImage = prod.ProductImage;
             DataContext = this;
+            RecomendUC.ListException.Add(_product);
             if (!string.IsNullOrEmpty(_product.QRLink))
             {
                 SetQR();

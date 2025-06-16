@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NeedleworkStore.UCElements"
              xmlns:cl="clr-namespace:NeedleworkStore.Classes"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <cl:ImagePathConverter x:Key="imgConverter"/>
     </UserControl.Resources>

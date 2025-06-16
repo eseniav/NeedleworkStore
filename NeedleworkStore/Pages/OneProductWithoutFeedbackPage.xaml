@@ -113,7 +113,7 @@
                     </TextBlock>
                 </WrapPanel>
                 <StackPanel HorizontalAlignment="Center">
-                    <ucSB:Recomendations/>
+                    <ucSB:Recomendations x:Name="RecomendUC"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

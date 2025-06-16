@@ -54,9 +54,6 @@ namespace NeedleworkStore.UCElements
         public Recomendations()
         {
             InitializeComponent();
-            products = App.ctx.Products.Where(p => !ListException.Any(ex => ex.ProductID == p.ProductID)).ToList();
-            DataContext = this;
-            RandomSubset();
         }
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -89,6 +86,13 @@ namespace NeedleworkStore.UCElements
 
             //ppFavorIn.IsOpen = true;
             timer.Start();
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var excludedIds = ListException.Select(ex => ex.ProductID).ToList();
+            products = App.ctx.Products.Where(p => !excludedIds.Contains(p.ProductID)).ToList();
+            DataContext = this;
+            RandomSubset();
         }
     }
 }
