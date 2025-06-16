@@ -32,7 +32,7 @@
         </Style>
         <cl:ImagePathConverter x:Key="imgConverter"/>
     </Page.Resources>
-    <Grid  Margin="10">
+    <Grid  Margin="10" Name="grd">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -202,7 +202,7 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-        <Popup Name="popup" Grid.Row="1" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grdBottom}">
+        <Popup Name="popup" Grid.Row="1" Style="{StaticResource Popup}" PlacementTarget="{Binding ElementName=grd}">
             <TextBlock Style="{StaticResource PopupOpacity}">
                 <TextBlock.Background>
                     <SolidColorBrush Color="White" Opacity="0.9"/>

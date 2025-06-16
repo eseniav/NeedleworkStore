@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using NeedleworkStore.AppData;
+using NeedleworkStore.Pages;
+using static NeedleworkStore.Pages.ProductsPage;
 
 namespace NeedleworkStore.UCElements
 {
@@ -53,6 +56,7 @@ namespace NeedleworkStore.UCElements
                 OnPropertyChanged(nameof(ProductsList));
             }
         }
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public void RandomSubset()
         {
             Random random = new Random();
@@ -66,33 +70,110 @@ namespace NeedleworkStore.UCElements
         {
             MessageBox.Show("Переход на страницу с этим товаром");
         }
-        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        private void ShowAddedPopup(int type)
         {
-            MessageBox.Show("Добавляет товар в корзину");
+            txtBlPopup.Text = type == 1 ? "Товар добавлен в корзину" : "Товар добавлен в избранное";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
-                //ppCartIn.IsOpen = false;
+                popup.IsOpen = false;
                 timer.Stop();
             };
 
-            //ppCartIn.IsOpen = true;
+            popup.IsOpen = true;
             timer.Start();
+        }
+        private void AddInCart(Products selectedProduct)
+        {
+            try
+            {
+                Carts existingCartItem = App.ctx.Carts
+                    .FirstOrDefault(c => c.UserID == mainWindow.UserID && c.ProductID == selectedProduct.ProductID);
+                if (existingCartItem?.QuantityCart == Carts.maxItemCopacity)
+                {
+                    MessageBox.Show("Превышен лимит добавления одного товара в корзину!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (existingCartItem?.QuantityCart == Carts.maxItemCart)
+                {
+                    MessageBox.Show("Максимальное количество товара в корзине не может превышать 2000 позиций",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (existingCartItem != null)
+                    existingCartItem.QuantityCart++;
+                else
+                {
+                    Carts newprodInCart = new Carts
+                    {
+                        UserID = (int)mainWindow.UserID,
+                        ProductID = selectedProduct.ProductID,
+                        QuantityCart = 1,
+                    };
+                    App.ctx.Carts.Add(newprodInCart);
+                }
+                App.ctx.SaveChanges();
+                mainWindow.UpdateCartState();
+                ShowAddedPopup(1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void btnCartIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!mainWindow.IsAuthenticated)
+            {
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в корзину могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    MainWindow.frame.Navigate(new RegistrationPage());
+                return;
+            }
+            AddInCart((Products)((Button)sender).DataContext);
+        }
+        public void AddInFav(Products selectedProduct)
+        {
+            try
+            {
+                bool alreadyInFavorites = App.ctx.Favourities
+                                         .Any(f => f.UserID == mainWindow.UserID && f.ProductID == selectedProduct.ProductID);
+                if (alreadyInFavorites)
+                {
+                    MessageBox.Show("Товар уже есть в избранном",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                Favourities newprodInFav = new Favourities
+                {
+                    UserID = (int)mainWindow.UserID,
+                    ProductID = selectedProduct.ProductID,
+                };
+                App.ctx.Favourities.Add(newprodInFav);
+                App.ctx.SaveChanges();
+                ShowAddedPopup(2);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void btnFavor_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Добавляет товар в избранное");
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            if (!mainWindow.IsAuthenticated)
             {
-                //ppFavorIn.IsOpen = false;
-                timer.Stop();
-            };
-
-            //ppFavorIn.IsOpen = true;
-            timer.Start();
+                MessageBoxResult msgInf = MessageBox.Show
+                    ("Добавить товар в избранное могут только зарегистрированные пользователи. Хотите зарегистрироваться?",
+                    "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (msgInf == MessageBoxResult.Yes)
+                    MainWindow.frame.Navigate(new RegistrationPage());
+                return;
+            }
+            AddInFav((Products)((Button)sender).DataContext);
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
