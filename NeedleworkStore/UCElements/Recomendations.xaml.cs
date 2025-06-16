@@ -178,7 +178,7 @@ namespace NeedleworkStore.UCElements
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var excludedIds = ListException.Select(ex => ex.ProductID).ToList();
-            products = App.ctx.Products.Where(p => !excludedIds.Contains(p.ProductID)).ToList();
+            products = App.ctx.Products.Where(p => !excludedIds.Contains(p.ProductID)).Where(pr => pr.AvailabilityStatusID == 1).ToList();
             DataContext = this;
             RandomSubset();
         }
