@@ -36,11 +36,17 @@ namespace NeedleworkStore.UCElements
                 OnPropertyChanged(nameof(ProductsList));
             }
         }
+        public void RandomSubset()
+        {
+            Random random = new Random();
+            ProductsList = ProductsList.OrderBy(p => random.Next()).Take(3).ToList();
+        }
         public Recomendations()
         {
             InitializeComponent();
-            ProductsList = App.ctx.Products.Take(3).ToList();
+            ProductsList = App.ctx.Products.Where(p => p.ProductID != 3).ToList();
             DataContext = this;
+            RandomSubset();
         }
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
