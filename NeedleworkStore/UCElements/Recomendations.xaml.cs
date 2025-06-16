@@ -68,7 +68,7 @@ namespace NeedleworkStore.UCElements
         }
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Переход на страницу с этим товаром");
+            MainWindow.frame.Navigate(new OneProductWithoutFeedbackPage((Products)((Image)sender).DataContext));
         }
         private void ShowAddedPopup(int type)
         {
