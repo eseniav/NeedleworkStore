@@ -36,6 +36,13 @@ namespace NeedleworkStore.UCElements
         }
         public static readonly DependencyProperty ListExceptionProperty =
             DependencyProperty.Register("ListException", typeof(List<Products>), typeof(Recomendations), new PropertyMetadata(new List<Products>()));
+        public int ItemsCount
+        {
+            get => (int)GetValue(ItemsCountProperty);
+            set => SetValue(ItemsCountProperty, value);
+        }
+        public static readonly DependencyProperty ItemsCountProperty =
+            DependencyProperty.Register("ItemsCount", typeof(int), typeof(Recomendations), new PropertyMetadata(3));
 
         private List<Products> products;
         private List<Products> productsList;
@@ -49,7 +56,7 @@ namespace NeedleworkStore.UCElements
         public void RandomSubset()
         {
             Random random = new Random();
-            ProductsList = products.OrderBy(p => random.Next()).Take(3).ToList();
+            ProductsList = products.OrderBy(p => random.Next()).Take(ItemsCount).ToList();
         }
         public Recomendations()
         {
