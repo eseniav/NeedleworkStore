@@ -39,12 +39,14 @@
                                 <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Название:" FontSize="16"/>
                                 <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Страна:" FontSize="16"/>
                                 <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Наличие:" FontSize="16"/>
+                                <Label FontFamily="Cakra Normal" Foreground="#2A3759" Content="Цена:" FontSize="16"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
                                 <Label Name="lblDiz" FontFamily="Cakra Normal" Foreground="#2A3759" FontSize="16"/>
                                 <Label Name="lblNameProd" FontFamily="Cakra Normal" Foreground="#2A3759" FontSize="16"/>
                                 <Label Name="lblCountry" FontFamily="Cakra Normal" Foreground="#2A3759" FontSize="16"/>
                                 <Label Name="lblAvail" FontFamily="Cakra Normal" Foreground="#3D5220" FontSize="16"/>
+                                <Label Name="lblPrice" FontFamily="Cakra Normal" Foreground="#2A3759" FontSize="25"/>
                             </StackPanel>
                         </Grid>
                         <WrapPanel HorizontalAlignment="Center">
