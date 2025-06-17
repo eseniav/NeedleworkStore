@@ -275,7 +275,7 @@ namespace NeedleworkStore.Pages
                 SaveImg();
             if (prod == null)
                 Clear();
-            btnDel.Visibility = Visibility.Visible;
+            btnDel.Visibility = Visibility.Hidden;
         }
         public void SetPreviewImage()
         {

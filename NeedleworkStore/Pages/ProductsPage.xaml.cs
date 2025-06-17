@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -261,6 +262,13 @@ namespace NeedleworkStore.Pages
             Products myProd = (Products)((Hyperlink)sender).DataContext;
             this.NavigationService.Navigate(new OneProductWithoutFeedbackPage(myProd));
         }
+        public void DelCascade(Products productToDelete)
+        {
+            App.ctx.ProductNeedleworkTypes.RemoveRange(productToDelete.ProductNeedleworkTypes);
+            App.ctx.ProductStitchTypes.RemoveRange(productToDelete.ProductStitchTypes);
+            App.ctx.ProductAccessoryTypes.RemoveRange(productToDelete.ProductAccessoryTypes);
+            App.ctx.ProductThemes.RemoveRange(productToDelete.ProductThemes);
+        }
         public void AddInFav(MyProducts selectedProduct)
         {
             try
@@ -274,12 +282,25 @@ namespace NeedleworkStore.Pages
                         return;
                     try
                     {
-                        App.ctx.Products.Remove(App.ctx.Products.FirstOrDefault(c => c.ProductID == selectedProduct.ProductID));
-                        App.ctx.SaveChanges();
-                        MessageBox.Show("Товар удален из каталога", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                        filterProducts.Remove(selectedProduct);
-                        myProducts.Remove(selectedProduct);
-                        ProdList.Items.Refresh();
+                        using (var newContext = new NeedleworkStoreEntities())
+                        {
+                            Products productToDelete = App.ctx.Products
+                                                    .Include(p => p.ProductNeedleworkTypes)
+                                                    .Include(p => p.ProductStitchTypes)
+                                                    .Include(p => p.ProductAccessoryTypes)
+                                                    .Include(p => p.ProductThemes)
+                                                    .FirstOrDefault(p => p.ProductID == selectedProduct.ProductID);
+                            DelCascade(productToDelete);
+                            App.ctx.Products.Remove(productToDelete);
+                            App.ctx.SaveChanges();
+                            App.ctx.ChangeTracker.Entries().Where(pr => pr.State != EntityState.Detached)
+                                                 .ToList()
+                                                 .ForEach(pr => pr.State = EntityState.Detached);
+                            MessageBox.Show("Товар удален из каталога", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                            filterProducts.Remove(selectedProduct);
+                            myProducts.Remove(selectedProduct);
+                            ProdList.Items.Refresh();
+                        }
                     }
                     catch (Exception ex)
                     {
