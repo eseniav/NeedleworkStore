@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static NeedleworkStore.Pages.ProductsPage;
+using System.Data.Entity;
 
 namespace NeedleworkStore.Pages
 {
@@ -89,10 +90,12 @@ namespace NeedleworkStore.Pages
             mainWindow.btnProd.IsEnabled = true;
             DataContext = this;
             prod = selectedProduct;
+            btnDel.Visibility = Visibility.Hidden;
             SetEnableTopMenuButon();
             if (prod != null)
             {
                 SetProduct();
+                btnDel.Visibility = Visibility.Visible;
                 return;
             }
         }
@@ -272,6 +275,7 @@ namespace NeedleworkStore.Pages
                 SaveImg();
             if (prod == null)
                 Clear();
+            btnDel.Visibility = Visibility.Visible;
         }
         public void SetPreviewImage()
         {
@@ -314,6 +318,47 @@ namespace NeedleworkStore.Pages
             imgFullName = null;
             imgAdd.Source = new BitmapImage(new Uri("/ResImages/NoPicture.png", UriKind.RelativeOrAbsolute));
             OnPropertyChanged(nameof(SetTextToAddButton));
+        }
+        public void DelCascade(Products productToDelete)
+        {
+            App.ctx.ProductNeedleworkTypes.RemoveRange(productToDelete.ProductNeedleworkTypes);
+            App.ctx.ProductStitchTypes.RemoveRange(productToDelete.ProductStitchTypes);
+            App.ctx.ProductAccessoryTypes.RemoveRange(productToDelete.ProductAccessoryTypes);
+            App.ctx.ProductThemes.RemoveRange(productToDelete.ProductThemes);
+        }
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msgInf = MessageBox.Show
+                        ("Удалить выбранный товар?",
+                        "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgInf != MessageBoxResult.Yes)
+                return;
+            try
+            {
+                using (var newContext = new NeedleworkStoreEntities())
+                {
+                    Products productToDelete = App.ctx.Products
+                                            .Include(p => p.ProductNeedleworkTypes)
+                                            .Include(p => p.ProductStitchTypes)
+                                            .Include(p => p.ProductAccessoryTypes)
+                                            .Include(p => p.ProductThemes)
+                                            .FirstOrDefault(p => p.ProductID == prod.ProductID);
+                    DelCascade(productToDelete);
+                    App.ctx.Products.Remove(productToDelete);
+                    App.ctx.SaveChanges();
+                    App.ctx.ChangeTracker.Entries().Where(pr => pr.State != EntityState.Detached)
+                                         .ToList()
+                                         .ForEach(pr => pr.State = EntityState.Detached);
+                    MessageBox.Show("Товар удален из каталога", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Clear();
+                    this.NavigationService.Navigate(new ProductsPage());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
+                return;
+            }
         }
     }
 }
