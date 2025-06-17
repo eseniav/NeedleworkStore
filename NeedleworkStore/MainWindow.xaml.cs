@@ -111,6 +111,7 @@ namespace NeedleworkStore
             UserID = null;
             SetMenuForRoles();
             DataContext = this;
+            txtSearch.KeyDown += txtSearch_KeyDown;
         }
         public void UpdateCartState()
         {
@@ -211,6 +212,15 @@ namespace NeedleworkStore
         {
             SearchTxt = string.Empty;
             txtSearch.Focus();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnSearch.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                e.Handled = true;
+            }
         }
     }
 }

@@ -57,9 +57,11 @@
                 Мы работаем с лучшими мировыми брендами рукоделия, такими как 
                                     <Run Foreground="#778FD2">Dimensions, Gamma, Prym, Owl Forest</Run> и другими. В нашем ассортименте вы найдете товары для всех видов рукоделия - от классической вышивки до создания авторских игрушек.
                                 </TextBlock>
-                                <TextBlock Style="{StaticResource txtAboutShopMain}">
-                Присоединяйтесь к нашему творческому сообществу!
-                                </TextBlock>
+                                <WrapPanel Cursor="Hand" HorizontalAlignment="Center" PreviewMouseDown="WrapPanel_PreviewMouseDown">
+                                    <TextBlock Style="{StaticResource txtAboutShopMain}">
+                                                Присоединяйтесь к нашему творческому сообществу!
+                                    </TextBlock>
+                                </WrapPanel>
                                 <TextBlock Style="{StaticResource txtAboutShopMain}">
                 Создавайте красоту своими руками вместе с "Мастерской вдохновения"!
                                 </TextBlock>

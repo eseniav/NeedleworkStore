@@ -101,7 +101,7 @@
                     </Button>
                     <Grid>
                         <TextBox Name="txtSearch" Width="100" Height="25" Padding="0 0 20 0" VerticalContentAlignment="Center"
-                                 Text="{Binding Path=SearchTxt, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding Path=SearchTxt, UpdateSourceTrigger=PropertyChanged}" KeyDown="txtSearch_KeyDown"/>
                         <Button Name="btnClear" Content="✕" Style="{StaticResource btnClear}"
                                 Visibility="{Binding IsSearchText, Converter={StaticResource boolToVis}}" Click="btnClear_Click"/>
                     </Grid>
