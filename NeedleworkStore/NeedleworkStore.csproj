@@ -198,9 +198,6 @@
     <Compile Include="UCElements\Recomendations.xaml.cs">
       <DependentUpon>Recomendations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UCElements\RecomendationUC.xaml.cs">
-      <DependentUpon>RecomendationUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UCElements\SearchSidebarUC.xaml.cs">
       <DependentUpon>SearchSidebarUC.xaml</DependentUpon>
     </Compile>
@@ -258,10 +255,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UCElements\Recomendations.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UCElements\RecomendationUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
