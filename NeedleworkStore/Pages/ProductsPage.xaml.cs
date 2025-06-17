@@ -332,6 +332,7 @@ namespace NeedleworkStore.Pages
                     filterProducts.Remove(selectedProduct);
                     myProducts.Remove(selectedProduct);
                     ProdList.Items.Refresh();
+                    SetInfoForEmptyList();
                     return;
                 }
                 bool alreadyInFavorites = App.ctx.Favourities
@@ -508,6 +509,7 @@ namespace NeedleworkStore.Pages
                 filterProducts.Remove(selectedProduct);
                 myProducts.Remove(selectedProduct);
                 ProdList.Items.Refresh();
+                SetInfoForEmptyList();
                 return;
             }
             Favourities newprodInFav = new Favourities
