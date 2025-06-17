@@ -51,15 +51,6 @@ namespace NeedleworkStore.Pages
                     FormatPhoneForTextBlock(textBlock);
             }
         }
-        private void ColorInputControl(Control control, bool isError)
-        {
-            if (control == null)
-                throw new ArgumentNullException(nameof(control));
-            var brush = isError
-                ? new SolidColorBrush(Color.FromArgb(100, 251, 174, 210))
-                : Brushes.White;
-            control.Background = brush;
-        }
         public void ChangeStartRedactionPages()
         {
             Start.ForEach(el => el.Visibility = Visibility.Collapsed);
@@ -241,7 +232,7 @@ namespace NeedleworkStore.Pages
             if (boxLog.Text == user.Login)
                 return state.IsError;
             state = CheckValidation.CheckLogin(boxLog);
-            ColorInputControl(boxLog, state.IsError);
+            SetLayout.ColorInputControl(boxLog, state.IsError);
             return state.IsError;
         }
         private void boxLog_TextChanged(object sender, TextChangedEventArgs e)
@@ -254,7 +245,7 @@ namespace NeedleworkStore.Pages
             if (boxPass.Password == user.Password)
                 return state.IsError;
             state = CheckValidation.CheckPassword(boxPass);
-            ColorInputControl(boxPass, state.IsError);
+            SetLayout.ColorInputControl(boxPass, state.IsError);
             return state.IsError;
         }
         private void boxPass_PasswordChanged(object sender, RoutedEventArgs e)
@@ -269,7 +260,7 @@ namespace NeedleworkStore.Pages
             state = CheckValidation.CheckRepeatPass(boxPass2);
             if (boxPass.Password != boxPass2.Password)
                 state.IsError = true;
-            ColorInputControl(boxPass2, state.IsError);
+            SetLayout.ColorInputControl(boxPass2, state.IsError);
             return state.IsError;
         }
         private void boxPass2_PasswordChanged(object sender, RoutedEventArgs e)
@@ -282,7 +273,7 @@ namespace NeedleworkStore.Pages
             if (boxEmail.Text == user.UserEmail)
                 return state.IsError;
             state = CheckValidation.CheckEmail(boxEmail);
-            ColorInputControl(boxEmail, state.IsError);
+            SetLayout.ColorInputControl(boxEmail, state.IsError);
             return state.IsError;
         }
         private void boxEmail_TextChanged(object sender, TextChangedEventArgs e)
@@ -292,7 +283,7 @@ namespace NeedleworkStore.Pages
         public bool CheckCyrillicError(TextBox textBox)
         {
             ValidationState state = CheckValidation.CheckCyrillic(textBox);
-            ColorInputControl(textBox, state.IsError);
+            SetLayout.ColorInputControl(textBox, state.IsError);
             return state.IsError;
         }
         public bool CheckLNError()
@@ -334,7 +325,7 @@ namespace NeedleworkStore.Pages
             if (boxBirthDate.SelectedDate == user.Birthday)
                 return state.IsError;
             state = CheckValidation.CheckBirthDate(boxBirthDate);
-            ColorInputControl(boxBirthDate, state.IsError);
+            SetLayout.ColorInputControl(boxBirthDate, state.IsError);
             return state.IsError;
         }
         private void boxBirthDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -347,7 +338,7 @@ namespace NeedleworkStore.Pages
             if (CheckValidation.CorrectPhone(boxPhone.Text) == user.UserPhone)
                 return state.IsError;
             state = CheckValidation.CheckPhone(boxPhone);
-            ColorInputControl(boxPhone, state.IsError);
+            SetLayout.ColorInputControl(boxPhone, state.IsError);
             return state.IsError;
         }
         public static void FormatPhoneForTextBox(TextBox textBox)

@@ -173,7 +173,9 @@
     <Compile Include="AppData\Users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes\CheckCard.cs" />
     <Compile Include="Classes\Converters.cs" />
+    <Compile Include="Classes\SetLayout.cs" />
     <Compile Include="Pages\AboutShopPage.xaml.cs">
       <DependentUpon>AboutShopPage.xaml</DependentUpon>
     </Compile>
