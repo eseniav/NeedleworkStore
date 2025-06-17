@@ -121,6 +121,7 @@ namespace NeedleworkStore.Pages
                 { "lblNameProd", _product.ProductName },
                 { "lblCountry", _product.Designers.Countries.CountryName },
                 { "lblAvail", _product.AvailabilityStatuses.AvailabilityStatus },
+                { "lblPrice", _product.ProductPrice.ToString() },
             };
             string defaultText = "Данные не указаны";
             SolidColorBrush defaultColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#852614"));

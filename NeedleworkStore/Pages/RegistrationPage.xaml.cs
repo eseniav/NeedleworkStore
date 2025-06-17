@@ -34,21 +34,11 @@ namespace NeedleworkStore.Pages
             txtBlReqFields.Text = "Поля с * обязательны для заполнения.";
             mainWindow.btnProd.IsEnabled = true;
         }
-        private void ColorInputControl(Control control, bool isError)
-        {
-            if (control == null)
-                throw new ArgumentNullException(nameof(control));
-            var brush = isError
-                ? new SolidColorBrush(Color.FromArgb(100, 251, 174, 210))
-                : Brushes.White;
-            control.Background = brush;
-        }
-        private void SetErrorText(TextBlock textBlock, ValidationState state) => textBlock.Text = state.ErrorMessage;
         public bool CheckLoginError()
         {
             ValidationState state = CheckValidation.CheckLogin(txtBLogin);
-            ColorInputControl(txtBLogin, state.IsError);
-            SetErrorText(errorLog, state);
+            SetLayout.ColorInputControl(txtBLogin, state.IsError);
+            SetLayout.SetErrorText(errorLog, state);
             return state.IsError;
         }
         private bool CheckAllBlocks()
@@ -71,7 +61,7 @@ namespace NeedleworkStore.Pages
             if (App.ctx.Users.FirstOrDefault(u => u.UserPhone == correctPhone) != null)
             {
                 state.SetError("На этот телефон уже зарегистрирован аккаунт");
-                ColorInputControl(txtBPhone, state.IsError);
+                SetLayout.ColorInputControl(txtBPhone, state.IsError);
                 errorPhone.Text = state.ErrorMessage;
             }
         }
@@ -81,7 +71,7 @@ namespace NeedleworkStore.Pages
             if (App.ctx.Users.FirstOrDefault(u => u.UserEmail == txtBEmail.Text) != null)
             {
                 state.SetError("На этот email уже зарегистрирован аккаунт");
-                ColorInputControl(txtBEmail, state.IsError);
+                SetLayout.ColorInputControl(txtBEmail, state.IsError);
                 errorEmail.Text = state.ErrorMessage;
             }
         }
@@ -123,8 +113,8 @@ namespace NeedleworkStore.Pages
         public bool CheckPassError()
         {
             ValidationState state = CheckValidation.CheckPassword(psxB);
-            ColorInputControl(psxB, state.IsError);
-            SetErrorText(errorPass, state);
+            SetLayout.ColorInputControl(psxB, state.IsError);
+            SetLayout.SetErrorText(errorPass, state);
             return state.IsError;
         }
         private void txtBLogin_TextChanged(object sender, TextChangedEventArgs e)
@@ -140,8 +130,8 @@ namespace NeedleworkStore.Pages
             ValidationState state = CheckValidation.CheckRepeatPass(pswBRepeat);
             if (psxB.Password != pswBRepeat.Password)
                 state.SetError("Пароли не совпадают");
-            ColorInputControl(pswBRepeat, state.IsError);
-            SetErrorText(errorRepPass, state);
+            SetLayout.ColorInputControl(pswBRepeat, state.IsError);
+            SetLayout.SetErrorText(errorRepPass, state);
             return state.IsError;
         }
         private void pswBRepeat_PasswordChanged(object sender, RoutedEventArgs e)
@@ -151,8 +141,8 @@ namespace NeedleworkStore.Pages
         public bool CheckPhoneError()
         {
             ValidationState state = CheckValidation.CheckPhone(txtBPhone);
-            ColorInputControl(txtBPhone, state.IsError);
-            SetErrorText(errorPhone, state);
+            SetLayout.ColorInputControl(txtBPhone, state.IsError);
+            SetLayout.SetErrorText(errorPhone, state);
             return state.IsError;
         }
         public void SetPhoneFormat(TextBox textBox)
@@ -208,8 +198,8 @@ namespace NeedleworkStore.Pages
         public bool CheckEmailError()
         {
             ValidationState state = CheckValidation.CheckEmail(txtBEmail);
-            ColorInputControl(txtBEmail, state.IsError);
-            SetErrorText(errorEmail, state);
+            SetLayout.ColorInputControl(txtBEmail, state.IsError);
+            SetLayout.SetErrorText(errorEmail, state);
             return state.IsError;
         }
         private void txtBEmail_TextChanged(object sender, TextChangedEventArgs e)
@@ -219,8 +209,8 @@ namespace NeedleworkStore.Pages
         public bool CheckCyrillicError(TextBox textBox, TextBlock errorTextBlock)
         {
             ValidationState state = CheckValidation.CheckCyrillic(textBox);
-            ColorInputControl(textBox, state.IsError);
-            SetErrorText(errorTextBlock, state);
+            SetLayout.ColorInputControl(textBox, state.IsError);
+            SetLayout.SetErrorText(errorTextBlock, state);
             return state.IsError;
         }
         public bool CheckLNError() => CheckCyrillicError(txtBLastName, errorLN);
@@ -241,8 +231,8 @@ namespace NeedleworkStore.Pages
         public bool CheckDateError()
         {
             ValidationState state = CheckValidation.CheckBirthDate(dtPBirth);
-            ColorInputControl(dtPBirth, state.IsError);
-            SetErrorText(errorDate, state);
+            SetLayout.ColorInputControl(dtPBirth, state.IsError);
+            SetLayout.SetErrorText(errorDate, state);
             return state.IsError;
         }
         private void dtPBirth_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

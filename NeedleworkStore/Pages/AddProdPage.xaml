@@ -75,7 +75,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button  Name="btnDel" Grid.Column="0" Margin="0 10 0 0"
-             Style="{StaticResource btnOpacity}" HorizontalAlignment="Left" Width="130" Height="50" VerticalAlignment="Top"
+             Style="{StaticResource btnOpacity}" HorizontalAlignment="Left" Width="130" Height="50" VerticalAlignment="Top" Click="btnDel_Click"
              >
                 <StackPanel>
                     <TextBlock FontSize="16" Style="{StaticResource txtButtonOpacity}"

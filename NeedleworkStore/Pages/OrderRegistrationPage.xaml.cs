@@ -51,10 +51,6 @@ namespace NeedleworkStore.Pages
             lblTotalQuantity.Content = orderCart.Sum(p => p.QuantityCart).ToString();
         }
         private void SetTotalSum() => lblTotalSum.Content = orderCart.Sum(c => c.SumProducts).ToString();
-        private void hlAbout_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new OneProductWithoutFeedbackPage((Products)((Hyperlink)sender).DataContext));
-        }
         private void MinusQuantity(Carts cr, RepeatButton rb)
         {
             cr.Quantity--;
@@ -119,42 +115,12 @@ namespace NeedleworkStore.Pages
         {
             DelOneProduct((Carts)((Button)sender).DataContext);
         }
-        public bool ContainsOnlyDigits(string input) => !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
-        public bool IsValidMonth(string monthText)
-        {
-            if (!ContainsOnlyDigits(monthText) || monthText.Length != 2)
-                return false;
-            int month = int.Parse(monthText);
-            return month >= 1 && month <= 12;
-        }
-        public bool IsValidYear(string yearText)
-        {
-            if (!ContainsOnlyDigits(yearText) || yearText.Length != 2)
-                return false;
-            int year = int.Parse(yearText);
-            return year >= DateTime.Now.Year % 100;
-        }
-        public bool IsNotExpired(string monthText, string yearText)
-        {
-            if (!IsValidMonth(monthText) || !IsValidYear(yearText))
-                return false;
-            int year = int.Parse(yearText);
-            int currentYear = DateTime.Now.Year % 100;
-            if (year > currentYear)
-                return true;
-            return int.Parse(monthText) >= DateTime.Now.Month;
-        }
         private bool CheckConditions(string card)
         {
             if (cmbPickUpPointCity.SelectedItem == null || cmbPickUpPointAddress.SelectedItem == null || cmbPayment.SelectedItem == null)
                 return false;
             if (cmbPayNow.IsSelected == true)
-            {
-                if (!ContainsOnlyDigits(card) || card.Length != 16)
-                    return false;
-                if (!IsNotExpired(txtBMonth.Text, txtBYear.Text))
-                    return false;
-            }
+                return CheckCard.CheckCardNumber(card) && CheckCard.IsNotExpired(txtBMonth.Text, txtBYear.Text);
             return true;
         }
         private void btnPOrderReg_Click(object sender, RoutedEventArgs e)
@@ -169,7 +135,7 @@ namespace NeedleworkStore.Pages
                     errorMessage += "• Не выбран пункт выдачи\n";
                 if (cmbPayment.SelectedItem == null)
                     errorMessage += "• Не выбран способ оплаты\n";
-                if (cmbPayNow.IsSelected == true && !ContainsOnlyDigits(card))
+                if (cmbPayNow.IsSelected == true && !CheckCard.ContainsOnlyDigits(card))
                     errorMessage += "• Номер карты должен содержать только цифры\n";
 
                 MessageBox.Show(
@@ -219,7 +185,7 @@ namespace NeedleworkStore.Pages
                 MessageBox.Show(
                             "✅ Ваш заказ успешно оформлен!\n\n" +
                             $"Номер заказа: #{newOrder.OrderID}\n" +
-                            "Чек в PDF-формате доступен для скачивания:\n" +
+                            "После оплаты чек в PDF-формате доступен для скачивания:\n" +
                             "1. Откройте «Профиль»\n" +
                             "2. Перейдите в раздел «Заказы»\n" +
                             "3. Найдите текущий заказ\n" +
@@ -290,6 +256,7 @@ namespace NeedleworkStore.Pages
 
         private void txtBCardNum_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //SetLayout.ColorInputControl((TextBox)sender, !CheckCard.CheckCardNumber(((TextBox)sender).Text));
             var textBox = sender as TextBox;
             if (textBox == null) return;
             string text = textBox.Text.Replace(" ", "");
@@ -312,6 +279,18 @@ namespace NeedleworkStore.Pages
                 textBox.Text = formattedText.ToString();
                 textBox.CaretIndex = caretPos + (formattedText.Length - text.Length);
             }
+            string cleanCardNumber = formattedText.ToString().Replace(" ", "");
+            SetLayout.ColorInputControl(textBox, !CheckCard.CheckCardNumber(cleanCardNumber));
+        }
+        private void txtBMonth_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SetLayout.ColorInputControl((TextBox)sender, !CheckCard.IsValidMonth(((TextBox)sender).Text));
+            if (((TextBox)sender).Text.Length == 2 && CheckCard.IsValidMonth(((TextBox)sender).Text))
+                txtBYear.Focus();
+        }
+        private void txtBYear_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SetLayout.ColorInputControl((TextBox)sender, !CheckCard.IsValidYear(((TextBox)sender).Text));
         }
     }
 }

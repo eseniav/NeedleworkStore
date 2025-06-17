@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -172,7 +173,9 @@
     <Compile Include="AppData\Users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes\CheckCard.cs" />
     <Compile Include="Classes\Converters.cs" />
+    <Compile Include="Classes\SetLayout.cs" />
     <Compile Include="Pages\AboutShopPage.xaml.cs">
       <DependentUpon>AboutShopPage.xaml</DependentUpon>
     </Compile>
@@ -196,9 +199,6 @@
     </Compile>
     <Compile Include="UCElements\Recomendations.xaml.cs">
       <DependentUpon>Recomendations.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UCElements\RecomendationUC.xaml.cs">
-      <DependentUpon>RecomendationUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UCElements\SearchSidebarUC.xaml.cs">
       <DependentUpon>SearchSidebarUC.xaml</DependentUpon>
@@ -257,10 +257,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UCElements\Recomendations.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UCElements\RecomendationUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

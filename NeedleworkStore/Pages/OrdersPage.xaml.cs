@@ -339,7 +339,7 @@ namespace NeedleworkStore.Pages
             CreateParagraph("НДС 20%: " + orderViewModel.TotalAmount / 100 * 20, FontWeights.Normal, 10)
         }
         });
-            if (orderViewModel.CardNumber != null)
+            if (!string.IsNullOrEmpty(orderViewModel.CardNumber))
             {
                 document.Blocks.Add(
                     CreateParagraph("Номер карты: **** **** **** " + orderViewModel.CardNumber.Substring(12), FontWeights.Normal, 10)

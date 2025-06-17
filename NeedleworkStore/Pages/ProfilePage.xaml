@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NeedleworkStore.Pages"
+      xmlns:ucSB="clr-namespace:NeedleworkStore.UCElements"
       mc:Ignorable="d"
       Title="ProfilePage">
     <Page.Resources>
@@ -42,10 +43,9 @@
                         <TextBlock Style="{StaticResource txtButtonColor}" FontSize="16" Text="заказы"/>
                     </StackPanel>
                 </Button>
-                <Image Source="\ProdImages\KlartLavandadlyanee.jpg" MaxWidth="180" MaxHeight="180"
-                        HorizontalAlignment="Right" Margin="20" MouseDown="Image_MouseDown"
-                        >
-                </Image>
+                <StackPanel Name="RecSP" HorizontalAlignment="Center">
+                    <ucSB:Recomendations x:Name="RecomendUC" ItemsCount ="1"/>
+                </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <GroupBox Margin="10 10 10 30">

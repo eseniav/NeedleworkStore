@@ -27,5 +27,16 @@ namespace NeedleworkStore.Pages
             InitializeComponent();
             mainWindow.btnProd.IsEnabled = true;
         }
+
+        private void WrapPanel_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!mainWindow.IsAuthenticated)
+                this.NavigationService.Navigate(new RegistrationPage());
+            return;
+        }
+        private void WrapPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((WrapPanel)sender).Cursor = mainWindow.IsAuthenticated ? Cursors.Arrow : Cursors.Hand;
+        }
     }
 }
