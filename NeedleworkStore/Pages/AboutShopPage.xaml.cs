@@ -30,7 +30,13 @@ namespace NeedleworkStore.Pages
 
         private void WrapPanel_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.NavigationService.Navigate(new RegistrationPage());
+            if (!mainWindow.IsAuthenticated)
+                this.NavigationService.Navigate(new RegistrationPage());
+            return;
+        }
+        private void WrapPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((WrapPanel)sender).Cursor = mainWindow.IsAuthenticated ? Cursors.Arrow : Cursors.Hand;
         }
     }
 }
