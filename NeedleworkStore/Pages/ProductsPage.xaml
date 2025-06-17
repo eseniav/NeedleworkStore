@@ -127,7 +127,7 @@ HorizontalAlignment="Center" IsDefault="True" Click="btnSet_Click"
                                                >
                                             <Image.ToolTip>
                                                 <ToolTip ToolTipService.InitialShowDelay="3000">
-                                                    <Image Source="{Binding ImagePath}" MaxWidth="350" MaxHeight="350"/>
+                                                    <Image Source="{Binding ProductImage, Converter={StaticResource imgConverter}}" MaxWidth="350" MaxHeight="350"/>
                                                 </ToolTip>
                                             </Image.ToolTip>
                                         </Image>
