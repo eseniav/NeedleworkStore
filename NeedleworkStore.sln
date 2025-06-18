@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeedleworkStore", "NeedleworkStore\NeedleworkStore.csproj", "{1AFE7B4F-1EA8-4CCE-B41C-7238CA7A5B52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeedleworkStore.Tests", "NeedleworkStore.Tests\NeedleworkStore.Tests.csproj", "{A3B63D48-4B8B-4282-BDEB-56BFDDC88268}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1AFE7B4F-1EA8-4CCE-B41C-7238CA7A5B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AFE7B4F-1EA8-4CCE-B41C-7238CA7A5B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AFE7B4F-1EA8-4CCE-B41C-7238CA7A5B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B63D48-4B8B-4282-BDEB-56BFDDC88268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B63D48-4B8B-4282-BDEB-56BFDDC88268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B63D48-4B8B-4282-BDEB-56BFDDC88268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B63D48-4B8B-4282-BDEB-56BFDDC88268}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
