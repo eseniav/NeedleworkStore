@@ -36,7 +36,6 @@ namespace NeedleworkStore.Pages{
         {
             InitializeComponent();
             ResetCart();
-            ICCart.ItemsSource = cart;
             ICCart.DataContext = cart;
             ChangeFullEmptyCart();
             SetSelectedProdSumQuantity();
@@ -47,6 +46,13 @@ namespace NeedleworkStore.Pages{
             saveTimer.Tick += OnSaveCart;
             mainWindow.btnProd.IsEnabled = true;
             RecomendUC.ListException = cart.Select(p => p.Products).ToList();
+            RecomendUC.ProductAddedToCart += OnProductAddedToCart;
+        }
+        private void OnProductAddedToCart(Products product)
+        {
+            ResetCart();
+            ChangeFullEmptyCart();
+            SetSelectedProdSumQuantity();
         }
         private void OnSaveCart(object sender, EventArgs e) => SaveCart();
         private ObservableCollection<Carts> GetCarts() =>
@@ -71,6 +77,7 @@ namespace NeedleworkStore.Pages{
             cart = GetCarts();
             foreach (Carts crt in cart)
                 crt.PropertyChanged += CartItem_PropertyChanged;
+            ICCart.ItemsSource = cart;
         }
         private void SaveCart()
         {
