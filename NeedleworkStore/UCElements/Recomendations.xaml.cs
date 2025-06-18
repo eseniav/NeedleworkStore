@@ -31,7 +31,7 @@ namespace NeedleworkStore.UCElements
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        public event Action<Products> ProductAddedToCart;
         public List<Products> ListException
         {
             get => (List<Products>)GetValue(ListExceptionProperty);
@@ -131,6 +131,7 @@ namespace NeedleworkStore.UCElements
                 App.ctx.SaveChanges();
                 mainWindow.UpdateCartState();
                 ShowAddedPopup(1);
+                ProductAddedToCart?.Invoke(selectedProduct);
             }
             catch (Exception ex)
             {
