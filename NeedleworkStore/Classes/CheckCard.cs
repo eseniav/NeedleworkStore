@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NeedleworkStore.Classes
 {
-    static internal class CheckCard
+    static public class CheckCard
     {
         static public bool ContainsOnlyDigits(string input) => !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
         static public bool IsValidMonth(string monthText)
