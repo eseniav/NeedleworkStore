@@ -71,6 +71,15 @@
             <Setter Property="MaxWidth" Value="1200"/>
             <Setter Property="MinHeight" Value="1000"/>
             <Setter Property="MaxHeight" Value="1100"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect 
+        BlurRadius="15" 
+        ShadowDepth="0" 
+        Color="#40000000"
+        Opacity="0.8"/>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="Page" TargetType="Page">
             <Setter Property="MinWidth" Value="900"/>
