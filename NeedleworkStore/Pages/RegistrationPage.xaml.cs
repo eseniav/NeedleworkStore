@@ -103,7 +103,8 @@ namespace NeedleworkStore.Pages
                 };
                 App.ctx.Users.Add(newUser);
                 App.ctx.SaveChanges();
-                this.NavigationService.Navigate(new ProductsPage());
+                MessageBox.Show("Регистрация прошла успешно!", "Регистрация", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.NavigationService.Navigate(new AuthPage());
             }
             catch (Exception ex)
             {
