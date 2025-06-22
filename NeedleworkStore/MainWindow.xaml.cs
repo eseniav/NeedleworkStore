@@ -125,10 +125,10 @@ namespace NeedleworkStore
         {
             if (!IsAuthenticated)
                 return;
-            var user = App.ctx.Users.FirstOrDefault(u => u.UserID == UserID);
-            if (user == null)
+            var us = App.ctx.Users.FirstOrDefault(u => u.UserID == UserID);
+            if (us == null)
                 return;
-            txtblUserName.Text = !string.IsNullOrEmpty(user.UserName) ? $"{user.UserName}!" : $"{user.Login}!";
+            txtblUserName.Text = !string.IsNullOrEmpty(us.UserName) ? $"{us.UserName}!" : $"{us.Login}!";
         }
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
