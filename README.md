@@ -29,6 +29,6 @@
 | БД              | MS SQL Server                       |
 | Backend         | C#, Entity Framework, LINQ          |
 | Frontend        | WPF, XAML                           |
-| Доп. библиотеки | QRCoder, PdfSharp                   |
+| Доп. библиотеки | [QRCoder](https://github.com/codebude/QRCoder), PdfSharp                   |
 | Инструменты     | Git, Yandex Tracker, Visual Studio  |
 
