@@ -506,10 +506,13 @@ namespace NeedleworkStore.Pages
                     MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка базы данных");
                     return;
                 }
-                filterProducts.Remove(selectedProduct);
-                myProducts.Remove(selectedProduct);
-                ProdList.Items.Refresh();
-                SetInfoForEmptyList();
+                if (!IsProdPage)
+                {
+                    filterProducts.Remove(selectedProduct);
+                    myProducts.Remove(selectedProduct);
+                    ProdList.Items.Refresh();
+                    SetInfoForEmptyList();
+                }
                 return;
             }
             Favourities newprodInFav = new Favourities
