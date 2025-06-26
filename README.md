@@ -32,3 +32,4 @@
 | Доп. библиотеки | [QRCoder](https://github.com/codebude/QRCoder), [PdfSharp](https://github.com/empira/PDFsharp)                   |
 | Инструменты     | Git, Yandex Tracker, Visual Studio  |
 
+**[Картинки и БД](https://disk.yandex.ru/d/3uD3SS3-wirN4Q)**
